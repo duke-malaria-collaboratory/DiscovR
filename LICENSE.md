@@ -3,9 +3,8 @@ layout: page
 title: "Licenses"
 ---
 
-The majority of the instructional material and code in this repository is
-new, original work created by the U-M Carpentries instance and is made available
-under the licenses described below.
+The instructional material and code in this repository
+was partially created by the U-M Carpentries instance. The rest of the material was created by members of The Duke Malaria Collaboratory. 
 Parts of some of the material and code are inspired by or derived from Software
 Carpentry lessons with substantial modifications, which are Copyright © Software
 Carpentry under the [Creative Commons Attribution][cc-by-human] and
@@ -17,7 +16,7 @@ their material and code are also made available under the
 
 ## Instructional Material
 
-All U-M Carpentries instructional material is
+All DiscovR workshop instructional material is
 made available under the [Creative Commons Attribution
 license][cc-by-human]. The following is a human-readable summary of
 (and not a substitute for) the [full legal text of the CC BY 4.0
@@ -38,7 +37,7 @@ Under the following terms:
 * **Attribution**---You must give appropriate credit by:
   - mentioning that your work is derived from work that is
     Copyright © U-M Carpentries.
-  - where practical, linking to um-carpentries.org/), 
+  - where practical, linking to um-carpentries.org/, 
     provide a [link to the license][cc-by-human]
   - and indicate if changes were made. You may do so in any reasonable manner, 
     but not in any way that suggests the licensor endorses you or your use.
@@ -60,7 +59,7 @@ Notices:
 ## Software
 
 Except where otherwise noted, the example programs and other software
-provided by U-M Carpentries are made available under the
+provided here are made available under the
 [OSI][osi]-approved
 [MIT license][mit-license].
 

@@ -1,6 +1,6 @@
 ## Citation
 
-If you would like to cite our work, please use:
+If you would like to cite our work, you can use the citation for the "parent" workshop:
 
 ```
 Lapp et al., (2022). Developing and deploying an integrated workshop 
@@ -24,3 +24,4 @@ Here's a bibtex entry for LaTeX users:
   journal = {Journal of Open Source Education}
 }
 ```
+

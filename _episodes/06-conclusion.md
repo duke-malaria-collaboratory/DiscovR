@@ -5,10 +5,9 @@ questions:
 - "What do I do after the workshop to apply what I learned and keep learning more?"
 - "Where can I learn more coding skills?"
 - "How do I deal with coding errors (i.e. debug)?"
-- "What resources are there at the University of Michigan?"
 - "What other coding concepts should I learn?"
 objectives:
-- "Learn how to get help with code via the Internet and at the University of Michigan."
+- "Learn how to get help with code via the Internet."
 - "Learn about other coding concepts that would be good to learn in the future."
 keypoints:
   - "When it comes to trying to figure out how to code something, and debugging, Internet searching is your best friend."
@@ -32,18 +31,9 @@ As you continue on your coding journey, two things will happen:
 
 As we complete the course, we want to  share with you some tips and tricks that have helped us on our own programming journeys.
 
-## Writing code at the University of Michigan
+## Get help and connect
 
-There are many local opportunities at the University of Michigan or around the Ann Arbor campus to find coding support, learn new programming skills, and connect with other users.
-
-### Get help and connect
-
-* [Software Carpentry Workshops](https://UMCarpentries.org/workshops/)
-    - We're always looking for more helpers & instructors!
-* [CoderSpaces](https://datascience.isr.umich.edu/events/coderspaces/)
-* [Data Analysis Networking Group (_DANG!_)](https://um-dang.github.io/)
-* [CSCAR consulting](https://cscar.research.umich.edu/) and [workshops](https://cscar.research.umich.edu/events/category/workshops/)
-* [Local meetup groups](https://www.meetup.com/topics/computer-programming/us/mi/ann_arbor/)
+TODO: ADD SPECIFIC INFO HERE
 
 ## Dealing with coding errors
 
@@ -105,11 +95,6 @@ In the following, we list some strategies and resources we find useful. As you m
 * [R Markdown Cheat Sheet](https://github.com/rstudio/cheatsheets/blob/main/rmarkdown-2.0.pdf)
 * [R Markdown Reference Guide](http://www.utstat.toronto.edu/reid/sta2201s/rmarkdown-reference.pdf)
 
-### Free learning platforms available at U-M
-
-* [Michigan Online](https://online.umich.edu/)
-* [LinkedIn Learning](https://hr.umich.edu/working-u-m/organizational-learning-resources-faculty-staff/professional-development-courses-resources/linkedin-learning)
-
 ## Some important advanced coding concepts that you will want to learn if you continue coding a lot
 
 There are some coding concepts that we did not have time to cover in this workshop, but are important to learn as you continue on your journey and begin to perform more sophisticated data analysis projects. While we have not created resources for these topics, we provide some links to where you can learn more. Note that these are more advanced coding topics; you should be come comfortable with what you learned in the workshop before trying to delve deeper into these other concepts. However, you'll likely come across situations where one of these will be useful, and that's when you should learn it!
@@ -130,13 +115,5 @@ Some more advanced R coding topics include:
 ## Domain-specific analyses
 
 We encourage you to investigate domain-specific packages and software that will help you perform specific tasks related to your own research. The best way to find these packages is to either ask other people in your field and/or search for specific tasks that you would like to perform. If you'd like to perform the task in R, include that in your search (e.g. "find pairwise distances for DNA sequences in R" will help you find the R package `ape` which has a number of functions to perform phylogenetic and evolutionary analyses in R.)
-
-### High-performance computing clusters
-
-If you're performing computationally-intensive analyses, you'll likely want to use a high-performance computing cluster. At the University of Michigan, many of us work on [Great Lakes](https://arc-ts.umich.edu/greatlakes/user-guide/) for much of our research. It can be a bit overwhelming at first, so try to find someone to help you learn the ropes. Sometimes there are also [workshops](https://arc-ts.umich.edu/events/) where you can learn more.
-
-### Git/GitHub
-
-If you start using Git/GitHub more frequently, it's useful to learn how to [create branches](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) to work on new parts of your analysis. When you're confident that it works, you can then merge the contents of the branch back into your "master" branch.
 
 {% include links.md %}

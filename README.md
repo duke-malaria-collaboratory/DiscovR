@@ -1,16 +1,15 @@
-# U-M Carpentries R Curriculum
+# DiscovR Workshop Curriculum
 
-[![website](https://github.com/UMCarpentries/intro-curriculum-r/actions/workflows/website.yml/badge.svg)](https://github.com/UMCarpentries/intro-curriculum-r/actions/workflows/website.yml)
-[![check-links](https://github.com/UMCarpentries/intro-curriculum-r/actions/workflows/check-links.yml/badge.svg)](https://github.com/UMCarpentries/intro-curriculum-r/actions/workflows/check-links.yml)
+[![website](https://github.com/duke-malaria-collaboratory/DiscovR/actions/workflows/website.yml/badge.svg)](https://github.com/duke-malaria-collaboratory/DiscovR/actions/workflows/website.yml)
+[![check-links](https://github.com/duke-malaria-collaboratory/DiscovR/actions/workflows/check-links.yml/badge.svg)](https://github.com/duke-malaria-collaboratory/DiscovR/actions/workflows/check-links.yml)
 [![License](https://img.shields.io/badge/License-MIT%2BCC--BY-blue)](LICENSE.md)
 [![DOI](https://jose.theoj.org/papers/10.21105/jose.00144/status.svg)](https://doi.org/10.21105/jose.00144)
 
-This is the custom curriculum developed by the University of Michigan Software
+This is the custom curriculum modified from the University of Michigan Software
 Carpentry instance.
-It is in the `beta` stage of development; we are continuing to host workshops to
-gather feedback and polish the curriculum.
+It is in the `pre-alpha` stage of development; we will be hosting the first DiscovR workshop in July.
 
-The rendered website can be found [here](https://umcarpentries.github.io/intro-curriculum-r).
+The rendered website can be found [here](https://duke-malaria-collaboratory.github.io/DiscovR).
 
 ## Repo Layout
 
@@ -20,7 +19,6 @@ The rendered website can be found [here](https://umcarpentries.github.io/intro-c
     - `reference.md` - Reference for learners.
     - `setup.md` - Setup instructions for learners.
     - `AUTHORS` - Plain text list of the lesson authors.
-    - `CITATION` - Plain text citation instructions.
 
 1. Lesson episodes
 
@@ -56,6 +54,8 @@ make _episodes/01-r-plotting.md
 ```
 
 ## Workshop Schedule
+
+NEED TO UPDATE
 
 For a typical 2-day workshop. Can be modified for different workshop formats.
 
@@ -94,7 +94,7 @@ For a typical 2-day workshop. Can be modified for different workshop formats.
 
 ## Citation
 
-If you would like to cite our work, please use:
+If you would like to cite our work, you can use the citation for the "parent" workshop:
 
 ```
 Lapp et al., (2022). Developing and deploying an integrated workshop 
