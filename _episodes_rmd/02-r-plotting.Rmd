@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: "Getting Started with R"
+title: "R for Plotting"
 teaching: 90
 exercises: 20
 questions:
