@@ -104,3 +104,5 @@ highlighter: rouge
 plugins:
   - jekyll-redirect-from
   - jekyll-paginate
+
+theme: jekyll-theme-minimal
