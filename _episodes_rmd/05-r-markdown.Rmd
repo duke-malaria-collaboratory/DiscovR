@@ -43,7 +43,7 @@ set.seed(20210109)
     + [Text](#text)
 1. [Starting the report](#starting-the-report)
 1. [Formatting](#formatting)
-1. [Integrating it all together: Paired exercise](#integrating-it-all-together-paired-exercise)
+1. [Applying it to your own data](#applying-it-to-your-own-data)
 
 ## R for data analysis review
 
@@ -339,3 +339,7 @@ OK, now that we know how to make headers, let's practice some more Markdown synt
 > > [This link](https://rmarkdown.rstudio.com/authoring_basics.html) has some helpful basic R Markdown syntax.
 > {: .solution}
 {: .challenge}
+
+# Applying it to your own data
+
+Now it's time to merge all of your analyses with your own data together into a report. Let us know if you have questions! 

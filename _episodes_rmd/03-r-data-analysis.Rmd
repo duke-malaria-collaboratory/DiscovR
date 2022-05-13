@@ -31,6 +31,7 @@ knitr_fig_path("03-")
     -   [Make new variables with `mutate()`](#make-new-variables-with-mutate)
     -   [Subset columns using `select()`](#subset-columns-using-select)
     -   [Changing the shape of the data](#changing-the-shape-of-the-data)
+1. [Applying it to your own data](#applying-it-to-your-own-data)
 
 # Plotting review
 
@@ -384,6 +385,12 @@ Before we move on to more data cleaning, let's create the final gapminder datafr
 {: .challenge}
 
 Awesome! This is the dataframe we will be using later on in this lesson. 
+
+# Applying it to your own data
+
+Now it's time to read in, clean, and make plots with your own data! 
+Use your ideas from your brainstorming session yesterday to help you get started, but feel free to branch out and explore other things as well.
+Let us know if you have questions; we're here to help.
 
 
 
