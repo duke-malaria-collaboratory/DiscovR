@@ -33,6 +33,7 @@ set.seed(20210109)
 ```
 
 ### Contents
+1. [R for data analysis review](#r-for-data-analysis-review)
 1. [What is R Markdown and why use it?](#why-use-r-markdown)
 1. [Creating a reports directory](#creating-a-reports-directory)
 1. [Creating an R Markdown file](#creating-an-r-markdown-file)
@@ -44,14 +45,35 @@ set.seed(20210109)
 1. [Formatting](#formatting)
 1. [Integrating it all together: Paired exercise](#integrating-it-all-together-paired-exercise)
 
+## R for data analysis review
+
+Remember that yesterday we made a scatter plot of year vs. population, separated into a plot for each contient, 
+and that it had 2 outliers? Which countries are those?
+
+> ## Solution
+> ```{r}
+> gapminder %>% filter(pop > 1e9) %>% select(country) %>% unique()
+> ```
+{: .solution}
+
+Next, plot year vs. population separated into a plot for each continent but excluding the 2 outlier countries.
+
+> ## Solution
+> ```{r}
+> gapminder %>% filter(country != 'China' & country != 'India') %>% ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ```
+{: .solution}
+
+## What is R Markdown and why use it? {##why-use-r-markdown}
+_[Back to top](#contents)_
+
 Recall that our  goal is to generate a report to the United Nations on how a country's life expectancy is related to GDP.
 
 > ## Discusion
 > How do you usually share data analyses with your collaborators? Many people share them through a Word or PDF document, a spreadsheet, slides, a  graphic, etc.
 {: .discussion}
-
-## What is R Markdown and why use it? {##why-use-r-markdown}
-_[Back to top](#contents)_
 
 In R Markdown, you can incorporate ordinary text (ex. experimental methods, analysis and discussion of results) alongside code and figures! (Some people write entire manuscripts in R Markdown.) This is useful for writing reproducible reports and publications, sharing work with collaborators, writing up homework, and keeping a bioinformatics notebook. Because the code is emedded in the document, the tables and figures are *reproducible*. Anyone can run the code and get the same results. If you find an error or want to add more to the report, you can just re-run the document and you'll have updated tables and figures! This concept of combining text and code is called "literate programming". To do this we use R Markdown, which combines Markdown (renders plain text) with R. You can output an html, PDF, or Word document that you can share with others. In fact, this webpage is an example of a rendered R markdown file!
 
