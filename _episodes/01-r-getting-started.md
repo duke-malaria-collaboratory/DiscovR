@@ -41,7 +41,7 @@ _[Back to top](#contents)_
 In this session we will be testing the hypothesis that a country's life expectancy is related to the total value of its finished goods and services, also known as the Gross Domestic Product (GDP).
 To test this hypothesis, we'll need two things: data and a platform to analyze the data.
 
-You already [downloaded the data]({{ page.root }}/setup.html). But what platform will we use to analyze the data? We have many options!
+You already [have the data]({{ page.root }}/setup.html). But what platform will we use to analyze the data? We have many options!
 
 We could try to use a spreadsheet program like Microsoft Excel or Google sheets that have limited access, less flexibility, and don't easily allow for things that are critical to ["reproducible" research](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285), like easily sharing the steps used to explore and make changes to the original data.
 
@@ -55,9 +55,9 @@ Instead, we'll use a more general programming language to test our hypothesis. T
 >
 {: .solution}
 
-To run R, all you really need is the R program, which is available for computers running the Windows, Mac OS X, or Linux operating systems. You downloaded R while getting [set up]({{ page.root }}/setup.html) for this workshop.
+To run R, all you really need is the R program, which is available for computers running the Windows, Mac OS X, or Linux operating systems. You installed R while getting [set up]({{ page.root }}/setup.html) for this workshop.
 
-To make your life in R easier, there is a great (and free!) program called RStudio that you also downloaded and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
+To make your life in R easier, there is a great (and free!) program called RStudio that you also installed and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
 
 > ## The tidyverse vs Base R
 > If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
@@ -136,49 +136,10 @@ library(tidyverse)
 
 
 ~~~
-── Attaching packages ────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+Error: package or namespace load failed for 'tidyverse' in library.dynam(lib, package, package.lib):
+ shared object 'ellipsis.dylib' not found
 ~~~
-{: .output}
-
-
-
-~~~
-✔ ggplot2 3.3.5     ✔ purrr   0.3.4
-✔ tibble  3.1.6     ✔ dplyr   1.0.8
-✔ tidyr   1.2.0     ✔ stringr 1.4.0
-✔ readr   2.1.2     ✔ forcats 0.5.1
-~~~
-{: .output}
-
-
-
-~~~
-Warning: package 'tidyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'readr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'dplyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-── Conflicts ───────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-~~~
-{: .output}
+{: .error}
 
 > ## What's with all those messages???
 >
@@ -264,16 +225,9 @@ gapminder_1997 <- read_csv("gapminder_1997.csv")
 {: .language-r}
 
 ~~~
-Rows: 142 Columns: 5
-── Column specification ───────────────────────────────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): country, continent
-dbl (3): pop, lifeExp, gdpPercap
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Error in read_csv("data/gapminder_1997.csv"): could not find function "read_csv"
 ~~~
-{: .output}
+{: .error}
 
 You should now have a line of text in your code file that started with `gapminder` and ends with a `)` symbol.
 
@@ -357,7 +311,7 @@ read_csv()
 
 
 ~~~
-Error in vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types, : argument "file" is missing, with no default
+Error in read_csv(): could not find function "read_csv"
 ~~~
 {: .error}
 
@@ -396,7 +350,7 @@ Do all functions need arguments? Let's test some other functions:
 
 
 ~~~
-[1] "2022-04-22"
+[1] "2022-05-13"
 ~~~
 {: .output}
 
@@ -459,36 +413,9 @@ read_csv(file = 'gapminder_1997.csv')
 {: .language-r}
 
 ~~~
-Rows: 142 Columns: 5
-── Column specification ───────────────────────────────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): country, continent
-dbl (3): pop, lifeExp, gdpPercap
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Error in read_csv(file = "data/gapminder_1997.csv"): could not find function "read_csv"
 ~~~
-{: .output}
-
-
-
-~~~
-# A tibble: 142 × 5
-   country           pop continent lifeExp gdpPercap
-   <chr>           <dbl> <chr>       <dbl>     <dbl>
- 1 Afghanistan  22227415 Asia         41.8      635.
- 2 Albania       3428038 Europe       73.0     3193.
- 3 Algeria      29072015 Africa       69.2     4797.
- 4 Angola        9875024 Africa       41.0     2277.
- 5 Argentina    36203463 Americas     73.3    10967.
- 6 Australia    18565243 Oceania      78.8    26998.
- 7 Austria       8069876 Europe       77.5    29096.
- 8 Bahrain        598561 Asia         73.9    20292.
- 9 Bangladesh  123315288 Asia         59.4      973.
-10 Belgium      10199787 Europe       77.5    27561.
-# … with 132 more rows
-~~~
-{: .output}
+{: .error}
 
 > ## Position of the arguments in functions
 > Which of the following lines of code will give you an output of 3.14? For the one(s) that don't give you 3.14, what do they give you?
@@ -535,7 +462,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "2022-04-22"
+> [1] "2022-05-13"
 > ~~~
 > {: .output}
 > 
@@ -577,7 +504,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> Error: 'gapminder_1997.csv' does not exist in current working directory ('/Users/zenalapp/Desktop/DiscovR/_episodes_rmd').
+> Error in read_csv(file = "gapminder_1997.csv"): could not find function "read_csv"
 > ~~~
 > {: .error}
 {: .callout}
