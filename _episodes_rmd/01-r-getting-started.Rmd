@@ -319,8 +319,8 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 Do all functions need arguments? Let's test some other functions:
 
 ```{r FunctionsNoArgs}
-  Sys.Date()
-  getwd()
+ Sys.Date()
+ getwd()
 ```
 
 
@@ -353,6 +353,7 @@ use argument names if you want:
 ```{r FunctionAndArgumentEcho, eval = FALSE}
 read_csv(file = 'gapminder_1997.csv')
 ```
+
 ```{r FunctionAndArgumentEval, echo = FALSE}
 read_csv(file = 'data/gapminder_1997.csv')
 ```
