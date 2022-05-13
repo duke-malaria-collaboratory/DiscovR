@@ -136,49 +136,10 @@ library(tidyverse)
 
 
 ~~~
-── Attaching packages ────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+Error: package or namespace load failed for 'tidyverse' in library.dynam(lib, package, package.lib):
+ shared object 'ellipsis.dylib' not found
 ~~~
-{: .output}
-
-
-
-~~~
-✔ ggplot2 3.3.5     ✔ purrr   0.3.4
-✔ tibble  3.1.6     ✔ dplyr   1.0.8
-✔ tidyr   1.2.0     ✔ stringr 1.4.0
-✔ readr   2.1.2     ✔ forcats 0.5.1
-~~~
-{: .output}
-
-
-
-~~~
-Warning: package 'tidyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'readr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'dplyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-── Conflicts ───────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-~~~
-{: .output}
+{: .error}
 
 > ## What's with all those messages???
 >
@@ -264,16 +225,9 @@ gapminder_1997 <- read_csv("gapminder_1997.csv")
 {: .language-r}
 
 ~~~
-Rows: 142 Columns: 5
-── Column specification ───────────────────────────────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): country, continent
-dbl (3): pop, lifeExp, gdpPercap
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Error in read_csv("data/gapminder_1997.csv"): could not find function "read_csv"
 ~~~
-{: .output}
+{: .error}
 
 You should now have a line of text in your code file that started with `gapminder` and ends with a `)` symbol.
 
@@ -357,7 +311,7 @@ read_csv()
 
 
 ~~~
-Error in vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types, : argument "file" is missing, with no default
+Error in read_csv(): could not find function "read_csv"
 ~~~
 {: .error}
 
@@ -389,21 +343,21 @@ Do all functions need arguments? Let's test some other functions:
 
 
 ~~~
-  Sys.Date()
+ Sys.Date()
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "2022-04-22"
+[1] "2022-05-13"
 ~~~
 {: .output}
 
 
 
 ~~~
-  getwd()
+ getwd()
 ~~~
 {: .language-r}
 
@@ -458,37 +412,11 @@ read_csv(file = 'gapminder_1997.csv')
 ~~~
 {: .language-r}
 
-~~~
-Rows: 142 Columns: 5
-── Column specification ───────────────────────────────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): country, continent
-dbl (3): pop, lifeExp, gdpPercap
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-~~~
-{: .output}
-
-
 
 ~~~
-# A tibble: 142 × 5
-   country           pop continent lifeExp gdpPercap
-   <chr>           <dbl> <chr>       <dbl>     <dbl>
- 1 Afghanistan  22227415 Asia         41.8      635.
- 2 Albania       3428038 Europe       73.0     3193.
- 3 Algeria      29072015 Africa       69.2     4797.
- 4 Angola        9875024 Africa       41.0     2277.
- 5 Argentina    36203463 Americas     73.3    10967.
- 6 Australia    18565243 Oceania      78.8    26998.
- 7 Austria       8069876 Europe       77.5    29096.
- 8 Bahrain        598561 Asia         73.9    20292.
- 9 Bangladesh  123315288 Asia         59.4      973.
-10 Belgium      10199787 Europe       77.5    27561.
-# … with 132 more rows
+Error in read_csv(file = "data/gapminder_1997.csv"): could not find function "read_csv"
 ~~~
-{: .output}
+{: .error}
 
 > ## Position of the arguments in functions
 > Which of the following lines of code will give you an output of 3.14? For the one(s) that don't give you 3.14, what do they give you?
@@ -535,7 +463,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "2022-04-22"
+> [1] "2022-05-13"
 > ~~~
 > {: .output}
 > 
@@ -577,7 +505,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> Error: 'gapminder_1997.csv' does not exist in current working directory ('/Users/zenalapp/Desktop/DiscovR/_episodes_rmd').
+> Error in read_csv(file = "gapminder_1997.csv"): could not find function "read_csv"
 > ~~~
 > {: .error}
 {: .callout}

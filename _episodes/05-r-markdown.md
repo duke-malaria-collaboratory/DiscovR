@@ -23,28 +23,16 @@ keypoints:
 
 
 ~~~
-Warning: package 'tidyr' was built under R version 4.1.2
+Error: package or namespace load failed for 'tidyverse' in library.dynam(lib, package, package.lib):
+ shared object 'ellipsis.dylib' not found
 ~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'readr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'dplyr' was built under R version 4.1.2
-~~~
-{: .warning}
+{: .error}
 
 
 
 
 ### Contents
+1. [R for data analysis review](#r-for-data-analysis-review)
 1. [What is R Markdown and why use it?](#why-use-r-markdown)
 1. [Creating a reports directory](#creating-a-reports-directory)
 1. [Creating an R Markdown file](#creating-an-r-markdown-file)
@@ -54,16 +42,55 @@ Warning: package 'dplyr' was built under R version 4.1.2
     + [Text](#text)
 1. [Starting the report](#starting-the-report)
 1. [Formatting](#formatting)
-1. [Integrating it all together: Paired exercise](#integrating-it-all-together-paired-exercise)
+1. [Applying it to your own data](#applying-it-to-your-own-data)
+
+## R for data analysis review
+
+Remember that yesterday we made a scatter plot of year vs. population, separated into a plot for each contient, 
+and that it had 2 outliers? Which countries are those?
+
+> ## Solution
+> 
+> ~~~
+> gapminder %>% filter(pop > 1e9) %>% select(country) %>% unique()
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in gapminder %>% filter(pop > 1e+09) %>% select(country) %>% unique(): could not find function "%>%"
+> ~~~
+> {: .error}
+{: .solution}
+
+Next, plot year vs. population separated into a plot for each continent but excluding the 2 outlier countries.
+
+> ## Solution
+> 
+> ~~~
+> gapminder %>% filter(country != 'China' & country != 'India') %>% ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in gapminder %>% filter(country != "China" & country != "India") %>% : could not find function "%>%"
+> ~~~
+> {: .error}
+{: .solution}
+
+## What is R Markdown and why use it? {##why-use-r-markdown}
+_[Back to top](#contents)_
 
 Recall that our  goal is to generate a report to the United Nations on how a country's life expectancy is related to GDP.
 
 > ## Discusion
 > How do you usually share data analyses with your collaborators? Many people share them through a Word or PDF document, a spreadsheet, slides, a  graphic, etc.
 {: .discussion}
-
-## What is R Markdown and why use it? {##why-use-r-markdown}
-_[Back to top](#contents)_
 
 In R Markdown, you can incorporate ordinary text (ex. experimental methods, analysis and discussion of results) alongside code and figures! (Some people write entire manuscripts in R Markdown.) This is useful for writing reproducible reports and publications, sharing work with collaborators, writing up homework, and keeping a bioinformatics notebook. Because the code is emedded in the document, the tables and figures are *reproducible*. Anyone can run the code and get the same results. If you find an error or want to add more to the report, you can just re-run the document and you'll have updated tables and figures! This concept of combining text and code is called "literate programming". To do this we use R Markdown, which combines Markdown (renders plain text) with R. You can output an html, PDF, or Word document that you can share with others. In fact, this webpage is an example of a rendered R markdown file!
 
@@ -271,20 +298,63 @@ First, let's create a code chunk that summarizes features of our data that we ca
 
 ~~~
 gapminder_1997 <- read_csv("data/gapminder_1997.csv")
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in read_csv("data/gapminder_1997.csv"): could not find function "read_csv"
+~~~
+{: .error}
+
+
+
+~~~
 nCountries <- gapminder_1997 %>%
   select(country) %>%
   n_distinct()
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in gapminder_1997 %>% select(country) %>% n_distinct(): could not find function "%>%"
+~~~
+{: .error}
+
+
+
+~~~
 minGDP <- gapminder_1997 %>%
   summarise(round(min(gdpPercap))) %>%
   pull()
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in gapminder_1997 %>% summarise(round(min(gdpPercap))) %>% pull(): could not find function "%>%"
+~~~
+{: .error}
+
+
+
+~~~
 maxGDP <- gapminder_1997 %>%
   summarise(round(max(gdpPercap))) %>%
   pull()
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error in gapminder_1997 %>% summarise(round(max(gdpPercap))) %>% pull(): could not find function "%>%"
+~~~
+{: .error}
 
 Now, all we need to do is reference the values we just computed to describe our
 plot. To do this, we enclose each value in one set of backticks 
@@ -350,10 +420,10 @@ gapminder_1997 %>%
 
 
 
-|country     |      pop|continent | lifeExp| gdpPercap|
-|:-----------|--------:|:---------|-------:|---------:|
-|Australia   | 18565243|Oceania   |   78.83|  26997.94|
-|New Zealand |  3676187|Oceania   |   77.55|  21050.41|
+~~~
+Error in gapminder_1997 %>% filter(continent == "Oceania") %>% kable(): could not find function "%>%"
+~~~
+{: .error}
 
 
 ## Formatting
@@ -386,3 +456,7 @@ OK, now that we know how to make headers, let's practice some more Markdown synt
 > > [This link](https://rmarkdown.rstudio.com/authoring_basics.html) has some helpful basic R Markdown syntax.
 > {: .solution}
 {: .challenge}
+
+# Applying it to your own data
+
+Now it's time to merge all of your analyses with your own data together into a report. Let us know if you have questions! 
