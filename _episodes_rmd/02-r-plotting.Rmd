@@ -43,6 +43,11 @@ set.seed(20210109)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 1. [Glossary of terms](#glossary-of-terms)
 
+```{r loadTidyverse, include=FALSE}
+library(tidyverse)
+gapminder_1997 <- read_csv("data/gapminder_1997.csv")
+```
+
 # Creating our first plot
 _[Back to top](#contents)_
 
@@ -802,13 +807,13 @@ _[Back to top](#contents)_
 
 Now that we've learned how impactful effective data visualization can be, and how to create informative visuals in R, it's time for you to start thinking about what you want to do with your own data!
 
-Pair up with another learner and discuss discuss your data and what type of exploratory data analysis you would like to perform.
+Pair up with another learner and discuss your data and what type of exploratory data analysis you would like to perform.
 
 Questions to conisder:
 
 1. What information do you have in your data set?
 1. Are there specific questions are you interested in investigating with the data you have?
-1. What visuals can you create to explore your data? Draw some out on paper! 
+1. What visuals can you create to explore your data? Draw some out on paper! What will these plots show you?
 1. Is your data in a format that can easily be read into R? How can you improve the formatting of the contents of the file? 
 
 # Glossary of terms

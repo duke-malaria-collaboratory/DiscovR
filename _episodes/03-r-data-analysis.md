@@ -20,6 +20,7 @@ keypoints:
 
 ### Contents
 
+1.  [Plotting review](#plotting-review)
 1.  [Getting started](#getting-started)
     -   [Loading in the data](#loading-in-the-data)
 1.  [An introduction to data analysis in R using `dplyr`](#intro-data-analysis)
@@ -29,16 +30,136 @@ keypoints:
     -   [Make new variables with `mutate()`](#make-new-variables-with-mutate)
     -   [Subset columns using `select()`](#subset-columns-using-select)
     -   [Changing the shape of the data](#changing-the-shape-of-the-data)
+1. [Applying it to your own data](#applying-it-to-your-own-data)
 
-# Getting Started
+# Plotting review
 
 First, navigate to the un-reports directory however you'd like and open `un-report.Rproj`.
 This should open the un-report R project in RStudio.
 You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory.
 
+The very first step is to read in the gapminder dataset, so do that first! Also load the `tidyverse` package.
+
+> ## Solution
+> 
+> ~~~
+> library(tidyverse)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+> ✔ tibble  3.1.7     ✔ dplyr   1.0.9
+> ✔ tidyr   1.2.0     ✔ stringr 1.4.0
+> ✔ readr   2.1.2     ✔ forcats 0.5.1
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> Warning: package 'ggplot2' was built under R version 4.1.2
+> ~~~
+> {: .warning}
+> 
+> 
+> 
+> ~~~
+> Warning: package 'tibble' was built under R version 4.1.2
+> ~~~
+> {: .warning}
+> 
+> 
+> 
+> ~~~
+> Warning: package 'tidyr' was built under R version 4.1.2
+> ~~~
+> {: .warning}
+> 
+> 
+> 
+> ~~~
+> Warning: package 'readr' was built under R version 4.1.2
+> ~~~
+> {: .warning}
+> 
+> 
+> 
+> ~~~
+> Warning: package 'dplyr' was built under R version 4.1.2
+> ~~~
+> {: .warning}
+> 
+> 
+> 
+> ~~~
+> ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+> ✖ dplyr::filter() masks stats::filter()
+> ✖ dplyr::lag()    masks stats::lag()
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> gapminder <- read_csv('data/gapminder_data.csv')
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Rows: 1704 Columns: 6
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+> Delimiter: ","
+> chr (2): country, continent
+> dbl (4): year, pop, lifeExp, gdpPercap
+> 
+> ℹ Use `spec()` to retrieve the full column specification for this data.
+> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> ~~~
+> {: .output}
+{: .solution}
+#### Investigating population over time.
+_[Back to top](#contents)_
+
+Next, make a scatter plot of year vs. population, separated into a plot for each contient. Feel free to look back at the content from yesterday if you want!
+
+> ## Solution
+> 
+> ~~~
+> ggplot(gapminder, aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-03-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+{: .solution}
+
+It seems like there are a couple outliers. By the end of today, we'll be able to identify what countries those are and how to exclude them from the plot. 
+
+# Getting Started
+_[Back to top](#contents)_
+
 Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the `dplyr` package.
 
-First, we will create a new RScript file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". We will save this file as `un_data_analysis.R`
+First, we will create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". We will save this file as `un_data_analysis.R`
 
 ### Loading in the data
 
@@ -62,14 +183,6 @@ library(tidyverse)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error: package or namespace load failed for 'tidyverse' in library.dynam(lib, package, package.lib):
- shared object 'ellipsis.dylib' not found
-~~~
-{: .error}
-
 The output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org)
 
 > **Reminder:** Many of these packages, including `dplyr` , come with "Cheatsheets" found under the **Help** RStudio menu tab.
@@ -85,9 +198,16 @@ gapminder_data <- read_csv("data/gapminder_data.csv")
 
 
 ~~~
-Error in read_csv("data/gapminder_data.csv"): could not find function "read_csv"
+Rows: 1704 Columns: 6
+── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ~~~
-{: .error}
+{: .output}
 
 Notice that the output of the `read_csv()` function is pretty informative. It tells us the name of all of our column headers as well as how it interpreted the data type. This birds-eye-view can help you take a quick look that everything is how we expect it to be.
 
@@ -109,9 +229,12 @@ summarize(gapminder_data, averageLifeExp=mean(lifeExp))
 
 
 ~~~
-Error in summarize(gapminder_data, averageLifeExp = mean(lifeExp)): could not find function "summarize"
+# A tibble: 1 × 1
+  averageLifeExp
+           <dbl>
+1           59.5
 ~~~
-{: .error}
+{: .output}
 
 When we call `summarize()`, we can use any of the column names of our data object as values to pass to other functions. `summarize()` will return a new data object and our value will be returned as a column.
 
@@ -130,9 +253,12 @@ gapminder_data %>% summarize(averageLifeExp=mean(lifeExp))
 
 
 ~~~
-Error in gapminder_data %>% summarize(averageLifeExp = mean(lifeExp)): could not find function "%>%"
+# A tibble: 1 × 1
+  averageLifeExp
+           <dbl>
+1           59.5
 ~~~
-{: .error}
+{: .output}
  
 This line of code will do the exact same thing as our first summary command, but the piping function tells R to use the `gapminder_data` dataframe as the first argument in the next function.
 
@@ -149,9 +275,12 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% summarize(averageLifeExp = mean(lifeExp)): could not find function "%>%"
+# A tibble: 1 × 1
+  averageLifeExp
+           <dbl>
+1           59.5
 ~~~
-{: .error}
+{: .output}
 
 Using the *pipe operator* `%>%` and enter command makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested function and minimizes the need for new variables.
 
@@ -211,9 +340,12 @@ Use `summarize()` to find the most recent year in the data set. We can use the `
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_data %>% summarize(recent_year = max(year)): could not find function "%>%"
+> > # A tibble: 1 × 1
+> >   recent_year
+> >         <dbl>
+> > 1        2007
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > {: .solution}
 {: .challenge}
@@ -231,9 +363,12 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% filter(year == 2007) %>% summarize(average = mean(lifeExp)): could not find function "%>%"
+# A tibble: 1 × 1
+  average
+    <dbl>
+1    67.0
 ~~~
-{: .error}
+{: .output}
 
 > ## Filtering the dataset
 >
@@ -253,9 +388,12 @@ Error in gapminder_data %>% filter(year == 2007) %>% summarize(average = mean(li
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_data %>% summarize(first_year = min(year)): could not find function "%>%"
+> > # A tibble: 1 × 1
+> >   first_year
+> >        <dbl>
+> > 1       1952
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > We see here that the first year in the dataset is 1952. Filter to only 1952, and determin the average GDP per capita.
 > >
@@ -270,9 +408,12 @@ Error in gapminder_data %>% filter(year == 2007) %>% summarize(average = mean(li
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_data %>% filter(year == 1952) %>% summarize(average_gdp = mean(gdpPercap)): could not find function "%>%"
+> > # A tibble: 1 × 1
+> >   average_gdp
+> >         <dbl>
+> > 1       3725.
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > {: .source}
 > > By combining `filter()` and `summarize()` we were able to calculate the mean GDP per capita in the year 1952.
 > {: .solution}
@@ -297,9 +438,23 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% group_by(year) %>% summarize(average = mean(lifeExp)): could not find function "%>%"
+# A tibble: 12 × 2
+    year average
+   <dbl>   <dbl>
+ 1  1952    49.1
+ 2  1957    51.5
+ 3  1962    53.6
+ 4  1967    55.7
+ 5  1972    57.6
+ 6  1977    59.6
+ 7  1982    61.5
+ 8  1987    63.2
+ 9  1992    64.2
+10  1997    65.0
+11  2002    65.7
+12  2007    67.0
 ~~~
-{: .error}
+{: .output}
 
 The `group_by()` function expects you to pass in the name of a column (or multiple columns separated by comma) in your data. 
 
@@ -322,9 +477,16 @@ Note that you might get a message about the summarize function regrouping the ou
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_data %>% group_by(continent) %>% summarize(average = mean(lifeExp)): could not find function "%>%"
+> > # A tibble: 5 × 2
+> >   continent average
+> >   <chr>       <dbl>
+> > 1 Africa       48.9
+> > 2 Americas     64.7
+> > 3 Asia         60.1
+> > 4 Europe       71.9
+> > 5 Oceania      74.3
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > {: .source}
 > >
 > > By combining `group_by()` and `summarize()` we are able to calculate the mean life expectancy by continent.
@@ -344,9 +506,16 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% group_by(continent) %>% summarize(average = mean(lifeExp), : could not find function "%>%"
+# A tibble: 5 × 3
+  continent average   min
+  <chr>       <dbl> <dbl>
+1 Africa       48.9  23.6
+2 Americas     64.7  37.6
+3 Asia         60.1  28.8
+4 Europe       71.9  43.6
+5 Oceania      74.3  69.1
 ~~~
-{: .error}
+{: .output}
 
 
 ## Make new variables with `mutate()` {#make-new-variables-with-mutate}
@@ -367,9 +536,22 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% mutate(gdp = pop * gdpPercap): could not find function "%>%"
+# A tibble: 1,704 × 7
+   country      year      pop continent lifeExp gdpPercap          gdp
+   <chr>       <dbl>    <dbl> <chr>       <dbl>     <dbl>        <dbl>
+ 1 Afghanistan  1952  8425333 Asia         28.8      779.  6567086330.
+ 2 Afghanistan  1957  9240934 Asia         30.3      821.  7585448670.
+ 3 Afghanistan  1962 10267083 Asia         32.0      853.  8758855797.
+ 4 Afghanistan  1967 11537966 Asia         34.0      836.  9648014150.
+ 5 Afghanistan  1972 13079460 Asia         36.1      740.  9678553274.
+ 6 Afghanistan  1977 14880372 Asia         38.4      786. 11697659231.
+ 7 Afghanistan  1982 12881816 Asia         39.9      978. 12598563401.
+ 8 Afghanistan  1987 13867957 Asia         40.8      852. 11820990309.
+ 9 Afghanistan  1992 16317921 Asia         41.7      649. 10595901589.
+10 Afghanistan  1997 22227415 Asia         41.8      635. 14121995875.
+# … with 1,694 more rows
 ~~~
-{: .error}
+{: .output}
 
 This will add a new column called "gdp" to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with `summarize()`
 
@@ -387,9 +569,22 @@ This will add a new column called "gdp" to our data. We use the column names as 
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_data %>% mutate(gdp = pop * gdpPercap, popInMillions = pop/1e+06): could not find function "%>%"
+> > # A tibble: 1,704 × 8
+> >    country      year      pop continent lifeExp gdpPercap      gdp popInMillions
+> >    <chr>       <dbl>    <dbl> <chr>       <dbl>     <dbl>    <dbl>         <dbl>
+> >  1 Afghanistan  1952  8425333 Asia         28.8      779.  6.57e 9          8.43
+> >  2 Afghanistan  1957  9240934 Asia         30.3      821.  7.59e 9          9.24
+> >  3 Afghanistan  1962 10267083 Asia         32.0      853.  8.76e 9         10.3 
+> >  4 Afghanistan  1967 11537966 Asia         34.0      836.  9.65e 9         11.5 
+> >  5 Afghanistan  1972 13079460 Asia         36.1      740.  9.68e 9         13.1 
+> >  6 Afghanistan  1977 14880372 Asia         38.4      786.  1.17e10         14.9 
+> >  7 Afghanistan  1982 12881816 Asia         39.9      978.  1.26e10         12.9 
+> >  8 Afghanistan  1987 13867957 Asia         40.8      852.  1.18e10         13.9 
+> >  9 Afghanistan  1992 16317921 Asia         41.7      649.  1.06e10         16.3 
+> > 10 Afghanistan  1997 22227415 Asia         41.8      635.  1.41e10         22.2 
+> > # … with 1,694 more rows
 > > ~~~
-> > {: .error}
+> > {: .output}
 > {: .solution}
 {: .challenge}
  
@@ -410,9 +605,22 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% select(pop, year): could not find function "%>%"
+# A tibble: 1,704 × 2
+        pop  year
+      <dbl> <dbl>
+ 1  8425333  1952
+ 2  9240934  1957
+ 3 10267083  1962
+ 4 11537966  1967
+ 5 13079460  1972
+ 6 14880372  1977
+ 7 12881816  1982
+ 8 13867957  1987
+ 9 16317921  1992
+10 22227415  1997
+# … with 1,694 more rows
 ~~~
-{: .error}
+{: .output}
 
 We can also use `select()` to drop/remove particular columns by putting a minus sign (`-`) in front of the column name. For example, if we want everything but the continent column, we can do:
 
@@ -426,9 +634,22 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% select(-continent): could not find function "%>%"
+# A tibble: 1,704 × 5
+   country      year      pop lifeExp gdpPercap
+   <chr>       <dbl>    <dbl>   <dbl>     <dbl>
+ 1 Afghanistan  1952  8425333    28.8      779.
+ 2 Afghanistan  1957  9240934    30.3      821.
+ 3 Afghanistan  1962 10267083    32.0      853.
+ 4 Afghanistan  1967 11537966    34.0      836.
+ 5 Afghanistan  1972 13079460    36.1      740.
+ 6 Afghanistan  1977 14880372    38.4      786.
+ 7 Afghanistan  1982 12881816    39.9      978.
+ 8 Afghanistan  1987 13867957    40.8      852.
+ 9 Afghanistan  1992 16317921    41.7      649.
+10 Afghanistan  1997 22227415    41.8      635.
+# … with 1,694 more rows
 ~~~
-{: .error}
+{: .output}
 
 > ## selecting columns 
 > Create a dataframe with only the `country`, `continent`, `year`, and `lifeExp` columns. 
@@ -446,9 +667,22 @@ Error in gapminder_data %>% select(-continent): could not find function "%>%"
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_data %>% select(country, continent, year, lifeExp): could not find function "%>%"
+> > # A tibble: 1,704 × 4
+> >    country     continent  year lifeExp
+> >    <chr>       <chr>     <dbl>   <dbl>
+> >  1 Afghanistan Asia       1952    28.8
+> >  2 Afghanistan Asia       1957    30.3
+> >  3 Afghanistan Asia       1962    32.0
+> >  4 Afghanistan Asia       1967    34.0
+> >  5 Afghanistan Asia       1972    36.1
+> >  6 Afghanistan Asia       1977    38.4
+> >  7 Afghanistan Asia       1982    39.9
+> >  8 Afghanistan Asia       1987    40.8
+> >  9 Afghanistan Asia       1992    41.7
+> > 10 Afghanistan Asia       1997    41.8
+> > # … with 1,694 more rows
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > 
 > > ~~~
 > > gapminder_data %>%
@@ -459,9 +693,22 @@ Error in gapminder_data %>% select(-continent): could not find function "%>%"
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_data %>% select(-pop, -gdpPercap): could not find function "%>%"
+> > # A tibble: 1,704 × 4
+> >    country      year continent lifeExp
+> >    <chr>       <dbl> <chr>       <dbl>
+> >  1 Afghanistan  1952 Asia         28.8
+> >  2 Afghanistan  1957 Asia         30.3
+> >  3 Afghanistan  1962 Asia         32.0
+> >  4 Afghanistan  1967 Asia         34.0
+> >  5 Afghanistan  1972 Asia         36.1
+> >  6 Afghanistan  1977 Asia         38.4
+> >  7 Afghanistan  1982 Asia         39.9
+> >  8 Afghanistan  1987 Asia         40.8
+> >  9 Afghanistan  1992 Asia         41.7
+> > 10 Afghanistan  1997 Asia         41.8
+> > # … with 1,694 more rows
 > > ~~~
-> > {: .error}
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -480,9 +727,22 @@ Error in gapminder_data %>% select(-continent): could not find function "%>%"
 > 
 > 
 > ~~~
-> Error in gapminder_data %>% select(year, starts_with("c")): could not find function "%>%"
+> # A tibble: 1,704 × 3
+>     year country     continent
+>    <dbl> <chr>       <chr>    
+>  1  1952 Afghanistan Asia     
+>  2  1957 Afghanistan Asia     
+>  3  1962 Afghanistan Asia     
+>  4  1967 Afghanistan Asia     
+>  5  1972 Afghanistan Asia     
+>  6  1977 Afghanistan Asia     
+>  7  1982 Afghanistan Asia     
+>  8  1987 Afghanistan Asia     
+>  9  1992 Afghanistan Asia     
+> 10  1997 Afghanistan Asia     
+> # … with 1,694 more rows
 > ~~~
-> {: .error}
+> {: .output}
 > This returns just the three columns we are interested in. 
 >
 > > ## Using `select()` with a helper function
@@ -503,9 +763,22 @@ Error in gapminder_data %>% select(-continent): could not find function "%>%"
 > > > 
 > > > 
 > > > ~~~
-> > > Error in gapminder_data %>% select(ends_with("p")): could not find function "%>%"
+> > > # A tibble: 1,704 × 3
+> > >         pop lifeExp gdpPercap
+> > >       <dbl>   <dbl>     <dbl>
+> > >  1  8425333    28.8      779.
+> > >  2  9240934    30.3      821.
+> > >  3 10267083    32.0      853.
+> > >  4 11537966    34.0      836.
+> > >  5 13079460    36.1      740.
+> > >  6 14880372    38.4      786.
+> > >  7 12881816    39.9      978.
+> > >  8 13867957    40.8      852.
+> > >  9 16317921    41.7      649.
+> > > 10 22227415    41.8      635.
+> > > # … with 1,694 more rows
 > > > ~~~
-> > > {: .error}
+> > > {: .output}
 > > {: .solution}
 > {: .challenge}
 > 
@@ -531,9 +804,23 @@ gapminder_data %>%
 
 
 ~~~
-Error in gapminder_data %>% select(country, continent, year, lifeExp) %>% : could not find function "%>%"
+# A tibble: 142 × 14
+   country     continent `1952` `1957` `1962` `1967` `1972` `1977` `1982` `1987`
+   <chr>       <chr>      <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+ 1 Afghanistan Asia        28.8   30.3   32.0   34.0   36.1   38.4   39.9   40.8
+ 2 Albania     Europe      55.2   59.3   64.8   66.2   67.7   68.9   70.4   72  
+ 3 Algeria     Africa      43.1   45.7   48.3   51.4   54.5   58.0   61.4   65.8
+ 4 Angola      Africa      30.0   32.0   34     36.0   37.9   39.5   39.9   39.9
+ 5 Argentina   Americas    62.5   64.4   65.1   65.6   67.1   68.5   69.9   70.8
+ 6 Australia   Oceania     69.1   70.3   70.9   71.1   71.9   73.5   74.7   76.3
+ 7 Austria     Europe      66.8   67.5   69.5   70.1   70.6   72.2   73.2   74.9
+ 8 Bahrain     Asia        50.9   53.8   56.9   59.9   63.3   65.6   69.1   70.8
+ 9 Bangladesh  Asia        37.5   39.3   41.2   43.5   45.3   46.9   50.0   52.8
+10 Belgium     Europe      68     69.2   70.2   70.9   71.4   72.8   73.9   75.4
+# … with 132 more rows, and 4 more variables: `1992` <dbl>, `1997` <dbl>,
+#   `2002` <dbl>, `2007` <dbl>
 ~~~
-{: .error}
+{: .output}
 
 Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the lifeExp variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
 
@@ -554,13 +841,26 @@ Before we move on to more data cleaning, let's create the final gapminder datafr
 > > 
 > > 
 > > ~~~
-> > Error in read_csv("data/gapminder_data.csv") %>% filter(year == 2007 & : could not find function "%>%"
+> > Rows: 1704 Columns: 6
+> > ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+> > Delimiter: ","
+> > chr (2): country, continent
+> > dbl (4): year, pop, lifeExp, gdpPercap
+> > 
+> > ℹ Use `spec()` to retrieve the full column specification for this data.
+> > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 > > ~~~
-> > {: .error}
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
 Awesome! This is the dataframe we will be using later on in this lesson. 
+
+# Applying it to your own data
+
+Now it's time to read in, clean, and make plots with your own data! 
+Use your ideas from your brainstorming session yesterday to help you get started, but feel free to branch out and explore other things as well.
+Let us know if you have questions; we're here to help.
 
 
 

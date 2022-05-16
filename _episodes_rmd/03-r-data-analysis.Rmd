@@ -21,6 +21,7 @@ knitr_fig_path("03-")
 
 ### Contents
 
+1.  [Plotting review](#plotting-review)
 1.  [Getting started](#getting-started)
     -   [Loading in the data](#loading-in-the-data)
 1.  [An introduction to data analysis in R using `dplyr`](#intro-data-analysis)
@@ -30,16 +31,43 @@ knitr_fig_path("03-")
     -   [Make new variables with `mutate()`](#make-new-variables-with-mutate)
     -   [Subset columns using `select()`](#subset-columns-using-select)
     -   [Changing the shape of the data](#changing-the-shape-of-the-data)
+1. [Applying it to your own data](#applying-it-to-your-own-data)
 
-# Getting Started
+# Plotting review
 
 First, navigate to the un-reports directory however you'd like and open `un-report.Rproj`.
 This should open the un-report R project in RStudio.
 You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory.
 
+The very first step is to read in the gapminder dataset, so do that first! Also load the `tidyverse` package.
+
+> ## Solution
+> ```{r}
+> library(tidyverse)
+> gapminder <- read_csv('data/gapminder_data.csv')
+> ```
+{: .solution}
+#### Investigating population over time.
+_[Back to top](#contents)_
+
+Next, make a scatter plot of year vs. population, separated into a plot for each contient. Feel free to look back at the content from yesterday if you want!
+
+> ## Solution
+> ```{r}
+> ggplot(gapminder, aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ```
+{: .solution}
+
+It seems like there are a couple outliers. By the end of today, we'll be able to identify what countries those are and how to exclude them from the plot. 
+
+# Getting Started
+_[Back to top](#contents)_
+
 Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the `dplyr` package.
 
-First, we will create a new RScript file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". We will save this file as `un_data_analysis.R`
+First, we will create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". We will save this file as `un_data_analysis.R`
 
 ### Loading in the data
 
@@ -357,6 +385,12 @@ Before we move on to more data cleaning, let's create the final gapminder datafr
 {: .challenge}
 
 Awesome! This is the dataframe we will be using later on in this lesson. 
+
+# Applying it to your own data
+
+Now it's time to read in, clean, and make plots with your own data! 
+Use your ideas from your brainstorming session yesterday to help you get started, but feel free to branch out and explore other things as well.
+Let us know if you have questions; we're here to help.
 
 
 

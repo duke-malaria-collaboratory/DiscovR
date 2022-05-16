@@ -33,7 +33,24 @@ As we complete the course, we want to  share with you some tips and tricks that 
 
 ## Get help and connect
 
-TODO: ADD SPECIFIC INFO HERE
+We want to be a resource for you after the workshop ends, and we also want you all to be a resource for each other. Here are ways we can help, let's discuss what would work best for you to be able to keep in touch and get help/guidance as needed.
+
+First, **you can email us whenever you want with questions!** (zena.lapp@duke.edu; christine.markwalter@duke.edu; erica.zeno@duke.edu)
+
+For additional consistent support, here are some ideas we could implement: 
+
+1. Whatsapp group
+  1. Pro: already commonly used
+  1. Con: can't create conversation threads and difficult to answer more complicated questions
+1. Slack
+  1. Pro: can have different channels for different topics, and can use threads for specific conversations
+  1. Con: not as widely used
+1. Monthly virtual office hours
+  1. Pro: can discuss complex topics and questions more easily
+  1. Con: no immediate help, and might not work with everyone's schedule 
+1. Follow-up workshops
+  1. Pro: can discuss more detailed topics
+  1. Con: not regular, and different learners may have different specialized topic interests
 
 ## Dealing with coding errors
 

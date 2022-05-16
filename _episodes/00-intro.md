@@ -42,7 +42,7 @@ Now that you know a little about The Carpentries as an organization, the instruc
 
 ## Introducing participants
 
-Introduce yourself with your name, role, affiliation, and work/research area.
+Introduce yourself with your preferred name, role, affiliation, work/research area, and Kenyan name and meaning.
 
 ## The "goal" of the workshop
 
@@ -53,17 +53,12 @@ To get to that point, we'll need to learn how to manage data, make plots, and ge
 
 ## What will the workshop cover?
 
-This workshop will introduce you to:
-1. How to develop research questions. 
-1. Key concepts in data analysis and visualization.
-1. Basic statistics and epidemiology.
-1. How to implement the above concepts using the R programming language. 
+This workshop will introduce you to exploratory data analysis and effective data visualiation, and how to implement these concepts using the R programming language. 
 
 While we will focus primarily on public health applications, 
 what you learn here are programs that are used everyday in computational 
 _workflows_ in diverse fields: 
-public health, microbiology, 
-statistics, neuroscience, genetics, the social and behavioral 
+microbiology, statistics, neuroscience, genetics, the social and behavioral 
 sciences, such as psychology, economics, and many others. 
 
 A workflow is a set of steps to read data, analyze it, and produce numerical
@@ -107,4 +102,4 @@ Feel free to also call helpers over through a hand wave if we don't see your sti
 ## Other miscellaneous things
 
 If you're in person, we'll tell you where the bathrooms are!
-Let us know if there are any accommodations we can provide to help make your learning experience better!
+Also let us know if there are any accommodations we can provide to help make your learning experience better.
