@@ -23,10 +23,37 @@ keypoints:
 
 
 ~~~
-Error: package or namespace load failed for 'tidyverse' in library.dynam(lib, package, package.lib):
- shared object 'ellipsis.dylib' not found
+Warning: package 'ggplot2' was built under R version 4.1.2
 ~~~
-{: .error}
+{: .warning}
+
+
+
+~~~
+Warning: package 'tibble' was built under R version 4.1.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'tidyr' was built under R version 4.1.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'readr' was built under R version 4.1.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'dplyr' was built under R version 4.1.2
+~~~
+{: .warning}
 
 
 
@@ -59,7 +86,7 @@ and that it had 2 outliers? Which countries are those?
 > 
 > 
 > ~~~
-> Error in gapminder %>% filter(pop > 1e+09) %>% select(country) %>% unique(): could not find function "%>%"
+> Error in filter(., pop > 1e+09): object 'gapminder' not found
 > ~~~
 > {: .error}
 {: .solution}
@@ -78,7 +105,7 @@ Next, plot year vs. population separated into a plot for each continent but excl
 > 
 > 
 > ~~~
-> Error in gapminder %>% filter(country != "China" & country != "India") %>% : could not find function "%>%"
+> Error in filter(., country != "China" & country != "India"): object 'gapminder' not found
 > ~~~
 > {: .error}
 {: .solution}
@@ -298,63 +325,20 @@ First, let's create a code chunk that summarizes features of our data that we ca
 
 ~~~
 gapminder_1997 <- read_csv("data/gapminder_1997.csv")
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in read_csv("data/gapminder_1997.csv"): could not find function "read_csv"
-~~~
-{: .error}
-
-
-
-~~~
 nCountries <- gapminder_1997 %>%
   select(country) %>%
   n_distinct()
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in gapminder_1997 %>% select(country) %>% n_distinct(): could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 minGDP <- gapminder_1997 %>%
   summarise(round(min(gdpPercap))) %>%
   pull()
-~~~
-{: .language-r}
 
-
-
-~~~
-Error in gapminder_1997 %>% summarise(round(min(gdpPercap))) %>% pull(): could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 maxGDP <- gapminder_1997 %>%
   summarise(round(max(gdpPercap))) %>%
   pull()
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in gapminder_1997 %>% summarise(round(max(gdpPercap))) %>% pull(): could not find function "%>%"
-~~~
-{: .error}
 
 Now, all we need to do is reference the values we just computed to describe our
 plot. To do this, we enclose each value in one set of backticks 
@@ -420,10 +404,10 @@ gapminder_1997 %>%
 
 
 
-~~~
-Error in gapminder_1997 %>% filter(continent == "Oceania") %>% kable(): could not find function "%>%"
-~~~
-{: .error}
+|country     |      pop|continent | lifeExp| gdpPercap|
+|:-----------|--------:|:---------|-------:|---------:|
+|Australia   | 18565243|Oceania   |   78.83|  26997.94|
+|New Zealand |  3676187|Oceania   |   77.55|  21050.41|
 
 
 ## Formatting

@@ -43,6 +43,11 @@ set.seed(20210109)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 1. [Glossary of terms](#glossary-of-terms)
 
+```{r loadTidyverse, include=FALSE}
+library(tidyverse)
+gapminder_1997 <- read_csv("data/gapminder_1997.csv")
+```
+
 # Creating our first plot
 _[Back to top](#contents)_
 
