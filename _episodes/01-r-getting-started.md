@@ -350,7 +350,7 @@ Do all functions need arguments? Let's test some other functions:
 
 
 ~~~
-[1] "2022-05-13"
+[1] "2022-05-16"
 ~~~
 {: .output}
 
@@ -463,7 +463,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "2022-05-13"
+> [1] "2022-05-16"
 > ~~~
 > {: .output}
 > 
