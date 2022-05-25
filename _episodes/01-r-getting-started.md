@@ -408,12 +408,6 @@ sqrt_rounded
 It doesn't update! That's because we haven't re-run the code that rounded `square_root`. 
 The values don't update automatically like in a spreadsheet.
 
-# Exercise - what is my_number after these three lines are run?
-# 10, 15, 17, 22
-my_number <- 10
-my_number + 5
-my_number <- my_number + 7
-
 > ## Predicting object contents
 > What is `my_number` after these three lines are run?
 > 

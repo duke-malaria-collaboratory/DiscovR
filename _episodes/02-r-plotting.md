@@ -41,7 +41,7 @@ keypoints:
     + [Univariate plots](#univariate-plots)
     + [Plot themes](#plot-themes)
     + [Facets](#facets)
-    + [Creating and saving your own plot](#creating-and-saving-your-own-plot)
+1. [Creating and saving your own plot](#creating-and-saving-your-own-plot)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 1. [Glossary of terms](#glossary-of-terms)
 
@@ -174,7 +174,6 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 
 
 # Our first plot
-_[Back to top](#contents)_
 
 ## Creating our first plot
 _[Back to top](#contents)_
@@ -1085,7 +1084,7 @@ ggplot(gapminder_1997) +
 
 Unlike the `facet_wrap` output where each box got its own x and y axis, with `facet_grid()`, there is only one x axis along the bottom.
 
-## Creating and saving your own plot
+# Creating and saving your own plot
 _[Back to top](#contents)_
 
 > ## Bonus Exercise: Create and save a plot
