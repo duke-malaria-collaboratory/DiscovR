@@ -7,13 +7,14 @@ teaching: 30
 exercises: 15
 questions:
 - "What are R and R Studio?"
-- "How do I read data into R?"
+- "How do I perform tasks and store information?"
 objectives:
 - "To become oriented with R and R Studio."
-- "To be able to read in data from csv files."
+- "To learn about functions and objects."
 keypoints:
 - "R is a free programming language used by many for reproducible data analysis."
-- "Use `read_csv()` to read tabular data in R."
+- "Functions allow you to perform complex tasks."
+- "Objects allow you to store information."
 ---
 
 
@@ -24,8 +25,9 @@ keypoints:
 ### Contents
 
 1. [Introduction to R and RStudio](#introduction-to-r-and-rstudio)
-1. [Loading and reviewing data](#loading-and-reviewing-data)
-1. [Understanding commands](#understanding-commands)
+1. [Foundational topics](#foundational-topics)
+    1. [Functions](#functions)
+    1. [Objects](#objects)
 1. [Glossary of terms](#glossary-of-terms)
 
 > ## Bonus: why learn to program?
@@ -38,8 +40,7 @@ keypoints:
 # Introduction to R and RStudio
 _[Back to top](#contents)_
 
-In this session we will be testing the hypothesis that a country's life expectancy is related to the total value of its finished goods and services, also known as the Gross Domestic Product (GDP).
-To test this hypothesis, we'll need two things: data and a platform to analyze the data.
+To perform exploratory analyses, we need the data we want to explore and a platform to analyze the data.
 
 You already [downloaded the data]({{ page.root }}/setup.html). But what platform will we use to analyze the data? We have many options!
 
@@ -59,11 +60,6 @@ To run R, all you really need is the R program, which is available for computers
 
 To make your life in R easier, there is a great (and free!) program called RStudio that you also downloaded and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
 
-> ## The tidyverse vs Base R
-> If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
-{: .callout}
-
-
 To get started, we'll spend a little time getting familiar with the RStudio environment and setting it up to suit your tastes. When you start RStudio, you'll have three panels.
 
 <img src="{{ page.root }}/fig/r-plotting/initial_rstudio.png" width="700"/>
@@ -72,7 +68,7 @@ On the left you'll have a panel with three tabs - Console, Terminal, and Jobs. T
 
 <img src="{{ page.root }}/fig/r-plotting/history.png" width="700"/>
 
-In the lower right panel are tabs for Files, Plots, Packages, Help, and Viewer. You used the Packages tab to install tidyverse.
+In the lower right panel are tabs for Files, Plots, Packages, Help, and Viewer. 
 
 We'll spend more time in each of these tabs as we go through the workshop, so we won't spend a lot of time discussing them now.
 
@@ -113,220 +109,331 @@ We'd like to create a file where we can keep track of our R code.
 
 Back in the "File" menu, you'll see the first option is "New File". Selecting "New File" opens another menu to the right and the first option is "R Script". Select "R Script".
 
-Now we have a fourth panel in the upper left corner of RStudio that includes an **Editor** tab with an untitled R Script. Let's save this file as `gdp_population.R` in our project directory.
+Now we have a fourth panel in the upper left corner of RStudio that includes an **Editor** tab with an untitled R Script. Let's save this file as `intro_to_r.R` in our project directory.
 
 We will be entering R code into the **Editor** tab to run in our **Console** panel.
 
-On line 1 of `gdp_population.R`, type `2+2`.
+On line 1 of `intro_to_r.R`, type `2+2`.
 
-With your cursor on the line with the `2+2`, click the button that says <kbd>Run</kbd>. You should be able to see that `2+2` was run in the Console.
+With your cursor on the line with the `2+2`, press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your keyboard. 
+You should be able to see that `2+2` was run in the Console.
+(You can also click <kbd>Run</kbd> in the top right side of the **Editor**, but this isn't quite as easy.)
 
-As you write more code, you can highlight multiple lines and then click <kbd>Run</kbd> to run all of the lines you have selected.
+As you write more code, you can highlight multiple lines and then press <kbd>Ctrl</kbd>+<kbd>Enter</kbd>, orclick <kbd>Run</kbd>, to run all of the lines you have selected.
 
-Let's delete the line with 2+2 and replace it with `library(tidyverse)`.
+> ## Comments
+> Sometimes you may want to write comments in your code to help you remember
+> what your code is doing, but you don't want R to think these comments are a part
+> of the code you want to evaluate. That's where **comments** come in! Anything
+> after a `#` symbol in your code will be ignored by R. For example, let's say we
+> wanted to make a note of what each of the functions we just used do:
+> 
+> ~~~
+> # this is a comment
+> ~~~
+> {: .language-r}
+{: .callout}
 
-Go ahead and run that line in the **Console** by clicking the <kbd>Run</kbd> button on the top right of the **Editor** tab and choosing <kbd>Run Selected Lines</kbd>. This loads a set of useful functions and sample data that makes it easier for us to do complex analyses and create professional visualizations in R.
+# Foundational topics
+
+## Functions
+
+Functions are built-in procedures that automate a task for you.
+You input arguments into a function and the function returns a value. 
+We'll go over a few math functions to get our feet wet.
+
+You call a function in R by typing it's name followed by opening then closing parenthesis. Each function has a purpose, which is often hinted at by the name of the function. 
+
+Let's start with the `sqrt()` function.
+
+Let's try to run the function without anything inside the parenthesis.
 
 
 ~~~
-library(tidyverse)
+sqrt()
 ~~~
 {: .language-r}
 
 
 
 ~~~
-── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+Error in sqrt(): 0 arguments passed to 'sqrt' which requires 1
+~~~
+{: .error}
+
+We get an error message. Don't panic! Error messages pop up all the time, and can be super helpful in debugging code.
+
+In this case, the message tells us zero arguments were passed to the function, but we need to input at least one. 
+Many functions, including `sqrt`, require additional pieces of information to do their job. 
+We call these additional values "arguments" or "parameters." 
+You pass **arguments** to a function by placing values in between the parenthesis. 
+A function takes in these arguments and does a bunch of "magic" behind the scenes to output something we're interested in.
+
+For example, we want to provide a number to `sqrt()`, namely the number we want the square root of: 
+
+
+~~~
+sqrt(4)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 2
 ~~~
 {: .output}
 
+Here, the input argument is 4, and the output is 2, just like we'd expect. 
+
+Now let's do an example where we might not know the expected output:
 
 
 ~~~
-✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-✔ tibble  3.1.7     ✔ dplyr   1.0.9
-✔ tidyr   1.2.0     ✔ stringr 1.4.0
-✔ readr   2.1.2     ✔ forcats 0.5.1
+sqrt(2)
 ~~~
-{: .output}
-
-
-
-~~~
-Warning: package 'ggplot2' was built under R version 4.1.2
-~~~
-{: .warning}
+{: .language-r}
 
 
 
 ~~~
-Warning: package 'tibble' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'tidyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'readr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'dplyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
+[1] 1.414214
 ~~~
 {: .output}
 
-> ## What's with all those messages???
->
-> When you loaded the `tidyverse` package, you probably got a message like the
-> one we got above. Don't panic! These messages are just giving you more
-> information about what happened when you loaded `tidyverse`. The `tidyverse` is
-> actually a collection of several different packages, so the first section of the
-> message tells us what packages were installed when we loaded `tidyverse` (these
-> include `ggplot2`, which we'll be using a lot in this lesson, and `dyplr`, which
-> you'll be introduced to tomorrow in the 
-> [R for Data Analysis lesson]({{ page.root }}/05-r-markdown)).
->
-> The second section of messages gives a list of "conflicts." Sometimes, the
-> same function name will be used in two different packages, and R has to decide
-> which function to use. For example, our message says that:
->
-> ~~~
-> dplyr::filter() masks stats::filter()
-> ~~~
-> {: .output}
->
-> This means that two different packages (`dyplr` from `tidyverse` and `stats`
-> from base R) have a function named `filter()`. By default, R uses the function
-> that was most recently loaded, so if we try using the `filter()` function after
-> loading `tidyverse`, we will be using the `filter()` function from `dplyr()`.
->
-{: .callout}
+Great, now let's move onto a slightly more complicated function. 
+If we want to round a number, we can use the `round()` function:
 
+
+~~~
+round(3.14159)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 3
+~~~
+{: .output}
+
+Why did this round to three? What if we want it to round to a different number of digits?
 
 > ## Pro-tip
 >
-> Those of us that use R on a daily basis use cheat sheets to help us remember how to use various R functions. If you haven't already, print out the PDF versions of the cheat sheets that were in the setup instructions.
+> Each function has a help page that documents what arguments the function
+> expects and what value it will return. You can bring up the help page a few
+> different ways. If you have typed the function name in the **Editor** windows,
+> you can put your cursor on the function name and press <kbd>F1</kbd> to open
+> help page in the **Help** viewer in the lower right corner of RStudio. You can
+> also type `?` followed by the function name in the console.
 >
-> You can also find them in RStudio by going to the "Help" menu and selecting "Cheat Sheets". The two that will be most helpful in this workshop are "Data Visualization with ggplot2", "Data Transformation with dplyr", "R Markdown Cheat Sheet", and "R Markdown Reference Guide".
+> For example, try running `?round`. A help page should pop up with
+> information about what the function is used for and how to use it, as well as
+> useful examples of the function in action. As you can see, 
+`round()` has two arguments: the numeric input and the number of digits to round to.
 >
-> For things that aren't on the cheat sheets, [Google is your best friend]({{ page.root }}/06-conclusion/). Even expert coders use Google when they're stuck or trying something new!
->
-{: .testimonial}
-
----
-
-# Loading and reviewing data
-_[Back to top](#contents)_
-
-We will import a subsetted file from the gapminder dataset called `gapminder_1997.csv`. There are many ways to import data into R but for your first plot we will use RStudio's file menu to import and display this data. As we move through this process, RStudio will translate these *point and click* commands into code for us.
-
-In RStudio select "File" > "Import Dataset" > "From Text (readr)".
-
-<img src="{{ page.root }}/fig/r-plotting/import_data.png" width="600"/>
-
-The file is located in the main directory, click the "Browse" button and select the file named `gapminder_1997.csv`. A preview of the data will appear in the window. You can see there are a lot of Import Options listed, but R has chosen the correct defaults for this particular file.
-
-<img src="{{ page.root }}/fig/r-plotting/import_data_file.png" width="600"/>
-
-We can see in that box that our data will be imported with the Name: "gapminder_1997". Also note that this screen will show you all the code that will be run when you import your data in the lower right "Code Preview". Since everything looks good, click the "Import" button to bring your data into R.
-
-After you've imported your data, a table will open in a new tab in the top left corner of RStudio. This is a quick way to browse your data to make sure everything looks like it has been imported correctly. To review the data, click on the new tab.
-
-We see that our data has 5 columns (variables).
-
-Each row contains life expectancy ("lifeExp"), the total population ("pop"), and the per capita gross domestic product ("gdpPercap") for a given country ("country").
-
-There is also a column that says which continent each country is in ("continent"). Note that both North America and South America are combined into one category called "Americas".
-
-After we've reviewed the data, you'll want to make sure to click the tab in the upper left to return to your `gdp_population.R` file so we can start writing some code.
-
-Now look in the **Environment** tab in the upper right corner of RStudio. Here you will see a list of all the objects you've created or imported during your R session. You will now see `gapminder_1997` listed here as well.
-
-Finally, take a look at the **Console** at the bottom left part of the RStudio screen. Here you will see the commands that were run for you to import your data in addition to associated metadata and warnings.
-
-> ## Data objects
-> There are many different ways to store data in R. Most objects have a table-like structure with rows and columns. We will refer to these objects generally as "data objects". If you've used R before, you many be used to calling them "data.frames". Functions from the "tidyverse" such as `read_csv()` work with objects called "tibbles", which are a specialized kind of "data.frame." Another common way to store data is a "data.table". All of these types of data objects (tibbles, data.frames, and data.tables) can be used with the commands we will learn in this lesson to make plots. We may sometimes use these terms interchangeably.
 {: .callout}
 
-# Understanding commands
-
-Let's start by looking at the code RStudio ran for us by copying and pasting the first line from the console into our `gdp_population.R` file that is open in the **Editor** window.
+We can use the digits argument in `round()` to change how many decimal places are kept:
 
 
 ~~~
-gapminder_1997 <- read_csv("gapminder_1997.csv")
+round(3.14159, digits = 2)
 ~~~
 {: .language-r}
 
-~~~
-Rows: 142 Columns: 5
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): country, continent
-dbl (3): pop, lifeExp, gdpPercap
 
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+~~~
+[1] 3.14
 ~~~
 {: .output}
 
-You should now have a line of text in your code file that started with `gapminder` and ends with a `)` symbol.
-
-What if we want to run this command from our code file?
-
-In order to run code that you've typed in the editor, you have a few options. We can click <kbd>Run</kbd> again from the right side of the **Editor** tab but the quickest way to run the code is by pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your keyboard (<kbd>Ctrl</kbd>+<kbd>Enter</kbd> on Mac).
-
-This will run the line of code that currently contains your cursor and will move your cursor to the next line. Note that when Rstudio runs your code, it basically just copies your code from the **Editor** window to the **Console** window, just like what happened when we selected <kbd>Run Selected Line(s)</kbd>.
-
-Let's take a closer look at the parts of this command.
-
-Starting from the left, the first thing we see is `gapminder_1997`. We viewed the contents of this file after it was imported so we know that `gapminder_1997` acts as a placeholder for our data.
-
-If we highlight just `gapminder_1997` within our code file and press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on our keyboard, what do we see?
-
-We should see a data table outputted, similar to what we saw in the Viewer tab.
-
-In R terms, `gapminder_1997` is a named **object** that references or stores something. In this case, `gapminder_1997` stores a specific table of data.
-
-Looking back at the command in our code file, the second thing we see is a `<-` symbol, which is the **assignment operator**. It assigns values generated or typed on the right to objects on the left. An alternative symbol that you might see used as an **assignment operator** is the `=` but it is clearer to only use `<-` for assignment. We use this symbol so often that RStudio has a keyboard short cut for it: <kbd>Alt</kbd>+<kbd>-</kbd> on Windows, and <kbd>Option</kbd>+<kbd>-</kbd> on Mac.
+Sometimes it is helpful - or even necessary - to include the argument name, but often we can skip the argument name, if the argument values are passed in the order they are defined:
 
 
-> ## Assigning values to objects
-> Try to assign values to some objects and observe each object after you have assigned a new value. What do you notice?
+~~~
+round(3.14159, 2)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 3.14
+~~~
+{: .output}
+
+> ## Position of the arguments in functions
+> Which of the following lines of code will give you an output of 3.14? For the one(s) that don't give you 3.14, what do they give you?
 >
 > 
 > ~~~
-> name <- "Ben"
-> name
-> age <- 26
-> age
-> name <- "Harry Potter"
-> name
+> round(x = 3.1415)
+> round("3.14159", 2)
+> round(x = 3.1415, digits = 2)
+> round(digits = 2, x = 3.1415)
+> round(2, 3.1415)
 > ~~~
 > {: .language-r}
 > {: .source}
 >
 > > ## Solution
-> > When we assign a value to an object, the object stores that value so we can access it later. However, if we store a new value in an object we have already created (like when we stored "Harry Potter" in the `name` object), it replaces the old value. The `age` object does not change, because we never assign it a new value.
+> > The 2nd and 3rd lines will give you the right answer because the arguments are named, and when you use names the order doesn't matter. The 1st line will give you 3 because the default number of digits is 0. Then 4th line will give you 2 because, since you didn't name the arguments, x=2 and digits=3.1415.
+> {: .solution}
+{: .challenge}
+
+> ## Bonus Exercise: taking logarithms
+> Calculate the following:
+> 1. Natural log (ln) of 10
+> 1. Log base 10 of 10 (extra points if you can do this in 2 different ways), and 
+> 1. Log base 3 of 10
+>
+> > ## Solution
+> > 
+> > ~~~
+> > # natural log (ln) of 10
+> > log(10)
+> > # log base 10 of 10
+> > log10(10)
+> > log(10, base = 10)
+> > # log base 3 of 10
+> > > log(10, base = 3)
+> > ~~~
+> > {: .language-r}
+> {: .source}
+> {: .solution}
+{: .challenge}
+
+If all this function stuff sounds confusing, don't worry! We'll see a bunch of examples as we go that will make things clearer.
+
+
+## Objects
+
+Sometimes we want to store information for later use or manipulation. 
+To do this in R, we store the information, or _object_ , in a variable name that you can think of like a storage box.
+
+Let's say we want to round the square root of a number.
+One way we can do this is to put a function inside a function:
+
+
+~~~
+round(sqrt(2), 2)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1.41
+~~~
+{: .output}
+
+Another way is to store the square root output first, and then round that. 
+
+To store an object for later, we have to decide on a name of the box we want to store it in first. Let's say we want to call it `square_root`.
+Then we have to tell R what we want to put in the object name. We use the `<-` symbol, which is the **assignment operator** to assign values generated or typed on the right to object names on the left. An alternative symbol that you might see used as an **assignment operator** is the `=` but it is clearer to only use `<-` for assignment. We use this symbol so often that RStudio has a keyboard short cut for it: <kbd>Alt</kbd>+<kbd>-</kbd> on Windows, and <kbd>Option</kbd>+<kbd>-</kbd> on Mac. 
+
+Let's assign `sqrt(2)` to the object `square_root`. We can see that `square_root` contains the square root of 2:
+
+
+~~~
+square_root <- sqrt(2)
+square_root
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1.414214
+~~~
+{: .output}
+
+In R terms, `square_root` is a named **object** that references or stores something. In this case, `square_root` stores the square root of 2.
+
+Notice that we also have a new value in our environment in the upper right hand corner of RStudio.
+This panel lists all of the objects that we have stored in our environment, 
+it's kind of like a view into our storage room (environment) of all the boxes (objects) of things we have access to. 
+
+Now let's round the square root of 2 to 2 decimal places:
+
+
+~~~
+sqrt_rounded <- round(square_root, 2)
+sqrt_rounded
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1.41
+~~~
+{: .output}
+
+This is a fairly straightforward example, but you'll see the usefulness of storing things in variables as the workshop progresses. 
+
+Now, what happens to `sqrt_rounded` if we update `square_root`?
+
+
+~~~
+square_root <- sqrt(4)
+square_root
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 2
+~~~
+{: .output}
+
+
+
+~~~
+sqrt_rounded
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1.41
+~~~
+{: .output}
+
+It doesn't update! That's because we haven't re-run the code that rounded `square_root`. 
+The values don't update automatically like in a spreadsheet.
+
+# Exercise - what is my_number after these three lines are run?
+# 10, 15, 17, 22
+my_number <- 10
+my_number + 5
+my_number <- my_number + 7
+
+> ## Predicting object contents
+> What is `my_number` after these three lines are run?
+> 
+> ~~~
+> my_number <- 10
+> my_number + 5
+> my_number <- my_number + 7
+> ~~~
+> {: .language-r}
+> 1. 10
+> 1. 15
+> 1. 17
+> 1. 22
+>
+> > ## Solution
+> > The answer is 17 because 10 is stored in `my_number` in the first line, 15 is printed after the second line but is not stored 
+> > so `my_number` remains 10, and then 7 is added to `my_number` in the third line, making 17. If we ran the third line again,
+> > `my_number` would be 24. Because the object value changes depending on the number of times we run the final line, 
+>> in most cases it's best practice to not overwrite objects like this.
+> {: .source}
 > {: .solution}
 {: .challenge}
 
@@ -334,7 +441,7 @@ Looking back at the command in our code file, the second thing we see is a `<-` 
 > ## Guidelines on naming objects
 > - You want your object names to be explicit and not too long.
 > - They cannot start with a number (2x is not valid, but x2 is).
-> - R is case sensitive, so for example, weight_kg is different from Weight_kg.
+> - R is case sensitive, so for example, weight is different from Weight.
 > - You cannot use spaces in the name.
 > - There are some names that cannot be used because they are the names of fundamental functions in R (e.g., if, else, for; see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for a complete list). If in doubt, check the help to see if the name is already in use (`?function_name`).
 > - It's best to avoid dots (.) within names. Many function names in R itself have them and dots also have a special meaning (methods) in R and other programming languages.
@@ -343,7 +450,7 @@ Looking back at the command in our code file, the second thing we see is a `<-` 
 {: .checklist}
 
 > ## Bonus Exercise: Bad names for objects
-> Try to assign values to some new objects. What do you notice? After running all four lines of code bellow, what value do you think the object `Flower` holds?
+> Try to assign values to some new variable names. What do you notice? After running all four lines of code below, what value do you think the variable `Flower` holds?
 >
 > 
 > ~~~
@@ -360,246 +467,10 @@ Looking back at the command in our code file, the second thing we see is a `<-` 
 > {: .solution}
 {: .challenge}
 
-The next part of the command is `read_csv("gapminder_1997.csv")`. This has a few different key parts. The first part is the `read_csv` function. You call a function in R by typing it's name followed by opening then closing parenthesis. Each function has a purpose, which is often hinted at by the name of the function. Let's try to run the function without anything inside the parenthesis.
-
-
-~~~
-read_csv()
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in vroom::vroom(file, delim = ",", col_names = col_names, col_types = col_types, : argument "file" is missing, with no default
-~~~
-{: .error}
-
-We get an error message. Don't panic! Error messages pop up all the time, and can be super helpful in debugging code.
-
-In this case, the message tells us "argument "file" is missing, with no default. Many functions, including `read_csv`, require additional pieces of information to do their job. We call these additional values "arguments" or "parameters." You pass **arguments** to a function by placing values in between the parenthesis. A function takes in these arguments and does a bunch of "magic" behind the scenes to output something we're interested in.
-
-For example, when we loaded in our data, the command contained `"gapminder_1997.csv"` inside the `read_csv()` function. This is the value we assigned to the file argument. But we didn't say that that was the file. How does that work?
-
-> ## Pro-tip
->
-> Each function has a help page that documents what arguments the function
-> expects and what value it will return. You can bring up the help page a few
-> different ways. If you have typed the function name in the **Editor** windows,
-> you can put your cursor on the function name and press <kbd>F1</kbd> to open
-> help page in the **Help** viewer in the lower right corner of RStudio. You can
-> also type `?` followed by the function name in the console.
->
-> For example, try running `?read_csv`. A help page should pop up with
-> information about what the function is used for and how to use it, as well as
-> useful examples of the function in action. As you can see, the first
-> **argument** of `read_csv` is the file path.
->
-{: .callout}
-
-The `read_csv()` function took the file path we provided, did who-knows-what behind the scenes, and then outputted an R object with the data stored in that csv file. All that, with one short line of code!
-
-Do all functions need arguments? Let's test some other functions:
-
-
-~~~
- Sys.Date()
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "2022-05-16"
-~~~
-{: .output}
-
-
-
-~~~
- getwd()
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "/Users/zenalapp/Desktop/DiscovR/_episodes_rmd"
-~~~
-{: .output}
-
-
-While some functions, like those above, don't need any arguments, in other
-functions we may want to use multiple arguments. When we're using multiple
-arguments, we separate the arguments with commas. For example, we can use the
-`sum()` function to add numbers together:
-
-
-~~~
-sum(5, 6)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 11
-~~~
-{: .output}
-
-> ## Learning more about functions
-> Look up the function `round`. What does it do? What will you get as output for the following lines of code?
->
-> 
-> ~~~
-> round(3.1415)
-> round(3.1415,3)
-> ~~~
-> {: .language-r}
-> {: .source}
->
-> > ## Solution
-> > `round` rounds a number. By default, it rounds it to zero digits (in our example above, to 3). If you give it a second number, it rounds it to that number of digits (in our example above, to 3.142)
-> {: .solution}
-{: .challenge}
-
-Notice how in this example, we didn't include any argument names. But you can
-use argument names if you want:
-
-
-~~~
-read_csv(file = 'gapminder_1997.csv')
-~~~
-{: .language-r}
-
-
-~~~
-Rows: 142 Columns: 5
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): country, continent
-dbl (3): pop, lifeExp, gdpPercap
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-~~~
-{: .output}
-
-
-
-~~~
-# A tibble: 142 × 5
-   country           pop continent lifeExp gdpPercap
-   <chr>           <dbl> <chr>       <dbl>     <dbl>
- 1 Afghanistan  22227415 Asia         41.8      635.
- 2 Albania       3428038 Europe       73.0     3193.
- 3 Algeria      29072015 Africa       69.2     4797.
- 4 Angola        9875024 Africa       41.0     2277.
- 5 Argentina    36203463 Americas     73.3    10967.
- 6 Australia    18565243 Oceania      78.8    26998.
- 7 Austria       8069876 Europe       77.5    29096.
- 8 Bahrain        598561 Asia         73.9    20292.
- 9 Bangladesh  123315288 Asia         59.4      973.
-10 Belgium      10199787 Europe       77.5    27561.
-# … with 132 more rows
-~~~
-{: .output}
-
-> ## Position of the arguments in functions
-> Which of the following lines of code will give you an output of 3.14? For the one(s) that don't give you 3.14, what do they give you?
->
-> 
-> ~~~
-> round(x = 3.1415)
-> round(x = 3.1415, digits = 2)
-> round(digits = 2, x = 3.1415)
-> round(2, 3.1415)
-> ~~~
-> {: .language-r}
-> {: .source}
->
-> > ## Solution
-> > The 2nd and 3rd lines will give you the right answer because the arguments are named, and when you use names the order doesn't matter. The 1st line will give you 3 because the default number of digits is 0. Then 4th line will give you 2 because, since you didn't name the arguments, x=2 and digits=3.1415.
-> {: .solution}
-{: .challenge}
-
-Sometimes it is helpful - or even necessary - to include the argument name, but often we can skip the argument name, if the argument values are passed in a certain order. If all this function stuff sounds confusing, don't worry! We'll see a bunch of examples as we go that will make things clearer.
-
-> ## Reading in an excel file
-> Say you have an excel file and not a csv - how would you read that in? Hint: Use the Internet to help you figure it out!
->
-> {: .source}
->
-> > ## Solution
-> > One way is using the `read_excel` function in the `readxl` package. There are other ways, but this is our preferred method because the output will be the same as the output of `read_csv`.
-> {: .solution}
-{: .challenge}
-
-> ## Comments
-> Sometimes you may want to write comments in your code to help you remember
-> what your code is doing, but you don't want R to think these comments are a part
-> of the code you want to evaluate. That's where **comments** come in! Anything
-> after a `#` symbol in your code will be ignored by R. For example, let's say we
-> wanted to make a note of what each of the functions we just used do:
-> 
-> ~~~
->  Sys.Date()  # outputs the current date
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] "2022-05-16"
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
->  getwd()     # outputs our current working directory (folder)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] "/Users/zenalapp/Desktop/DiscovR/_episodes_rmd"
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
->  sum(5, 6)   # adds numbers
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] 11
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
->  read_csv(file = 'gapminder_1997.csv') # reads in csv file
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error: 'gapminder_1997.csv' does not exist in current working directory ('/Users/zenalapp/Desktop/DiscovR/_episodes_rmd').
-> ~~~
-> {: .error}
-{: .callout}
-
 # Glossary of terms
 _[Back to top](#contents)_
 
-- Tibble: the way tabular data is stored in R when using the tidyverse. We may also call it a data frame.  
-- Function: takes input and generates output (e.g. `read_csv()` takes a file path and outputs a tibble, which is the data from the file.
-- Comments: Lines or parts of lines that are not run. In R, comments start with a `#`. 
+- Comments: lines or parts of lines that are not run. In R, comments start with a `#`. 
+- Function: takes input and generates output.
+- Object: way to store information for later use and manipulation.
+
