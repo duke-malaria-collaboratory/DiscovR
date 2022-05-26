@@ -306,7 +306,26 @@ different colors to each of our unique values of the `continent` variable. (Note
 that when we mapped the x and y values, those drew the actual axis labels, so in
 a way the axes are like the legends for the x and y values). The colors that
 ggplot uses are determined by the color "scale". Each aesthetic value we can
-supply (x, y, color, etc) has a corresponding scale. 
+supply (x, y, color, etc) has a corresponding scale. Let's change the colors to
+make them a bit prettier.
+
+```{r FirstPlotAddColorScale}
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap) +
+  labs(x = "GDP Per Capita") +
+  aes(y = lifeExp) +
+  labs(y = "Life Expectancy") +
+  geom_point() +
+  labs(title = "Do people in wealthy countries live longer?") +
+  aes(color = continent) +
+  scale_color_brewer(palette = "Set1")
+```
+
+The `scale_color_brewer()` function is just one of many you can use to change
+colors. There are bunch of "palettes" that are build in. You can view them all
+by running `RColorBrewer::display.brewer.all()` or check out the [Color Brewer
+website](https://colorbrewer2.org/) for more info about choosing plot colors. 
+Check out the bonus exercise below for even more options.
 
 > ## Bonus Exercise: Changing colors
 > There are lots of ways to change colors when using ggplot.
@@ -367,6 +386,7 @@ out by mapping the population of each country to the size of our points.
 > >   labs(title = "Do people in wealthy countries live longer?") +
 > >   aes(color = continent) +
 > >   aes(size = pop) +
+> >   scale_color_brewer(palette = "Set1")
 > > ```
 > > {: .source}
 > {: .solution}
@@ -453,6 +473,7 @@ ggplot(data = gapminder_1997) +
 > >  gdp_vs_life <- ggplot(data = gapminder_1997) +
 > >  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
 > >  geom_point() +
+> >  scale_color_brewer(palette = "Set1") +
 > >  labs(x = "GDP Per Capita", y = "Life Expectancy",
 > >    title = "Do people in wealthy countries live longer?", size = "Population (in millions)")
 > > ```
@@ -479,6 +500,7 @@ Let's save our plot (with an informative name) as a 4x6 inch png:
 gdp_vs_life <- ggplot(data = gapminder_1997) +
   aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
   geom_point() +
+  scale_color_brewer(palette = "Set1") +
   labs(x = "GDP Per Capita", y = "Life Expectancy",
     title = "Do people in wealthy countries live longer?", size = "Population (in millions)")
 
