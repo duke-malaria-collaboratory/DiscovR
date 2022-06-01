@@ -60,7 +60,7 @@ gapminder_1997 <- read_csv("data/gapminder_1997.csv")
 > If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
 {: .callout}
 
-First, we're going to load the tidyverse, which contains a set of useful functions that makes it easier for us to do complex analyses and create professional visualizations in R. The way we access alk these useful functions functions is by running the following command:
+First, we're going to load the tidyverse, which contains a set of useful functions that makes it easier for us to do complex analyses and create professional visualizations in R. The way we access all these useful functions functions is by running the following command:
 
 ```{r}
 library(tidyverse)
