@@ -507,6 +507,15 @@ gdp_vs_life <- ggplot(data = gapminder_1997) +
 ggsave(filename = "figures/gdp_vs_life.png", plot = gdp_vs_life, width=6, height=4)
 ```
 
+```{r}
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1") +
+  labs(x = "GDP Per Capita", y = "Life Expectancy",
+    title = "Do people in wealthy countries live longer?", size = "Population (in millions)")
+```
+
 
 > ## Understanding common errors
 > Sometimes you accidentally type things wrong and get errors. We call these mis-types "bugs".
@@ -517,9 +526,14 @@ ggsave(filename = "figures/gdp_vs_life.png", plot = gdp_vs_life, width=6, height
 > For each of the examples below, figure out what the bug is and how to fix it. 
 > Feel free to copy/paste into RStudio to help you figure it out.
 > 
+> ```{r plotErrors, eval = FALSE}
+> # Bug 1
+> 
+> ```
+> 
 > {: .source}
 > > ## Solution
-> > ```{r plotErrors, eval = FALSE}
+> > ```{r, eval = FALSE}
 > >  gdp_vs_life <- ggplot(data = gapminder_1997) +
 > >  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
 > >  geom_point() +
