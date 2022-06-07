@@ -352,6 +352,19 @@ The values don't update automatically like in a spreadsheet.
 > {: .solution}
 {: .challenge}
 
+> ## Getting unstuck
+> Sometimes you may accidentally run a line of code that isn't quite complete yet. For instance:
+> ```{r, eval = FALSE}
+> my_number <- 
+> ```
+> What happens when you run this? In your console at the bottom of your screen, you may see a `+`
+> instead of a `>` at the beginning of the line. This means that R is waiting for more information.
+> In this case, it's because it doesn't know what you want to store in `my_number`. You can do one of
+> two things if this happens - finish the command you want to type (e.g. by entering a number), or
+> hit the escape key to get unstuck. 
+{: .callout}
+
+
 # Glossary of terms
 _[Back to top](#contents)_
 

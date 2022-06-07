@@ -508,6 +508,31 @@ ggsave(filename = "figures/gdp_vs_life.png", plot = gdp_vs_life, width=6, height
 ```
 
 
+> ## Understanding common errors
+> Sometimes you accidentally type things wrong and get errors. We call these mis-types "bugs".
+> Let's go through some common ones. The most important things to remember are:
+> 1. The order of parentheses, quotes, commas, and plusses matters.
+> 1. Sometimes you accidentally forget a plus where you need one or include one where you don't.
+>
+> For each of the examples below, figure out what the bug is and how to fix it. 
+> Feel free to copy/paste into RStudio to help you figure it out.
+> 
+> {: .source}
+> > ## Solution
+> > ```{r plotErrors, eval = FALSE}
+> >  gdp_vs_life <- ggplot(data = gapminder_1997) +
+> >  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+> >  geom_point() +
+> >  scale_color_brewer(palette = "Set1") +
+> >  labs(x = "GDP Per Capita", y = "Life Expectancy",
+> >    title = "Do people in wealthy countries live longer?", size = "Population (in millions)")
+> > ```
+> > {: .source}
+> {: .solution}
+{: .challenge}
+
+
+
 # Plotting for data exploration
 _[Back to top](#contents)_
 
