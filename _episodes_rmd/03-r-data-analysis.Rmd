@@ -33,20 +33,37 @@ knitr_fig_path("03-")
     -   [Changing the shape of the data](#changing-the-shape-of-the-data)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 
-# Plotting review
+# Day 1 review
 
-First, navigate to the un-reports directory however you'd like and open `un-report.Rproj`.
+#### Opening your Rproject in RStudio.
+
+First, navigate to the `un-reports` directory however you'd like and open `un-report.Rproj`.
 This should open the un-report R project in RStudio.
-You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory.
+You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory. 
 
-The very first step is to read in the gapminder dataset, so do that first! Also load the `tidyverse` package.
+#### Creating a new R script.
+
+Then create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". Save this file as `un_data_analysis.R`. 
+
+#### Loading your data.
+
+Start by importing the complete gapminder dataset that we used yesterday into our fresh new R session: `gapminder_data <- read_csv('data/gapminder_data.csv')`.
+
+What error do you get and why? Fix the code so you don't get an error and read in the gapminder dataset.
 
 > ## Solution
+>
+> If we look in the console now, we'll see we've received an error message saying that R "could not find the function `read_csv()`". *Hint: Packages...*
+> What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It's important to remember that you will need to load any packages you want to use into R each time you start a new session. The `read_csv` function comes from the `readr` package which is included in the `tidyverse` package so we will just load the `tidyverse` package and run the import code again:
 > ```{r}
 > library(tidyverse)
-> gapminder <- read_csv('data/gapminder_data.csv')
+> gapminder_data <- read_csv('data/gapminder_data.csv')
 > ```
+> As we saw yesterday, the output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org). 
+> 
+> **Reminder:** Many of these packages, including `dplyr` , come with "Cheatsheets" found under the **Help** RStudio menu tab.
 {: .solution}
+
 #### Investigating population over time.
 _[Back to top](#contents)_
 
@@ -60,65 +77,29 @@ Next, make a scatter plot of year vs. population, separated into a plot for each
 > ```
 {: .solution}
 
-It seems like there are a couple outliers. By the end of today, we'll be able to identify what countries those are and how to exclude them from the plot. 
+It seems like there are a couple outliers. By the end of today, we'll be able to identify what countries those are. 
 
-# Getting Started
+# Overview of the lesson
 _[Back to top](#contents)_
 
 Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the `dplyr` package.
 
-First, we will create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". We will save this file as `un_data_analysis.R`
-
-### Loading in the data
-
-We will start by importing the complete gapminder dataset that we used yesterday into our fresh new R session. Yesterday we did this using a "point-and-click" commands. Today let's type them into the console ourselves: `gapminder_data <- read_csv("data/gapminder_data.csv")`
-
-> ## Exercise
->
-> If we look in the console now, we'll see we've received an error message saying that R "could not find the function `read_csv()`". *Hint: Packages...*
->
-> > ## Solution
-> >
-> > What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It's important to remember that you will need to load any packages you want to use into R each time you start a new session. The `read_csv` function comes from the `readr` package which is included in the `tidyverse` package so we will just load the `tidyverse` package and run the import code again.
-> {: .solution}
-{: .challenge}
-
-Now that we know what's wrong, We will use the `read_csv()` function from the Tidyverse `readr` package. Load the `tidyverse` package and gapminder dataset using the code below.
-
-```{r InitDplyr}
-library(tidyverse)
-```
-
-The output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org)
-
-> **Reminder:** Many of these packages, including `dplyr` , come with "Cheatsheets" found under the **Help** RStudio menu tab.
-
-Reload your data:
-
-```{r ReloadGapminder}
-gapminder_data <- read_csv("data/gapminder_data.csv")
-```
-
-Notice that the output of the `read_csv()` function is pretty informative. It tells us the name of all of our column headers as well as how it interpreted the data type. This birds-eye-view can help you take a quick look that everything is how we expect it to be.
-
-Now we have the tools necessary to work through this lesson.
-
 # An introduction to data analysis in R using `dplyr` {#intro-data-analysis}
 
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
-
 [*Back to top*](#contents)
 
 Let's say we would like to know what is the mean (average) life expecteny in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our lifeExp column using the `summarize()` function. Here's what that looks like:
+
 ```{r AvgLifeExp}
 summarize(gapminder_data, averageLifeExp=mean(lifeExp))
 ```
 
 When we call `summarize()`, we can use any of the column names of our data object as values to pass to other functions. `summarize()` will return a new data object and our value will be returned as a column.
 
-> **Note:** The `summarize()` and `summarise()` perform identical functions.
+> **Note:** The `summarize()` and `summarise()` functions perform identical functions.
 
-We name this new column so we can use in a future argument. So the `averageLifeExp=` part tells `summarize()` to use "averageLifeExp" as the name of the new column. Note that you don't have to quotes around this new name as long as it starts with a letter and doesn't include a space.
+We name this new column so we can use in a future argument. So the `averageLifeExp=` part tells `summarize()` to use "averageLifeExp" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
 
 Instead of including the data as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. 
 
@@ -151,7 +132,7 @@ Since we use the pipe operator so often, there is a keyboard shortcut for it in 
 > gapminder_data_summarized <- gapminder_data %>%
 >   summarize(averageLifeExp=mean(lifeExp))
 > ```
-> Or if we want to change `gapminder_data` itself: 
+> Or if we want to change `gapminder_data` itself (DON'T RUN THIS): 
 > ```{r overwriteDF, eval = FALSE}
 > gapminder_data <- gapminder_data %>%
 >   summarize(averageLifeExp=mean(lifeExp))
@@ -163,7 +144,6 @@ Since we use the pipe operator so often, there is a keyboard shortcut for it in 
 {: .callout}
 
 ## Narrow down rows with `filter()` {#narrow-down-rows-with-filter}
-
 [*Back to top*](#contents)
 
 Let's take a look at the value we just calculated, which tells us the average life expectancy for all rows in the data was 59.5. That seems a bit low, doesn't it? What's going on?
@@ -207,7 +187,7 @@ gapminder_data %>%
 > > summarize(first_year=min(year))
 > > ```
 > >
-> > We see here that the first year in the dataset is 1952. Filter to only 1952, and determin the average GDP per capita.
+> > We see here that the first year in the dataset is 1952. Filter to only 1952, and determine the average GDP per capita.
 > >
 > > ```{r FilterChallenge2}
 > > gapminder_data %>%
@@ -225,7 +205,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 
 [*Back to top*](#contents)
 
-We see that the life expectancy in 2007 is much larger than the value we got using all of the rows. It seems life expectancy is increasing which is good news. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
+We see that the life expectancy in 2007 is much larger than the value we got using all of the rows. It seems like life expectancy is increasing which is good news. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
 
 ```{r GapLifeExpByYear}
 gapminder_data %>%
@@ -233,7 +213,7 @@ gapminder_data %>%
   summarize(average=mean(lifeExp))
 ```
 
-The `group_by()` function expects you to pass in the name of a column (or multiple columns separated by comma) in your data. 
+The `group_by()` function expects you to pass in the name of a column (or multiple columns separated by commas) in your data. 
 
 Note that you might get a message about the summarize function regrouping the output by 'year'. This simply indicates what the function is grouping by. 
 
@@ -264,7 +244,6 @@ gapminder_data %>%
 
 
 ## Make new variables with `mutate()` {#make-new-variables-with-mutate}
-
 [*Back to top*](#contents)
 
 Each time we ran `summarize()`, we got back fewer rows than passed in. We either got one row back, or one row per group. But sometimes we want to create a new column in our data without changing the number of rows. The function we use to create new columns is called `mutate()`.
@@ -279,7 +258,7 @@ gapminder_data %>%
 This will add a new column called "gdp" to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with `summarize()`
 
 > ## `mutate()`
-> We can also multiply by constants or other numbers using mutate - remember how in the plotting lesson we made a plot with population in millions? Try making a new column for this dataframe called popInMillions that is the population in million. 
+> We can also multiply by constants or other numbers using mutate - remember how in the plotting lesson we made a plot with population in millions? Try making a new column for this dataframe called popInMillions that is the population in millions. 
 > 
 > > ## Solution: 
 > > ```{r mutateExercise}  
@@ -338,7 +317,7 @@ gapminder_data %>%
 >
 > > ## Using `select()` with a helper function
 > >
-> > Find a helper function on the help page that will choose all the columns that have "p" as their last letter (ie: "pop","lifeExp","gdpPerCap")
+> > Find a helper function on the help page that will choose all the columns that have "p" as their last letter (i.e.: "pop","lifeExp","gdpPerCap")
 > >
 > > > ## Solution
 > > >
@@ -365,15 +344,69 @@ The `tidyr` package contains the functions `pivot_wider` and `pivot_longer` that
 ```{r PivotWider}
 gapminder_data %>%
   select(country, continent, year, lifeExp) %>%
-  pivot_wider(names_from = year, values_from = lifeExp )
+  pivot_wider(names_from = year, values_from = lifeExp)
 ```
 
 Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the lifeExp variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
 
+## Plotting wide data
+
+Let's make a plot with our wide data comparing life expectancy in 1952 to life expectancy in 2007 to see whether life expectancy has increased for all countries.
+
+```{r}
+gapminder_data %>%
+  select(country, continent, year, lifeExp) %>%
+  pivot_wider(names_from = year, values_from = lifeExp) %>% 
+  ggplot(aes(x = 1952, y = 2007)) +
+  geom_point()
+```
+
+Hmm that's not what we want. `ggplot` just plotted the numbers 1952 and 2007 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
+
+```{r}
+gapminder_data %>%
+  select(country, continent, year, lifeExp) %>%
+  pivot_wider(names_from = year, values_from = lifeExp, names_prefix = 'y') %>% 
+  ggplot(aes(x = y1952, y = y2007)) +
+  geom_point()
+```
+
+That's better, but the different ranges on the x and y axis make it hard to compare the points. 
+Let's fix that by adding a line at y=x. 
+
+```{r}
+gapminder_data %>%
+  select(country, continent, year, lifeExp) %>%
+  pivot_wider(names_from = year, values_from = lifeExp) %>% 
+  ggplot(aes(x = `1952`, y = `2007`)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1)
+```
+
+It seems like there are a couple countries where life expectancy has decreased since 1952. Let's figure out which those are!
+
+> ## Bonus: Identifying countries with a lower life expectancy in 2007 than 1952
+>
+> Use what you've learned from today to figure out which countries had a lower life expectancy in 2007 than 1952. 
+> 
+> > ## Solution
+> > ```{r}
+> > gapminder_data %>%
+> >   select(country, continent, year, lifeExp) %>% # select the columns you want to keep
+> >   pivot_wider(names_from = year, values_from = lifeExp, names_prefix = 'y') %>% # pivot wider
+> >   mutate(diff = y2007 - y1952) %>% # find the difference between the years of interest
+> >   select(country, continent, diff) %>% # select the columns of interest
+> >   filter(diff < 0) # filter to ones where the difference is less than zero
+> > ```
+> {: .solution}
+{: .challenge}
+
+## Creating a new dataset
+
 Before we move on to more data cleaning, let's create the final gapminder dataframe we will be working with for the rest of the lesson! 
 
 > ## Final Americas 2007 gapminder dataset
-> Read in the `gapminder_data.csv` file, filter out the year 2007 and the continent "Americas." Then drop the `year` and `continent` columns from the dataframe. Then save the new dataframe into a variable called `gapminder_data_2007`. 
+> Read in the `gapminder_data.csv` file, filter to include only the year 2007 and the continent "Americas." Then drop the `year` and `continent` columns from the dataframe. Then save the new dataframe into a variable called `gapminder_data_2007`. 
 > 
 > > ## Solution: 
 > > ```{r LoadGapminder2007_solution}
