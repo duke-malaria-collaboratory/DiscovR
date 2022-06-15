@@ -41,7 +41,7 @@ _[Back to top](#contents)_
 In this session we will be testing the hypothesis that a country's life expectancy is related to the total value of its finished goods and services, also known as the Gross Domestic Product (GDP).
 To test this hypothesis, we'll need two things: data and a platform to analyze the data.
 
-You already [downloaded the data]({{ page.root }}/setup.html). But what platform will we use to analyze the data? We have many options!
+You already [have the data]({{ page.root }}/setup.html). But what platform will we use to analyze the data? We have many options!
 
 We could try to use a spreadsheet program like Microsoft Excel or Google sheets that have limited access, less flexibility, and don't easily allow for things that are critical to ["reproducible" research](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285), like easily sharing the steps used to explore and make changes to the original data.
 
@@ -55,9 +55,9 @@ Instead, we'll use a more general programming language to test our hypothesis. T
 >
 {: .solution}
 
-To run R, all you really need is the R program, which is available for computers running the Windows, Mac OS X, or Linux operating systems. You downloaded R while getting [set up]({{ page.root }}/setup.html) for this workshop.
+To run R, all you really need is the R program, which is available for computers running the Windows, Mac OS X, or Linux operating systems. You installed R while getting [set up]({{ page.root }}/setup.html) for this workshop.
 
-To make your life in R easier, there is a great (and free!) program called RStudio that you also downloaded and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
+To make your life in R easier, there is a great (and free!) program called RStudio that you also installed and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
 
 > ## The tidyverse vs Base R
 > If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
@@ -136,7 +136,7 @@ library(tidyverse)
 
 
 ~~~
-── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 ~~~
 {: .output}
 
@@ -153,42 +153,7 @@ library(tidyverse)
 
 
 ~~~
-Warning: package 'ggplot2' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'tibble' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'tidyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'readr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: package 'dplyr' was built under R version 4.1.2
-~~~
-{: .warning}
-
-
-
-~~~
-── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ~~~
@@ -279,7 +244,7 @@ gapminder_1997 <- read_csv("gapminder_1997.csv")
 
 ~~~
 Rows: 142 Columns: 5
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (3): pop, lifeExp, gdpPercap
@@ -410,7 +375,7 @@ Do all functions need arguments? Let's test some other functions:
 
 
 ~~~
-[1] "2022-05-16"
+[1] "2022-06-15"
 ~~~
 {: .output}
 
@@ -424,7 +389,7 @@ Do all functions need arguments? Let's test some other functions:
 
 
 ~~~
-[1] "/Users/zenalapp/Desktop/DiscovR/_episodes_rmd"
+[1] "/home/runner/work/DiscovR/DiscovR/_episodes_rmd"
 ~~~
 {: .output}
 
@@ -475,7 +440,7 @@ read_csv(file = 'gapminder_1997.csv')
 
 ~~~
 Rows: 142 Columns: 5
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (3): pop, lifeExp, gdpPercap
@@ -550,7 +515,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "2022-05-16"
+> [1] "2022-06-15"
 > ~~~
 > {: .output}
 > 
@@ -564,7 +529,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "/Users/zenalapp/Desktop/DiscovR/_episodes_rmd"
+> [1] "/home/runner/work/DiscovR/DiscovR/_episodes_rmd"
 > ~~~
 > {: .output}
 > 
@@ -592,7 +557,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> Error: 'gapminder_1997.csv' does not exist in current working directory ('/Users/zenalapp/Desktop/DiscovR/_episodes_rmd').
+> Error: 'gapminder_1997.csv' does not exist in current working directory ('/home/runner/work/DiscovR/DiscovR/_episodes_rmd').
 > ~~~
 > {: .error}
 {: .callout}
