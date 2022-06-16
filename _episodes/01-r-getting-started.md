@@ -3,7 +3,7 @@
 # Instead, please edit 01-r-getting-started.md in _episodes_rmd/
 source: Rmd
 title: "Getting Started with R"
-teaching: 30
+teaching: 90
 exercises: 15
 questions:
 - "What are R and R Studio?"
@@ -167,7 +167,7 @@ In this case, the message tells us zero arguments were passed to the function, b
 Many functions, including `sqrt`, require additional pieces of information to do their job. 
 We call these additional values "arguments" or "parameters." 
 You pass **arguments** to a function by placing values in between the parenthesis. 
-A function takes in these arguments and does a bunch of "magic" behind the scenes to output something we're interested in.
+A function takes in these arguments and works behind the scenes to output something we're interested in.
 
 For example, we want to provide a number to `sqrt()`, namely the number we want the square root of: 
 
@@ -228,7 +228,7 @@ Why did this round to three? What if we want it to round to a different number o
 > help page in the **Help** viewer in the lower right corner of RStudio. You can
 > also type `?` followed by the function name in the console.
 >
-> For example, try running `?round`. A help page should pop up with
+> For example, try running `?round` in the console. A help page should pop up with
 > information about what the function is used for and how to use it, as well as
 > useful examples of the function in action. As you can see, 
 `round()` has two arguments: the numeric input and the number of digits to round to.
@@ -268,26 +268,24 @@ round(3.14159, 2)
 > ## Position of the arguments in functions
 > Which of the following lines of code will give you an output of 3.14? For the one(s) that don't give you 3.14, what do they give you?
 >
-> 
-> ~~~
-> round(x = 3.1415)
-> round("3.14159", 2)
-> round(x = 3.1415, digits = 2)
-> round(digits = 2, x = 3.1415)
-> round(2, 3.1415)
-> ~~~
-> {: .language-r}
-> {: .source}
+> 1. `round(x = 3.1415)`
+> 1. `round(x = 3.1415, digits = 2)`
+> 1. `round(digits = 2, x = 3.1415)`
+> 1. `round(2, 3.1415)`
+> 1. `round(3.14159265, 2)`
 >
 > > ## Solution
-> > The 2nd and 3rd lines will give you the right answer because the arguments are named, and when you use names the order doesn't matter. The 1st line will give you 3 because the default number of digits is 0. Then 4th line will give you 2 because, since you didn't name the arguments, x=2 and digits=3.1415.
+> > - The 1st line will give you 3 because the default number of digits is 0. 
+> > - The 2nd and 3rd lines will give you the right answer because the arguments are named, and when you use names the order doesn't matter. 
+> > - The 4th line will give you 2 because, since you didn't name the arguments, x=2 and digits=3.1415.
+> > - The 5th line will also give you the right answer because the arguments are in the correct order. 
 > {: .solution}
 {: .challenge}
 
 > ## Bonus Exercise: taking logarithms
 > Calculate the following:
 > 1. Natural log (ln) of 10
-> 1. Log base 10 of 10 (extra points if you can do this in 2 different ways), and 
+> 1. Log base 10 of 10 (challenge: try to do this 2 different ways), and 
 > 1. Log base 3 of 10
 >
 > > ## Solution
@@ -460,6 +458,52 @@ The values don't update automatically like in a spreadsheet.
 > > Notice that we get an error when we try to assign values to `1number` and `favorite number`. This is because we cannot start an object name with a numeral and we cannot have spaces in object names. The object `Flower` still holds "marigold." This is because R is case-sensitive, so running `flower <- "rose"` does NOT change the `Flower` object. This can get confusing, and is why we generally avoid having objects with the same name and different capitalization.
 > {: .solution}
 {: .challenge}
+
+> ## Getting unstuck
+> Sometimes you may accidentally run a line of code that isn't quite complete yet. For instance:
+> 
+> ~~~
+> my_number <- 
+> ~~~
+> {: .language-r}
+> What happens when you run this? In your console at the bottom of your screen, you may see a `+`
+> instead of a `>` at the beginning of the line. This means that R is waiting for more information.
+> In this case, it's because it doesn't know what you want to store in `my_number`. You can do one of
+> two things if this happens - finish the command you want to type (e.g. by entering a number), or
+> hit the escape key to get unstuck. 
+{: .callout}
+
+> ## Quotes vs. No Quotes
+Let's say we wanted to print out a word:
+> 
+> 
+> ~~~
+> tree
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in eval(expr, envir, enclos): object 'tree' not found
+> ~~~
+> {: .error}
+> 
+> You'll notice that we get an error, that the object 'tree' is not found.
+> This is because R is looking for an object called `tree`. But what we really want is to just  print out the word "tree". To do this, we put the word in quotes (single or double) so R knows that it's not an object it needs to look for:
+> 
+> ~~~
+> "tree"
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] "tree"
+> ~~~
+> {: .output}
+> {: .callout}
 
 # Glossary of terms
 _[Back to top](#contents)_

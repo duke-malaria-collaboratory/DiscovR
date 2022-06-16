@@ -4,7 +4,7 @@
 source: Rmd
 title: "R for Plotting"
 teaching: 90
-exercises: 20
+exercises: 15
 questions:
 - "How do I read data into R?"
 - "What are geometries and aesthetics?"
@@ -17,7 +17,7 @@ objectives:
 - "To be able to save plots to a local directory."
 keypoints:
 - "Use `read_csv()` to read tabular data in R."
-- "Geometries are the visual elements drawn on data visualizations (lines, points, etc.), and aesthetics are the visual properties of those geometries (color, position, etc.)."
+- "Geometries are the visual elements drawn on data visualizations (lines, points, etc.), and aesthetics are the visual properties of those geometries that are assigned to variables in the data (color, position, etc.)."
 - "Use `ggplot()` and geoms to create data visualizations, and save them using `ggsave()`."
 ---
 
@@ -39,6 +39,8 @@ keypoints:
     + [Color vs. Fill](#color-vs-fill)
     + [Layers](#layers)
     + [Univariate plots](#univariate-plots)
+      + [Univariate continuous](#univariate-continuous)
+      + [Univariate discrete](#univariate-discrete)
     + [Plot themes](#plot-themes)
     + [Facets](#facets)
 1. [Creating and saving your own plot](#creating-and-saving-your-own-plot)
@@ -53,7 +55,7 @@ keypoints:
 > If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
 {: .callout}
 
-First, we're going to load the tidyverse, which contains a set of useful functions that makes it easier for us to do complex analyses and create professional visualizations in R. The way we access alk these useful functions functions is by running the following command:
+First, we're going to load the tidyverse package. Packages are useful because they contain pre-made functions to do specific tasks. Tidyverse contains a set of functions that makes it easier for us to do complex analyses and create professional visualizations in R. The way we access all of these useful functions functions is by running the following command:
 
 
 ~~~
@@ -95,13 +97,15 @@ This function takes a file path and returns a tibble, which is basically a table
 
 
 ~~~
-gapminder_1997 <- read_csv("gapminder_1997.csv")
+gapminder_1997 <- read_csv("data/gapminder_1997.csv")
 ~~~
 {: .language-r}
 
+
+
 ~~~
 Rows: 142 Columns: 5
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (3): pop, lifeExp, gdpPercap
@@ -205,11 +209,11 @@ from the `gapminder_1997` object that we've loaded into R. We've done this by
 calling the `ggplot()` function with `gapminder_1997` as the `data` argument.
 
 So we've made a plot object, now we need to start telling it what we actually
-want to draw in this plot. The elements of a plot have a bunch of properties
-like an x and y position, a size, a color, etc. These properties are called
-**aesthetics**. When creating a data visualization, we  map a variable in our
-dataset to an aesthetic in our plot. In ggplot, we can do this by creating an
-"aesthetic mapping", which we do with the `aes()` function.
+want to draw in this plot. The elements of a plot have a bunch of properties 
+like an x and y position, a size, a color, etc. When creating a data visualization, 
+we can map variables in our dataset to these properties, called **aesthetics**, in our plot. 
+In ggplot, we can do this by creating an "aesthetic mapping", which we do with the 
+`aes()` function.
 
 To create our plot, we need to map variables from our `gapminder_1997` object to
 ggplot aesthetics using the `aes()` function. Since we have already told
@@ -257,7 +261,7 @@ ggplot(data = gapminder_1997) +
 
 OK. That looks better. 
 
-> ## Quotes vs No Quotes
+> ## Quotes vs. No Quotes (refresher)
 > Notice that when we added the label value we did so by placing the values
 > inside quotes. This is because we are not using a value from inside our data
 > object - we are providing the name directly. When you need to include actual
@@ -293,7 +297,7 @@ OK. That looks better.
 Excellent. We've now told our plot object where the x and y values are coming
 from and what they stand for. But we haven't told our object how we want it to
 draw the data. There are many different plot types (bar charts, scatter plots,
-histograms, etc). We tell our plot object what to draw by adding a "geometry"
+histograms, etc). We tell our plot object what to draw by adding a **geometry**
 ("geom" for short) to our object. We will talk about many different geometries
 today, but for our first plot, let's draw our data using the "points" geometry
 for each value in the data set. To do this, we add `geom_point()` to our plot
@@ -610,6 +614,52 @@ ggsave(filename = "figures/gdp_vs_life.png", plot = gdp_vs_life, width=6, height
 {: .language-r}
 
 
+~~~
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+  geom_point() +
+  scale_color_brewer(palette = "Set1") +
+  labs(x = "GDP Per Capita", y = "Life Expectancy",
+    title = "Do people in wealthy countries live longer?", size = "Population (in millions)")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-02-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+
+
+> ## Understanding common errors
+> Sometimes you accidentally type things wrong and get errors. We call these mis-types "bugs".
+> Let's go through some common ones. The most important things to remember are:
+> 1. The order of parentheses, quotes, commas, and plusses matters.
+> 1. Sometimes you accidentally forget a plus where you need one or include one where you don't.
+>
+> For each of the examples below, figure out what the bug is and how to fix it. 
+> Feel free to copy/paste into RStudio to help you figure it out.
+> 
+> 
+> ~~~
+> # Bug 1
+> ~~~
+> {: .language-r}
+> 
+> {: .source}
+> > ## Solution
+> > 
+> > ~~~
+> >  gdp_vs_life <- ggplot(data = gapminder_1997) +
+> >  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+> >  geom_point() +
+> >  scale_color_brewer(palette = "Set1") +
+> >  labs(x = "GDP Per Capita", y = "Life Expectancy",
+> >    title = "Do people in wealthy countries live longer?", size = "Population (in millions)")
+> > ~~~
+> > {: .language-r}
+> > {: .source}
+> {: .solution}
+{: .challenge}
+
+
+
 # Plotting for data exploration
 _[Back to top](#contents)_
 
@@ -630,7 +680,7 @@ To start, we will read in the data without using the interactive RStudio file na
 
 ~~~
 Rows: 1704 Columns: 6
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -793,9 +843,9 @@ base_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
 
-So far we've only been adding one geom to each plot, but each plot object can actually contain multiple layers and each layer has it's own geom. Let's start with a basic violin plot:
+So far we've only been adding one geom to each plot, but each plot object can actually contain multiple layers and each layer has it's own geom. Let's start with a basic boxplot:
 
 
 ~~~
@@ -814,7 +864,7 @@ base_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
 
 It still doesn't have the boxplots because we didn't update the `base_plot` object. 
 
@@ -831,7 +881,7 @@ base_plot +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
 Well, that didn't get all that colorful. That's because objects like these boxplots have two different parts that have a color: the shape outline, and the inner part of the shape. For geoms that have an inner part, you change the fill color with `fill=` rather than `color=`, so let's try that instead:
 
@@ -843,7 +893,7 @@ base_plot +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
 Let's say we want to change the fill of our plots, but to all the same color. Maybe we want our boxplots to be "cadetblue". Let's try it out:
 
@@ -966,14 +1016,18 @@ Nice! Both `geom_boxplot` and `geom_point` will inherit the default values of `a
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-02-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-02-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 {: .callout}
 
 
 ## Univariate Plots
 _[Back to top](#contents)_
 
-We jumped right into make plots with multiple columns. But what if we wanted to take a look at just one column? In that case, we only need to specify a mapping for `x` and choose an appropriate geom. Let's start with a [histogram](https://www.thoughtco.com/what-is-a-histogram-3126359) to see the range and spread of the life expectancy values
+We jumped right into make plots with multiple columns. But what if we wanted to take a look at just one column? In that case, we only need to specify a mapping for `x` and choose an appropriate geom. 
+
+### Univariate continuous
+
+Let's start with a [histogram](https://www.thoughtco.com/what-is-a-histogram-3126359) to see the range and spread of the life expectancy values
 
 
 ~~~
@@ -1007,7 +1061,7 @@ ggplot(gapminder_1997) +
 Try different values like 5 or 50 to see how the plot changes.
 
 > ## Bonus Exercise: One variable plots
-> Rather than a histogram, choose one of the other geometries listed under "One Variable" plots on the ggplot [cheat sheet](https://ggplot2.tidyverse.org/). Note that we used `lifeExp` here which has continuous values. If you want to try the discrete options, try mapping `continent` to x instead.
+> Rather than a histogram, choose one of the other geometries listed under "One Variable" continuous plots on the ggplot [cheat sheet](https://ggplot2.tidyverse.org/). 
 >
 > > ## Example solution
 > > 
@@ -1019,6 +1073,26 @@ Try different values like 5 or 50 to see how the plot changes.
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-02-GapLifeDens1-1.png" title="plot of chunk GapLifeDens1" alt="plot of chunk GapLifeDens1" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
+
+### Univariate discrete
+
+What if we want to plot a univariate discrete variable, like continent? For this, we can use a bar chart. 
+
+> ## Exercise: Discrete univariate plots
+> Create a bar plot of `continent`. You can try guessing the geom or look it up on the cheat sheet or Internet. 
+>
+> > ## Example solution
+> > 
+> > ~~~
+> > ggplot(gapminder_1997) +
+> >   aes(x = continent) +
+> >   geom_bar()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-02-barplot-1.png" title="plot of chunk barplot" alt="plot of chunk barplot" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

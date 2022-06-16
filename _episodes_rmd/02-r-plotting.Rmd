@@ -2,7 +2,7 @@
 source: Rmd
 title: "R for Plotting"
 teaching: 90
-exercises: 20
+exercises: 15
 questions:
 - "How do I read data into R?"
 - "What are geometries and aesthetics?"
@@ -15,7 +15,7 @@ objectives:
 - "To be able to save plots to a local directory."
 keypoints:
 - "Use `read_csv()` to read tabular data in R."
-- "Geometries are the visual elements drawn on data visualizations (lines, points, etc.), and aesthetics are the visual properties of those geometries (color, position, etc.)."
+- "Geometries are the visual elements drawn on data visualizations (lines, points, etc.), and aesthetics are the visual properties of those geometries that are assigned to variables in the data (color, position, etc.)."
 - "Use `ggplot()` and geoms to create data visualizations, and save them using `ggsave()`."
 ---
 
@@ -43,6 +43,8 @@ set.seed(20210109)
     + [Color vs. Fill](#color-vs-fill)
     + [Layers](#layers)
     + [Univariate plots](#univariate-plots)
+      + [Univariate continuous](#univariate-continuous)
+      + [Univariate discrete](#univariate-discrete)
     + [Plot themes](#plot-themes)
     + [Facets](#facets)
 1. [Creating and saving your own plot](#creating-and-saving-your-own-plot)
@@ -60,7 +62,7 @@ gapminder_1997 <- read_csv("data/gapminder_1997.csv")
 > If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
 {: .callout}
 
-First, we're going to load the tidyverse, which contains a set of useful functions that makes it easier for us to do complex analyses and create professional visualizations in R. The way we access all these useful functions functions is by running the following command:
+First, we're going to load the tidyverse package. Packages are useful because they contain pre-made functions to do specific tasks. Tidyverse contains a set of functions that makes it easier for us to do complex analyses and create professional visualizations in R. The way we access all of these useful functions functions is by running the following command:
 
 ```{r}
 library(tidyverse)
@@ -98,10 +100,7 @@ We're going to use the `read_csv()` function that we loaded in with the tidyvers
 and save it to `gapminder_1997`, which will act as a placeholder for our data.
 This function takes a file path and returns a tibble, which is basically a table (that we sometimes call a data frame...).
 
-```{r consoleReadEcho, eval = FALSE}
-gapminder_1997 <- read_csv("gapminder_1997.csv")
-```
-```{r consoleReadEval, echo = FALSE}
+```{r consoleReadEval}
 gapminder_1997 <- read_csv("data/gapminder_1997.csv")
 ```
 
@@ -173,11 +172,11 @@ from the `gapminder_1997` object that we've loaded into R. We've done this by
 calling the `ggplot()` function with `gapminder_1997` as the `data` argument.
 
 So we've made a plot object, now we need to start telling it what we actually
-want to draw in this plot. The elements of a plot have a bunch of properties
-like an x and y position, a size, a color, etc. These properties are called
-**aesthetics**. When creating a data visualization, we  map a variable in our
-dataset to an aesthetic in our plot. In ggplot, we can do this by creating an
-"aesthetic mapping", which we do with the `aes()` function.
+want to draw in this plot. The elements of a plot have a bunch of properties 
+like an x and y position, a size, a color, etc. When creating a data visualization, 
+we can map variables in our dataset to these properties, called **aesthetics**, in our plot. 
+In ggplot, we can do this by creating an "aesthetic mapping", which we do with the 
+`aes()` function.
 
 To create our plot, we need to map variables from our `gapminder_1997` object to
 ggplot aesthetics using the `aes()` function. Since we have already told
@@ -217,7 +216,7 @@ ggplot(data = gapminder_1997) +
 
 OK. That looks better. 
 
-> ## Quotes vs No Quotes
+> ## Quotes vs. No Quotes (refresher)
 > Notice that when we added the label value we did so by placing the values
 > inside quotes. This is because we are not using a value from inside our data
 > object - we are providing the name directly. When you need to include actual
@@ -249,7 +248,7 @@ OK. That looks better.
 Excellent. We've now told our plot object where the x and y values are coming
 from and what they stand for. But we haven't told our object how we want it to
 draw the data. There are many different plot types (bar charts, scatter plots,
-histograms, etc). We tell our plot object what to draw by adding a "geometry"
+histograms, etc). We tell our plot object what to draw by adding a **geometry**
 ("geom" for short) to our object. We will talk about many different geometries
 today, but for our first plot, let's draw our data using the "points" geometry
 for each value in the data set. To do this, we add `geom_point()` to our plot
@@ -689,7 +688,7 @@ base_plot <- ggplot(data = gapminder_1997) +
 base_plot
 ```
 
-So far we've only been adding one geom to each plot, but each plot object can actually contain multiple layers and each layer has it's own geom. Let's start with a basic violin plot:
+So far we've only been adding one geom to each plot, but each plot object can actually contain multiple layers and each layer has it's own geom. Let's start with a basic boxplot:
 
 ```{r GapViolin}
  base_plot +
@@ -815,7 +814,11 @@ Nice! Both `geom_boxplot` and `geom_point` will inherit the default values of `a
 ## Univariate Plots
 _[Back to top](#contents)_
 
-We jumped right into make plots with multiple columns. But what if we wanted to take a look at just one column? In that case, we only need to specify a mapping for `x` and choose an appropriate geom. Let's start with a [histogram](https://www.thoughtco.com/what-is-a-histogram-3126359) to see the range and spread of the life expectancy values
+We jumped right into make plots with multiple columns. But what if we wanted to take a look at just one column? In that case, we only need to specify a mapping for `x` and choose an appropriate geom. 
+
+### Univariate continuous
+
+Let's start with a [histogram](https://www.thoughtco.com/what-is-a-histogram-3126359) to see the range and spread of the life expectancy values
 
 ```{r GapLifeHist}
 ggplot(gapminder_1997) +
@@ -834,13 +837,29 @@ ggplot(gapminder_1997) +
 Try different values like 5 or 50 to see how the plot changes.
 
 > ## Bonus Exercise: One variable plots
-> Rather than a histogram, choose one of the other geometries listed under "One Variable" plots on the ggplot [cheat sheet](https://ggplot2.tidyverse.org/). Note that we used `lifeExp` here which has continuous values. If you want to try the discrete options, try mapping `continent` to x instead.
+> Rather than a histogram, choose one of the other geometries listed under "One Variable" continuous plots on the ggplot [cheat sheet](https://ggplot2.tidyverse.org/). 
 >
 > > ## Example solution
 > > ```{r GapLifeDens1}
 > > ggplot(gapminder_1997) +
 > >   aes(x = lifeExp) +
 > >   geom_density()
+> > ```
+> {: .solution}
+{: .challenge}
+
+### Univariate discrete
+
+What if we want to plot a univariate discrete variable, like continent? For this, we can use a bar chart. 
+
+> ## Exercise: Discrete univariate plots
+> Create a bar plot of `continent`. You can try guessing the geom or look it up on the cheat sheet or Internet. 
+>
+> > ## Example solution
+> > ```{r barplot}
+> > ggplot(gapminder_1997) +
+> >   aes(x = continent) +
+> >   geom_bar()
 > > ```
 > {: .solution}
 {: .challenge}
