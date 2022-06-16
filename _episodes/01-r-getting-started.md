@@ -476,7 +476,6 @@ The values don't update automatically like in a spreadsheet.
 > ## Quotes vs. No Quotes
 Let's say we wanted to print out a word:
 > 
-> 
 > ~~~
 > tree
 > ~~~
@@ -488,7 +487,6 @@ Let's say we wanted to print out a word:
 > Error in eval(expr, envir, enclos): object 'tree' not found
 > ~~~
 > {: .error}
-> 
 > You'll notice that we get an error, that the object 'tree' is not found.
 > This is because R is looking for an object called `tree`. But what we really want is to just  print out the word "tree". To do this, we put the word in quotes (single or double) so R knows that it's not an object it needs to look for:
 > 
@@ -503,7 +501,7 @@ Let's say we wanted to print out a word:
 > [1] "tree"
 > ~~~
 > {: .output}
-> {: .callout}
+{: .callout}
 
 # Glossary of terms
 _[Back to top](#contents)_
