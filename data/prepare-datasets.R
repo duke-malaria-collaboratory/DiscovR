@@ -8,14 +8,16 @@ library(readxl)
 smoking <- read_csv('data/raw/IHME_GBD_2019_SMOKING_TOB_1990_2019_PREV_Y2021M05D27.CSV') %>%
     filter(sex_name == 'Both') %>%
     select(-c(location_id, sex_id, age_group_id, measure_name, age_group_name, upper, lower, sex_name)) %>%
-    rename('smoking_prevalence' = 'val', 'country' = 'location_name', 'year' = 'year_id')
+    mutate(val = val*100) %>%
+    rename('smoke_pct' = 'val', 'country' = 'location_name', 'year' = 'year_id')
 
 # from https://vizhub.healthdata.org/gbd-results/
 # age-standardized; tracheal, bronchus, and lung cancer
 cancer <- read_csv('data/raw/IHME-GBD_2019_DATA-10dcfddc-1.csv') %>%
     filter(measure == 'Prevalence', sex == 'Both', age == 'Age-standardized', metric == 'Percent') %>%
     select(-c(measure, sex, age, cause, metric, upper, lower)) %>%
-    rename('lung_cancer_prevalence' = 'val', 'country' = 'location')
+    mutate(val = val*100) %>%
+    rename('lung_cancer_pct' = 'val', 'country' = 'location')
 
 # from https://data.worldbank.org/indicator/SP.POP.TOTL?end=2020&start=2020&view=map
 # population size of each country
@@ -66,9 +68,11 @@ dat <- left_join(cancer, smoking) %>%
     left_join(pop) %>%
     left_join(continent) %>%
     filter(!is.na(pop) & !is.na(continent)) %>%
-    select(country, continent, year, pop, smoking_prevalence, lung_cancer_prevalence)
+    select(country, continent, year, pop, smoke_pct, lung_cancer_pct)
 
 write_csv(dat, 'data/smoking_cancer.csv')
+
+dat %>% filter(year == 1990) %>% select(-year) %>% write_csv('data/smoking_cancer_1990.csv')
 
 ## Practice datsets
 
