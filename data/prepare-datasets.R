@@ -75,6 +75,7 @@ write_csv(dat, 'data/smoking_cancer.csv')
 dat %>% filter(year == 1990) %>% select(-year) %>% write_csv('data/smoking_cancer_1990.csv')
 
 # data for cleaning and merging
+# from https://ghdx.healthdata.org/record/global-burden-disease-study-2019-gbd-2019-air-pollution-exposure-estimates-1990-2019
 # ambient particulate matter pollution, micrograms per cubic meter
 # the id columns are redundant with other columns
 read_csv('data/raw/IHME_GBD_2019_AIR_POLLUTION_1990_2019_PM_Y2021M10D08.CSV') %>%

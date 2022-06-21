@@ -4,9 +4,22 @@ Below is more information about each of the datasets.
 
 ## Datasets used as examples during the workshop
 
-TODO: Update this once we decide what datasets to use for the main examples.
+1. For plotting and data analysis (file: `smoking_cancer.csv` and `smoking_cancer_1990.csv`):
+    a. [Percent of people who smoke by country](https://ghdx.healthdata.org/record/ihme-data/gbd-2019-smoking-tobacco-use-prevalence-1990-2019)
+        - Age-standardized; 15+ years
+        - Source: Gloal Burden of Disease 2019
+    a. [Percent of people who have lung cancer by country](https://vizhub.healthdata.org/gbd-results/)
+        - Age-standardized; tracheal, bronchus, and lung cancer
+        - Source: Gloal Burden of Disease 2019
+    a. [Population size by country](https://data.worldbank.org/indicator/SP.POP.TOTL?end=2020&start=2020&view=map)
+        - Source: World Bank
+    a. [Continent of each country](https://github.com/dbouquin/IS_608/blob/master/NanosatDB_munging/Countries-Continents.csv)
+        - Source: GitHub page
+1. For cleaning and merging data (file: `ambient_pollution.csv`)
+    a. [Air pollution](https://ghdx.healthdata.org/record/global-burden-disease-study-2019-gbd-2019-air-pollution-exposure-estimates-1990-2019)
+    a. Ambient particulate matter pollution (micrograms per cubic meter), micrograms per cubic meter
 
-## Datasets to use for practice
+## Datasets to use for practice (in `practice-datasets`)
 
 1. [Kenya healthcare facilities](https://data.humdata.org/dataset/kenya-health-facilities-in-kenya)
     a. File: `kenya-health-facilities-2017.csv`
