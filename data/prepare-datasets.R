@@ -58,7 +58,7 @@ continent <- read_csv('data/raw/Countries-Continents.csv') %>% rename_all(tolowe
            country = gsub('East Timor', 'Timor-Leste', country),
            country = gsub('^Tanzania$', 'United Republic of Tanzania', country))
 
-# create dataset
+# create main dataset
 dat <- left_join(cancer, smoking) %>%
     mutate(country = gsub(' \\(.*', '', country),
            country = gsub('Kyrgyzstan', 'Kyrgyz Republic', country),
@@ -73,6 +73,17 @@ dat <- left_join(cancer, smoking) %>%
 write_csv(dat, 'data/smoking_cancer.csv')
 
 dat %>% filter(year == 1990) %>% select(-year) %>% write_csv('data/smoking_cancer_1990.csv')
+
+# data for cleaning and merging
+# ambient particulate matter pollution, micrograms per cubic meter
+# the id columns are redundant with other columns
+read_csv('data/raw/IHME_GBD_2019_AIR_POLLUTION_1990_2019_PM_Y2021M10D08.CSV') %>%
+    select(-c(measure_id, measure_name, location_id, rei_id, rei_name, unit, mean, upper, lower)) %>%
+    mutate(location_name = gsub(' \\(.*','', location_name),
+           location_name = gsub('Czechia', 'Czech Republic', location_name),
+           location_name = gsub('Kyrgyzstan', 'Kyrgyz Republic', location_name)) %>% write_csv('data/ambient_pollution.csv')
+
+
 
 ## Practice datsets
 
