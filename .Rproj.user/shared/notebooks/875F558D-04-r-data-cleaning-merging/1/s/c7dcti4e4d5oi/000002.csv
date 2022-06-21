@@ -1,0 +1,7 @@
+"0","gapminder_co2 %>%"
+"0","  mutate(region = if_else(country == ""Canada"" |"
+"0","                            country == ""United States"" |"
+"0","                            country == ""Mexico"", ""north"", ""south"")) %>%"
+"0","  group_by(region) %>%"
+"0","  summarize(sumtotal = sum(total),"
+"0","            sumpop = sum(pop))"

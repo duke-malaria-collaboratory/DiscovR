@@ -1,0 +1,855 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2022-06-16 10:59:19 -0400">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    
+    <link rel="license" href="#license-info" />
+
+    
+
+
+
+    <!-- Favicons for everyone -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/assets/favicons/swc/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/favicons/swc/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/favicons/swc/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/favicons/swc/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/assets/favicons/swc/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/assets/favicons/swc/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/assets/favicons/swc/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/favicons/swc/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="Software Carpentry - DiscovR Workshop Curriculum"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="/assets/favicons/swc/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="/assets/favicons/swc/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="/assets/favicons/swc/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="/assets/favicons/swc/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="/assets/favicons/swc/mstile-310x310.png" />
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+  <title>
+  Writing Reports with R Markdown &ndash; DiscovR Workshop Curriculum
+  </title>  
+
+  </head>
+  <body>
+
+    
+
+
+<div class="panel panel-default life-cycle">
+  <div id="life-cycle" class="panel-body pre-alpha">
+    This lesson is still being designed and assembled (Pre-Alpha version)
+  </div>
+</div>
+
+
+
+
+
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      
+      
+      <a href="https://software-carpentry.org" class="pull-left">
+        <img class="navbar-logo" src="/assets/img/swc-icon-blue.svg" alt="Software Carpentry logo" />
+      </a>
+      
+
+      
+      <a class="navbar-brand" href="/index.html">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+	
+        <li><a href="/CODE_OF_CONDUCT.html">Code of Conduct</a></li>
+
+        
+	
+        <li><a href="/setup.html">Setup</a></li>
+
+        
+        
+        <li class="dropdown">
+          <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            
+            <li><a href="/00-intro/index.html">Introduction to The DiscovR Workshop</a></li>
+            
+            
+            <li><a href="/01-r-getting-started/index.html">Getting Started with R</a></li>
+            
+            
+            <li><a href="/02-r-plotting/index.html">R for Plotting</a></li>
+            
+            
+            <li><a href="/03-r-data-analysis/index.html">R for Data Analysis</a></li>
+            
+            
+            <li><a href="/04-r-data-cleaning-merging/index.html">R for Data Cleaning and Merging</a></li>
+            
+            
+            <li><a href="/05-r-markdown/index.html">Writing Reports with R Markdown</a></li>
+            
+            
+            <li><a href="/06-conclusion/index.html">Conclusion</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="/aio/index.html">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+        
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/reference.html">Reference</a></li>
+            
+            
+            
+              <li><a href="/about/index.html">About</a></li>
+            
+            
+            
+            
+              <li><a href="/guide/index.html">Instructor Notes</a></li>
+            
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="/LICENSE.html">License</a></li>
+	
+	
+	<li><a href="/edit//_episodes_rmd/05-r-markdown.Rmd" data-checker-ignore>Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="/04-r-data-cleaning-merging/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+    <h3 class="maintitle"><a href="/">DiscovR Workshop Curriculum</a></h3>
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="/06-conclusion/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+<article>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <h1 class="maintitle">Writing Reports with R Markdown</h1>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 105 min
+      <br/>
+      <strong>Exercises:</strong> 30 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>How can I make reproducible reports using R Markdown?</p>
+</li>
+	
+	<li><p>How do I format text using Markdown?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>To create a report in R Markdown that combines text, code, and figures.</p>
+</li>
+	
+	<li><p>To use Markdown to format our report.</p>
+</li>
+	
+	<li><p>To understand how to use R code chunks to include or hide code, figures, and messages.</p>
+</li>
+	
+	<li><p>To be aware of the various report formats that can be rendered using R Markdown.</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<h3 id="contents">Contents</h3>
+<ol>
+  <li><a href="#r-for-data-analysis-review">R for data analysis review</a></li>
+  <li><a href="#why-use-r-markdown">What is R Markdown and why use it?</a></li>
+  <li><a href="#creating-a-reports-directory">Creating a reports directory</a></li>
+  <li><a href="#creating-an-r-markdown-file">Creating an R Markdown file</a></li>
+  <li><a href="#basic-components-of-r-markdown">Basic components of R Markdown</a>
+    <ul>
+      <li><a href="#header">Header</a></li>
+      <li><a href="#code-chunks">Code chunks</a></li>
+      <li><a href="#text">Text</a></li>
+    </ul>
+  </li>
+  <li><a href="#starting-the-report">Starting the report</a></li>
+  <li><a href="#formatting">Formatting</a></li>
+  <li><a href="#applying-it-to-your-own-data">Applying it to your own data</a></li>
+</ol>
+
+<h2 id="r-for-data-analysis-review">R for data analysis review</h2>
+
+<p>Remember that yesterday we made a scatter plot of year vs. population, separated into a plot for each contient, 
+and that it had 2 outliers? Which countries are those?</p>
+
+<blockquote class="solution">
+  <h2 id="solution">Solution</h2>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">pop</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1e9</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">select</span><span class="p">(</span><span class="n">country</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">unique</span><span class="p">()</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in filter(., pop &gt; 1e+09): object 'gapminder' not found
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Next, plot year vs. population separated into a plot for each continent but excluding the 2 outlier countries.</p>
+
+<blockquote class="solution">
+  <h2 id="solution-1">Solution</h2>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">country</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">'China'</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">country</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">'India'</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">pop</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">facet_wrap</span><span class="p">(</span><span class="n">vars</span><span class="p">(</span><span class="n">continent</span><span class="p">))</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in filter(., country != "China" &amp; country != "India"): object 'gapminder' not found
+</code></pre></div>  </div>
+</blockquote>
+
+<h2 id="what-is-r-markdown-and-why-use-it-why-use-r-markdown">What is R Markdown and why use it? {##why-use-r-markdown}</h2>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>Recall that our  goal is to generate a report to the United Nations on how a country’s life expectancy is related to GDP.</p>
+
+<blockquote class="discussion">
+  <h2 id="discusion">Discusion</h2>
+  <p>How do you usually share data analyses with your collaborators? Many people share them through a Word or PDF document, a spreadsheet, slides, a  graphic, etc.</p>
+</blockquote>
+
+<p>In R Markdown, you can incorporate ordinary text (ex. experimental methods, analysis and discussion of results) alongside code and figures! (Some people write entire manuscripts in R Markdown.) This is useful for writing reproducible reports and publications, sharing work with collaborators, writing up homework, and keeping a bioinformatics notebook. Because the code is emedded in the document, the tables and figures are <em>reproducible</em>. Anyone can run the code and get the same results. If you find an error or want to add more to the report, you can just re-run the document and you’ll have updated tables and figures! This concept of combining text and code is called “literate programming”. To do this we use R Markdown, which combines Markdown (renders plain text) with R. You can output an html, PDF, or Word document that you can share with others. In fact, this webpage is an example of a rendered R markdown file!</p>
+
+<p>(If you are familiar with Jupyter notebooks in the Python programming environment, R Markdown is  R’s equivalent of a Jupyter notebook.)</p>
+
+<h2 id="creating-an-r-markdown-file">Creating an R Markdown file</h2>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>Now that we have a better understanding of what we can use R Markdown files for, let’s start writing a report!</p>
+
+<p>To create an R Markdown file:</p>
+<ul>
+  <li>Open RStudio</li>
+  <li>Go to File → New File → R Markdown</li>
+  <li>Give your document a title, something like “A UN Report on the Relationship between GDP and Life Expectancy” (Note: this is not the same as the file name - it’s just a title that will appear at the top of your report)</li>
+  <li>Keep the default output format as HTML.</li>
+  <li>R Markdown files always end in <code class="language-plaintext highlighter-rouge">.Rmd</code></li>
+</ul>
+
+<blockquote class="callout">
+  <h2 id="r-markdown-outputs">R Markdown Outputs</h2>
+  <p>The default output for an R Markdown report is HTML, but you can also use R Markdown to <a href="https://rmarkdown.rstudio.com/lesson-9.html">output other report formats</a>. For example, you can generate PDF reports using R Markdown, but you must <a href="https://www.latex-project.org/get/">install TeX</a> to do this.</p>
+
+</blockquote>
+
+<h2 id="basic-components-of-r-markdown">Basic components of R Markdown</h2>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<h3 id="header">Header</h3>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>The first part is a <em>header</em> at the top of the file between the lines of <code class="language-plaintext highlighter-rouge">---</code>. This contains instructions for R to specify the type of document to be created and options to choose (ex., title, author, date). These are in the form of key-value pairs (<code class="language-plaintext highlighter-rouge">key: value</code>; YAML).</p>
+
+<p>Here’s an example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+title: 'Writing Reports with R Markdown'
+author: "Zena Lapp"
+date: "11/18/2020"
+output: html_document
+---
+</code></pre></div></div>
+
+<h3 id="code-chunks">Code chunks</h3>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>The next section is a <em>code chunk</em>, or embedded R code, that sets up options for all code chunks. Here is the default when you create a new R Markdown file:</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = normalizePath("..")
+```
+</code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+</code></pre></div></div>
+
+<p>All code chunks have this format:</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r}
+# Your code here
+```
+</code></pre></div></div>
+
+<p>All of the code is enclosed in 3 back ticks (), and the <code class="language-plaintext highlighter-rouge">{r}</code> part indicates that it’s a chunk of R code.</p>
+
+<p>You can also include other information within the curly brackets to indicate different information about that code chunk.
+For instance, the first code block is named “setup”, and <code class="language-plaintext highlighter-rouge">include=FALSE</code> prevents code and results from showing up in the output file.</p>
+
+<p>Inside the code chunk, you can put any R code that you want to run, and you can have as many code chunks as you want in your file.</p>
+
+<p>As we mentioned above, in the first code chunk you set options for the entire file.
+<code class="language-plaintext highlighter-rouge">echo = TRUE</code> means that you want your code to be shown in the output file. If you change this to <code class="language-plaintext highlighter-rouge">echo = FALSE</code>, then the code will be hidden and only the output of the code chunks will be seen in the output file.
+There are also <a href="https://rmarkdown.rstudio.com/lesson-3.html">many other options that you can change</a>, but we won’t go into those details in this workshop.</p>
+
+<h3 id="text">Text</h3>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>Finally, you can include text in your R Markdown file.
+This is any text or explanation you want to include, and it’s formatted with Markdown.
+We’ll learn more about Markdown formatting soon!</p>
+
+<h2 id="starting-the-report">Starting the report</h2>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>Let’s return to the new R Markdown file you created and delete everything below the setup code chunk. (That stuff is just examples and reminders of how to use R Markdown.)</p>
+
+<p>Next, let’s save our R markdown file to the <code class="language-plaintext highlighter-rouge">reports</code> directory.
+You can do this by clicking the save icon in the top left or using <kbd>control</kbd> + <kbd>s</kbd> (<kbd>command</kbd> + <kbd>s</kbd>  on a Mac).</p>
+
+<p>There’s one other thing that we need to do before we get started with our report.
+To render our documents into html format, we can “knit” them in R Studio.
+Usually, R Markdown renders documents from the directory where the document is saved (the location of the <code class="language-plaintext highlighter-rouge">.Rmd</code> file), but we want it to render from the main project directory where our <code class="language-plaintext highlighter-rouge">.Rproj</code> file is.
+This is because that’s where all of our relative paths are from and it’s good practice to have all of your relative paths from the main project directory.
+To change this default, click on the down arrow next to the “Knit” button at the top left of R Studio, go to “Knit Directory” and click “Project Directory”.
+Now it will assume all of your relative paths for reading and writing files are from the <code class="language-plaintext highlighter-rouge">un-report</code> directory, rather than the <code class="language-plaintext highlighter-rouge">reports</code> directory.</p>
+
+<p>Now that we have that set up, let’s start on the report!</p>
+
+<p>We’re going to use the code you generated yesterday to plot GDP vs. Life Expectancy to include in the report. Recall that we needed a couple R packages to generate these plots. We can create a new code chunk to load the needed packages. You could also include this in the previous setup chunk, it’s up to your personal preference.</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r packages}
+library(tidyverse)
+```
+</code></pre></div></div>
+
+<p>Now, in a real report this is when we would type out the background and purpose of our analysis to provide context to our readers. However, since writing is not a focus of this workshop we will avoid lengthy prose and stick to short descriptions. You can copy the following text  into your own report below the package code chunk.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This report was prepared to the attention of the United Nations. It analyzes the relationship between a country's GDP, its life expectancy and CO2 emissions. Our goal is to determine to what degree a country’s economic strength or weakness may be related to its public health status and impact on climate pollution. We hypothesize that both life expectancy and CO2 emissions increase with a country's GDP.
+</code></pre></div></div>
+
+<p>Now, since we want to show our results comparing GDP and life expectancy by country, we need to read in this data so we can regenerate our plot. We will add another code chunk to prepare the data.</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r data}
+gapminder_1997 &lt;- read_csv("data/gapminder_1997.csv")
+```
+</code></pre></div></div>
+
+<p>Now that we have the data, we need to produce the plot. Let’s create it!</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r gdp_lifeexp_1997}
+ggplot(data = gapminder_1997) + 
+
+  aes(x = gdpPercap, y = lifeExp, color=continent, size=pop/1000000) +
+
+  geom_point() +
+
+  labs(x = "GDP Per Capita", y = "Life Expectancy",
+
+       title= "Do people in wealthy countries live longer?", size="Population (in millions)")
+```
+</code></pre></div></div>
+
+<p>Now we can knit our document to see how our report looks! Use the <kbd>knit</kbd> button in the top left of the screen.</p>
+
+<p><img src="../fig/r-markdown/first_report_render.png" alt="" /></p>
+
+<p>Amazing! We’ve created a report!</p>
+
+<p>It’s looking pretty good, but there seem to be a few extra bits that we don’t need in the report. For example, the report shows that we load the tidyverse package and the accompanying messages.</p>
+
+<p><img src="../fig/r-markdown/tidyverse_messages.png" alt="" /></p>
+
+<p>To get rid of this, we can revise our packages code chunk by adding <code class="language-plaintext highlighter-rouge">include=FALSE</code> just like in the setup chunk to prevent code and messages in this chunk from showing up in our report.</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r packages, include=FALSE}
+library(tidyverse)
+```
+</code></pre></div></div>
+
+<p>We can also see the code that was used to generate the plot. Depending on the purpose and audience for your report, you may want to include the code. If you don’t want the code to appear, how can you prevent it? What happens if we add <code class="language-plaintext highlighter-rouge">include=FALSE</code> to the plot code chunk, too? Try rendering the R Markdown report with this change.</p>
+
+<p><img src="../fig/r-markdown/includeFalse.png" alt="" /></p>
+
+<p>Oops! Now the plot doesn’t show up in our report at all. This is because setting <code class="language-plaintext highlighter-rouge">include=FALSE</code> prevents anything in the code chunk from appearing in the report. Instead we can add <code class="language-plaintext highlighter-rouge">echo=FALSE</code> to tell this code chunk that we don’t want to see the code but just the output.</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```{r gdp_lifeexp_1997, echo=FALSE}
+ggplot(data = gapminder_1997) + 
+
+  aes(x = gdpPercap, y = lifeExp, color=continent, size=pop/1000000) +
+
+  geom_point() +
+
+  labs(x = "GDP Per Capita", y = "Life Expectancy",
+
+       title= "Do people in wealthy countries live longer?", size="Population (in millions)")
+```
+</code></pre></div></div>
+
+<p>When we knit this again, our plot is back!</p>
+
+<p><img src="../fig/r-markdown/echoFalse.png" alt="" /></p>
+
+<p>Before we finalize our report, let’s look at a few other cool features. Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change. Here is how to do this.</p>
+
+<p>First, let’s create a code chunk that summarizes features of our data that we can use to describe our plot to  our audience. Note that we set <code class="language-plaintext highlighter-rouge">include=FALSE</code> because we only want this step to happen in the background. For our purposes, we will calculate how many countries were included in the analysis, as well as the minimum and maximum GDP per capita values:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_1997</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/gapminder_1997.csv"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">nCountries</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gapminder_1997</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">country</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">n_distinct</span><span class="p">()</span><span class="w">
+
+</span><span class="n">minGDP</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gapminder_1997</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="nf">round</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">gdpPercap</span><span class="p">)))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pull</span><span class="p">()</span><span class="w">
+
+</span><span class="n">maxGDP</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gapminder_1997</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="nf">round</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">gdpPercap</span><span class="p">)))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pull</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now, all we need to do is reference the values we just computed to describe our
+plot. To do this, we enclose each value in one set of backticks 
+(<code class="language-plaintext highlighter-rouge">`r some_R_variable_name `</code>), while the <code class="language-plaintext highlighter-rouge">r</code> part once again
+indicates that it’s a chunk of R code. When we knit our report, R will
+automatically fill in the values we just created in the above code chunk. Note
+that R will automatically update these values every time our data might change
+(if we were to decide to drop or add countries to this  analysis, for example).</p>
+
+<div class="language-plaintext code highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The above plot shows the relationship between GDP per capita and life expectancy
+for a total of `r nCountries ` countries. For this set of countries,
+economic wealth ranged from a minimum of USD `r minGDP`
+to a maximum of USD `r maxGDP` per capita.
+</code></pre></div></div>
+
+<p>In addition to reporting specific values in the text, we may also want to show a table of values. With R Markdown there are multiple ways to product tables. One way to generate smaller tables is manually. Using a special format we can generate a table in our output. Note that this does not get generated in a code chunk because it is markdown formatting not R code.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|HEADER 1|HEADER 2|
+|-------------|-------------|
+|row 1, column1|row 1, column 2|
+|row 2, column1|row 2, column 2|
+</code></pre></div></div>
+<p>Columns are separated by the pipe key <kbd>|</kbd> located above <kbd>Enter</kbd> on the keyboard. The dashes distinguish the header row from the rest of the table. This header could be a name for each column or a header for the whole table. Now that we know the basic structure we can fill in our table. This is how we could present the same numbers from the previous paragraph as a table instead, again using in-line code.
+When we knit the report again, the code above will render like this:
+<img src="../fig/r-markdown/table_format.png" alt="" /></p>
+
+<p>Here’s the text that we need to include to creata summary table of our data:</p>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```
+|Summary of Data|
+|------|------|
+|Number of Countries|`r nCountries`|
+|Minimum GDP per capita|`r minGDP`|
+|Maximum GDP per capita|`r maxGDP`|
+
+```
+</code></pre></div></div>
+
+<p>This will render like this:</p>
+
+<p><img src="../fig/r-markdown/table_fillin.png" alt="" /></p>
+
+<p>This is useful if we are reporting a few values, but can get tedious for larger tables. Another way we can add tables to our reports is using an R function called <code class="language-plaintext highlighter-rouge">kable()</code>. Since this is an R function, we will use it within a code chunk. We can give the <code class="language-plaintext highlighter-rouge">kable()</code> function a data table and it will format it to a nice looking table in the report. For example, we could use the following code to generate a table of all the countries in Oceania. The rendered version should look almost exactly as it does on this webpage.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load library</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">knitr</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># print kable</span><span class="w">
+</span><span class="n">gapminder_1997</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">continent</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Oceania"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">kable</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">country</th>
+      <th style="text-align: right">pop</th>
+      <th style="text-align: left">continent</th>
+      <th style="text-align: right">lifeExp</th>
+      <th style="text-align: right">gdpPercap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Australia</td>
+      <td style="text-align: right">18565243</td>
+      <td style="text-align: left">Oceania</td>
+      <td style="text-align: right">78.83</td>
+      <td style="text-align: right">26997.94</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">New Zealand</td>
+      <td style="text-align: right">3676187</td>
+      <td style="text-align: left">Oceania</td>
+      <td style="text-align: right">77.55</td>
+      <td style="text-align: right">21050.41</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="formatting">Formatting</h2>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>We now know how to create a report with R Markdown. Maybe we also want to format the report a little bit to structure our thought process in a useful way (e.g., sections) and make it visually appealing?
+Markdown is a very simple programming language when it comes to syntax.
+Let’s try to figure out some syntax together. Suppose we wanted to create sections in our report.</p>
+
+<blockquote class="challenge">
+  <h2 id="r-markdown-headers">R Markdown headers</h2>
+  <p>Try googling how to create sections by using headers and subheaders using R Markdown. What do you find?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+    <p>We can easily create headers and subheaders by using the <code class="language-plaintext highlighter-rouge">#</code> pound/hash sign. Our main headers have one <code class="language-plaintext highlighter-rouge">#</code> (e.g. <code class="language-plaintext highlighter-rouge"># Main Header Here</code>) and to create subheaders we add additinal <code class="language-plaintext highlighter-rouge">#</code>s (e.g. <code class="language-plaintext highlighter-rouge">## First subheader</code> and <code class="language-plaintext highlighter-rouge">### Second subheader</code>)</p>
+  </blockquote>
+</blockquote>
+
+<p>OK, now that we know how to make headers, let’s practice some more Markdown syntax.</p>
+
+<blockquote class="challenge">
+  <h2 id="r-markdown-syntax">R Markdown syntax</h2>
+  <p>Go ahead and do some online searches on how to do the following:</p>
+  <ul>
+    <li>create a bullet point list with three items</li>
+    <li>as the first item, write the name of your currently favorite programming language in bold</li>
+    <li>as the second item, write  the name of a function you have so far found most useful in italics</li>
+    <li>as the third item, write one thing you want to learn next on your programming journey in bold and italics</li>
+    <li>turn your bullet point list into a numbered list</li>
+    <li>create a fourth list item and find an online guide and/or cheat sheet for basic Markdown syntax, write its name down here and hyperlink its url</li>
+  </ul>
+
+  <blockquote class="solution">
+    <h2 id="solution-3">Solution</h2>
+    <p><a href="https://rmarkdown.rstudio.com/authoring_basics.html">This link</a> has some helpful basic R Markdown syntax.</p>
+  </blockquote>
+</blockquote>
+
+<h1 id="applying-it-to-your-own-data">Applying it to your own data</h1>
+
+<p>Now it’s time to merge all of your analyses with your own data together into a report. Let us know if you have questions!</p>
+
+
+
+
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+    <li><p>R Markdown is an easy way to create a report that integrates text, code, and figures.</p>
+</li>
+    
+    <li><p>Options such as <code class="language-plaintext highlighter-rouge">include</code> and <code class="language-plaintext highlighter-rouge">echo</code> determine what parts of an R code chunk are included in the R Markdown report.</p>
+</li>
+    
+    <li><p>R Markdown can render HTML, PDF, and Microsoft Word outputs.</p>
+</li>
+    
+  </ul>
+</blockquote>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="/04-r-data-cleaning-merging/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="/06-conclusion/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      
+
+
+
+
+
+
+<footer>
+  <div class="row">
+    <div class="col-md-6 license" id="license-info" align="left">
+	
+	Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> 2018–2022
+	by <a href="https://carpentries.org/">The Carpentries</a>
+        <br>
+        Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> 2016–2018
+	by <a href="https://software-carpentry.org">Software Carpentry Foundation</a>
+	
+    </div>
+    <div class="col-md-6 help-links" align="right">
+	
+	
+	<a href="/edit//_episodes_rmd/05-r-markdown.Rmd" data-checker-ignore>Edit on GitHub</a>
+	
+	
+	/
+	<a href="/blob//CONTRIBUTING.md" data-checker-ignore>Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob//CITATION" data-checker-ignore>Cite</a>
+	/
+	<a href="mailto:zena.lapp@duke.edu">Contact</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      Using <a href="https://github.com/carpentries/styles/">The Carpentries style</a>
+      version <a href="https://github.com/carpentries/styles/releases/tag/v9.5.3">9.5.3</a>.
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/lesson.js"></script>
+
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+  _paq.push(["setDomains", ["*.lessons.carpentries.org","*.datacarpentry.github.io","*.datacarpentry.org","*.librarycarpentry.github.io","*.librarycarpentry.org","*.swcarpentry.github.io"]]);
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://carpentries.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src='//cdn.matomo.cloud/carpentries.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+
+<script src="/assets/js/anchor.min.js"></script>
+<script>
+    anchors.add();
+</script>
+
+  </body>
+</html>

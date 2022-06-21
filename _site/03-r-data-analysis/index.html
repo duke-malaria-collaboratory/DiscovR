@@ -1,0 +1,1133 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2022-06-16 10:59:19 -0400">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    
+    <link rel="license" href="#license-info" />
+
+    
+
+
+
+    <!-- Favicons for everyone -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/assets/favicons/swc/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/favicons/swc/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/favicons/swc/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/favicons/swc/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/assets/favicons/swc/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/assets/favicons/swc/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/assets/favicons/swc/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/favicons/swc/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/assets/favicons/swc/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="Software Carpentry - DiscovR Workshop Curriculum"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="/assets/favicons/swc/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="/assets/favicons/swc/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="/assets/favicons/swc/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="/assets/favicons/swc/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="/assets/favicons/swc/mstile-310x310.png" />
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+  <title>
+  R for Data Analysis &ndash; DiscovR Workshop Curriculum
+  </title>  
+
+  </head>
+  <body>
+
+    
+
+
+<div class="panel panel-default life-cycle">
+  <div id="life-cycle" class="panel-body pre-alpha">
+    This lesson is still being designed and assembled (Pre-Alpha version)
+  </div>
+</div>
+
+
+
+
+
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      
+      
+      <a href="https://software-carpentry.org" class="pull-left">
+        <img class="navbar-logo" src="/assets/img/swc-icon-blue.svg" alt="Software Carpentry logo" />
+      </a>
+      
+
+      
+      <a class="navbar-brand" href="/index.html">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+	
+        <li><a href="/CODE_OF_CONDUCT.html">Code of Conduct</a></li>
+
+        
+	
+        <li><a href="/setup.html">Setup</a></li>
+
+        
+        
+        <li class="dropdown">
+          <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            
+            <li><a href="/00-intro/index.html">Introduction to The DiscovR Workshop</a></li>
+            
+            
+            <li><a href="/01-r-getting-started/index.html">Getting Started with R</a></li>
+            
+            
+            <li><a href="/02-r-plotting/index.html">R for Plotting</a></li>
+            
+            
+            <li><a href="/03-r-data-analysis/index.html">R for Data Analysis</a></li>
+            
+            
+            <li><a href="/04-r-data-cleaning-merging/index.html">R for Data Cleaning and Merging</a></li>
+            
+            
+            <li><a href="/05-r-markdown/index.html">Writing Reports with R Markdown</a></li>
+            
+            
+            <li><a href="/06-conclusion/index.html">Conclusion</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="/aio/index.html">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+        
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/reference.html">Reference</a></li>
+            
+            
+            
+              <li><a href="/about/index.html">About</a></li>
+            
+            
+            
+            
+              <li><a href="/guide/index.html">Instructor Notes</a></li>
+            
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="/LICENSE.html">License</a></li>
+	
+	
+	<li><a href="/edit//_episodes_rmd/03-r-data-analysis.Rmd" data-checker-ignore>Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="/02-r-plotting/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+    <h3 class="maintitle"><a href="/">DiscovR Workshop Curriculum</a></h3>
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="/04-r-data-cleaning-merging/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+<article>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <h1 class="maintitle">R for Data Analysis</h1>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 75 min
+      <br/>
+      <strong>Exercises:</strong> 15 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>How can I summarize my data in R?</p>
+</li>
+	
+	<li><p>How can R help make my research more reproducible?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>To become familiar with the functions of the <code class="language-plaintext highlighter-rouge">dplyr</code> and <code class="language-plaintext highlighter-rouge">tidyr</code> packages.</p>
+</li>
+	
+	<li><p>To be able to create plots and summary tables to answer analysis questions.</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<h3 id="contents">Contents</h3>
+
+<ol>
+  <li><a href="#plotting-review">Plotting review</a></li>
+  <li><a href="#getting-started">Getting started</a>
+    <ul>
+      <li><a href="#loading-in-the-data">Loading in the data</a></li>
+    </ul>
+  </li>
+  <li><a href="#intro-data-analysis">An introduction to data analysis in R using <code class="language-plaintext highlighter-rouge">dplyr</code></a>
+    <ul>
+      <li><a href="#get-stats-fast-with-summarize">Get stats fast with <code class="language-plaintext highlighter-rouge">summarize()</code></a></li>
+      <li><a href="#narrow-down-rows-with-filter">Narrow down rows with <code class="language-plaintext highlighter-rouge">filter()</code></a></li>
+      <li><a href="#grouping-rows-using-group_by">Grouping rows using <code class="language-plaintext highlighter-rouge">group_by()</code></a></li>
+      <li><a href="#make-new-variables-with-mutate">Make new variables with <code class="language-plaintext highlighter-rouge">mutate()</code></a></li>
+      <li><a href="#subset-columns-using-select">Subset columns using <code class="language-plaintext highlighter-rouge">select()</code></a></li>
+      <li><a href="#changing-the-shape-of-the-data">Changing the shape of the data</a></li>
+    </ul>
+  </li>
+  <li><a href="#applying-it-to-your-own-data">Applying it to your own data</a></li>
+</ol>
+
+<h1 id="plotting-review">Plotting review</h1>
+
+<p>First, navigate to the un-reports directory however you’d like and open <code class="language-plaintext highlighter-rouge">un-report.Rproj</code>.
+This should open the un-report R project in RStudio.
+You can check this by seeing if the Files in the bottom right of RStudio are the ones in your <code class="language-plaintext highlighter-rouge">un-report</code> directory.</p>
+
+<p>The very first step is to read in the gapminder dataset, so do that first! Also load the <code class="language-plaintext highlighter-rouge">tidyverse</code> package.</p>
+
+<blockquote class="solution">
+  <h2 id="solution">Solution</h2>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+</code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.7     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+</code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'data/gapminder_data.csv'</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rows: 1704 Columns: 6
+</code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre></div>  </div>
+</blockquote>
+<h4 id="investigating-population-over-time">Investigating population over time.</h4>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>Next, make a scatter plot of year vs. population, separated into a plot for each contient. Feel free to look back at the content from yesterday if you want!</p>
+
+<blockquote class="solution">
+  <h2 id="solution-1">Solution</h2>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">gapminder</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">pop</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">facet_wrap</span><span class="p">(</span><span class="n">vars</span><span class="p">(</span><span class="n">continent</span><span class="p">))</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p><img src="../fig/rmd-03-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" /></p>
+</blockquote>
+
+<p>It seems like there are a couple outliers. By the end of today, we’ll be able to identify what countries those are and how to exclude them from the plot.</p>
+
+<h1 id="getting-started">Getting Started</h1>
+<p><em><a href="#contents">Back to top</a></em></p>
+
+<p>Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the <code class="language-plaintext highlighter-rouge">dplyr</code> package.</p>
+
+<p>First, we will create a new R Script file for our work. Open RStudio. Choose “File” &gt; “New File” &gt; “RScript”. We will save this file as <code class="language-plaintext highlighter-rouge">un_data_analysis.R</code></p>
+
+<h3 id="loading-in-the-data">Loading in the data</h3>
+
+<p>We will start by importing the complete gapminder dataset that we used yesterday into our fresh new R session. Yesterday we did this using a “point-and-click” commands. Today let’s type them into the console ourselves: <code class="language-plaintext highlighter-rouge">gapminder_data &lt;- read_csv("data/gapminder_data.csv")</code></p>
+
+<blockquote class="challenge">
+  <h2 id="exercise">Exercise</h2>
+
+  <p>If we look in the console now, we’ll see we’ve received an error message saying that R “could not find the function <code class="language-plaintext highlighter-rouge">read_csv()</code>”. <em>Hint: Packages…</em></p>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+
+    <p>What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It’s important to remember that you will need to load any packages you want to use into R each time you start a new session. The <code class="language-plaintext highlighter-rouge">read_csv</code> function comes from the <code class="language-plaintext highlighter-rouge">readr</code> package which is included in the <code class="language-plaintext highlighter-rouge">tidyverse</code> package so we will just load the <code class="language-plaintext highlighter-rouge">tidyverse</code> package and run the import code again.</p>
+  </blockquote>
+</blockquote>
+
+<p>Now that we know what’s wrong, We will use the <code class="language-plaintext highlighter-rouge">read_csv()</code> function from the Tidyverse <code class="language-plaintext highlighter-rouge">readr</code> package. Load the <code class="language-plaintext highlighter-rouge">tidyverse</code> package and gapminder dataset using the code below.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The output in your console shows that by doing this, we attach several useful packages for data wrangling, including <code class="language-plaintext highlighter-rouge">readr</code>. Check out these packages and their documentation at <a href="https://www.tidyverse.org">tidyverse.org</a></p>
+
+<blockquote>
+  <p><strong>Reminder:</strong> Many of these packages, including <code class="language-plaintext highlighter-rouge">dplyr</code> , come with “Cheatsheets” found under the <strong>Help</strong> RStudio menu tab.</p>
+</blockquote>
+
+<p>Reload your data:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/gapminder_data.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rows: 1704 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre></div></div>
+
+<p>Notice that the output of the <code class="language-plaintext highlighter-rouge">read_csv()</code> function is pretty informative. It tells us the name of all of our column headers as well as how it interpreted the data type. This birds-eye-view can help you take a quick look that everything is how we expect it to be.</p>
+
+<p>Now we have the tools necessary to work through this lesson.</p>
+
+<h1 id="intro-data-analysis">An introduction to data analysis in R using <code class="language-plaintext highlighter-rouge">dplyr</code></h1>
+
+<h2 id="get-stats-fast-with-summarize">Get stats fast with <code class="language-plaintext highlighter-rouge">summarize()</code></h2>
+
+<p><a href="#contents"><em>Back to top</em></a></p>
+
+<p>Let’s say we would like to know what is the mean (average) life expecteny in the dataset. R has a built in function function called <code class="language-plaintext highlighter-rouge">mean()</code> that will calculate this value for us. We can apply that function to our lifeExp column using the <code class="language-plaintext highlighter-rouge">summarize()</code> function. Here’s what that looks like:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summarize</span><span class="p">(</span><span class="n">gapminder_data</span><span class="p">,</span><span class="w"> </span><span class="n">averageLifeExp</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1 × 1
+  averageLifeExp
+           &lt;dbl&gt;
+1           59.5
+</code></pre></div></div>
+
+<p>When we call <code class="language-plaintext highlighter-rouge">summarize()</code>, we can use any of the column names of our data object as values to pass to other functions. <code class="language-plaintext highlighter-rouge">summarize()</code> will return a new data object and our value will be returned as a column.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The <code class="language-plaintext highlighter-rouge">summarize()</code> and <code class="language-plaintext highlighter-rouge">summarise()</code> perform identical functions.</p>
+</blockquote>
+
+<p>We name this new column so we can use in a future argument. So the <code class="language-plaintext highlighter-rouge">averageLifeExp=</code> part tells <code class="language-plaintext highlighter-rouge">summarize()</code> to use “averageLifeExp” as the name of the new column. Note that you don’t have to quotes around this new name as long as it starts with a letter and doesn’t include a space.</p>
+
+<p>Instead of including the data as an argument, we can use the <em>pipe operator</em> <code class="language-plaintext highlighter-rouge">%&gt;%</code> to pass the data value into the <code class="language-plaintext highlighter-rouge">summarize</code> function.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">summarize</span><span class="p">(</span><span class="n">averageLifeExp</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1 × 1
+  averageLifeExp
+           &lt;dbl&gt;
+1           59.5
+</code></pre></div></div>
+
+<p>This line of code will do the exact same thing as our first summary command, but the piping function tells R to use the <code class="language-plaintext highlighter-rouge">gapminder_data</code> dataframe as the first argument in the next function.</p>
+
+<p>This lets us “chain” together multiple functions, which will be helpful later. Note that the pipe (<code class="language-plaintext highlighter-rouge">%&gt;%</code>) is a bit different from using the ggplot plus (<code class="language-plaintext highlighter-rouge">+</code>). Pipes take the output from the left side and use it as input to the right side. Plusses layer on additional information (right side) to a preexisting plot (left side).</p>
+
+<p>We can also add an <kdb>Enter</kdb> to make it look nicer:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">averageLifeExp</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1 × 1
+  averageLifeExp
+           &lt;dbl&gt;
+1           59.5
+</code></pre></div></div>
+
+<p>Using the <em>pipe operator</em> <code class="language-plaintext highlighter-rouge">%&gt;%</code> and enter command makes our code more readable. The  <em>pipe operator</em> <code class="language-plaintext highlighter-rouge">%&gt;%</code> also helps to avoid using nested function and minimizes the need for new variables.</p>
+
+<p>Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kdb>Ctrl</kdb>+<kdb>Shift</kdb>+<kdb>M<kdb> on Windows or <kdb>Cmd<kdb>+<kdb>Shift<kdb>+<kdb>M<kdb> on a Mac.</kdb></kdb></kdb></kdb></kdb></kdb></kdb></kdb></p>
+
+<blockquote class="callout">
+  <h2 id="pro-tip-saving-a-new-dataframe">Pro tip: Saving a new dataframe</h2>
+  <p>Notice that when we run the following code, we are not actually saving a new variable:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">averageLifeExp</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div>  </div>
+  <p>This simply outputs what we have created, but does not change actually change <code class="language-plaintext highlighter-rouge">gapminder_data</code> or save a new dataframe. To save a new dataframe, we could run:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data_summarized</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">averageLifeExp</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div>  </div>
+  <p>Or if we want to change <code class="language-plaintext highlighter-rouge">gapminder_data</code> itself:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">averageLifeExp</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div>  </div>
+  <p>IMPORTANT: This would overwrite the existing <code class="language-plaintext highlighter-rouge">gapminder_data</code> object.</p>
+
+  <p>For now, we will not be saving dataframes, since we are just experimenting with <code class="language-plaintext highlighter-rouge">dplyr</code> functions, but it will be useful later on in this lesson.</p>
+
+</blockquote>
+
+<h2 id="narrow-down-rows-with-filter">Narrow down rows with <code class="language-plaintext highlighter-rouge">filter()</code></h2>
+
+<p><a href="#contents"><em>Back to top</em></a></p>
+
+<p>Let’s take a look at the value we just calculated, which tells us the average life expectancy for all rows in the data was 59.5. That seems a bit low, doesn’t it? What’s going on?</p>
+
+<p>Well, remember the dataset contains rows from many different years and many different countries. It’s likely that life expectancy has increased overtime, so it may not make sense to average over all the years at the same time.</p>
+
+<p>Use <code class="language-plaintext highlighter-rouge">summarize()</code> to find the most recent year in the data set. We can use the <code class="language-plaintext highlighter-rouge">max()</code> function to return the maximum value.</p>
+
+<blockquote class="challenge">
+  <h2 id="practice-using-the--to-summarize-data">Practice using the <code class="language-plaintext highlighter-rouge">%&gt;%</code> to summarize data</h2>
+
+  <p>Find the most recent year using the piping function.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-3">Solution:</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+ </span><span class="n">summarize</span><span class="p">(</span><span class="n">recent_year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">year</span><span class="p">))</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1 × 1
+  recent_year
+        &lt;dbl&gt;
+1        2007
+</code></pre></div>    </div>
+
+  </blockquote>
+</blockquote>
+
+<p>So we see that the most recent year in the dataset is 2007. Let’s calculate the life expectancy for all countries for only that year. To do that, we will use the <code class="language-plaintext highlighter-rouge">filter()</code> function to only use rows for that year before calculating the mean value.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2007</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">average</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1 × 1
+  average
+    &lt;dbl&gt;
+1    67.0
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="filtering-the-dataset">Filtering the dataset</h2>
+
+  <p>What is the average GDP per capita for the first year in the dataset? <em>Hint: the column headers identified by <code class="language-plaintext highlighter-rouge">read_csv()</code> showed us there was a column called gdpPercap in the dataset</em></p>
+
+  <blockquote class="solution">
+    <h2 id="solution-4">Solution</h2>
+
+    <p>Identify the earliest year in our dataset using <code class="language-plaintext highlighter-rouge">min()</code> and <code class="language-plaintext highlighter-rouge">summarize()</code></p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+</span><span class="n">summarize</span><span class="p">(</span><span class="n">first_year</span><span class="o">=</span><span class="nf">min</span><span class="p">(</span><span class="n">year</span><span class="p">))</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1 × 1
+  first_year
+       &lt;dbl&gt;
+1       1952
+</code></pre></div>    </div>
+
+    <p>We see here that the first year in the dataset is 1952. Filter to only 1952, and determin the average GDP per capita.</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+</span><span class="n">filter</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1952</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+</span><span class="n">summarize</span><span class="p">(</span><span class="n">average_gdp</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">gdpPercap</span><span class="p">))</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output source highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1 × 1
+  average_gdp
+        &lt;dbl&gt;
+1       3725.
+</code></pre></div>    </div>
+    <p>By combining <code class="language-plaintext highlighter-rouge">filter()</code> and <code class="language-plaintext highlighter-rouge">summarize()</code> we were able to calculate the mean GDP per capita in the year 1952.</p>
+  </blockquote>
+</blockquote>
+
+<p>Notice how the pipe operator (<code class="language-plaintext highlighter-rouge">%&gt;%</code>) allows us to combine these two simple steps into a more complicated data extraction?. We took the data, filtered out the rows, then took the mean value. The argument we pass to <code class="language-plaintext highlighter-rouge">filter()</code> needs to be some expression that will return TRUE or FALSE. We can use comparisons like <code class="language-plaintext highlighter-rouge">&gt;</code> (greater than) and <code class="language-plaintext highlighter-rouge">&lt;</code> (less than) for example. Here we tested for equality using a double equals sign <code class="language-plaintext highlighter-rouge">==</code>. You use <code class="language-plaintext highlighter-rouge">==</code> (double equals) when testing if two values are equal, and you use <code class="language-plaintext highlighter-rouge">=</code> (single equals) when naming arguments that you are passing to functions. Try changing it to use <code class="language-plaintext highlighter-rouge">filter(year = 2007)</code> and see what happens.</p>
+
+<h2 id="grouping-rows-using-group_by">Grouping rows using <code class="language-plaintext highlighter-rouge">group_by()</code></h2>
+
+<p><a href="#contents"><em>Back to top</em></a></p>
+
+<p>We see that the life expectancy in 2007 is much larger than the value we got using all of the rows. It seems life expectancy is increasing which is good news. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different <code class="language-plaintext highlighter-rouge">filter()</code> statements, we can instead use the <code class="language-plaintext highlighter-rouge">group_by()</code> function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here’s what that will look like:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">average</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 12 × 2
+    year average
+   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  1952    49.1
+ 2  1957    51.5
+ 3  1962    53.6
+ 4  1967    55.7
+ 5  1972    57.6
+ 6  1977    59.6
+ 7  1982    61.5
+ 8  1987    63.2
+ 9  1992    64.2
+10  1997    65.0
+11  2002    65.7
+12  2007    67.0
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">group_by()</code> function expects you to pass in the name of a column (or multiple columns separated by comma) in your data.</p>
+
+<p>Note that you might get a message about the summarize function regrouping the output by ‘year’. This simply indicates what the function is grouping by.</p>
+
+<blockquote class="challenge">
+  <h2 id="grouping-the-data">Grouping the data</h2>
+
+  <p>Try calculating the average life expectancy by continent.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-5">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+</span><span class="n">group_by</span><span class="p">(</span><span class="n">continent</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+</span><span class="n">summarize</span><span class="p">(</span><span class="n">average</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output source highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 5 × 2
+  continent average
+  &lt;chr&gt;       &lt;dbl&gt;
+1 Africa       48.9
+2 Americas     64.7
+3 Asia         60.1
+4 Europe       71.9
+5 Oceania      74.3
+</code></pre></div>    </div>
+
+    <p>By combining <code class="language-plaintext highlighter-rouge">group_by()</code> and <code class="language-plaintext highlighter-rouge">summarize()</code> we are able to calculate the mean life expectancy by continent.</p>
+  </blockquote>
+</blockquote>
+
+<p>You can also create more than one new column when you call <code class="language-plaintext highlighter-rouge">summarize()</code>. To do so, you must separate your columns with a comma. Building on the code from the last exercise, let’s add a new column that calculates the minimum life expectancy for each continent.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">continent</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarize</span><span class="p">(</span><span class="n">average</span><span class="o">=</span><span class="n">mean</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">),</span><span class="w"> </span><span class="n">min</span><span class="o">=</span><span class="nf">min</span><span class="p">(</span><span class="n">lifeExp</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 5 × 3
+  continent average   min
+  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+1 Africa       48.9  23.6
+2 Americas     64.7  37.6
+3 Asia         60.1  28.8
+4 Europe       71.9  43.6
+5 Oceania      74.3  69.1
+</code></pre></div></div>
+
+<h2 id="make-new-variables-with-mutate">Make new variables with <code class="language-plaintext highlighter-rouge">mutate()</code></h2>
+
+<p><a href="#contents"><em>Back to top</em></a></p>
+
+<p>Each time we ran <code class="language-plaintext highlighter-rouge">summarize()</code>, we got back fewer rows than passed in. We either got one row back, or one row per group. But sometimes we want to create a new column in our data without changing the number of rows. The function we use to create new columns is called <code class="language-plaintext highlighter-rouge">mutate()</code>.</p>
+
+<p>We have a column for the population and the GDP per capita. If we wanted to get the total GDP, we could multiply the per capita GDP values by the total population. Here’s what such a <code class="language-plaintext highlighter-rouge">mutate()</code> command would look like:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">gdp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pop</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gdpPercap</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 7
+   country      year      pop continent lifeExp gdpPercap          gdp
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333 Asia         28.8      779.  6567086330.
+ 2 Afghanistan  1957  9240934 Asia         30.3      821.  7585448670.
+ 3 Afghanistan  1962 10267083 Asia         32.0      853.  8758855797.
+ 4 Afghanistan  1967 11537966 Asia         34.0      836.  9648014150.
+ 5 Afghanistan  1972 13079460 Asia         36.1      740.  9678553274.
+ 6 Afghanistan  1977 14880372 Asia         38.4      786. 11697659231.
+ 7 Afghanistan  1982 12881816 Asia         39.9      978. 12598563401.
+ 8 Afghanistan  1987 13867957 Asia         40.8      852. 11820990309.
+ 9 Afghanistan  1992 16317921 Asia         41.7      649. 10595901589.
+10 Afghanistan  1997 22227415 Asia         41.8      635. 14121995875.
+# … with 1,694 more rows
+</code></pre></div></div>
+
+<p>This will add a new column called “gdp” to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with <code class="language-plaintext highlighter-rouge">summarize()</code></p>
+
+<blockquote class="challenge">
+  <h2 id="mutate"><code class="language-plaintext highlighter-rouge">mutate()</code></h2>
+  <p>We can also multiply by constants or other numbers using mutate - remember how in the plotting lesson we made a plot with population in millions? Try making a new column for this dataframe called popInMillions that is the population in million.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-6">Solution:</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">  
+</span><span class="n">mutate</span><span class="p">(</span><span class="n">gdp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pop</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gdpPercap</span><span class="p">,</span><span class="w"> </span><span class="n">popInMillions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pop</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">1000000</span><span class="p">)</span><span class="w">  
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 8
+   country      year      pop continent lifeExp gdpPercap      gdp popInMillions
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333 Asia         28.8      779.  6.57e 9          8.43
+ 2 Afghanistan  1957  9240934 Asia         30.3      821.  7.59e 9          9.24
+ 3 Afghanistan  1962 10267083 Asia         32.0      853.  8.76e 9         10.3 
+ 4 Afghanistan  1967 11537966 Asia         34.0      836.  9.65e 9         11.5 
+ 5 Afghanistan  1972 13079460 Asia         36.1      740.  9.68e 9         13.1 
+ 6 Afghanistan  1977 14880372 Asia         38.4      786.  1.17e10         14.9 
+ 7 Afghanistan  1982 12881816 Asia         39.9      978.  1.26e10         12.9 
+ 8 Afghanistan  1987 13867957 Asia         40.8      852.  1.18e10         13.9 
+ 9 Afghanistan  1992 16317921 Asia         41.7      649.  1.06e10         16.3 
+10 Afghanistan  1997 22227415 Asia         41.8      635.  1.41e10         22.2 
+# … with 1,694 more rows
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<h2 id="subset-columns-using-select">Subset columns using <code class="language-plaintext highlighter-rouge">select()</code></h2>
+
+<p><a href="#contents"><em>Back to top</em></a></p>
+
+<p>We use the <code class="language-plaintext highlighter-rouge">filter()</code> function to choose a subset of the rows from our data, but when we want to choose a subset of columns from our data we use <code class="language-plaintext highlighter-rouge">select()</code>. For example, if we only wanted to see the population (“pop”) and year values, we can do:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 2
+        pop  year
+      &lt;dbl&gt; &lt;dbl&gt;
+ 1  8425333  1952
+ 2  9240934  1957
+ 3 10267083  1962
+ 4 11537966  1967
+ 5 13079460  1972
+ 6 14880372  1977
+ 7 12881816  1982
+ 8 13867957  1987
+ 9 16317921  1992
+10 22227415  1997
+# … with 1,694 more rows
+</code></pre></div></div>
+
+<p>We can also use <code class="language-plaintext highlighter-rouge">select()</code> to drop/remove particular columns by putting a minus sign (<code class="language-plaintext highlighter-rouge">-</code>) in front of the column name. For example, if we want everything but the continent column, we can do:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="o">-</span><span class="n">continent</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 5
+   country      year      pop lifeExp gdpPercap
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333    28.8      779.
+ 2 Afghanistan  1957  9240934    30.3      821.
+ 3 Afghanistan  1962 10267083    32.0      853.
+ 4 Afghanistan  1967 11537966    34.0      836.
+ 5 Afghanistan  1972 13079460    36.1      740.
+ 6 Afghanistan  1977 14880372    38.4      786.
+ 7 Afghanistan  1982 12881816    39.9      978.
+ 8 Afghanistan  1987 13867957    40.8      852.
+ 9 Afghanistan  1992 16317921    41.7      649.
+10 Afghanistan  1997 22227415    41.8      635.
+# … with 1,694 more rows
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="selecting-columns">selecting columns</h2>
+  <p>Create a dataframe with only the <code class="language-plaintext highlighter-rouge">country</code>, <code class="language-plaintext highlighter-rouge">continent</code>, <code class="language-plaintext highlighter-rouge">year</code>, and <code class="language-plaintext highlighter-rouge">lifeExp</code> columns.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-7">Solution:</h2>
+    <p>There are multiple ways to do this exercise. Here are two different possibilities.</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">continent</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">lifeExp</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 4
+   country     continent  year lifeExp
+   &lt;chr&gt;       &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8
+ 2 Afghanistan Asia       1957    30.3
+ 3 Afghanistan Asia       1962    32.0
+ 4 Afghanistan Asia       1967    34.0
+ 5 Afghanistan Asia       1972    36.1
+ 6 Afghanistan Asia       1977    38.4
+ 7 Afghanistan Asia       1982    39.9
+ 8 Afghanistan Asia       1987    40.8
+ 9 Afghanistan Asia       1992    41.7
+10 Afghanistan Asia       1997    41.8
+# … with 1,694 more rows
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="o">-</span><span class="n">pop</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">gdpPercap</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 4
+   country      year continent lifeExp
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
+ 1 Afghanistan  1952 Asia         28.8
+ 2 Afghanistan  1957 Asia         30.3
+ 3 Afghanistan  1962 Asia         32.0
+ 4 Afghanistan  1967 Asia         34.0
+ 5 Afghanistan  1972 Asia         36.1
+ 6 Afghanistan  1977 Asia         38.4
+ 7 Afghanistan  1982 Asia         39.9
+ 8 Afghanistan  1987 Asia         40.8
+ 9 Afghanistan  1992 Asia         41.7
+10 Afghanistan  1997 Asia         41.8
+# … with 1,694 more rows
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="solution">
+  <h2 id="bonus-using-helper-functions-with-select">Bonus: Using helper functions with <code class="language-plaintext highlighter-rouge">select()</code></h2>
+
+  <p>The <code class="language-plaintext highlighter-rouge">select()</code> function has a bunch of helper functions that are handy if you are working with a dataset that has a lot of columns. You can see these helper functions on the <code class="language-plaintext highlighter-rouge">?select</code> help page. For example, let’s say we wanted to select the year column and all the columns that start with the letter “c”. You can do that with:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">starts_with</span><span class="p">(</span><span class="s2">"c"</span><span class="p">))</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 3
+    year country     continent
+   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    
+ 1  1952 Afghanistan Asia     
+ 2  1957 Afghanistan Asia     
+ 3  1962 Afghanistan Asia     
+ 4  1967 Afghanistan Asia     
+ 5  1972 Afghanistan Asia     
+ 6  1977 Afghanistan Asia     
+ 7  1982 Afghanistan Asia     
+ 8  1987 Afghanistan Asia     
+ 9  1992 Afghanistan Asia     
+10  1997 Afghanistan Asia     
+# … with 1,694 more rows
+</code></pre></div>  </div>
+  <p>This returns just the three columns we are interested in.</p>
+
+  <blockquote class="challenge">
+    <h2 id="using-select-with-a-helper-function">Using <code class="language-plaintext highlighter-rouge">select()</code> with a helper function</h2>
+
+    <p>Find a helper function on the help page that will choose all the columns that have “p” as their last letter (ie: “pop”,”lifeExp”,”gdpPerCap”)</p>
+
+    <blockquote class="solution">
+      <h2 id="solution-8">Solution</h2>
+
+      <p>The helper function <code class="language-plaintext highlighter-rouge">ends_with()</code> can help us here.</p>
+
+      <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+</span><span class="n">select</span><span class="p">(</span><span class="n">ends_with</span><span class="p">(</span><span class="s2">"p"</span><span class="p">))</span><span class="w">
+</span></code></pre></div>      </div>
+
+      <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 1,704 × 3
+        pop lifeExp gdpPercap
+      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1  8425333    28.8      779.
+ 2  9240934    30.3      821.
+ 3 10267083    32.0      853.
+ 4 11537966    34.0      836.
+ 5 13079460    36.1      740.
+ 6 14880372    38.4      786.
+ 7 12881816    39.9      978.
+ 8 13867957    40.8      852.
+ 9 16317921    41.7      649.
+10 22227415    41.8      635.
+# … with 1,694 more rows
+</code></pre></div>      </div>
+    </blockquote>
+  </blockquote>
+
+</blockquote>
+
+<h2 id="changing-the-shape-of-the-data">Changing the shape of the data</h2>
+
+<p><a href="#contents"><em>Back to top</em></a></p>
+
+<p>Data comes in many shapes and sizes, and one way we classify data is either “wide” or “long.” Data that is “long” has one row per observation. The gapminder_data data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as “tidy” because it makes it easy to work with <code class="language-plaintext highlighter-rouge">ggplot2</code> and <code class="language-plaintext highlighter-rouge">dplyr</code> functions (this is where the “tidy” in “tidyverse” comes from). As tidy as it may be, sometimes we may want our data in a “wide” format. Typically in “wide” format each row represents a group of observations and each value is placed in a different column rather than a different row. For example maybe we want only one row per country and want to spread the life expectancy values into different columns (one for each year).</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">tidyr</code> package contains the functions <code class="language-plaintext highlighter-rouge">pivot_wider</code> and <code class="language-plaintext highlighter-rouge">pivot_longer</code> that make it easy to switch between the two formats. The <code class="language-plaintext highlighter-rouge">tidyr</code> package is included in the <code class="language-plaintext highlighter-rouge">tidyverse</code> package so we don’t need to do anything to load it.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">continent</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">lifeExp</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pivot_wider</span><span class="p">(</span><span class="n">names_from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">values_from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lifeExp</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code># A tibble: 142 × 14
+   country     continent `1952` `1957` `1962` `1967` `1972` `1977` `1982` `1987`
+   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Afghanistan Asia        28.8   30.3   32.0   34.0   36.1   38.4   39.9   40.8
+ 2 Albania     Europe      55.2   59.3   64.8   66.2   67.7   68.9   70.4   72  
+ 3 Algeria     Africa      43.1   45.7   48.3   51.4   54.5   58.0   61.4   65.8
+ 4 Angola      Africa      30.0   32.0   34     36.0   37.9   39.5   39.9   39.9
+ 5 Argentina   Americas    62.5   64.4   65.1   65.6   67.1   68.5   69.9   70.8
+ 6 Australia   Oceania     69.1   70.3   70.9   71.1   71.9   73.5   74.7   76.3
+ 7 Austria     Europe      66.8   67.5   69.5   70.1   70.6   72.2   73.2   74.9
+ 8 Bahrain     Asia        50.9   53.8   56.9   59.9   63.3   65.6   69.1   70.8
+ 9 Bangladesh  Asia        37.5   39.3   41.2   43.5   45.3   46.9   50.0   52.8
+10 Belgium     Europe      68     69.2   70.2   70.9   71.4   72.8   73.9   75.4
+# … with 132 more rows, and 4 more variables: `1992` &lt;dbl&gt;, `1997` &lt;dbl&gt;,
+#   `2002` &lt;dbl&gt;, `2007` &lt;dbl&gt;
+</code></pre></div></div>
+
+<p>Notice here that we tell <code class="language-plaintext highlighter-rouge">pivot_wider()</code> which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the lifeExp variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.</p>
+
+<p>Before we move on to more data cleaning, let’s create the final gapminder dataframe we will be working with for the rest of the lesson!</p>
+
+<blockquote class="challenge">
+  <h2 id="final-americas-2007-gapminder-dataset">Final Americas 2007 gapminder dataset</h2>
+  <p>Read in the <code class="language-plaintext highlighter-rouge">gapminder_data.csv</code> file, filter out the year 2007 and the continent “Americas.” Then drop the <code class="language-plaintext highlighter-rouge">year</code> and <code class="language-plaintext highlighter-rouge">continent</code> columns from the dataframe. Then save the new dataframe into a variable called <code class="language-plaintext highlighter-rouge">gapminder_data_2007</code>.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-9">Solution:</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder_data_2007</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"data/gapminder_data.csv"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2007</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">continent</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Americas"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="o">-</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">continent</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rows: 1704 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<p>Awesome! This is the dataframe we will be using later on in this lesson.</p>
+
+<h1 id="applying-it-to-your-own-data">Applying it to your own data</h1>
+
+<p>Now it’s time to read in, clean, and make plots with your own data! 
+Use your ideas from your brainstorming session yesterday to help you get started, but feel free to branch out and explore other things as well.
+Let us know if you have questions; we’re here to help.</p>
+
+
+
+
+
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+    <li><p>Package loading is an important first step in preparing an R environment.</p>
+</li>
+    
+    <li><p>There are many useful functions in the <code class="language-plaintext highlighter-rouge">tidyverse</code> packages that can aid in data analysis.</p>
+</li>
+    
+  </ul>
+</blockquote>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="/02-r-plotting/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="/04-r-data-cleaning-merging/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      
+
+
+
+
+
+
+<footer>
+  <div class="row">
+    <div class="col-md-6 license" id="license-info" align="left">
+	
+	Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> 2018–2022
+	by <a href="https://carpentries.org/">The Carpentries</a>
+        <br>
+        Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> 2016–2018
+	by <a href="https://software-carpentry.org">Software Carpentry Foundation</a>
+	
+    </div>
+    <div class="col-md-6 help-links" align="right">
+	
+	
+	<a href="/edit//_episodes_rmd/03-r-data-analysis.Rmd" data-checker-ignore>Edit on GitHub</a>
+	
+	
+	/
+	<a href="/blob//CONTRIBUTING.md" data-checker-ignore>Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob//CITATION" data-checker-ignore>Cite</a>
+	/
+	<a href="mailto:zena.lapp@duke.edu">Contact</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      Using <a href="https://github.com/carpentries/styles/">The Carpentries style</a>
+      version <a href="https://github.com/carpentries/styles/releases/tag/v9.5.3">9.5.3</a>.
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/lesson.js"></script>
+
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+  _paq.push(["setDomains", ["*.lessons.carpentries.org","*.datacarpentry.github.io","*.datacarpentry.org","*.librarycarpentry.github.io","*.librarycarpentry.org","*.swcarpentry.github.io"]]);
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://carpentries.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src='//cdn.matomo.cloud/carpentries.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+
+<script src="/assets/js/anchor.min.js"></script>
+<script>
+    anchors.add();
+</script>
+
+  </body>
+</html>

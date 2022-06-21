@@ -1,0 +1,15 @@
+"0","read_csv(""data/co2-un-data.csv"", skip=1)"
+"2","New names:
+* `` -> ...2
+"
+"1","[1mRows: [22m[34m2132[39m [1mColumns: [22m[34m7[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (4): ...2, Series, Footnotes, Source
+[32mdbl[39m (3): Region/Country/Area, Year, Value
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
