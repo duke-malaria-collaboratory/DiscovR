@@ -1,0 +1,197 @@
+current directory: /Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker
+/usr/local/opt/ruby/bin/ruby -I /usr/local/Cellar/ruby/3.0.2_1/lib/ruby/3.0.0 -r ./siteconf20220616-3934-411dvp.rb extconf.rb
+creating Makefile
+
+current directory: /Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker
+make DESTDIR\= clean
+make[1]: Entering directory '/Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker'
+Makefile:175: warning: overriding recipe for target 'clean'
+0;–¬Á:175: warning: ignoring old recipe for target 'clean'
+Makefile:182: warning: overriding recipe for target 'distclean'
+0;–¬Á:182: warning: ignoring old recipe for target 'distclean'
+Makefile:190: warning: overriding recipe for target 'install-so'
+0;–¬Á:190: warning: ignoring old recipe for target 'install-so'
+Makefile:200: warning: overriding recipe for target 'pre-install-rb-default'
+0;–¬Á:200: warning: ignoring old recipe for target 'pre-install-rb-default'
+Makefile:202: warning: overriding recipe for target '.sitearchdir.-.commonmarker.time'
+0;–¬Á:202: warning: ignoring old recipe for target '.sitearchdir.-.commonmarker.time'
+Makefile:212: warning: overriding recipe for target '.cc.o'
+0;–¬Á:212: warning: ignoring old recipe for target '.cc.o'
+Makefile:216: warning: overriding recipe for target '.cc.S'
+0;–¬Á:216: warning: ignoring old recipe for target '.cc.S'
+Makefile:220: warning: overriding recipe for target '.mm.o'
+0;–¬Á:220: warning: ignoring old recipe for target '.mm.o'
+Makefile:224: warning: overriding recipe for target '.mm.S'
+0;–¬Á:224: warning: ignoring old recipe for target '.mm.S'
+Makefile:228: warning: overriding recipe for target '.cxx.o'
+0;–¬Á:228: warning: ignoring old recipe for target '.cxx.o'
+Makefile:232: warning: overriding recipe for target '.cxx.S'
+0;–¬Á:232: warning: ignoring old recipe for target '.cxx.S'
+Makefile:236: warning: overriding recipe for target '.cpp.o'
+0;–¬Á:236: warning: ignoring old recipe for target '.cpp.o'
+Makefile:240: warning: overriding recipe for target '.cpp.S'
+0;–¬Á:240: warning: ignoring old recipe for target '.cpp.S'
+Makefile:244: warning: overriding recipe for target '.c.o'
+0;–¬Á:244: warning: ignoring old recipe for target '.c.o'
+Makefile:248: warning: overriding recipe for target '.c.S'
+0;–¬Á:248: warning: ignoring old recipe for target '.c.S'
+Makefile:252: warning: overriding recipe for target '.m.o'
+0;–¬Á:252: warning: ignoring old recipe for target '.m.o'
+Makefile:256: warning: overriding recipe for target '.m.S'
+0;–¬Á:256: warning: ignoring old recipe for target '.m.S'
+Makefile:260: warning: overriding recipe for target 'commonmarker.bundle'
+0;–¬Á:260: warning: ignoring old recipe for target 'commonmarker.bundle'
+make[1]: Leaving directory '/Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker'
+
+current directory: /Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker
+make DESTDIR\=
+make[1]: Entering directory '/Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker'
+Makefile:175: warning: overriding recipe for target 'clean'
+§P»Õ:175: warning: ignoring old recipe for target 'clean'
+Makefile:182: warning: overriding recipe for target 'distclean'
+§P»Õ:182: warning: ignoring old recipe for target 'distclean'
+Makefile:190: warning: overriding recipe for target 'install-so'
+§P»Õ:190: warning: ignoring old recipe for target 'install-so'
+Makefile:200: warning: overriding recipe for target 'pre-install-rb-default'
+§P»Õ:200: warning: ignoring old recipe for target 'pre-install-rb-default'
+Makefile:202: warning: overriding recipe for target '.sitearchdir.-.commonmarker.time'
+§P»Õ:202: warning: ignoring old recipe for target '.sitearchdir.-.commonmarker.time'
+Makefile:212: warning: overriding recipe for target '.cc.o'
+§P»Õ:212: warning: ignoring old recipe for target '.cc.o'
+Makefile:216: warning: overriding recipe for target '.cc.S'
+§P»Õ:216: warning: ignoring old recipe for target '.cc.S'
+Makefile:220: warning: overriding recipe for target '.mm.o'
+§P»Õ:220: warning: ignoring old recipe for target '.mm.o'
+Makefile:224: warning: overriding recipe for target '.mm.S'
+§P»Õ:224: warning: ignoring old recipe for target '.mm.S'
+Makefile:228: warning: overriding recipe for target '.cxx.o'
+§P»Õ:228: warning: ignoring old recipe for target '.cxx.o'
+Makefile:232: warning: overriding recipe for target '.cxx.S'
+§P»Õ:232: warning: ignoring old recipe for target '.cxx.S'
+Makefile:236: warning: overriding recipe for target '.cpp.o'
+§P»Õ:236: warning: ignoring old recipe for target '.cpp.o'
+Makefile:240: warning: overriding recipe for target '.cpp.S'
+§P»Õ:240: warning: ignoring old recipe for target '.cpp.S'
+Makefile:244: warning: overriding recipe for target '.c.o'
+§P»Õ:244: warning: ignoring old recipe for target '.c.o'
+Makefile:248: warning: overriding recipe for target '.c.S'
+§P»Õ:248: warning: ignoring old recipe for target '.c.S'
+Makefile:252: warning: overriding recipe for target '.m.o'
+§P»Õ:252: warning: ignoring old recipe for target '.m.o'
+Makefile:256: warning: overriding recipe for target '.m.S'
+§P»Õ:256: warning: ignoring old recipe for target '.m.S'
+Makefile:260: warning: overriding recipe for target 'commonmarker.bundle'
+§P»Õ:260: warning: ignoring old recipe for target 'commonmarker.bundle'
+compiling arena.c
+compiling autolink.c
+compiling blocks.c
+compiling buffer.c
+compiling cmark.c
+compiling cmark_ctype.c
+compiling commonmark.c
+commonmark.c:420:18: warning: assigning to 'char *' from 'const char [2]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+      emph_delim = "_";
+                 ^ ~~~
+commonmark.c:422:18: warning: assigning to 'char *' from 'const char [2]' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+      emph_delim = "*";
+                 ^ ~~~
+2 warnings generated.
+compiling commonmarker.c
+In file included from commonmarker.c:3:
+In file included from ./houdini.h:9:
+./config.h:8:9: warning: 'HAVE_STDBOOL_H' macro redefined [-Wmacro-redefined]
+#define HAVE_STDBOOL_H
+        ^
+/usr/local/Cellar/ruby/3.0.2_1/include/ruby-3.0.0/x86_64-darwin18/ruby/config.h:27:9: note: previous definition is here
+#define HAVE_STDBOOL_H 1
+        ^
+commonmarker.c:565:20: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+  extensions_len = RARRAY_LEN(rb_extensions);
+                 ~ ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/Cellar/ruby/3.0.2_1/include/ruby-3.0.0/ruby/internal/core/rarray.h:52:36: note: expanded from macro 'RARRAY_LEN'
+#define RARRAY_LEN                 rb_array_len
+                                   ^
+commonmarker.c:1179:27: warning: implicit conversion loses integer precision: 'long' to 'bufsize_t' (aka 'int') [-Wshorten-64-to-32]
+                          RSTRING_LEN(rb_text))) {
+                          ^~~~~~~~~~~~~~~~~~~~
+/usr/local/Cellar/ruby/3.0.2_1/include/ruby-3.0.0/ruby/internal/core/rstring.h:44:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+commonmarker.c:1200:28: warning: implicit conversion loses integer precision: 'long' to 'bufsize_t' (aka 'int') [-Wshorten-64-to-32]
+                           RSTRING_LEN(rb_text), 0)) {
+                           ^~~~~~~~~~~~~~~~~~~~
+/usr/local/Cellar/ruby/3.0.2_1/include/ruby-3.0.0/ruby/internal/core/rstring.h:44:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+4 warnings generated.
+compiling core-extensions.c
+compiling ext_scanners.c
+compiling footnotes.c
+compiling houdini_href_e.c
+compiling houdini_html_e.c
+compiling houdini_html_u.c
+compiling html.c
+compiling inlines.c
+compiling iterator.c
+compiling latex.c
+compiling linked_list.c
+compiling man.c
+compiling map.c
+compiling node.c
+compiling plaintext.c
+compiling plugin.c
+compiling references.c
+compiling registry.c
+compiling render.c
+compiling scanners.c
+compiling strikethrough.c
+compiling syntax_extension.c
+compiling table.c
+compiling tagfilter.c
+compiling tasklist.c
+compiling utf8.c
+compiling xml.c
+linking shared-object commonmarker/commonmarker.bundle
+make[1]: Leaving directory '/Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker'
+
+current directory: /Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker
+make DESTDIR\= install
+make[1]: Entering directory '/Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker'
+Makefile:175: warning: overriding recipe for target 'clean'
+†Õ¿ü∏:175: warning: ignoring old recipe for target 'clean'
+Makefile:182: warning: overriding recipe for target 'distclean'
+†Õ¿ü∏:182: warning: ignoring old recipe for target 'distclean'
+Makefile:190: warning: overriding recipe for target 'install-so'
+†Õ¿ü∏:190: warning: ignoring old recipe for target 'install-so'
+Makefile:200: warning: overriding recipe for target 'pre-install-rb-default'
+†Õ¿ü∏:200: warning: ignoring old recipe for target 'pre-install-rb-default'
+Makefile:202: warning: overriding recipe for target '.sitearchdir.-.commonmarker.time'
+†Õ¿ü∏:202: warning: ignoring old recipe for target '.sitearchdir.-.commonmarker.time'
+Makefile:212: warning: overriding recipe for target '.cc.o'
+†Õ¿ü∏:212: warning: ignoring old recipe for target '.cc.o'
+Makefile:216: warning: overriding recipe for target '.cc.S'
+†Õ¿ü∏:216: warning: ignoring old recipe for target '.cc.S'
+Makefile:220: warning: overriding recipe for target '.mm.o'
+†Õ¿ü∏:220: warning: ignoring old recipe for target '.mm.o'
+Makefile:224: warning: overriding recipe for target '.mm.S'
+†Õ¿ü∏:224: warning: ignoring old recipe for target '.mm.S'
+Makefile:228: warning: overriding recipe for target '.cxx.o'
+†Õ¿ü∏:228: warning: ignoring old recipe for target '.cxx.o'
+Makefile:232: warning: overriding recipe for target '.cxx.S'
+†Õ¿ü∏:232: warning: ignoring old recipe for target '.cxx.S'
+Makefile:236: warning: overriding recipe for target '.cpp.o'
+†Õ¿ü∏:236: warning: ignoring old recipe for target '.cpp.o'
+Makefile:240: warning: overriding recipe for target '.cpp.S'
+†Õ¿ü∏:240: warning: ignoring old recipe for target '.cpp.S'
+Makefile:244: warning: overriding recipe for target '.c.o'
+†Õ¿ü∏:244: warning: ignoring old recipe for target '.c.o'
+Makefile:248: warning: overriding recipe for target '.c.S'
+†Õ¿ü∏:248: warning: ignoring old recipe for target '.c.S'
+Makefile:252: warning: overriding recipe for target '.m.o'
+†Õ¿ü∏:252: warning: ignoring old recipe for target '.m.o'
+Makefile:256: warning: overriding recipe for target '.m.S'
+†Õ¿ü∏:256: warning: ignoring old recipe for target '.m.S'
+Makefile:260: warning: overriding recipe for target 'commonmarker.bundle'
+†Õ¿ü∏:260: warning: ignoring old recipe for target 'commonmarker.bundle'
+/usr/bin/install -c -m 0755 commonmarker.bundle ./.gem.20220616-3934-caplgo/commonmarker
+make[1]: Leaving directory '/Users/zenalapp/Desktop/DiscovR/.vendor/bundle/ruby/3.0.0/gems/commonmarker-0.23.5/ext/commonmarker'

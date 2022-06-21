@@ -1,0 +1,107 @@
+# Start: 9:00
+# 
+# Intro to the workshop:
+#   Workshop is for complete beginners
+# Will follow Carpentries code of conduct
+# Introduce instructors
+# Introduce participants
+# How much R do people know?
+#   Overview of what the workshop will cover
+# Questions, sticky notes & getting help
+# Bathrooms & break
+
+# End: 9:15
+
+# R/RStudio orientation
+# 15 min 
+
+# Why R?
+#   Ask them
+# Panels in RStudio
+# Create project
+# Open new R script (save)
+# Comments?
+
+# End: 9:30
+
+
+## Read in our data so we can see it and make plots with it
+## Need to learn a few things first: functions and objects
+# 30 min
+
+#### Functions ####
+# - built-in procedure that automates something for you
+# - you input arguments into a function and the function returns a value
+
+# square root function
+sqrt(2)
+# ?sqrt
+
+# Most functions take multiple arguments. But there are usually defaults that are used if you don't specify anything for that argument.
+# round a number
+round(3.14159)
+?round
+# change number of digits to 2
+round(3.14159, digits = 2)
+# if you provide the arguments in the exact same order as they are defined, you don't have to name them
+round(3.14159, 2)
+
+# Exercise
+# Which of the following lines of code will give you an output of 3.14? For the one(s) that don’t give you 3.14, what do they give you?
+round(x = 3.14159)
+round(x = 3.14159, digits = 2)
+round(digits = 2, x = 3.14159)
+round(2, 3.14159)
+
+#### Objects ####
+# - Storage boxes so you can save information for later reference and more easily manipulate it
+
+# store square root to object
+first_sqrt <- sqrt(16)
+# print (access) first_sqrt
+first_sqrt
+# get square root of square root (manipulate first_sqrt)
+second_sqrt <- sqrt(first_sqrt)
+second_sqrt
+# can change variable content directly
+first_sqrt <- sqrt(10)
+# objects aren't automatically updated like in a spreadsheet
+first_sqrt
+second_sqrt
+
+# Exercise - what is my_number after these three lines are run?
+# 10, 15, 17, 22
+my_number <- 10
+my_number + 5
+my_number <- my_number + 7
+
+# Object names
+# - can't start with number
+# - no spaces
+# - best practice to not include periods 
+
+# Exercise
+# Which of these object names will throw an error?
+# After running all four lines of code below, what value do you think the object Flower holds?
+1number <- 3
+Flower <- "marigold"
+flower <- "rose"
+favorite number <- 12
+
+# load in library
+library(tidyverse)
+# packages tab 
+
+# read in data
+gapminder_1997 <- read_csv("data/gapminder_1997.csv")
+
+# Exercise - what function would you use to read in an excel file?
+# (use the internet)
+
+## End: 10:00
+
+### First plot! 
+## 30 min
+
+### Stickies!!!
+

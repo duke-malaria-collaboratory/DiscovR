@@ -1,0 +1,2 @@
+"0","gapminder_co2 %>%"
+"0","  mutate(region = if_else(country == ""Canada"" | country == ""United States"" | country == ""Mexico"", ""north"", ""south""))"

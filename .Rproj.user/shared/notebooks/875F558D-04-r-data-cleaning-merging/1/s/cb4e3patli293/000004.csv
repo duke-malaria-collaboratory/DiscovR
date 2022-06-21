@@ -1,0 +1,3 @@
+"0","inner_join(gapminder_data, co2_emissions)"
+"1","[38;5;232mJoining, by = ""country""[39m
+"

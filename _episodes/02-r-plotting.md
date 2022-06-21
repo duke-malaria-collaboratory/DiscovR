@@ -273,6 +273,19 @@ There are also lots of other fun options:
 > > ~~~
 > > #install.packages("wesanderson") # install package from GitHub
 > > library(wesanderson)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in library(wesanderson): there is no package called 'wesanderson'
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > ggplot(data = gapminder_1997) +
 > > aes(x = gdpPercap) +
 > > labs(x = "GDP Per Capita") +
@@ -285,7 +298,12 @@ There are also lots of other fun options:
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-Color-1.png" title="plot of chunk Color" alt="plot of chunk Color" width="612" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in wes_palette("Cavalcanti1"): could not find function "wes_palette"
+> > ~~~
+> > {: .error}
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -414,7 +432,7 @@ To start, we will read in the data without using the interactive RStudio file na
 
 ~~~
 Rows: 1704 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
