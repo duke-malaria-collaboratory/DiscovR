@@ -47,7 +47,7 @@ Introduce yourself with your preferred name, role, affiliation, work/research ar
 ## The "goal" of the workshop
 
 Now that we all know each other, let's learn a bit more about why we're here. 
-Our goal is to write a report to the United Nations on the relationship between GDP, life expectancy, and CO2 emissions. In other words, we are going to analyze  how countries' economic strength or weakness may be related to  public health status and climate pollution, respectively.
+Our goal is to write a report to the United Nations on the relationship between lung cancer, smoking, and air pollution. In other words, we are going to analyze  how countries' smoking rates and air pollution may be related to  lung cancer.
 
 To get to that point, we'll need to learn how to manage data, make plots, and generate reports. The next section discusses in more detail exactly what we will cover.
 
@@ -77,6 +77,7 @@ The programs to be introduced are:
 1. [_R_]({{ page.root }}/01-r-plotting): a statistical analysis and data management program, 
 1. [_RStudio_]({{ page.root }}/01-r-plotting): a graphical interface to use R, and
 1. [_R Markdown_]({{ page.root }}/05-r-markdown): a method for writing reproducible reports. 
+
 We'll use these tools to manage data, perform basic statistical analyses, and make pretty plots!
 
 We will not try to make you an expert or even proficient with any of them, but we
