@@ -38,7 +38,7 @@ We expect that instructors, helpers, and learners abide by this code of conduct,
 
 ## Introducing the instructors and helpers
 
-Now that you know a little about The Carpentries as an organization, the instructors and helpers will introduce themselves and what they'll be teaching/helping with.
+Now that you know a little about The Carpentries as an organization, the instructors and facilitators will introduce themselves and what they'll be teaching/helping with.
 
 ## Introducing participants
 
@@ -47,7 +47,7 @@ Introduce yourself with your preferred name, role, affiliation, work/research ar
 ## The "goal" of the workshop
 
 Now that we all know each other, let's learn a bit more about why we're here. 
-Our goal is to write a report to the United Nations on the relationship between lung cancer, smoking, and air pollution. In other words, we are going to analyze  how countries' smoking rates and air pollution may be related to  lung cancer.
+Our goal is to write a report to the United Nations on the relationship between lung cancer, smoking, and air pollution. In other words, we are going to analyze  how countries' smoking rates and air pollution may be related to  the percent of people with lung cancer.
 
 To get to that point, we'll need to learn how to manage data, make plots, and generate reports. The next section discusses in more detail exactly what we will cover.
 
