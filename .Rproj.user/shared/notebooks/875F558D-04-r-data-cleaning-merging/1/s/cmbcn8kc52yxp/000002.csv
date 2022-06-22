@@ -1,9 +1,0 @@
-"0","ggplot(gapminder_co2, aes(x=gdpPercap, y=per_capita)) +"
-"0","  geom_point() +"
-"0","  labs(x=""GDP (per capita)"","
-"0","       y=""CO2 emitted (per capita)"","
-"0","       title=""There is a strong association between a nation's GDP \nand the amount of CO2 it produces"""
-"0","  ) +"
-"0","  geom_smooth(method=""lm"")"
-"2","`geom_smooth()` using formula 'y ~ x'
-"

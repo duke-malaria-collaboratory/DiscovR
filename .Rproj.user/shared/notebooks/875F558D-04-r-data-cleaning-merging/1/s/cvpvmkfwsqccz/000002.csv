@@ -1,7 +1,0 @@
-"0","co2_emissions <- co2_emissions_dirty %>%"
-"0","  select(country, year, series, value) %>%"
-"0","  mutate(series = recode(series, ""Emissions (thousand metric tons of carbon dioxide)"" = ""total_emission"","
-"0","                         ""Emissions per capita (metric tons of carbon dioxide)"" = ""per_capita_emission"")) %>%"
-"0","  pivot_wider(names_from=series, values_from=value) %>%"
-"0","  filter(year==2005) %>%"
-"0","  select(-year)"
