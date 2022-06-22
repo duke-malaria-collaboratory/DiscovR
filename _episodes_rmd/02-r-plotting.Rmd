@@ -149,7 +149,7 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 ## Creating our first plot
 _[Back to top](#contents)_
 
-We will be using the `ggplot2` package today to make our plots. This is a very
+We will be using the `ggplot2` package, which is part of `tidyverse`, to make our plots. This is a very
 powerful package that creates professional looking plots and is one of the
 reasons people like using R so much. All plots made using the `ggplot2` package
 start by calling the `ggplot()` function. So in the tab you created for the
