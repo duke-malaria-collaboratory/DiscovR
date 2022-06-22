@@ -139,7 +139,7 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 > {: .source}
 >
 > > ## Solution
-> > One way is using the `read_excel` function in the `readxl` package. There are other ways, but this is our preferred method because the output will be the same as the output of `read_csv`.
+> > One way is using the `read_excel` function in the `readxl` package. Hint: you may need to use `install.packages()` to install the `readxl` package. There are other ways to read in excel files, but this is our preferred method because the output will be the same as the output of `read_csv`.
 > {: .solution}
 {: .challenge}
 
