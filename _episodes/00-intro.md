@@ -80,9 +80,9 @@ The programs to be introduced are:
 
 We'll use these tools to manage data, perform basic statistical analyses, and make pretty plots!
 
-We will not try to make you an expert or even proficient with any of them, but we
-hope to demonstrate the basics of controlling your code, automating your
-work, and creating reproducible programs. We also hope to provide you with some
+While the workshop won't make you an expert, we
+hope to provide you with a foundational understanding in coding for data analysis and visualization, 
+automating your work, and creating reproducible programs. We also hope to provide you with some
 fundamentals that you can incorporate in your own work.
 
 At the end, we provide links to resources you can use to learn about these
