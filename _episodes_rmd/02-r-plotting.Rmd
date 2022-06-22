@@ -853,7 +853,7 @@ Try different values like 5 or 50 to see how the plot changes.
 What if we want to plot a univariate discrete variable, like continent? For this, we can use a bar chart. 
 
 > ## Exercise: Discrete univariate plots
-> Create a bar plot of `continent`. You can try guessing the geom or look it up on the cheat sheet or Internet. 
+> Create a bar plot of `continent` that shows the number of countries in each continent. You can try guessing the geom or look it up on the cheat sheet or Internet. 
 >
 > > ## Example solution
 > > ```{r barplot}
