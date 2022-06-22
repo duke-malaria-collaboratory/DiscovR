@@ -561,11 +561,7 @@ better understanding of the kinds of patterns we might observe in our own data,
 we will now use the full dataset, which is stored in a file called
 "gapminder_data.csv".
 
-To start, we will read in the data without using the interactive RStudio file navigation.
-
-```{r ImportFullDataSolutionEval, echo = FALSE}
-gapminder_data <- read_csv("data/gapminder_data.csv")
-```
+To start, we will read in the data:
 
 > ## Read in your own data
 >
