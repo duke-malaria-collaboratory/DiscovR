@@ -105,7 +105,7 @@ gapminder_1997 <- read_csv("data/gapminder_1997.csv")
 
 ~~~
 Rows: 142 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (3): pop, lifeExp, gdpPercap
@@ -172,7 +172,7 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 > {: .source}
 >
 > > ## Solution
-> > One way is using the `read_excel` function in the `readxl` package. There are other ways, but this is our preferred method because the output will be the same as the output of `read_csv`.
+> > One way is using the `read_excel` function in the `readxl` package. Hint: you may need to use `install.packages()` to install the `readxl` package. There are other ways to read in excel files, but this is our preferred method because the output will be the same as the output of `read_csv`.
 > {: .solution}
 {: .challenge}
 
@@ -182,7 +182,7 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 ## Creating our first plot
 _[Back to top](#contents)_
 
-We will be using the `ggplot2` package today to make our plots. This is a very
+We will be using the `ggplot2` package, which is part of `tidyverse`, to make our plots. This is a very
 powerful package that creates professional looking plots and is one of the
 reasons people like using R so much. All plots made using the `ggplot2` package
 start by calling the `ggplot()` function. So in the tab you created for the
@@ -675,20 +675,7 @@ better understanding of the kinds of patterns we might observe in our own data,
 we will now use the full dataset, which is stored in a file called
 "gapminder_data.csv".
 
-To start, we will read in the data without using the interactive RStudio file navigation.
-
-
-~~~
-Rows: 1704 Columns: 6
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): country, continent
-dbl (4): year, pop, lifeExp, gdpPercap
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-~~~
-{: .output}
+To start, we will read in the data:
 
 > ## Read in your own data
 >
@@ -732,7 +719,12 @@ Notice that this dataset has an additional column `year` compared to the smaller
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-02-PlotFullGapminder-1.png" title="plot of chunk PlotFullGapminder" alt="plot of chunk PlotFullGapminder" width="612" style="display: block; margin: auto;" />
+> 
+> 
+> ~~~
+> Error in ggplot(data = gapminder_data): object 'gapminder_data' not found
+> ~~~
+> {: .error}
 >
 {: .challenge}
 
@@ -756,7 +748,12 @@ Our plot has a lot of points in columns which makes it hard to see trends over t
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-GapMinderLinePlotBad-1.png" title="plot of chunk GapMinderLinePlotBad" alt="plot of chunk GapMinderLinePlotBad" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in ggplot(data = gapminder_data): object 'gapminder_data' not found
+~~~
+{: .error}
 
 Hmm. This doesn't look right. By setting the color value, we got a line for each continent, but we really wanted a line for each country. We need to tell ggplot that we want to connect the values for each `country` value instead. To do this, we need to use the `group=` aesthetic.
 
@@ -768,7 +765,12 @@ Hmm. This doesn't look right. By setting the color value, we got a line for each
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-GapMinderLinePlot-1.png" title="plot of chunk GapMinderLinePlot" alt="plot of chunk GapMinderLinePlot" width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in ggplot(data = gapminder_data): object 'gapminder_data' not found
+~~~
+{: .error}
 
 Sometimes plots like this are called "spaghetti plots" because all the lines look like a bunch of wet noodles.
 
@@ -784,7 +786,12 @@ Sometimes plots like this are called "spaghetti plots" because all the lines loo
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-gapminderMoreLines-1.png" title="plot of chunk gapminderMoreLines" alt="plot of chunk gapminderMoreLines" width="612" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in ggplot(data = gapminder_data): object 'gapminder_data' not found
+> > ~~~
+> > {: .error}
 > > (China and India are the two Asian countries that have experienced massive population growth from 1952-2007.)
 > {: .solution}
 {: .challenge}
@@ -1081,7 +1088,7 @@ Try different values like 5 or 50 to see how the plot changes.
 What if we want to plot a univariate discrete variable, like continent? For this, we can use a bar chart. 
 
 > ## Exercise: Discrete univariate plots
-> Create a bar plot of `continent`. You can try guessing the geom or look it up on the cheat sheet or Internet. 
+> Create a bar plot of `continent` that shows the number of countries in each continent. You can try guessing the geom or look it up on the cheat sheet or Internet. 
 >
 > > ## Example solution
 > > 
