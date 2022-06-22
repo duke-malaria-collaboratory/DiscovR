@@ -139,7 +139,7 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 > {: .source}
 >
 > > ## Solution
-> > One way is using the `read_excel` function in the `readxl` package. There are other ways, but this is our preferred method because the output will be the same as the output of `read_csv`.
+> > One way is using the `read_excel` function in the `readxl` package. Hint: you may need to use `install.packages()` to install the `readxl` package. There are other ways to read in excel files, but this is our preferred method because the output will be the same as the output of `read_csv`.
 > {: .solution}
 {: .challenge}
 
@@ -149,7 +149,7 @@ The `read_csv()` function took the file path we provided, did who-knows-what beh
 ## Creating our first plot
 _[Back to top](#contents)_
 
-We will be using the `ggplot2` package today to make our plots. This is a very
+We will be using the `ggplot2` package, which is part of `tidyverse`, to make our plots. This is a very
 powerful package that creates professional looking plots and is one of the
 reasons people like using R so much. All plots made using the `ggplot2` package
 start by calling the `ggplot()` function. So in the tab you created for the
@@ -849,7 +849,7 @@ Try different values like 5 or 50 to see how the plot changes.
 What if we want to plot a univariate discrete variable, like continent? For this, we can use a bar chart. 
 
 > ## Exercise: Discrete univariate plots
-> Create a bar plot of `continent`. You can try guessing the geom or look it up on the cheat sheet or Internet. 
+> Create a bar plot of `continent` that shows the number of countries in each continent. You can try guessing the geom or look it up on the cheat sheet or Internet. 
 >
 > > ## Example solution
 > > ```{r barplot}
