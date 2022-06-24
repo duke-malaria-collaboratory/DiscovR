@@ -50,7 +50,7 @@ The very first step is to read in the gapminder dataset, so do that first! Also 
 > 
 > 
 > ~~~
-> ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 > ~~~
 > {: .output}
 > 
@@ -67,7 +67,7 @@ The very first step is to read in the gapminder dataset, so do that first! Also 
 > 
 > 
 > ~~~
-> ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 > ✖ dplyr::filter() masks stats::filter()
 > ✖ dplyr::lag()    masks stats::lag()
 > ~~~
@@ -90,7 +90,7 @@ The very first step is to read in the gapminder dataset, so do that first! Also 
 > 
 > 
 > ~~~
-> ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+> ── Column specification ────────────────────────────────────────────────────────
 > Delimiter: ","
 > chr (2): country, continent
 > dbl (4): year, pop, lifeExp, gdpPercap
@@ -164,7 +164,7 @@ gapminder_data <- read_csv("data/gapminder_data.csv")
 
 ~~~
 Rows: 1704 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -807,7 +807,7 @@ Before we move on to more data cleaning, let's create the final gapminder datafr
 > > 
 > > ~~~
 > > Rows: 1704 Columns: 6
-> > ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+> > ── Column specification ────────────────────────────────────────────────────────
 > > Delimiter: ","
 > > chr (2): country, continent
 > > dbl (4): year, pop, lifeExp, gdpPercap

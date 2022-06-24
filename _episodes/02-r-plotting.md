@@ -105,7 +105,7 @@ gapminder_1997 <- read_csv("data/gapminder_1997.csv")
 
 ~~~
 Rows: 142 Columns: 5
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (3): pop, lifeExp, gdpPercap
