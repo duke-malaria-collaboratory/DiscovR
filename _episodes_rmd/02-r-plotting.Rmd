@@ -354,7 +354,7 @@ website](https://colorbrewer2.org/) for more info about choosing plot colors.
 > > As a bonus, you can also use one of the packages listed above. 
 > > Here's an example:
 > > 
-> > ```{r Color}
+> > ```{r Color, warning = FALSE}
 > > #install.packages("ggsci")
 > > library(ggsci)
 > > ggplot(data = smoking_1990) +
@@ -611,7 +611,7 @@ To start, we will read in the data:
 >
 > > ## Solution
 > >
-> > ```{r ImportFullDataSolutionEcho, eval = FALSE}
+> > ```{r ImportFullDataSolutionEcho, eval = TRUE}
 > > smoking <- read_csv("data/smoking_cancer.csv")
 > > ```
 > {: .solution}
