@@ -103,7 +103,7 @@ library(tidyverse)
 >
 {: .callout}
 
-Okay, now let's read in our data, smoking_cancer_1990.csv, which is in the data folder in our project directory. 
+Okay, now let's read in our data, "smoking_cancer_1990.csv", which is in the data folder in our project directory. 
 We're going to use the `read_csv()` function that we loaded in with the tidyverse, 
 and save it to `smoking_1990`, which will act as a placeholder for our data.
 This function takes a file path and returns a tibble, which is basically a table (that we sometimes call a data frame...).
