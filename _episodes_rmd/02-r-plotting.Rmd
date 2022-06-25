@@ -305,7 +305,7 @@ ggplot(data = smoking_1990) +
   aes(color = continent)
 ```
 
-Here we can see that in 1990 the African countries tended to have much smoking and lung cancer rates than many other continents. Notice that when we add a mapping for
+Here we can see that in 1990 the African countries tended to have much lower smoking and lung cancer rates than many other continents. Notice that when we add a mapping for
 color, ggplot automatically provided a legend for us. It took care of assigning
 different colors to each of our unique values of the `continent` variable. (Note
 that when we mapped the x and y values, those drew the actual axis labels, so in
@@ -372,8 +372,8 @@ website](https://colorbrewer2.org/) for more info about choosing plot colors.
 {: .challenge}
 
 Since we have the data for the population of each country, we might be curious
-what effect population might have on smoking rates and lung cancer rates. Do you
-think larger countries will have a greater or lower lung cancer rates? Let's find
+about the relationship between population, smoking rates, and lung cancer rates. Do you
+think larger countries will have a greater or lower lung cancer rate? Let's find
 out by mapping the population of each country to the size of our points.
 
 > ## Changing point sizes
@@ -399,7 +399,7 @@ out by mapping the population of each country to the size of our points.
 > {: .solution}
 {: .challenge}
 
-There doesn't seem to be a very strong association with population size. We got another legend here for size,
+There doesn't seem to be a very strong association with population size. We also got another legend here for size,
 which is nice, but the values look a bit ugly in scientific notation. Let's
 divide all the values by 1,000,000 and label our legend "Population (in
 millions)"
@@ -666,7 +666,7 @@ Hmm. This doesn't look right. By setting the color value to `continent`, we got 
 Now, it's more straightforward to attribute patterns to individual countries within continents. Do you see any lines that might be outliers or interesting to look into? Are there parts of the plot that are still hard to see? Sometimes plots like this are called "spaghetti plots" because all the lines look like a bunch of wet noodles.
 
 > ## Bonus Exercise: More line plots
-> Now create your own line plot comparing population and lung cancer rates! Looking at your plot, can you guess which two countries have experienced massive change in population from 1952-2007?
+> Now create your own line plot comparing population and lung cancer rates! Looking at your plot, can you guess which two countries have experienced massive change in population from 1990-2019?
 >
 > > ## Solution
 > > ```{r smokingMoreLines}
@@ -674,7 +674,7 @@ Now, it's more straightforward to attribute patterns to individual countries wit
 > >  aes(x = pop, y = lung_cancer_pct, group = country, color = continent) +
 > >  geom_line()
 > > ```
-> > (China and India are the two Asian countries that have experienced massive population growth from 1952-2007.)
+> > (China and India are the two Asian countries that have experienced massive population growth from 1990-2019.)
 > {: .solution}
 {: .challenge}
 
@@ -1009,8 +1009,8 @@ Questions to answer:
 
 1. In 1-2 sentences, describe the information covered in your dataset.
 2. How large is your dataset? How many rows? How many columns?
-3. Write down 3 questions you could answer with your data set.
-4. How can you use visuals to explore those questions? Draw 3 plots out on paper. What will these plots show you?
+3. Write down 3 specific questions you could answer with your data set.
+4. How can you use visuals to explore those questions? Draw at least 3 plots out on paper. What will these plots show you?
 5. Is your data in a format that can easily be read into R? How can you improve the formatting of the contents of the file? 
 
 # Glossary of terms
