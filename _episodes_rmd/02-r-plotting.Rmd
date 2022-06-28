@@ -530,7 +530,7 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width=6, 
 >  scale_color_brewer(palette = "Set2") +
 >  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer", title = "Are lung cancer rates associated with smoking rates?", size = "Population (in millions)")
 > 
-># Bug 2
+> # Bug 2
 > 
 > ggplot(data = smoking_1990) +
 >  aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000) +
@@ -552,7 +552,6 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width=6, 
 >  geom_point() +
 >  scale_color_brewer(palette = "Set2") +
 >  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer", title = "Are lung cancer rates associated with smoking rates?" size = "Population (in millions)")
-> ```
 > 
 > # Bug 5
 > ggplot(data = smoking_1990) +
@@ -560,7 +559,7 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width=6, 
 >  geom_point() +
 >  scale_color_brewer(palette = "Set2") +
 >  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer", title = "Are lung cancer rates associated with smoking rates?", size = "Population (in millions)") +
-> 
+> ```
 > {: .source}
 > > ## Solution
 > > **Bug 1**: We generated a plot, but it doesn't look like what we expect. The bug is in our mapping of aesthetics: `aes(x = "smoke_pct", y = lung_cancer_pct, color = continent, size = pop/1000000)`. Because `"smoke_pct"` is in quotation marks, ggplot understands that as a single value, rather than an aesthetic mapped to the `smoke_pct` variable in the `smoking_1990` dataset. To correct this bug, remove the from `"smoke_pct"`.
@@ -591,8 +590,8 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width=6, 
 > > This error message tells us that there was something unexpected in either the `scale_color_brewer()` function or the `labs()` funtion. These errors can be some of the hardest to figure out, because the message is not very specific. However, if you look closely, yu will see that we are missing a comma between `title = "Are lung cancer rates associated with smoking rates?"` and `size = "Population (in millions)"` inside the label function.
 > >
 > > **Bug 5**: When you run this code, it seems like nothing happens. Look at the symbol on the last line in your console. Instead of the `>` symbol we expect, you can see that there is a `+`. This means that R is expecting something else. But why?
-> 
-> Check the last line of your ggplot code. Oops! We left a `+` symbol at the very end. Before you can run anything else, you'll need to tell R that you don't actually have anything to add to the previous code. To do this, click on the last line in the console and then hit "Esc" on your keyboard. Now you are ready to run the correct code.
+> > 
+> > Check the last line of your ggplot code. Oops! We left a `+` symbol at the very end. Before you can run anything else, you'll need to tell R that you don't actually have anything to add to the previous code. To do this, click on the last line in the console and then hit "Esc" on your keyboard. Now you are ready to run the correct code.
 > >
 > > In the code chunck below, you can see the code that results in an error-free plot.
 > >
@@ -630,7 +629,7 @@ To start, we will read in the data:
 >
 > What argument should be provided in the below code to read in the full dataset?
 >
-> ```{r ImportFullData, eval = TRUE}
+> ```{r ImportFullData, eval = FALSE}
 > smoking <- read_csv()
 > ```
 >
@@ -654,12 +653,18 @@ Notice that this dataset has an additional column `year` compared to the smaller
 > Now that we have the full dataset read into our R session, let's plot the data placing our new `year` variable on the x axis and lung cancer rates on the y axis. We've provided the code below. Notice that we've collapsed the plotting function options and left off some of the labels so there's not as much code to work with.
 > Before running the code, read through it and see if you can predict what the plot output will look like. Then run the code and check to see if you were right!
 >
-> ```{r PlotFullsmoking}
+> ```{r PlotFullsmoking, eval = FALSE}
 >  ggplot(data = smoking) +
 >  aes(x=year, y=lung_cancer_pct, color=continent) +
 >  geom_point()
 > ```
->
+> > ## Solution
+> > ```{r PlotFullsmokingEval, echo = FALSE}
+> > ggplot(data = smoking) +
+> > aes(x=year, y=lung_cancer_pct, color=continent) +
+> > geom_point()
+> > ```
+> {: .solution}
 {: .challenge}
 
 Hmm, the plot we created in the last exercise isn't very clear. We can see some patterns that may be attributable to countries with higher lung cancer rates, but it's tough to tell what's going on, since many of the points are overlapping. Since the dataset is more complex, the plotting options we used for the smaller dataset aren't as useful for interpreting these data. Luckily, we can add additional attributes to our plots that will make patterns more apparent. For example, we can generate a different type of plot - perhaps a line plot with one line per country, colored by continent - and assign attributes for variables where we might expect to see patterns.
