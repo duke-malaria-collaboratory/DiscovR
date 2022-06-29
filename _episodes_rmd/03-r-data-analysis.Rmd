@@ -340,7 +340,7 @@ This will add a new column called "smoke_n" to our data. We use the column names
 > > ## Solution: 
 > > ```{r mutateExercise}  
 > > smoking %>%  
-> > mutate(smoke_n = pop * smoke_pct, pop_mil = pop / 1000000)  
+> > mutate(smoke_n = pop * smoke_pct/100, pop_mil = pop / 1000000)  
 > > ```  
 > {: .solution}
 {: .challenge}
