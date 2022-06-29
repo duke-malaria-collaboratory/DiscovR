@@ -88,7 +88,7 @@ Next, plot year vs. population separated into a plot for each continent but excl
 > geom_point() +
 > facet_wrap(vars(continent))
 > ```
-> Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`), which means that you want to exclude both China and India:
+> Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`) or comma (`,`), which means that you want to exclude both China and India:
 > ```{r}
 > smoking %>% 
 > filter(country != 'China' & country != 'India') %>% 
