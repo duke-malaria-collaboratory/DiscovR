@@ -12,7 +12,7 @@ objectives:
 - "To understand how to use R code chunks to include or hide code, figures, and messages."
 - "To be aware of the various report formats that can be rendered using R Markdown."
 keypoints:
-  - "R Markdown is a way to create a report that integrates text, code, and figures."
+  - "R Markdown is a useful way to create a report that integrates text, code, and figures."
   - "Options such as `include` and `echo` determine what parts of an R code chunk are included in the R Markdown report. "
   - "R Markdown can render HTML, PDF, and Microsoft Word outputs."
 ---
