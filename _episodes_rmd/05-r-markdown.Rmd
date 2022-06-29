@@ -127,7 +127,7 @@ Bonus 2: How can you make the differences between countries more visible on the 
 ## What is R Markdown and why use it?
 _[Back to top](#contents)_
 
-Recall that our goal is to generate a report to the United Nations on how a country's smoking rate is related to its lung cancer rate.
+Recall that our goal is to generate a report on how a country's smoking rate is related to its lung cancer rate.
 
 > ## Discusion
 > How do you usually share data analyses with your collaborators? 
