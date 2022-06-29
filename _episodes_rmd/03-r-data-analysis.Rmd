@@ -245,7 +245,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 > > Instead of finding the most recent year first and then filtering, we can find the most recent year right in the filter function: 
 > > ```{r no_hard_code}
 > > smoking %>% 
-> > filter(year == min(year)) %>% 
+> > filter(year == max(year)) %>% 
 > > summarize(mean_cancer_pct=mean(lung_cancer_pct))
 > > ```
 > {: .solution}
