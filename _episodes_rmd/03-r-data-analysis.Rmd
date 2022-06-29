@@ -224,7 +224,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 >
 > > ## Solution
 > >
-> > Identify the earliest year in our dataset using `max()` and `summarize()`:
+> > Identify the most recent year in our dataset using `max()` and `summarize()`:
 > >
 > > ```{r FilterChallenge1}
 > > smoking %>%
