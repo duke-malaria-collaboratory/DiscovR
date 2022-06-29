@@ -454,7 +454,6 @@ Let's make a plot with our wide data comparing percent of smokers in 1990 to per
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct) %>% 
   ggplot(aes(x = 1990, y = 2010)) +
   geom_point()
