@@ -279,6 +279,11 @@ Note that you might get a message about the summarize function regrouping the ou
 >   summarize(count = n())
 > ```
 > 
+> Other alternatives are the `count()` and `tally()` functions, which are shortcuts. For instance:
+> smoking %>% 
+>   filter(year == 2019) %>% 
+>   group_by(continent) %>% 
+>   count()
 {: .callout}
 
 
