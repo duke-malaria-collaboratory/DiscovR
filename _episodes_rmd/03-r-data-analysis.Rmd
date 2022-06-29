@@ -482,7 +482,7 @@ smoking %>%
   geom_abline(intercept = 0, slope = 1)
 ```
 
-It seems like in most countries the percent of smokers has decrased from 1990 to 2010, but there are some countries where smoking has increased. Let's figure out which those are!
+It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 
 > ## Bonus: Identifying countries with more smokers in 2010 than 1990
 >
