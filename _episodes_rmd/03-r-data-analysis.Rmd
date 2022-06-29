@@ -108,7 +108,7 @@ Yesterday we spent a lot of time making plots in R using the ggplot2 package. Vi
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
 [*Back to top*](#contents)
 
-Let's say we would like to know what is the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoking_pct column using the `summarize()` function. Here's what that looks like:
+Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoking_pct column using the `summarize()` function. Here's what that looks like:
 
 ```{r AvgLifeExp}
 summarize(smoking, mean_smoke_pct=mean(smoke_pct))
