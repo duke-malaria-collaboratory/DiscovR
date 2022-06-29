@@ -242,7 +242,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 > > By combining `filter()` and `summarize()` we were able to calculate the mean mercent of people with lung cancer in 2019
 > > 
 > > Bonus:
-> > Instead of finding the minimum year first and then filtering, we can find the minimum year right in the filter function: 
+> > Instead of finding the most recent year first and then filtering, we can find the most recent year right in the filter function: 
 > > ```{r no_hard_code}
 > > smoking %>% 
 > > filter(year == min(year)) %>% 
