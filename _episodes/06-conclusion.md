@@ -37,20 +37,7 @@ We want to be a resource for you after the workshop ends, and we also want you a
 
 First, **you can email us whenever you want with questions!** (zena.lapp@duke.edu; christine.markwalter@duke.edu; erica.zeno@duke.edu)
 
-For additional consistent support, here are some ideas we could implement: 
-
-1. Whatsapp group
-  1. Pro: already commonly used
-  1. Con: can't create conversation threads and difficult to answer more complicated questions
-1. Slack
-  1. Pro: can have different channels for different topics, and can use threads for specific conversations
-  1. Con: not as widely used
-1. Monthly virtual office hours
-  1. Pro: can discuss complex topics and questions more easily
-  1. Con: no immediate help, and might not work with everyone's schedule 
-1. Follow-up workshops
-  1. Pro: can discuss more detailed topics
-  1. Con: not regular, and different learners may have different specialized topic interests
+For additional consistent support, here are some ideas we can: create a whatsapp group, create a slack workspace, have monthly virtual office hours, and/or have follow-up workshops. Let's discuss what would be most helpful for you.  
 
 ## Dealing with coding errors
 

@@ -62,7 +62,7 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > 
 > 
 > ~~~
-> ── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 > ~~~
 > {: .output}
 > 
@@ -79,7 +79,7 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > 
 > 
 > ~~~
-> ── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 > ✖ dplyr::filter() masks stats::filter()
 > ✖ dplyr::lag()    masks stats::lag()
 > ~~~
@@ -102,7 +102,7 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > 
 > 
 > ~~~
-> ── Column specification ─────────────────────────────────────────────────────────────────────────────────
+> ── Column specification ────────────────────────────────────────────────────────
 > Delimiter: ","
 > chr (2): country, continent
 > dbl (4): year, pop, smoke_pct, lung_cancer_pct
@@ -173,7 +173,7 @@ Yesterday we spent a lot of time making plots in R using the ggplot2 package. Vi
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
 [*Back to top*](#contents)
 
-Let's say we would like to know what is the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoking_pct column using the `summarize()` function. Here's what that looks like:
+Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoking_pct column using the `summarize()` function. Here's what that looks like:
 
 
 ~~~
@@ -195,9 +195,9 @@ When we call `summarize()`, we can use any of the column names of our data objec
 
 > **Note:** The `summarize()` and `summarise()` functions perform identical functions.
 
-We name this new column so we can use in a future argument. So the `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
+The `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
 
-Instead of including the data as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. 
+Instead of including the data object as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. You can think of `%>%` as another way to type "and then."
 
 
 ~~~
@@ -217,9 +217,9 @@ smoking %>% summarize(mean_smoke_pct=mean(smoke_pct))
  
 This line of code will do the exact same thing as our first summary command, but the piping function tells R to use the `smoking` dataframe as the first argument in the next function.
 
-This lets us "chain" together multiple functions, which will be helpful later. Note that the pipe (`%>%`) is a bit different from using the ggplot plus (`+`). Pipes take the output from the left side and use it as input to the right side. Plusses layer on additional information (right side) to a preexisting plot (left side). 
+This lets us "chain" together multiple functions, which will be helpful later. Note that the pipe (`%>%`) is a bit different from using the ggplot plus (`+`). Pipes take the output from the left side and use it as input to the right side. In other words, it tells R to do the function on the left *and then* the function on the right. In contrast, plusses layer on additional information (right side) to a preexisting plot (left side). 
  
-We can also add an <kdb>Enter</kdb> to make it look nicer:  
+We can also add an <kbd>Enter</kbd> to make it look nicer:  
 
 
 ~~~
@@ -238,9 +238,9 @@ smoking %>%
 ~~~
 {: .output}
 
-Using the *pipe operator* `%>%` and enter command makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested function and minimizes the need for new variables.
+Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested functions and minimizes the need for new variables.
 
-Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kdb>Ctrl</kdb>+<kdb>Shift</kdb>+<kdb>M<kdb> on Windows or <kdb>Cmd<kdb>+<kdb>Shift<kdb>+<kdb>M<kdb> on a Mac.
+Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on Windows or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac.
 
 When you call `summarize()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
 
@@ -379,7 +379,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 >
 > > ## Solution
 > >
-> > Identify the earliest year in our dataset using `max()` and `summarize()`:
+> > Identify the most recent year in our dataset using `max()` and `summarize()`:
 > >
 > > 
 > > ~~~
@@ -421,11 +421,11 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 > > By combining `filter()` and `summarize()` we were able to calculate the mean mercent of people with lung cancer in 2019
 > > 
 > > Bonus:
-> > Instead of finding the minimum year first and then filtering, we can find the minimum year right in the filter function: 
+> > Instead of finding the most recent year first and then filtering, we can find the most recent year right in the filter function: 
 > > 
 > > ~~~
 > > smoking %>% 
-> > filter(year == min(year)) %>% 
+> > filter(year == max(year)) %>% 
 > > summarize(mean_cancer_pct=mean(lung_cancer_pct))
 > > ~~~
 > > {: .language-r}
@@ -436,7 +436,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 > > # A tibble: 1 × 1
 > >   mean_cancer_pct
 > >             <dbl>
-> > 1          0.0253
+> > 1          0.0281
 > > ~~~
 > > {: .output}
 > {: .solution}
@@ -445,7 +445,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 ## Grouping rows using `group_by()` {#grouping-rows-using-group_by}
 [*Back to top*](#contents)
 
-We see that the mean percent of smokers is larger in 1990 than the value we got using all of the rows. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
+We previously saw that the mean percent of smokers is larger in 1990 than the value we got using all of the rows. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
 
 
 ~~~
@@ -479,6 +479,45 @@ The `group_by()` function expects you to pass in the name of a column (or multip
 
 Note that you might get a message about the summarize function regrouping the output by 'year'. This simply indicates what the function is grouping by. 
 
+We can also group by multiple variables. In this case, we separate the variables with commas:
+
+
+~~~
+smoking %>%
+  group_by(year, continent) %>%
+  summarize(average=mean(smoke_pct))
+~~~
+{: .language-r}
+
+
+
+~~~
+`summarise()` has grouped output by 'year'. You can override using the
+`.groups` argument.
+~~~
+{: .output}
+
+
+
+~~~
+# A tibble: 180 × 3
+# Groups:   year [30]
+    year continent     average
+   <dbl> <chr>           <dbl>
+ 1  1990 Africa           15.0
+ 2  1990 Asia             25.3
+ 3  1990 Europe           34.2
+ 4  1990 North America    16.1
+ 5  1990 Oceania          33.3
+ 6  1990 South America    24.4
+ 7  1991 Africa           14.9
+ 8  1991 Asia             25.1
+ 9  1991 Europe           34.0
+10  1991 North America    16.0
+# … with 170 more rows
+~~~
+{: .output}
+
 > ## Pro tip: Counting
 > 
 > Often we want to count how many of each category we have in our dataset. 
@@ -509,6 +548,11 @@ Note that you might get a message about the summarize function regrouping the ou
 > ~~~
 > {: .output}
 > 
+> Other alternatives are the `count()` and `tally()` functions, which are shortcuts. For instance:
+> smoking %>% 
+>   filter(year == 2019) %>% 
+>   group_by(continent) %>% 
+>   count()
 {: .callout}
 
 
@@ -581,7 +625,7 @@ We have a column for the population and the percent of people who smoke. If we w
 
 ~~~
 smoking %>%
-  mutate(smoke_n = pop * smoke_pct)
+  mutate(smoke_n = pop * smoke_pct/100)
 ~~~
 {: .language-r}
 
@@ -591,16 +635,16 @@ smoking %>%
 # A tibble: 5,749 × 7
    country              continent  year    pop smoke_pct lung_cancer_pct smoke_n
    <chr>                <chr>     <dbl>  <dbl>     <dbl>           <dbl>   <dbl>
- 1 Myanmar              Asia       1990 4.13e7      38.2          0.0240  1.58e9
- 2 Solomon Islands      Oceania    1990 3.12e5      35.0          0.0291  1.09e7
- 3 Cambodia             Asia       1990 8.98e6      25.5          0.0231  2.29e8
- 4 Maldives             Asia       1990 2.23e5      30.0          0.0129  6.69e6
- 5 Papua New Guinea     Oceania    1990 4.62e6      36.5          0.0175  1.69e8
- 6 United States of Am… North Am…  1990 2.50e8      26.6          0.0990  6.63e9
- 7 Czech Republic       Europe     1990 1.03e7      36.3          0.0599  3.75e8
- 8 Republic of Moldova  Europe     1990 2.97e6      22.0          0.0354  6.52e7
- 9 Portugal             Europe     1990 9.98e6      28.7          0.0222  2.87e8
-10 Greece               Europe     1990 1.02e7      43.0          0.0551  4.38e8
+ 1 Myanmar              Asia       1990 4.13e7      38.2          0.0240  1.58e7
+ 2 Solomon Islands      Oceania    1990 3.12e5      35.0          0.0291  1.09e5
+ 3 Cambodia             Asia       1990 8.98e6      25.5          0.0231  2.29e6
+ 4 Maldives             Asia       1990 2.23e5      30.0          0.0129  6.69e4
+ 5 Papua New Guinea     Oceania    1990 4.62e6      36.5          0.0175  1.69e6
+ 6 United States of Am… North Am…  1990 2.50e8      26.6          0.0990  6.63e7
+ 7 Czech Republic       Europe     1990 1.03e7      36.3          0.0599  3.75e6
+ 8 Republic of Moldova  Europe     1990 2.97e6      22.0          0.0354  6.52e5
+ 9 Portugal             Europe     1990 9.98e6      28.7          0.0222  2.87e6
+10 Greece               Europe     1990 1.02e7      43.0          0.0551  4.38e6
 # … with 5,739 more rows
 ~~~
 {: .output}
@@ -614,7 +658,7 @@ This will add a new column called "smoke_n" to our data. We use the column names
 > > 
 > > ~~~
 > > smoking %>%  
-> > mutate(smoke_n = pop * smoke_pct, pop_mil = pop / 1000000)  
+> > mutate(smoke_n = pop * smoke_pct/100, pop_mil = pop / 1000000)  
 > > ~~~
 > > {: .language-r}
 > > 
@@ -624,16 +668,16 @@ This will add a new column called "smoke_n" to our data. We use the column names
 > > # A tibble: 5,749 × 8
 > >    country      continent  year    pop smoke_pct lung_cancer_pct smoke_n pop_mil
 > >    <chr>        <chr>     <dbl>  <dbl>     <dbl>           <dbl>   <dbl>   <dbl>
-> >  1 Myanmar      Asia       1990 4.13e7      38.2          0.0240  1.58e9  41.3  
-> >  2 Solomon Isl… Oceania    1990 3.12e5      35.0          0.0291  1.09e7   0.312
-> >  3 Cambodia     Asia       1990 8.98e6      25.5          0.0231  2.29e8   8.98 
-> >  4 Maldives     Asia       1990 2.23e5      30.0          0.0129  6.69e6   0.223
-> >  5 Papua New G… Oceania    1990 4.62e6      36.5          0.0175  1.69e8   4.62 
-> >  6 United Stat… North Am…  1990 2.50e8      26.6          0.0990  6.63e9 250.   
-> >  7 Czech Repub… Europe     1990 1.03e7      36.3          0.0599  3.75e8  10.3  
-> >  8 Republic of… Europe     1990 2.97e6      22.0          0.0354  6.52e7   2.97 
-> >  9 Portugal     Europe     1990 9.98e6      28.7          0.0222  2.87e8   9.98 
-> > 10 Greece       Europe     1990 1.02e7      43.0          0.0551  4.38e8  10.2  
+> >  1 Myanmar      Asia       1990 4.13e7      38.2          0.0240  1.58e7  41.3  
+> >  2 Solomon Isl… Oceania    1990 3.12e5      35.0          0.0291  1.09e5   0.312
+> >  3 Cambodia     Asia       1990 8.98e6      25.5          0.0231  2.29e6   8.98 
+> >  4 Maldives     Asia       1990 2.23e5      30.0          0.0129  6.69e4   0.223
+> >  5 Papua New G… Oceania    1990 4.62e6      36.5          0.0175  1.69e6   4.62 
+> >  6 United Stat… North Am…  1990 2.50e8      26.6          0.0990  6.63e7 250.   
+> >  7 Czech Repub… Europe     1990 1.03e7      36.3          0.0599  3.75e6  10.3  
+> >  8 Republic of… Europe     1990 2.97e6      22.0          0.0354  6.52e5   2.97 
+> >  9 Portugal     Europe     1990 9.98e6      28.7          0.0222  2.87e6   9.98 
+> > 10 Greece       Europe     1990 1.02e7      43.0          0.0551  4.38e6  10.2  
 > > # … with 5,739 more rows
 > > ~~~
 > > {: .output}
@@ -795,7 +839,7 @@ smoking %>%
 > # … with 5,739 more rows
 > ~~~
 > {: .output}
-> This returns just the three columns we are interested in. 
+> This returns just the three columns we are interested in. Note that we had to use quotation marks for "c" because the `starts_with()` function requires a character vector in the match argument.
 >
 > > ## Using `select()` with a helper function
 > >
@@ -860,8 +904,8 @@ smoking %>%
 
 
 ~~~
-`summarise()` has grouped output by 'country', 'continent'. You can override using the `.groups`
-argument.
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
 {: .output}
 
@@ -895,7 +939,6 @@ Next, let's create a wide version of the data using `pivot_wider()`:
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct)
 ~~~
 {: .language-r}
@@ -903,8 +946,8 @@ smoking %>%
 
 
 ~~~
-`summarise()` has grouped output by 'country', 'continent'. You can override using the `.groups`
-argument.
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
 {: .output}
 
@@ -944,7 +987,6 @@ Let's make a plot with our wide data comparing percent of smokers in 1990 to per
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct) %>% 
   ggplot(aes(x = 1990, y = 2010)) +
   geom_point()
@@ -954,21 +996,20 @@ smoking %>%
 
 
 ~~~
-`summarise()` has grouped output by 'country', 'continent'. You can override using the `.groups`
-argument.
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
 {: .output}
 
 <img src="../fig/rmd-03-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 
-Hmm that's not what we want. `ggplot` just plotted the numbers 1952 and 2007 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
+Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
 
 ~~~
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
   ggplot(aes(x = y1990, y = y2010)) +
   geom_point()
@@ -978,14 +1019,14 @@ smoking %>%
 
 
 ~~~
-`summarise()` has grouped output by 'country', 'continent'. You can override using the `.groups`
-argument.
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
 {: .output}
 
 <img src="../fig/rmd-03-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
-That's better, but the different ranges on the x and y axis make it hard to compare the points. 
+Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
 
 
@@ -993,7 +1034,6 @@ Let's fix that by adding a line at y=x.
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
   ggplot(aes(x = y1990, y = y2010)) +
   geom_point() +
@@ -1004,14 +1044,14 @@ smoking %>%
 
 
 ~~~
-`summarise()` has grouped output by 'country', 'continent'. You can override using the `.groups`
-argument.
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
 {: .output}
 
 <img src="../fig/rmd-03-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
 
-It seems like in most countries the percent of smokers has decrased from 1990 to 2010, but there are some countries where smoking has increased. Let's figure out which those are!
+It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 
 > ## Bonus: Identifying countries with more smokers in 2010 than 1990
 >
@@ -1023,7 +1063,7 @@ It seems like in most countries the percent of smokers has decrased from 1990 to
 > > 
 > > ~~~
 > > smoking %>%
-> >   group_by(country, continent, year) %>% # select the columns you want to keep
+> >   group_by(country, continent, year) %>% # group by the columns you want to keep
 > >   summarize(smoke_pct = mean(smoke_pct)) %>% # summarize to get one value per country per year
 > >   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% # pivot wider
 > >   mutate(diff = y2010 - y1990) %>% # find the difference between the years of interest
@@ -1036,8 +1076,8 @@ It seems like in most countries the percent of smokers has decrased from 1990 to
 > > 
 > > 
 > > ~~~
-> > `summarise()` has grouped output by 'country', 'continent'. You can override using the `.groups`
-> > argument.
+> > `summarise()` has grouped output by 'country', 'continent'. You can override
+> > using the `.groups` argument.
 > > ~~~
 > > {: .output}
 > > 
