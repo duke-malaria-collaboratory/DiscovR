@@ -390,7 +390,7 @@ smoking %>%
 > smoking %>%
 >   select(year, starts_with("c"))
 > ```
-> This returns just the three columns we are interested in. 
+> This returns just the three columns we are interested in. Note that we had to use quotation marks for "c" because the `starts_with()` function requires a character vector in the match argument.
 >
 > > ## Using `select()` with a helper function
 > >
