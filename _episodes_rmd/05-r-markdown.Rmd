@@ -241,7 +241,7 @@ cat('```{r packages}\nlibrary(tidyverse)\n```\n')
 Now, in a real report this is when we would type out the background and purpose of our analysis to provide context to our readers. However, since writing is not a focus of this workshop we will avoid lengthy prose and stick to short descriptions. You can copy the following text  into your own report below the package code chunk.
 
 ```
-This report was prepared to the attention of the United Nations. It analyzes the relationship between a country's lung cancer rate, smoking rate, and air pollution. Our goal is to determine to what degree the percent of people who smoke and the amount of air pollution may be related to its lung cancer rate. We hypothesize that lung cancer rates increase with both percent of people who smoke and the amount of air pollution.
+This report was prepared to analyze the relationship between a country's lung cancer rate, smoking rate, and air pollution. Our goal is to determine to what degree the percent of people who smoke and the amount of air pollution per capita may be related to its lung cancer rate. We hypothesize that lung cancer rates increase with both percent of people who smoke and the amount of air pollution per capita.
 ```
 
 Now, since we want to show our results comparing smoking rate and lung cancer rate by country, we need to read in this data so we can generate our plot. We will add another code chunk to prepare the data.
