@@ -468,7 +468,7 @@ smoking %>%
   geom_point()
 ```
 
-That's better, but the different ranges on the x and y axis make it hard to compare the points. 
+Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
 
 ```{r}
