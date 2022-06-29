@@ -465,7 +465,6 @@ Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 ins
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
   ggplot(aes(x = y1990, y = y2010)) +
   geom_point()
