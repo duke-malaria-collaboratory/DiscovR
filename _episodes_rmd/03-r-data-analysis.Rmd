@@ -254,7 +254,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 ## Grouping rows using `group_by()` {#grouping-rows-using-group_by}
 [*Back to top*](#contents)
 
-We see that the mean percent of smokers is larger in 1990 than the value we got using all of the rows. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
+We previously saw that the mean percent of smokers is larger in 1990 than the value we got using all of the rows. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
 
 ```{r GapLifeExpByYear}
 smoking %>%
