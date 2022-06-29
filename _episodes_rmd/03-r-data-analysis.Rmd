@@ -108,7 +108,7 @@ Yesterday we spent a lot of time making plots in R using the ggplot2 package. Vi
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
 [*Back to top*](#contents)
 
-Let's say we would like to know what is the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoking_pct column using the `summarize()` function. Here's what that looks like:
+Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoking_pct column using the `summarize()` function. Here's what that looks like:
 
 ```{r AvgLifeExp}
 summarize(smoking, mean_smoke_pct=mean(smoke_pct))
@@ -118,9 +118,9 @@ When we call `summarize()`, we can use any of the column names of our data objec
 
 > **Note:** The `summarize()` and `summarise()` functions perform identical functions.
 
-We name this new column so we can use in a future argument. So the `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
+The `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
 
-Instead of including the data as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. 
+Instead of including the data object as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. You can think of `%>%` as another way to type "and then."
 
 ```{r AvgLifeExpWithPipe}
 smoking %>% summarize(mean_smoke_pct=mean(smoke_pct))
@@ -128,18 +128,18 @@ smoking %>% summarize(mean_smoke_pct=mean(smoke_pct))
  
 This line of code will do the exact same thing as our first summary command, but the piping function tells R to use the `smoking` dataframe as the first argument in the next function.
 
-This lets us "chain" together multiple functions, which will be helpful later. Note that the pipe (`%>%`) is a bit different from using the ggplot plus (`+`). Pipes take the output from the left side and use it as input to the right side. Plusses layer on additional information (right side) to a preexisting plot (left side). 
+This lets us "chain" together multiple functions, which will be helpful later. Note that the pipe (`%>%`) is a bit different from using the ggplot plus (`+`). Pipes take the output from the left side and use it as input to the right side. In other words, it tells R to do the function on the left *and then* the function on the right. In contrast, plusses layer on additional information (right side) to a preexisting plot (left side). 
  
-We can also add an <kdb>Enter</kdb> to make it look nicer:  
+We can also add an <kbd>Enter</kbd> to make it look nicer:  
 
 ```{r AvgLifeExpWithPipe2}
 smoking %>%
   summarize(mean_smoke_pct=mean(smoke_pct))
 ```
 
-Using the *pipe operator* `%>%` and enter command makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested function and minimizes the need for new variables.
+Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested functions and minimizes the need for new variables.
 
-Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kdb>Ctrl</kdb>+<kdb>Shift</kdb>+<kdb>M<kdb> on Windows or <kdb>Cmd<kdb>+<kdb>Shift<kdb>+<kdb>M<kdb> on a Mac.
+Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on Windows or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac.
 
 When you call `summarize()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
 
@@ -224,7 +224,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 >
 > > ## Solution
 > >
-> > Identify the earliest year in our dataset using `max()` and `summarize()`:
+> > Identify the most recent year in our dataset using `max()` and `summarize()`:
 > >
 > > ```{r FilterChallenge1}
 > > smoking %>%
@@ -242,10 +242,10 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 > > By combining `filter()` and `summarize()` we were able to calculate the mean mercent of people with lung cancer in 2019
 > > 
 > > Bonus:
-> > Instead of finding the minimum year first and then filtering, we can find the minimum year right in the filter function: 
+> > Instead of finding the most recent year first and then filtering, we can find the most recent year right in the filter function: 
 > > ```{r no_hard_code}
 > > smoking %>% 
-> > filter(year == min(year)) %>% 
+> > filter(year == max(year)) %>% 
 > > summarize(mean_cancer_pct=mean(lung_cancer_pct))
 > > ```
 > {: .solution}
@@ -254,7 +254,7 @@ Notice how the pipe operator (`%>%`) allows us to combine these two simple steps
 ## Grouping rows using `group_by()` {#grouping-rows-using-group_by}
 [*Back to top*](#contents)
 
-We see that the mean percent of smokers is larger in 1990 than the value we got using all of the rows. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
+We previously saw that the mean percent of smokers is larger in 1990 than the value we got using all of the rows. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
 
 ```{r GapLifeExpByYear}
 smoking %>%
@@ -287,6 +287,11 @@ smoking %>%
 >   summarize(count = n())
 > ```
 > 
+> Other alternatives are the `count()` and `tally()` functions, which are shortcuts. For instance:
+> smoking %>% 
+>   filter(year == 2019) %>% 
+>   group_by(continent) %>% 
+>   count()
 {: .callout}
 
 
@@ -337,7 +342,7 @@ We have a column for the population and the percent of people who smoke. If we w
 
 ```{r GapMutate}
 smoking %>%
-  mutate(smoke_n = pop * smoke_pct)
+  mutate(smoke_n = pop * smoke_pct/100)
 ```
 
 This will add a new column called "smoke_n" to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with `summarize()`
@@ -348,7 +353,7 @@ This will add a new column called "smoke_n" to our data. We use the column names
 > > ## Solution: 
 > > ```{r mutateExercise}  
 > > smoking %>%  
-> > mutate(smoke_n = pop * smoke_pct, pop_mil = pop / 1000000)  
+> > mutate(smoke_n = pop * smoke_pct/100, pop_mil = pop / 1000000)  
 > > ```  
 > {: .solution}
 {: .challenge}
@@ -398,7 +403,7 @@ smoking %>%
 > smoking %>%
 >   select(year, starts_with("c"))
 > ```
-> This returns just the three columns we are interested in. 
+> This returns just the three columns we are interested in. Note that we had to use quotation marks for "c" because the `starts_with()` function requires a character vector in the match argument.
 >
 > > ## Using `select()` with a helper function
 > >
@@ -444,7 +449,6 @@ Next, let's create a wide version of the data using `pivot_wider()`:
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct)
 ```
 
@@ -458,39 +462,36 @@ Let's make a plot with our wide data comparing percent of smokers in 1990 to per
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct) %>% 
   ggplot(aes(x = 1990, y = 2010)) +
   geom_point()
 ```
 
-Hmm that's not what we want. `ggplot` just plotted the numbers 1952 and 2007 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
+Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
 ```{r}
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
   ggplot(aes(x = y1990, y = y2010)) +
   geom_point()
 ```
 
-That's better, but the different ranges on the x and y axis make it hard to compare the points. 
+Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
 
 ```{r}
 smoking %>%
   group_by(country, continent, year) %>% 
   summarize(smoke_pct = mean(smoke_pct)) %>%
-  select(country, continent, year, smoke_pct) %>%
   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
   ggplot(aes(x = y1990, y = y2010)) +
   geom_point() +
   geom_abline(intercept = 0, slope = 1)
 ```
 
-It seems like in most countries the percent of smokers has decrased from 1990 to 2010, but there are some countries where smoking has increased. Let's figure out which those are!
+It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 
 > ## Bonus: Identifying countries with more smokers in 2010 than 1990
 >
@@ -501,7 +502,7 @@ It seems like in most countries the percent of smokers has decrased from 1990 to
 > > ## Solution
 > > ```{r}
 > > smoking %>%
-> >   group_by(country, continent, year) %>% # select the columns you want to keep
+> >   group_by(country, continent, year) %>% # group by the columns you want to keep
 > >   summarize(smoke_pct = mean(smoke_pct)) %>% # summarize to get one value per country per year
 > >   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% # pivot wider
 > >   mutate(diff = y2010 - y1990) %>% # find the difference between the years of interest
