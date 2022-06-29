@@ -266,6 +266,14 @@ The `group_by()` function expects you to pass in the name of a column (or multip
 
 Note that you might get a message about the summarize function regrouping the output by 'year'. This simply indicates what the function is grouping by. 
 
+We can also group by multiple variables:
+
+```{r GapLifeExpByYearCont}
+smoking %>%
+  group_by(year, continent) %>%
+  summarize(average=mean(smoke_pct))
+```
+
 > ## Pro tip: Counting
 > 
 > Often we want to count how many of each category we have in our dataset. 
