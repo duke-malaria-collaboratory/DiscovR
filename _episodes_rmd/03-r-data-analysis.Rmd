@@ -456,7 +456,7 @@ smoking %>%
   geom_point()
 ```
 
-Hmm that's not what we want. `ggplot` just plotted the numbers 1952 and 2007 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
+Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
 ```{r}
 smoking %>%
