@@ -118,7 +118,7 @@ When we call `summarize()`, we can use any of the column names of our data objec
 
 > **Note:** The `summarize()` and `summarise()` functions perform identical functions.
 
-We name this new column so we can use in a future argument. So the `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
+The `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
 
 Instead of including the data object as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. You can think of `%>%` as another way to type "and then."
 
