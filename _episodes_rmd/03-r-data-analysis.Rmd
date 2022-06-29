@@ -266,7 +266,7 @@ The `group_by()` function expects you to pass in the name of a column (or multip
 
 Note that you might get a message about the summarize function regrouping the output by 'year'. This simply indicates what the function is grouping by. 
 
-We can also group by multiple variables:
+We can also group by multiple variables. In this case, we separate the variables with commas:
 
 ```{r GapLifeExpByYearCont}
 smoking %>%
