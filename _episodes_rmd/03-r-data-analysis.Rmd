@@ -493,7 +493,7 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 > > ## Solution
 > > ```{r}
 > > smoking %>%
-> >   group_by(country, continent, year) %>% # select the columns you want to keep
+> >   group_by(country, continent, year) %>% # group by the columns you want to keep
 > >   summarize(smoke_pct = mean(smoke_pct)) %>% # summarize to get one value per country per year
 > >   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% # pivot wider
 > >   mutate(diff = y2010 - y1990) %>% # find the difference between the years of interest
