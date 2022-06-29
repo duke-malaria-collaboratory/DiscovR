@@ -73,7 +73,7 @@ Write some code to figure out which countries these are (even if you already kno
 > ```{r}
 > smoking %>% filter(pop > 5e8) %>% select(country) %>% distinct()
 > ```
-> Here we introduced a new function: `unique()`. 
+> Here we used the `distinct()` function, which we first saw yesterday. 
 > This function is not required to find the answer to this question, but it helps us get the answer a bit more quickly.
 {: .solution}
 
