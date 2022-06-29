@@ -329,7 +329,7 @@ We have a column for the population and the percent of people who smoke. If we w
 
 ```{r GapMutate}
 smoking %>%
-  mutate(smoke_n = pop * smoke_pct)
+  mutate(smoke_n = pop * smoke_pct/100)
 ```
 
 This will add a new column called "smoke_n" to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with `summarize()`
