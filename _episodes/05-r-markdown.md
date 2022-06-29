@@ -14,7 +14,7 @@ objectives:
 - "To understand how to use R code chunks to include or hide code, figures, and messages."
 - "To be aware of the various report formats that can be rendered using R Markdown."
 keypoints:
-  - "R Markdown is a way to create a report that integrates text, code, and figures."
+  - "R Markdown is a useful way to create a report that integrates text, code, and figures."
   - "Options such as `include` and `echo` determine what parts of an R code chunk are included in the R Markdown report. "
   - "R Markdown can render HTML, PDF, and Microsoft Word outputs."
 ---
@@ -72,7 +72,7 @@ Write some code to figure out which countries these are (even if you already kno
 > ## Solution
 > 
 > ~~~
-> smoking %>% filter(pop > 5e8) %>% select(country) %>% unique()
+> smoking %>% filter(pop > 5e8) %>% select(country) %>% distinct()
 > ~~~
 > {: .language-r}
 > 
@@ -86,7 +86,7 @@ Write some code to figure out which countries these are (even if you already kno
 > 2 India  
 > ~~~
 > {: .output}
-> Here we introduced a new function: `unique()`. 
+> Here we used the `distinct()` function, which we first saw yesterday. 
 > This function is not required to find the answer to this question, but it helps us get the answer a bit more quickly.
 {: .solution}
 
@@ -105,7 +105,7 @@ Next, plot year vs. population separated into a plot for each continent but excl
 > {: .language-r}
 > 
 > <img src="../fig/rmd-05-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
-> Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`), which means that you want to exclude both China and India:
+> Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`) or comma (`,`), which means that you want to exclude both China and India:
 > 
 > ~~~
 > smoking %>% 
@@ -156,7 +156,7 @@ Bonus 2: How can you make the differences between countries more visible on the 
 ## What is R Markdown and why use it?
 _[Back to top](#contents)_
 
-Recall that our goal is to generate a report to the United Nations on how a country's smoking rate is related to its lung cancer rate.
+Recall that our goal is to generate a report on how a country's smoking rate is related to its lung cancer rate.
 
 > ## Discusion
 > How do you usually share data analyses with your collaborators? 
@@ -282,7 +282,7 @@ library(tidyverse)
 Now, in a real report this is when we would type out the background and purpose of our analysis to provide context to our readers. However, since writing is not a focus of this workshop we will avoid lengthy prose and stick to short descriptions. You can copy the following text  into your own report below the package code chunk.
 
 ```
-This report was prepared to the attention of the United Nations. It analyzes the relationship between a country's lung cancer rate, smoking rate, and air pollution. Our goal is to determine to what degree the percent of people who smoke and the amount of air pollution may be related to its lung cancer rate. We hypothesize that lung cancer rates increase with both percent of people who smoke and the amount of air pollution.
+This report was prepared to analyze the relationship between a country's lung cancer rate, smoking rate, and air pollution. Our goal is to determine to what degree the percent of people who smoke and the amount of air pollution per capita may be related to its lung cancer rate. We hypothesize that lung cancer rates increase with both percent of people who smoke and the amount of air pollution per capita.
 ```
 
 Now, since we want to show our results comparing smoking rate and lung cancer rate by country, we need to read in this data so we can generate our plot. We will add another code chunk to prepare the data.
@@ -420,110 +420,6 @@ We can also see the code that was used to generate the plot. Depending on the pu
 > {: .solution}
 {: .challenge}
 
-### Bonus 
-
-> ## Dynamically updating text using mini R chunks
-> Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change. Here is how to do this.
-> 
-> Let's create a code chunk that summarizes features of our data that we can use to describe our plot to  our audience. Note that we set `include=FALSE` because we only want this step to happen in the background. For our purposes, we will calculate how many countries were included in the analysis, as well as the minimum and maximum percent of smokers.
-> > ## Calculating summary statistics
-> > Perform the following steps to calculate summary statistics:
-> > 1. Create a subsetted `smoking` datset including only data from 2019 an save it to the variable `smoking_2019`. 
-> > 1. Look up how to use the function `n_distinct()` and use it to find the number of distinct countries in `smoking_2019`. HINT: You can pick the column you're interested in using `select()` and then pipe that to `n_distinct()`. 
-> > 1. Find the minimum value of `smoke_pct` and round it to 1 decimal place.
-> > 1. Find the maximum value of `smoke_pct` and round it to 1 decimal place.
-> >
-> > > ## Solution
-> > > 
-> > > ~~~
-> > > smoking_2019 <- smoking %>% 
-> > >   filter(year == 2019)
-> > > smoking_2019 %>%
-> > >   select(country) %>%
-> > >   n_distinct()
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > [1] 190
-> > > ~~~
-> > > {: .output}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > smoking_2019 %>%
-> > >   summarise(round(min(smoke_pct), 1))
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > # A tibble: 1 × 1
-> > >   `round(min(smoke_pct), 1)`
-> > >                        <dbl>
-> > > 1                        4.1
-> > > ~~~
-> > > {: .output}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > smoking_2019 %>%
-> > >   summarise(round(max(smoke_pct), 1)) 
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > # A tibble: 1 × 1
-> > >   `round(max(smoke_pct), 1)`
-> > >                        <dbl>
-> > > 1                       49.4
-> > > ~~~
-> > > {: .output}
-> > {: .solution}
-> {: .challenge}
-> Let's fix up the code you wrote in the previous section a bit to make it easier to use for our purposes. 
-> We have to save each number to its own variable and make sure each value is just one number (not a tibble). To un-tibble a number, you can use the `pull()` function.
-> 
-> 
-> ~~~
-> smoking_2019 <- smoking %>% 
->   filter(year == 2019)
-> 
-> n_countries <- smoking_2019 %>%
->   select(country) %>%
->   n_distinct()
-> 
-> min_smoke <- smoking_2019 %>%
->   summarise(round(min(smoke_pct), 1)) %>%
->   pull()
-> 
-> max_smoke <- smoking_2019 %>%
->   summarise(round(max(smoke_pct), 1)) %>%
->   pull()
-> ~~~
-> {: .language-r}
-> Now, all we need to do is reference the values we just computed to describe our
-plot. To do this, we enclose each value in one set of backticks 
-(`` `r some_R_variable_name ` ``), while the ``r`` part once again
-indicates that it's a chunk of R code. When we knit our report, R will
-automatically fill in the values we just created in the above code chunk. Note
-that R will automatically update these values every time our data might change
-(if we were to decide to drop or add countries to this  analysis, for example).
-> 
-> ```
-> The above plot shows the relationship between percent of smokers and percent of people with lung cancer for a total of `r n_countries ` countries. 
-For this set of countries, the percent of smokers ranged from a minimum of `r min_smoke` to a maximum of `r max_smoke`.
-> ```
-{: .callout}
-
-
 ## Formatting
 _[Back to top](#contents)_
 
@@ -570,6 +466,35 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 1. The name of a function you have so far found most useful 
 1. One thing you want to learn next on your programming journey
 ```
+
+> ## Bonus: Dynamically updating text using mini R chunks
+> Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change!
+> 
+> Say we want to get the number of countries present in our dataset. 
+> Previously, we learned about the `distinct()` function that returns distinct values. 
+> There's a very similar function called `n_distinct()` that returns instead the _number of_ distinct values:
+> 
+> 
+> ~~~
+> n_countries <- smoking %>%
+>   select(country) %>%
+>   n_distinct()
+> ~~~
+> {: .language-r}
+> Now, all we need to do is reference the values we just computed to describe our
+plot. To do this, we enclose each value in one set of backticks 
+(`` `r some_R_variable_name ` ``), while the ``r`` part once again
+indicates that it's a chunk of R code. When we knit our report, R will
+automatically fill in the values we just created in the above code chunk. Note
+that R will automatically update these values every time our data might change
+(if we were to decide to drop or add countries to this  analysis, for example).
+> 
+> ```
+> There are `r n_countries ` countries in our dataset. 
+> ```
+> Try knitting the document and see what happens!
+{: .callout}
+
 
 # Applying it to your own data
 

@@ -343,67 +343,6 @@ We can also see the code that was used to generate the plot. Depending on the pu
 > {: .solution}
 {: .challenge}
 
-### Bonus 
-
-> ## Dynamically updating text using mini R chunks
-> Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change. Here is how to do this.
-> 
-> Let's create a code chunk that summarizes features of our data that we can use to describe our plot to  our audience. Note that we set `include=FALSE` because we only want this step to happen in the background. For our purposes, we will calculate how many countries were included in the analysis, as well as the minimum and maximum percent of smokers.
-> > ## Calculating summary statistics
-> > Perform the following steps to calculate summary statistics:
-> > 1. Create a subsetted `smoking` datset including only data from 2019 an save it to the variable `smoking_2019`. 
-> > 1. Look up how to use the function `n_distinct()` and use it to find the number of distinct countries in `smoking_2019`. HINT: You can pick the column you're interested in using `select()` and then pipe that to `n_distinct()`. 
-> > 1. Find the minimum value of `smoke_pct` and round it to 1 decimal place.
-> > 1. Find the maximum value of `smoke_pct` and round it to 1 decimal place.
-> >
-> > > ## Solution
-> > > ```{r}
-> > > smoking_2019 <- smoking %>% 
-> > >   filter(year == 2019)
-> > > smoking_2019 %>%
-> > >   select(country) %>%
-> > >   n_distinct()
-> > > smoking_2019 %>%
-> > >   summarise(round(min(smoke_pct), 1))
-> > > smoking_2019 %>%
-> > >   summarise(round(max(smoke_pct), 1)) 
-> > > ```
-> > {: .solution}
-> {: .challenge}
-> Let's fix up the code you wrote in the previous section a bit to make it easier to use for our purposes. 
-> We have to save each number to its own variable and make sure each value is just one number (not a tibble). To un-tibble a number, you can use the `pull()` function.
-> 
-> ```{r data_summary, message = FALSE}
-> smoking_2019 <- smoking %>% 
->   filter(year == 2019)
-> 
-> n_countries <- smoking_2019 %>%
->   select(country) %>%
->   n_distinct()
-> 
-> min_smoke <- smoking_2019 %>%
->   summarise(round(min(smoke_pct), 1)) %>%
->   pull()
-> 
-> max_smoke <- smoking_2019 %>%
->   summarise(round(max(smoke_pct), 1)) %>%
->   pull()
-> ```
-> Now, all we need to do is reference the values we just computed to describe our
-plot. To do this, we enclose each value in one set of backticks 
-(`` `r '\x60r some_R_variable_name \x60'` ``), while the ``r`` part once again
-indicates that it's a chunk of R code. When we knit our report, R will
-automatically fill in the values we just created in the above code chunk. Note
-that R will automatically update these values every time our data might change
-(if we were to decide to drop or add countries to this  analysis, for example).
-> 
-> ```
-> The above plot shows the relationship between percent of smokers and percent of people with lung cancer for a total of `r '\x60r n_countries \x60'` countries. 
-For this set of countries, the percent of smokers ranged from a minimum of `r '\x60r min_smoke\x60'` to a maximum of `r '\x60r max_smoke\x60'`.
-> ```
-{: .callout}
-
-
 ## Formatting
 _[Back to top](#contents)_
 
@@ -450,6 +389,33 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 1. The name of a function you have so far found most useful 
 1. One thing you want to learn next on your programming journey
 ```
+
+> ## Bonus: Dynamically updating text using mini R chunks
+> Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change!
+> 
+> Say we want to get the number of countries present in our dataset. 
+> Previously, we learned about the `distinct()` function that returns distinct values. 
+> There's a very similar function called `n_distinct()` that returns instead the _number of_ distinct values:
+> 
+> ```{r data_summary, message = FALSE}
+> n_countries <- smoking %>%
+>   select(country) %>%
+>   n_distinct()
+> ```
+> Now, all we need to do is reference the values we just computed to describe our
+plot. To do this, we enclose each value in one set of backticks 
+(`` `r '\x60r some_R_variable_name \x60'` ``), while the ``r`` part once again
+indicates that it's a chunk of R code. When we knit our report, R will
+automatically fill in the values we just created in the above code chunk. Note
+that R will automatically update these values every time our data might change
+(if we were to decide to drop or add countries to this  analysis, for example).
+> 
+> ```
+> There are `r '\x60r n_countries \x60'` countries in our dataset. 
+> ```
+> Try knitting the document and see what happens!
+{: .callout}
+
 
 # Applying it to your own data
 
