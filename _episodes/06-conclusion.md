@@ -11,10 +11,11 @@ objectives:
 - "Learn about other coding concepts that would be good to learn in the future."
 keypoints:
   - "When it comes to trying to figure out how to code something, and debugging, Internet searching is your best friend."
-  - "There are several resources at the University of Michigan that you can take advantage of if you need help with your code."
   - "We didn't have time to cover all important coding concepts in this workshop, so definitely continue trying to learn more once you get comfortable with the material we covered."
   - "There are often packages and tools that you can leverage to perform domain-specific analyses, so search for them!"
 ---
+
+Congratulations on completing the workshop! We're going to discuss a few helpful resources as you continue on your coding journey. 
 
 # Where to go from here?: Departing on your own coding journey
 
@@ -63,7 +64,7 @@ If searching for your particular code problem hasn't turned up a solution, you m
 
 ## Asking strangers for help
 
-If you are unable to determine what's wrong with your own code, the internet offers several possible ways to get help: asking questions on programming websites, interacting with developers on GitHub, chatting with other programmers on Slack, or reaching out on Twitter. If you're intimidated by asking people on the internet, you can also reach out to [people at the University of Michigan](#get-help-and-connect). You don't have to do this all on your own. However, there are some important things to keep in mind when asking questions - whether it be to people on the internet, or to people at the university. You may want to consider these tips to help you increase your chances of getting the support you need:
+If you are unable to determine what's wrong with your own code, the internet offers several possible ways to get help: asking questions on programming websites, interacting with developers on GitHub, chatting with other programmers on Slack, or reaching out on Twitter. If you're intimidated by asking people on the internet, you can also reach out to us (see our emails above).  You don't have to do this all on your own. However, there are some important things to keep in mind when asking questions - whether it be to people on the internet, or to people at the university. You may want to consider these tips to help you increase your chances of getting the support you need:
 * First, provide a brief summary of what you are trying to accomplish. You may have been working on the problem for a long time but the person you are asking will have no idea of your work until now. Keep it short and focus on your ultimate goal rather than just talking about your code. Sometimes there may better ways to solve the problem than the solution you've attempted this far.
 * Then, briefly mention what you've tried so far. Maybe mention the search terms you used online or the specific documentation you've looked at. It should be clear that you've at least tried to solve the problem yourself first (after all, that's the way you're most likely to learn the most).
 * Now, describe the problem you are having. Don't just say "the code doesn't work." Are you getting an error? If so, what is the exact message? Are you getting unexpected results? If so, then what exactly were you expecting to happen?
