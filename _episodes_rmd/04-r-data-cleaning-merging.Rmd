@@ -201,6 +201,7 @@ In a "left join", the new data frame only has those rows for the key values that
 {: .solution}
 
 ![]({{ page.root }}/fig/r-data-analysis/dplyr-join.png)
+[Image source](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins/index.html)
 
 Let's give the `left_join()` function a try. We will put our `smoking_2019` dataset on the left so that we maintain all of the rows we had in that dataset.
 ```{r leftJoin}
