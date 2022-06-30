@@ -22,8 +22,7 @@ knitr_fig_path("03-")
 ### Contents
 
 1.  [Plotting review](#plotting-review)
-1.  [Getting started](#getting-started)
-    -   [Loading in the data](#loading-in-the-data)
+1.  [Overview of the lesson](#overview-of-the-lesson)
 1.  [An introduction to data analysis in R using `dplyr`](#intro-data-analysis)
     -   [Get stats fast with `summarize()`](#get-stats-fast-with-summarize)
     -   [Narrow down rows with `filter()`](#narrow-down-rows-with-filter)
@@ -33,258 +32,328 @@ knitr_fig_path("03-")
     -   [Changing the shape of the data](#changing-the-shape-of-the-data)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 
-# Plotting review
+# Day 1 review
 
-First, navigate to the un-reports directory however you'd like and open `un-report.Rproj`.
+#### Opening your Rproject in RStudio.
+
+First, navigate to the `un-reports` directory however you'd like and open `un-report.Rproj`.
 This should open the un-report R project in RStudio.
-You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory.
+You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory. 
 
-The very first step is to read in the gapminder dataset, so do that first! Also load the `tidyverse` package.
+#### Creating a new R script.
+
+Then create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". Save this file as `un_data_analysis.R`. 
+
+#### Loading your data.
+
+Start by importing the complete dataset that we used yesterday into our fresh new R session: `smoking <- read_csv('data/smoking_cancer.csv')`.
+
+What error do you get and why? Fix the code so you don't get an error and read in the dataset.
 
 > ## Solution
+>
+> If we look in the console now, we'll see we've received an error message saying that R "could not find the function `read_csv()`". *Hint: Packages...*
+> What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It's important to remember that you will need to load any packages you want to use into R each time you start a new session. The `read_csv` function comes from the `readr` package which is included in the `tidyverse` package so we will just load the `tidyverse` package and run the import code again:
 > ```{r}
 > library(tidyverse)
-> gapminder <- read_csv('data/gapminder_data.csv')
+> smoking <- read_csv('data/smoking_cancer.csv')
 > ```
+> As we saw yesterday, the output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org). 
+> 
+> **Reminder:** Many of these packages, including `dplyr` , come with "Cheatsheets" found under the **Help** RStudio menu tab.
 {: .solution}
+
 #### Investigating population over time.
 _[Back to top](#contents)_
 
 Next, make a scatter plot of year vs. population, separated into a plot for each contient. Feel free to look back at the content from yesterday if you want!
 
+Bonus 1: Change the y axis to a log10 scale so that you can see the spread in the data a bit better. 
+
+Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything else you want. Feel free to look back at the material from yesterday and/or use the Internet to help. 
+
 > ## Solution
 > ```{r}
-> ggplot(gapminder, aes(x=year,y=pop)) +
+> ggplot(smoking, aes(x=year,y=pop)) +
 > geom_point() +
 > facet_wrap(vars(continent))
 > ```
+> Bonus 1: 
+> ```{r}
+> ggplot(smoking, aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent)) +
+> scale_y_log10()
+> ```
+> Bonus 2 example:
+> ```{r}
+> ggplot(smoking, aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent)) +
+> scale_y_log10() +
+> labs(x = 'Year', y = 'Population') +
+> theme_bw()
+> ```
 {: .solution}
 
-It seems like there are a couple outliers. By the end of today, we'll be able to identify what countries those are and how to exclude them from the plot. 
+It seems like there are a couple outliers. By the end of today, we'll be able to identify what countries those are. 
 
-# Getting Started
+# Overview of the lesson
 _[Back to top](#contents)_
 
-Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the `dplyr` package.
-
-First, we will create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". We will save this file as `un_data_analysis.R`
-
-### Loading in the data
-
-We will start by importing the complete gapminder dataset that we used yesterday into our fresh new R session. Yesterday we did this using a "point-and-click" commands. Today let's type them into the console ourselves: `gapminder_data <- read_csv("data/gapminder_data.csv")`
-
-> ## Exercise
->
-> If we look in the console now, we'll see we've received an error message saying that R "could not find the function `read_csv()`". *Hint: Packages...*
->
-> > ## Solution
-> >
-> > What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It's important to remember that you will need to load any packages you want to use into R each time you start a new session. The `read_csv` function comes from the `readr` package which is included in the `tidyverse` package so we will just load the `tidyverse` package and run the import code again.
-> {: .solution}
-{: .challenge}
-
-Now that we know what's wrong, We will use the `read_csv()` function from the Tidyverse `readr` package. Load the `tidyverse` package and gapminder dataset using the code below.
-
-```{r InitDplyr}
-library(tidyverse)
-```
-
-The output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org)
-
-> **Reminder:** Many of these packages, including `dplyr` , come with "Cheatsheets" found under the **Help** RStudio menu tab.
-
-Reload your data:
-
-```{r ReloadGapminder}
-gapminder_data <- read_csv("data/gapminder_data.csv")
-```
-
-Notice that the output of the `read_csv()` function is pretty informative. It tells us the name of all of our column headers as well as how it interpreted the data type. This birds-eye-view can help you take a quick look that everything is how we expect it to be.
-
-Now we have the tools necessary to work through this lesson.
+Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the `dplyr` package, which is also part of the `tidyverse`.
 
 # An introduction to data analysis in R using `dplyr` {#intro-data-analysis}
 
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
-
 [*Back to top*](#contents)
 
-Let's say we would like to know what is the mean (average) life expecteny in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our lifeExp column using the `summarize()` function. Here's what that looks like:
+Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoking_pct column using the `summarize()` function. Here's what that looks like:
+
 ```{r AvgLifeExp}
-summarize(gapminder_data, averageLifeExp=mean(lifeExp))
+summarize(smoking, mean_smoke_pct=mean(smoke_pct))
 ```
 
 When we call `summarize()`, we can use any of the column names of our data object as values to pass to other functions. `summarize()` will return a new data object and our value will be returned as a column.
 
-> **Note:** The `summarize()` and `summarise()` perform identical functions.
+> **Note:** The `summarize()` and `summarise()` functions perform identical functions.
 
-We name this new column so we can use in a future argument. So the `averageLifeExp=` part tells `summarize()` to use "averageLifeExp" as the name of the new column. Note that you don't have to quotes around this new name as long as it starts with a letter and doesn't include a space.
+The `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
 
-Instead of including the data as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. 
+Instead of including the data object as an argument, we can use the *pipe operator* `%>%` to pass the data value into the `summarize` function. You can think of `%>%` as another way to type "and then."
 
 ```{r AvgLifeExpWithPipe}
-gapminder_data %>% summarize(averageLifeExp=mean(lifeExp))
+smoking %>% summarize(mean_smoke_pct=mean(smoke_pct))
 ```
  
-This line of code will do the exact same thing as our first summary command, but the piping function tells R to use the `gapminder_data` dataframe as the first argument in the next function.
+This line of code will do the exact same thing as our first summary command, but the piping function tells R to use the `smoking` dataframe as the first argument in the next function.
 
-This lets us "chain" together multiple functions, which will be helpful later. Note that the pipe (`%>%`) is a bit different from using the ggplot plus (`+`). Pipes take the output from the left side and use it as input to the right side. Plusses layer on additional information (right side) to a preexisting plot (left side). 
+This lets us "chain" together multiple functions, which will be helpful later. Note that the pipe (`%>%`) is a bit different from using the ggplot plus (`+`). Pipes take the output from the left side and use it as input to the right side. In other words, it tells R to do the function on the left *and then* the function on the right. In contrast, plusses layer on additional information (right side) to a preexisting plot (left side). 
  
-We can also add an <kdb>Enter</kdb> to make it look nicer:  
+We can also add an <kbd>Enter</kbd> to make it look nicer:  
+
 ```{r AvgLifeExpWithPipe2}
-gapminder_data %>%
-  summarize(averageLifeExp=mean(lifeExp))
+smoking %>%
+  summarize(mean_smoke_pct=mean(smoke_pct))
 ```
 
-Using the *pipe operator* `%>%` and enter command makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested function and minimizes the need for new variables.
+Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested functions and minimizes the need for new variables.
 
-Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kdb>Ctrl</kdb>+<kdb>Shift</kdb>+<kdb>M<kdb> on Windows or <kdb>Cmd<kdb>+<kdb>Shift<kdb>+<kdb>M<kdb> on a Mac.
+Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on Windows or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac.
+
+When you call `summarize()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
+
+```{r GapLifeExpMinMax}
+smoking %>%
+  summarize(mean_smoke_pct=mean(smoke_pct),
+            min_smoke_pct=min(smoke_pct),
+            max_smoke_pct=max(smoke_pct))
+```
 
 > ## Pro tip: Saving a new dataframe
 > Notice that when we run the following code, we are not actually saving a new variable: 
 > ```{r AvgLifeExpWithPipe3, eval = FALSE}
-> gapminder_data %>%
->   summarize(averageLifeExp=mean(lifeExp))
+> smoking %>%
+>   summarize(mean_smoke_pct=mean(smoke_pct))
 > ```
-> This simply outputs what we have created, but does not change actually change `gapminder_data` or save a new dataframe. To save a new dataframe, we could run: 
+> This simply outputs what we have created, but does not change actually change `smoking` dataset or save a new dataframe. To save a new dataframe, we could run: 
 > ```{r saveNewDF, eval = FALSE}
-> gapminder_data_summarized <- gapminder_data %>%
->   summarize(averageLifeExp=mean(lifeExp))
+> smoking_summarized <- smoking %>%
+>   summarize(mean_smoke_pct=mean(smoke_pct))
 > ```
-> Or if we want to change `gapminder_data` itself: 
+> Or if we want to change `smoking` itself (DON'T RUN THIS): 
 > ```{r overwriteDF, eval = FALSE}
-> gapminder_data <- gapminder_data %>%
->   summarize(averageLifeExp=mean(lifeExp))
+> smoking <- smoking %>%
+>   summarize(mean_smoke_pct=mean(smoke_pct))
 > ```
-> IMPORTANT: This would overwrite the existing `gapminder_data` object. 
+> IMPORTANT: This would overwrite the existing `smoking` object. 
 > 
 > For now, we will not be saving dataframes, since we are just experimenting with `dplyr` functions, but it will be useful later on in this lesson. 
 > 
 {: .callout}
 
-## Narrow down rows with `filter()` {#narrow-down-rows-with-filter}
-
-[*Back to top*](#contents)
-
-Let's take a look at the value we just calculated, which tells us the average life expectancy for all rows in the data was 59.5. That seems a bit low, doesn't it? What's going on?
-
-Well, remember the dataset contains rows from many different years and many different countries. It's likely that life expectancy has increased overtime, so it may not make sense to average over all the years at the same time.
-
-Use `summarize()` to find the most recent year in the data set. We can use the `max()` function to return the maximum value.
 
 > ## Practice using the `%>%` to summarize data
 >
-> Find the most recent year using the piping function.
+> Use the piping function and `summarize()` to find the earliest year in the data set. HINT: the `min()` function returns the minimum value.
 >
 > > ## Solution:
 > >
 > > ```{r PipeExercise}
-> > gapminder_data %>%  
-> >  summarize(recent_year = max(year))
+> > smoking %>%  
+> >   summarize(earliest_year = min(year))
 > > ```
 > > 
 > {: .solution}
 {: .challenge}
 
-So we see that the most recent year in the dataset is 2007. Let's calculate the life expectancy for all countries for only that year. To do that, we will use the `filter()` function to only use rows for that year before calculating the mean value.
+## Narrow down rows with `filter()` {#narrow-down-rows-with-filter}
+[*Back to top*](#contents)
+
+Let's take a look at the value we just calculated, which tells us the average percent of smokers for all rows in the data was `r smoking %>% summarize(mean_smoke_pct=mean(smoke_pct)) %>% pull(mean_smoke_pct) %>% round(digits = 1)`. But the dataset contains rows from many different years and many different countries. It's possible that the percent of smokers has changed overtime, so it may not make sense to average over all the years at the same time.
+
+So we see that the earliest year in the dataset is `r smoking %>% summarize(min_year=min(year)) %>% pull(min_year)`. Let's calculate the average percent of smokers for all countries for only that year. To do that, we will use the `filter()` function to only use rows for that year before calculating the mean value.
 
 ```{r GapRecentLifeExp}
-gapminder_data %>%
-  filter(year == 2007) %>%
-  summarize(average=mean(lifeExp))
+smoking %>%
+  filter(year = 1990) %>%
+  summarize(mean_smoke_pct_1990=mean(smoke_pct))
 ```
+
+Oops! We got an error, but don't panic. Error messages are often pretty useful. 
+In this case, it says that that we used `=` instead of `==`. 
+That's because we use `=` (single equals) when naming arguments that you are passing to functions.
+So here R thinks we're trying to assign 1990 to year, kind of like we do in the summarize function.
+What we really want to do is find all of the years that are equal to `r smoking %>% summarize(earliest_year=min(year)) %>% pull(earliest_year)`. 
+To do this, we have to use `==` (double equals), which we use when testing if two values are equal to each other:
+
+```{r, filtSummarize}
+smoking %>%
+  filter(year == 1990) %>%
+  summarize(mean_smoke_pct_1990=mean(smoke_pct))
+```
+
+Notice how the pipe operator (`%>%`) allows us to combine these two simple steps into a more complicated data extraction? We took the data, filtered out the rows, then took the mean value. The argument we pass to `filter()` needs to be some expression that will return TRUE or FALSE. We can use comparisons like `>` (greater than) and `<` (less than) for example. Here we tested for equality using a double equals sign `==`. 
 
 > ## Filtering the dataset
 >
-> What is the average GDP per capita for the first year in the dataset? *Hint: the column headers identified by `read_csv()` showed us there was a column called gdpPercap in the dataset*
+> What is the average percent of people with lung cancer for the most recent year in the dataset? *Hint: the column headers identified by `read_csv()` showed us there was a column called `lung_cancer_pct` in the dataset*
+>
+> Bonus: Figure out a way to write the code so you don't have to type the year into filter. 
+> (Typing in the year is an example of hard-coding and we try to avoid it because if the data changes the number might also change.)
 >
 > > ## Solution
 > >
-> > Identify the earliest year in our dataset using `min()` and `summarize()`
+> > Identify the most recent year in our dataset using `max()` and `summarize()`:
 > >
 > > ```{r FilterChallenge1}
-> > gapminder_data %>%
-> > summarize(first_year=min(year))
+> > smoking %>%
+> > summarize(recent_year=max(year))
 > > ```
 > >
-> > We see here that the first year in the dataset is 1952. Filter to only 1952, and determin the average GDP per capita.
+> > Filter to only the maximum year, and determine the average percent of people with lung cancer.
 > >
 > > ```{r FilterChallenge2}
-> > gapminder_data %>%
-> > filter(year == 1952) %>%
-> > summarize(average_gdp=mean(gdpPercap))
+> > smoking %>%
+> > filter(year == 2019) %>%
+> > summarize(mean_cancer_pct=mean(lung_cancer_pct))
 > > ```
 > > {: .source}
-> > By combining `filter()` and `summarize()` we were able to calculate the mean GDP per capita in the year 1952.
+> > By combining `filter()` and `summarize()` we were able to calculate the mean mercent of people with lung cancer in 2019
+> > 
+> > Bonus:
+> > Instead of finding the most recent year first and then filtering, we can find the most recent year right in the filter function: 
+> > ```{r no_hard_code}
+> > smoking %>% 
+> > filter(year == max(year)) %>% 
+> > summarize(mean_cancer_pct=mean(lung_cancer_pct))
+> > ```
 > {: .solution}
 {: .challenge}
 
-Notice how the pipe operator (`%>%`) allows us to combine these two simple steps into a more complicated data extraction?. We took the data, filtered out the rows, then took the mean value. The argument we pass to `filter()` needs to be some expression that will return TRUE or FALSE. We can use comparisons like `>` (greater than) and `<` (less than) for example. Here we tested for equality using a double equals sign `==`. You use `==` (double equals) when testing if two values are equal, and you use `=` (single equals) when naming arguments that you are passing to functions. Try changing it to use `filter(year = 2007)` and see what happens.
-
 ## Grouping rows using `group_by()` {#grouping-rows-using-group_by}
-
 [*Back to top*](#contents)
 
-We see that the life expectancy in 2007 is much larger than the value we got using all of the rows. It seems life expectancy is increasing which is good news. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to tell the code to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
+We previously saw that the mean percent of smokers is larger in 1990 than the value we got using all of the rows. But now we might be interested in calculating the average for each year. Rather that doing a bunch of different `filter()` statements, we can instead use the `group_by()` function. The function allows us to treat the rows in logical groups, so rather than summarizing over all the rows, we will get one summary value for each group. Here's what that will look like:
 
 ```{r GapLifeExpByYear}
-gapminder_data %>%
+smoking %>%
   group_by(year) %>%
-  summarize(average=mean(lifeExp))
+  summarize(average=mean(smoke_pct))
 ```
 
-The `group_by()` function expects you to pass in the name of a column (or multiple columns separated by comma) in your data. 
+The `group_by()` function expects you to pass in the name of a column (or multiple columns separated by commas) in your data. 
 
 Note that you might get a message about the summarize function regrouping the output by 'year'. This simply indicates what the function is grouping by. 
 
+We can also group by multiple variables. In this case, we separate the variables with commas:
+
+```{r GapLifeExpByYearCont}
+smoking %>%
+  group_by(year, continent) %>%
+  summarize(average=mean(smoke_pct))
+```
+
+> ## Pro tip: Counting
+> 
+> Often we want to count how many of each category we have in our dataset. 
+> To do this, we can use the function `n()` within `summarize()`. 
+> For instance, here we count the number of countries in each continent for which we have data in 2019:
+> 
+> ```{r}
+> smoking %>% 
+>   filter(year == 2019) %>% 
+>   group_by(continent) %>% 
+>   summarize(count = n())
+> ```
+> 
+> Other alternatives are the `count()` and `tally()` functions, which are shortcuts. For instance:
+> smoking %>% 
+>   filter(year == 2019) %>% 
+>   group_by(continent) %>% 
+>   count()
+{: .callout}
+
+
 > ## Grouping the data
 >
-> Try calculating the average life expectancy by continent.
+> Try calculating the average percent of smokers by continent.
 >
 > > ## Solution
 > >
 > > ```{r GroupByChallenge1}
-> > gapminder_data %>%
+> > smoking %>%
 > > group_by(continent) %>%
-> > summarize(average=mean(lifeExp))
+> > summarize(avg_smoke_pct=mean(smoke_pct))
 > > ```
 > > {: .source}
 > >
-> > By combining `group_by()` and `summarize()` we are able to calculate the mean life expectancy by continent.
+> > By combining `group_by()` and `summarize()` we are able to calculate the mean percent of smokers by continent.
 > {: .solution}
 {: .challenge}
 
-You can also create more than one new column when you call `summarize()`. To do so, you must separate your columns with a comma. Building on the code from the last exercise, let's add a new column that calculates the minimum life expectancy for each continent. 
 
-```{r GapLifeExpMinMax}
-gapminder_data %>%
-  group_by(continent) %>%
-  summarize(average=mean(lifeExp), min=min(lifeExp))
-```
+> ## Bonus: plotting review
+>
+> Make a line plot of year vs. average percent of smokers to be able to more easily visualize the relationship between these two variables. 
+>
+> > ## Solution
+> >
+> > ```{r}
+> > smoking %>%
+> >   group_by(year) %>%
+> >   summarize(average=mean(smoke_pct)) %>% 
+> >   ggplot(aes(x = year, y = average)) +
+> >   geom_line()
+> > ```
+> > {: .source}
+> >
+> > You can pipe your summarized data right to ggplot! 
+> {: .solution}
+{: .challenge}
 
 
 ## Make new variables with `mutate()` {#make-new-variables-with-mutate}
-
 [*Back to top*](#contents)
 
 Each time we ran `summarize()`, we got back fewer rows than passed in. We either got one row back, or one row per group. But sometimes we want to create a new column in our data without changing the number of rows. The function we use to create new columns is called `mutate()`.
 
-We have a column for the population and the GDP per capita. If we wanted to get the total GDP, we could multiply the per capita GDP values by the total population. Here's what such a `mutate()` command would look like:
+We have a column for the population and the percent of people who smoke. If we wanted to get an estimate of the number of people who smoke, we could multiply the percentages by the total population. Here's what such a `mutate()` command would look like:
 
 ```{r GapMutate}
-gapminder_data %>%
-  mutate(gdp = pop * gdpPercap)
+smoking %>%
+  mutate(smoke_n = pop * smoke_pct/100)
 ```
 
-This will add a new column called "gdp" to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with `summarize()`
+This will add a new column called "smoke_n" to our data. We use the column names as if they were regular values that we want to perform mathematical operations on and provide the name in front of an equals sign like we have done with `summarize()`
 
 > ## `mutate()`
-> We can also multiply by constants or other numbers using mutate - remember how in the plotting lesson we made a plot with population in millions? Try making a new column for this dataframe called popInMillions that is the population in million. 
+> We can also multiply by constants or other numbers using mutate - remember how in the plotting lesson we made a plot with population in millions? Try making a new column for this dataframe called pop_mil that is the population in millions. 
 > 
 > > ## Solution: 
 > > ```{r mutateExercise}  
-> > gapminder_data %>%  
-> > mutate(gdp = pop * gdpPercap, popInMillions = pop / 1000000)  
+> > smoking %>%  
+> > mutate(smoke_n = pop * smoke_pct/100, pop_mil = pop / 1000000)  
 > > ```  
 > {: .solution}
 {: .challenge}
@@ -297,30 +366,30 @@ This will add a new column called "gdp" to our data. We use the column names as 
 We use the `filter()` function to choose a subset of the rows from our data, but when we want to choose a subset of columns from our data we use `select()`. For example, if we only wanted to see the population ("pop") and year values, we can do:
 
 ```{r GapSelect}
-gapminder_data %>%
+smoking %>%
   select(pop, year)
 ```
 
 We can also use `select()` to drop/remove particular columns by putting a minus sign (`-`) in front of the column name. For example, if we want everything but the continent column, we can do:
 
 ```{r GapSelectDrop}
-gapminder_data %>%
+smoking %>%
   select(-continent)
 ```
 
 > ## selecting columns 
-> Create a dataframe with only the `country`, `continent`, `year`, and `lifeExp` columns. 
+> Create a dataframe with only the `country`, `continent`, `year`, and `lung_cancer_pct` columns. 
 > 
 > > ## Solution: 
 > > There are multiple ways to do this exercise. Here are two different possibilities. 
 > > 
 > > ```{r selectExerciseOption1}
-> > gapminder_data %>%
-> >   select(country, continent, year, lifeExp)
+> > smoking %>%
+> >   select(country, continent, year, lung_cancer_pct)
 > > ```
 > > ```{r selectExerciseOption2}
-> > gapminder_data %>%
-> >   select(-pop, -gdpPercap)
+> > smoking %>%
+> >   select(-pop, -smoke_pct)
 > > ```
 > {: .solution}
 {: .challenge}
@@ -331,22 +400,22 @@ gapminder_data %>%
 > The `select()` function has a bunch of helper functions that are handy if you are working with a dataset that has a lot of columns. You can see these helper functions on the `?select` help page. For example, let's say we wanted to select the year column and all the columns that start with the letter "c". You can do that with:
 > 
 > ```{r GapSelectFancy}
-> gapminder_data %>%
+> smoking %>%
 >   select(year, starts_with("c"))
 > ```
-> This returns just the three columns we are interested in. 
+> This returns just the three columns we are interested in. Note that we had to use quotation marks for "c" because the `starts_with()` function requires a character vector in the match argument.
 >
 > > ## Using `select()` with a helper function
 > >
-> > Find a helper function on the help page that will choose all the columns that have "p" as their last letter (ie: "pop","lifeExp","gdpPerCap")
+> > Find a helper function on the help page that will choose all the columns that have "t" as their last letter (i.e.: "continent","smoke_pct","lung_cancer_pct")
 > >
 > > > ## Solution
 > > >
 > > > The helper function `ends_with()` can help us here.
 > > >
 > > > ```{r GroupByChallenge2}
-> > > gapminder_data %>%
-> > > select(ends_with("p"))
+> > > smoking %>%
+> > > select(ends_with("t"))
 > > > ```
 > > {: .solution}
 > {: .challenge}
@@ -358,33 +427,92 @@ gapminder_data %>%
 
 [*Back to top*](#contents)
 
-Data comes in many shapes and sizes, and one way we classify data is either "wide" or "long." Data that is "long" has one row per observation. The gapminder_data data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as "tidy" because it makes it easy to work with `ggplot2` and `dplyr` functions (this is where the "tidy" in "tidyverse" comes from). As tidy as it may be, sometimes we may want our data in a "wide" format. Typically in "wide" format each row represents a group of observations and each value is placed in a different column rather than a different row. For example maybe we want only one row per country and want to spread the life expectancy values into different columns (one for each year).
+Data comes in many shapes and sizes, and one way we classify data is either "wide" or "long." Data that is "long" has one row per observation. The `smoking` data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as "tidy" because it makes it easy to work with `ggplot2` and `dplyr` functions (this is where the "tidy" in "tidyverse" comes from). As tidy as it may be, sometimes we may want our data in a "wide" format. Typically in "wide" format each row represents a group of observations and each value is placed in a different column rather than a different row. For example maybe we want only one row per country and want to spread the percent of smokers values into different columns (one for each year).
 
-The `tidyr` package contains the functions `pivot_wider` and `pivot_longer` that make it easy to switch between the two formats. The `tidyr` package is included in the `tidyverse` package so we don't need to do anything to load it.
+The `tidyr` package contains the functions `pivot_wider()` and `pivot_longer()` that make it easy to switch between the two formats. The `tidyr` package is included in the `tidyverse` package so we don't need to do anything to load it.
+
+First, our data is not as clean as it looks - there are some countries that have multiple entries for a given year. 
+However, we want only one entry per year. 
+To get this, we will summarize the data to be the mean of all values for a given year:
 
 ```{r PivotWider}
-gapminder_data %>%
-  select(country, continent, year, lifeExp) %>%
-  pivot_wider(names_from = year, values_from = lifeExp )
+smoking %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct))
 ```
 
-Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the lifeExp variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
+Notice how we went from having `r nrow(smoking)` rows to `r smoking %>% group_by(country, continent, year) %>% summarize(smoke_pct = mean(smoke_pct)) %>% nrow()` in our data. 
 
-Before we move on to more data cleaning, let's create the final gapminder dataframe we will be working with for the rest of the lesson! 
+Next, let's create a wide version of the data using `pivot_wider()`:
 
-> ## Final Americas 2007 gapminder dataset
-> Read in the `gapminder_data.csv` file, filter out the year 2007 and the continent "Americas." Then drop the `year` and `continent` columns from the dataframe. Then save the new dataframe into a variable called `gapminder_data_2007`. 
+```{r}
+smoking %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct)
+```
+
+Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the `smoke_pct` variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
+
+## Plotting wide data
+
+Let's make a plot with our wide data comparing percent of smokers in 1990 to percent of smokers in 2010 to see how it has changed for each country.
+
+```{r}
+smoking %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct) %>% 
+  ggplot(aes(x = 1990, y = 2010)) +
+  geom_point()
+```
+
+Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
+
+```{r}
+smoking %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
+  ggplot(aes(x = y1990, y = y2010)) +
+  geom_point()
+```
+
+Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
+Let's fix that by adding a line at y=x. 
+
+```{r}
+smoking %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
+  ggplot(aes(x = y1990, y = y2010)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1)
+```
+
+It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
+
+> ## Bonus: Identifying countries with more smokers in 2010 than 1990
+>
+> Use what you've learned from today to figure out which countries had higher smoking percentage in 2010 than 1990. 
+>
+> Bonus: Order the data frame from greatest to smallest difference. HINT: The `arrange()` function can help you do this. 
 > 
-> > ## Solution: 
-> > ```{r LoadGapminder2007_solution}
-> > gapminder_data_2007 <- read_csv("data/gapminder_data.csv") %>%
-> >   filter(year == 2007 & continent == "Americas") %>%
-> >   select(-year, -continent)
+> > ## Solution
+> > ```{r}
+> > smoking %>%
+> >   group_by(country, continent, year) %>% # group by the columns you want to keep
+> >   summarize(smoke_pct = mean(smoke_pct)) %>% # summarize to get one value per country per year
+> >   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% # pivot wider
+> >   mutate(diff = y2010 - y1990) %>% # find the difference between the years of interest
+> >   select(country, continent, diff) %>% # select the columns of interest
+> >   filter(diff > 0) %>% # filter to ones where the difference is greater than zero
+> >   arrange(-diff) # bonus - arrange by diff, highest to lowest
 > > ```
 > {: .solution}
 {: .challenge}
 
-Awesome! This is the dataframe we will be using later on in this lesson. 
 
 # Applying it to your own data
 
