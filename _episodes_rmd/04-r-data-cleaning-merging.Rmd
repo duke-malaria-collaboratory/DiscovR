@@ -90,7 +90,7 @@ Sometimes it can be helpful to explore your data summaries in the view tab. Try 
 > We just used the view tab to sort our count data, but how could you use code to sort the `n` column?
 > 
 > > ## Solution: 
-> > ```{r count_location_name}
+> > ```{r count_location_name2}
 > > pollution_2019_dirty %>%
 > >   group_by(location_name) %>%
 > >   count() %>% 
@@ -156,7 +156,6 @@ You can see that `pollution_2019` has 685 rows, as we expect, since we took care
 Note: here, we took the mean to take care of duplicates and multiple entries, but this is not always the best way to do so. When working with your own data, make sure to think carefully about your dataset, what these multiple entries really mean, and whether you want to leave them as they are or take care of them in some different way.
 
 > **Looking at your data:** You can get a look at your data-cleaning hard work by navigating to the **Environment** tab in RStudio and clicking the table icon next to the variable name. Notice when we do this, RStudio automatically runs the `View()` command. We've made a lot of progress!
-
 {.callout}
 
 # Joining data frames
@@ -178,7 +177,7 @@ Look at the data in `pollution_2019` and `smoking_2019`. If you had to merge the
 > Rename the `location_name` column to `country` in the `pollution_2019` dataset. Go ahead and overwrite and store in the `pollution_2019` object
 > 
 > > ## Solution: 
-> > ```{r isna}
+> > ```{r rename}
 > > 
 > > pollution_2019_clean <- pollution_2019 %>%
 > >   rename(country = location_name) 
@@ -190,18 +189,16 @@ Look at the data in `pollution_2019` and `smoking_2019`. If you had to merge the
 
 Because the column is now present in both datasets, we'll call `country` our "key". Now, when we join them together, can you think of any problems we might run into when we merge things? We might not have pollution data for all of the countries in the `smoking_2019` dataset and vice versa. Also, a country might be represented in both data frames but not by the same name in both places.
 
-The dplyr package has a number of tools for joining data frames together depending on what we want to do with the rows of the data of countries that are not represented in both data frames. Here we'll be using `left_join()` and `anti_join()`. 
+The dplyr package has a number of tools for joining data frames together depending on what we want to do with the rows of the data of countries that are not represented in both data frames. Here we'll be using `left_join()`. 
 
 In a "left join", the new data frame only has those rows for the key values that are found in the first dataframe listed. This is a very commonly used join.
 
 > ## Bonus: Other dplyr join functions 
 >
-> Outer joins and can be performed using `inner_join()`, `right_join()`, and `full_join()`. In a "left join", if the key is present in the left hand data frame, it will appear in the output, even if it is not found in the the right hand data frame. For a right join, the opposite is true. For a full join, all possible keys are included in the output data frame.
-> 
+> Outer joins and can be performed using `inner_join()`, `right_join()`, `full_join()`, and `anti_join()`. In a "left join", if the key is present in the left hand data frame, it will appear in the output, even if it is not found in the the right hand data frame. For a right join, the opposite is true. For a full join, all possible keys are included in the output data frame.
+> ![]({{ page.root }}/fig/r-data-analysis/dplyr-join.png)
+> [Image source](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins/index.html)
 {: .solution}
-
-![]({{ page.root }}/fig/r-data-analysis/dplyr-join.png)
-[Image source](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins/index.html)
 
 Let's give the `left_join()` function a try. We will put our `smoking_2019` dataset on the left so that we maintain all of the rows we had in that dataset.
 ```{r leftJoin}
@@ -321,7 +318,7 @@ smoking_pollution %>%
 To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
 
 
-> ## Challenge: 3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
+> ## Challenge: 1) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
 > To answer this question, we need to calculate the pollution levels per capita for each country using `mutate()`. Then plot a boxplot to look at these levels by continent. *Hint: it may help to scale the y axis log10*
 > 
 > > ## Solution: 
@@ -385,9 +382,6 @@ Finding percentages using `dplyr` can be a little bit complicated. However, it's
 > > ```
 > >
 > > This table shows that Kenya makes up 4% of the population of Africa, and Africa makes up 17% of the global population. 
-> >
-
-> > 
 > {: .solution}
 {: .challenge}
 

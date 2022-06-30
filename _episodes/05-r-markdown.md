@@ -15,7 +15,7 @@ objectives:
 - "To be aware of the various report formats that can be rendered using R Markdown."
 keypoints:
   - "R Markdown is a useful way to create a report that integrates text, code, and figures."
-  - "Options such as `include` and `echo` determine what parts of an R code chunk are included in the R Markdown report. "
+  - "Options such as `include` and `echo` determine what parts of an R code chunk are included in the R Markdown report."
   - "R Markdown can render HTML, PDF, and Microsoft Word outputs."
 ---
 
@@ -269,7 +269,7 @@ Now that we have that set up, let's start on the report!
 
 ### Add code
 
-We're going to use the code you generated yesterday to plot smoking rates vs. lung cancer rates to include in the report. Recall that we needed a couple R packages to generate these plots. We can create a new code chunk to load the needed packages. You could also include this in the previous setup chunk, it's up to your personal preference.
+We're going to use the code you generated yesterday to plot smoking rates vs. lung cancer rates to include in the report. Recall that we needed a couple R packages to generate these plots. We can create a new code chunk to load the needed packages. You could also include this in the previous setup chunk, it's up to your personal preference. To create a new code chunk, you have several options: type it out yourself, click the button with the green `c` and `+` in the top right, next to <kbd>Run</kbd>, or use the keyboard shortcut <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>i</kbd>. 
 
 
 ~~~
@@ -466,6 +466,89 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 1. The name of a function you have so far found most useful 
 1. One thing you want to learn next on your programming journey
 ```
+
+> ## Add to our report: association between air pollution and lung cancer
+> We have a pretty nice looking report, but we still haven't included anything about the association between lung cancer and air pollution per capita. Create a new code chunk and make 1) a plot with air pollution per capita on the x axis and lung cancer on the y axis, and 2) a table with summary statistics including the minimum, median, and maximum air pollution values. BONUS: Merge the table we created earlier with the table you created here with a column for smoking or air pollution, and a column for each of the summary statistics. 
+> > ## Solution
+> > One option to create a code chunk is to type it out, you can also see other options above. 
+> > Then you have to read in the data and create the plot and table: 
+> > 
+> > ~~~
+> > smoking_pollution <- read_csv('data/smoking_pollution.csv')
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Rows: 191 Columns: 6
+> > ── Column specification ────────────────────────────────────────────────────────
+> > Delimiter: ","
+> > chr (2): country, continent
+> > dbl (4): pop, smoke_pct, lung_cancer_pct, pollution
+> > 
+> > ℹ Use `spec()` to retrieve the full column specification for this data.
+> > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   ggplot(aes(x = pollution, y = lung_cancer_pct)) + 
+> >   geom_point() +
+> >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
+> >        title = "Are lung cancer rates associated with pollution per capita?")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > smoking_pollution %>% 
+> >  summarize(min_pol = min(pollution),
+> >             median_smoke = median(pollution),
+> >             max_smoke = max(pollution))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 1 × 3
+> >   min_pol median_smoke max_smoke
+> >     <dbl>        <dbl>     <dbl>
+> > 1    5.56         20.2      83.1
+> > ~~~
+> > {: .output}
+> > Bonus: you can use `pivot_longer()` and `group_by()` followed by `summarize()`:
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   pivot_longer(c(smoke_pct, pollution)) %>% 
+> >   group_by(name) %>% 
+> >   summarize(min = min(value),
+> >             median = median(value),
+> >             max = max(value))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 2 × 4
+> >   name        min median   max
+> >   <chr>     <dbl>  <dbl> <dbl>
+> > 1 pollution  5.56   20.2  83.1
+> > 2 smoke_pct  4.08   19.8  49.4
+> > ~~~
+> > {: .output}
+> > Notice that we used `c()` to provide `pivot_longer()` with the two column names that we wanted to pivot. 
+> > `c()` stands for "combine"; this function combines the two values into what we call a vector. 
+> {: .solution}
+{: .challenge}
+
 
 > ## Bonus: Dynamically updating text using mini R chunks
 > Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change!
