@@ -78,7 +78,7 @@ Sometimes it can be helpful to explore your data summaries in the view tab. Try 
 > > ```{r count_location_name}
 > > pollution_2019_dirty %>%
 > >   group_by(location_name) %>%
-> >   count() %>%
+> >   count() %>% # this is a shortcut for summarize(n = n())
 > >   view()
 > > ```
 > > There are a couple things to notice. First, the summary data only has 685 rows, even though there were 690 observations for each year. This suggests that there may be multiple measurements for some location_name values. Second, if you click on the `n` column to sort in descending order, you can see that there are five location_name values for which we have 2 observations instead of 1. This is good to know as we continue to learn more about our datset.
@@ -125,7 +125,7 @@ pollution_2019_dirty %>%
   nrow()
 
 ```
-You can see that after applying the `distinct()` function, our dataset only has 688 rows. This tells us that there are two rows that were exactly identical to other rows in our dataset.
+You can see that after applying the `distinct()` function, our dataset only has 688 rows. This tells us that there are two rows that were exactly identical to other rows in our dataset. However, we identified 5 entries with more than one row, suggesting that some countries have multiple entries with different values. It's important to check these out because they might indicate issues with data entry or discordant data.
 
 > ## Exercise: Filtering for duplicate data
 > Filter `pollution_2019_dirty` only to rows which have duplicate values in the `location_name` column. *Hint: try using `group_by()` and `mutate()` to count the number of rows for each `location_name`.* 
@@ -140,7 +140,9 @@ You can see that after applying the `distinct()` function, our dataset only has 
 > >   arrange(location_name)
 > > ```
 > > 
-> > You can see that we get a data object with 10 entries, 2x5 location_names. Two of these location_names have identical rows, while the others have two different values, which presumably could have been measured at different times in 2019.
+> > Notice that we introduced a new function here - `arrange()` - which sorts the column for you. This is to make it easier to compare the different values for each country.
+
+You can see that we get a data object with 10 entries, 2x5 location_names. Two of these location_names have identical rows, while the others have two different values, which presumably could have been measured at different times in 2019. In your own data, it's important to figure out why there are multiple entries, especially if they are very different, and whether you trust one more than the other. For our purposes, we will simply take the mean of the two values. 
 > {: .solution}
 {: .challenge}
 
@@ -264,7 +266,7 @@ Great - Now we can move on to the analysis!
 
 For our analysis, we have three questions we'd like to answer: (1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?; (2) which continent has the highest pollution levels per capita?; and (3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
 
-**(1) Is there a relationship between ambient pollution levels (in micrograms per cubic meter)?**
+**1) Is there a relationship between ambient pollution levels (in micrograms per cubic meter)?**
 
 To answer this question, we'll plot ambient pollution levels against population using a scatter plot. It will help to scale the x axis (population) log 10.
 
