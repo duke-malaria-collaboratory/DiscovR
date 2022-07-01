@@ -468,9 +468,15 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 ```
 
 > ## Add to our report: association between air pollution and lung cancer
-> We have a pretty nice looking report, but we still haven't included anything about the association between lung cancer and air pollution per capita. Create a new code chunk and make 1) a plot with air pollution per capita on the x axis and lung cancer on the y axis, and 2) a table with summary statistics including the minimum, median, and maximum air pollution values. BONUS: Merge the table we created earlier with the table you created here with a column for smoking or air pollution, and a column for each of the summary statistics. 
+> We have a pretty nice looking report, but we still haven't included anything about the association between lung cancer and air pollution per capita. Let's add a section to our markdown document in the following steps:
+1. Make a new header and write a 1-2 sentence description of what you will be plotting.
+1. Create a new code chunk
+1. Make a plot with air pollution per capita on the x axis and lung cancer on the y axis
+1. Make a table with summary statistics including the minimum, median, and maximum air pollution values. 
+1. BONUS: Merge the table we created earlier with the table you created here with rows for smoking and air pollution, and a column for each of the summary statistics. 
+
 > > ## Solution
-> > One option to create a code chunk is to type it out, you can also see other options above. 
+> > One option to create a code chunk is to type it out. You can also see other options above. 
 > > Then you have to read in the data and create the plot and table: 
 > > 
 > > ~~~
@@ -496,9 +502,9 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > 
 > > ~~~
 > > smoking_pollution %>%
-> >   ggplot(aes(x = pollution, y = lung_cancer_pct)) + 
+> >   ggplot(aes(x = pollution/pop, y = lung_cancer_pct)) + 
 > >   geom_point() +
-> >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
+> >   labs(x = "Ambient pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer",
 > >        title = "Are lung cancer rates associated with pollution per capita?")
 > > ~~~
 > > {: .language-r}
