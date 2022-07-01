@@ -400,7 +400,7 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > smoking_pollution %>%
 > >   ggplot(aes(x = pollution/pop, y = lung_cancer_pct)) + 
 > >   geom_point() +
-> >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
+> >   labs(x = "Ambient pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer",
 > >        title = "Are lung cancer rates associated with pollution per capita?")
 > > smoking_pollution %>% 
 > >  summarize(min_pol = min(pollution),
