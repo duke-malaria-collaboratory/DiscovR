@@ -14,7 +14,7 @@ objectives:
 - "To understand how to use R code chunks to include or hide code, figures, and messages."
 - "To be aware of the various report formats that can be rendered using R Markdown."
 keypoints:
-  - "R Markdown is an easy way to create a report that integrates text, code, and figures."
+  - "R Markdown is a useful way to create a report that integrates text, code, and figures."
   - "Options such as `include` and `echo` determine what parts of an R code chunk are included in the R Markdown report."
   - "R Markdown can render HTML, PDF, and Microsoft Word outputs."
 ---
@@ -24,67 +24,145 @@ keypoints:
 
 
 
-
-
 ### Contents
 1. [R for data analysis review](#r-for-data-analysis-review)
 1. [What is R Markdown and why use it?](#why-use-r-markdown)
-1. [Creating a reports directory](#creating-a-reports-directory)
 1. [Creating an R Markdown file](#creating-an-r-markdown-file)
 1. [Basic components of R Markdown](#basic-components-of-r-markdown)
     + [Header](#header)
     + [Code chunks](#code-chunks)
     + [Text](#text)
 1. [Starting the report](#starting-the-report)
+    + [Change knit directory](#change-knit-directory)
+    + [Add code](#add-code)
+    + [Plot](#plot)
+    + [Table](#table)
+    + [Knitting](#knitting)
+1. [Customizing the report](#customizing-the-report)
+    + [Table format](#table-format)
+    + [Messages](#messages)
+    + [Code](#code)
+    + [Bonus](#bonus)
 1. [Formatting](#formatting)
+    + [Headers](#headers)
+    + [Lists](#lists)
+    + [Hyperlinks](#hyperlinks)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 
 ## R for data analysis review
 
-Remember that yesterday we made a scatter plot of year vs. population, separated into a plot for each contient, 
-and that it had 2 outliers? Which countries are those?
+Remember that yesterday we made a scatter plot of year vs. population, separated into a plot for each contient, and that it had 2 outliers:
+
+
+~~~
+library(tidyverse)
+smoking <- read_csv('data/smoking_cancer.csv')
+
+smoking %>% 
+  ggplot(aes(x=year,y=pop)) +
+  geom_point() +
+  facet_wrap(vars(continent))
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-05-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+
+Write some code to figure out which countries these are (even if you already know!).
 
 > ## Solution
 > 
 > ~~~
-> gapminder %>% filter(pop > 1e9) %>% select(country) %>% unique()
+> smoking %>% filter(pop > 5e8) %>% select(country) %>% distinct()
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> Error in filter(., pop > 1e+09): object 'gapminder' not found
+> # A tibble: 2 × 1
+>   country
+>   <chr>  
+> 1 China  
+> 2 India  
 > ~~~
-> {: .error}
+> {: .output}
+> Here we used the `distinct()` function, which we first saw yesterday. 
+> This function is not required to find the answer to this question, but it helps us get the answer a bit more quickly.
 {: .solution}
 
-Next, plot year vs. population separated into a plot for each continent but excluding the 2 outlier countries.
+Next, plot year vs. population separated into a plot for each continent but excluding the 2 outlier countries. Note that usually you don't want to exclude certain data points from a plot because it is misleading (see Bonus 2 for an alternative). 
 
 > ## Solution
 > 
 > ~~~
-> gapminder %>% filter(country != 'China' & country != 'India') %>% ggplot(aes(x=year,y=pop)) +
+> smoking %>% 
+> filter(country != 'China') %>% 
+> filter(country != 'India') %>% 
+> ggplot(aes(x=year,y=pop)) +
 > geom_point() +
 > facet_wrap(vars(continent))
 > ~~~
 > {: .language-r}
 > 
-> 
+> <img src="../fig/rmd-05-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+> Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`) or comma (`,`), which means that you want to exclude both China and India:
 > 
 > ~~~
-> Error in filter(., country != "China" & country != "India"): object 'gapminder' not found
+> smoking %>% 
+> filter(country != 'China' & country != 'India') %>% 
+> ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
 > ~~~
-> {: .error}
+> {: .language-r}
+> 
+> <img src="../fig/rmd-05-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
 {: .solution}
 
-## What is R Markdown and why use it? {##why-use-r-markdown}
+Bonus 1: Instead of hard-coding the two countries to remove them, remove the two outliers by combining your solutions to the first two questions.
+
+> ## Solution
+> 
+> ~~~
+> smoking %>% 
+> filter(pop < 5e8) %>% 
+> ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-05-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+{: .solution}
+
+Bonus 2: How can you make the differences between countries more visible on the plot without excluding the two countries you identified above?
+
+> ## Solution
+> You can scale the y axis using a log10 scale to make the differences more visible:
+> 
+> ~~~
+> smoking %>% 
+> ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> scale_y_log10() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-05-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+{: .solution}
+
+
+## What is R Markdown and why use it?
 _[Back to top](#contents)_
 
-Recall that our  goal is to generate a report to the United Nations on how a country's life expectancy is related to GDP.
+Recall that our goal is to generate a report on how a country's smoking rate is related to its lung cancer rate.
 
 > ## Discusion
-> How do you usually share data analyses with your collaborators? Many people share them through a Word or PDF document, a spreadsheet, slides, a  graphic, etc.
+> How do you usually share data analyses with your collaborators? 
+> > ## Solution
+> > Many people share them through a Word or PDF document, a spreadsheet, slides, a graphic, etc.
+> {: .solution}
 {: .discussion}
 
 In R Markdown, you can incorporate ordinary text (ex. experimental methods, analysis and discussion of results) alongside code and figures! (Some people write entire manuscripts in R Markdown.) This is useful for writing reproducible reports and publications, sharing work with collaborators, writing up homework, and keeping a bioinformatics notebook. Because the code is emedded in the document, the tables and figures are *reproducible*. Anyone can run the code and get the same results. If you find an error or want to add more to the report, you can just re-run the document and you'll have updated tables and figures! This concept of combining text and code is called "literate programming". To do this we use R Markdown, which combines Markdown (renders plain text) with R. You can output an html, PDF, or Word document that you can share with others. In fact, this webpage is an example of a rendered R markdown file!
@@ -99,9 +177,9 @@ Now that we have a better understanding of what we can use R Markdown files for,
 To create an R Markdown file:
 - Open RStudio
 - Go to File &rarr; New File &rarr; R Markdown
-- Give your document a title, something like "A UN Report on the Relationship between GDP and Life Expectancy" (Note: this is not the same as the file name - it's just a title that will appear at the top of your report)
-- Keep the default output format as HTML.
-- R Markdown files always end in `.Rmd`
+- Give your document a title, something like "The relationship between smoking and lung cancer rates" (Note: this is not the same as the file name - it's just a title that will appear at the top of your report)
+- Keep the default output format as HTML
+- Note: R Markdown files always end in `.Rmd`
 
 > ## R Markdown Outputs
 > The default output for an R Markdown report is HTML, but you can also use R Markdown to [output other report formats](https://rmarkdown.rstudio.com/lesson-9.html). For example, you can generate PDF reports using R Markdown, but you must [install TeX](https://www.latex-project.org/get/) to do this.
@@ -115,15 +193,15 @@ _[Back to top](#contents)_
 ### Header
 _[Back to top](#contents)_
 
-The first part is a *header* at the top of the file between the lines of `---`. This contains instructions for R to specify the type of document to be created and options to choose (ex., title, author, date). These are in the form of key-value pairs (`key: value`; YAML).
+The first part of every R markdown file is a *header* at the top of the file between the lines of `---`. This contains instructions for R to specify the type of document to be created and options to choose (ex., title, author, date). These are in the form of key-value pairs (`key: value`; YAML).
 
 Here's an example:
 
 ```
 ---
-title: 'Writing Reports with R Markdown'
+title: 'The relationship between smoking and lung cancer rates'
 author: "Zena Lapp"
-date: "11/18/2020"
+date: "July 14, 2022"
 output: html_document
 ---
 ```
@@ -132,15 +210,6 @@ output: html_document
 _[Back to top](#contents)_
 
 The next section is a *code chunk*, or embedded R code, that sets up options for all code chunks. Here is the default when you create a new R Markdown file:
-
-
-~~~
-```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = normalizePath("..")
-```
-~~~
-{: .output}
-
 
 
 ~~~
@@ -187,6 +256,8 @@ Let's return to the new R Markdown file you created and delete everything below 
 Next, let's save our R markdown file to the `reports` directory.
 You can do this by clicking the save icon in the top left or using <kbd>control</kbd> + <kbd>s</kbd> (<kbd>command</kbd> + <kbd>s</kbd>  on a Mac).
 
+### Change knit directory
+
 There's one other thing that we need to do before we get started with our report.
 To render our documents into html format, we can "knit" them in R Studio.
 Usually, R Markdown renders documents from the directory where the document is saved (the location of the `.Rmd` file), but we want it to render from the main project directory where our `.Rproj` file is.
@@ -196,7 +267,9 @@ Now it will assume all of your relative paths for reading and writing files are 
 
 Now that we have that set up, let's start on the report!
 
-We're going to use the code you generated yesterday to plot GDP vs. Life Expectancy to include in the report. Recall that we needed a couple R packages to generate these plots. We can create a new code chunk to load the needed packages. You could also include this in the previous setup chunk, it's up to your personal preference.
+### Add code
+
+We're going to use the code you generated yesterday to plot smoking rates vs. lung cancer rates to include in the report. Recall that we needed a couple R packages to generate these plots. We can create a new code chunk to load the needed packages. You could also include this in the previous setup chunk, it's up to your personal preference. To create a new code chunk, you have several options: type it out yourself, click the button with the green `c` and `+` in the top right, next to <kbd>Run</kbd>, or use the keyboard shortcut <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>i</kbd>. 
 
 
 ~~~
@@ -209,36 +282,67 @@ library(tidyverse)
 Now, in a real report this is when we would type out the background and purpose of our analysis to provide context to our readers. However, since writing is not a focus of this workshop we will avoid lengthy prose and stick to short descriptions. You can copy the following text  into your own report below the package code chunk.
 
 ```
-This report was prepared to the attention of the United Nations. It analyzes the relationship between a country's GDP, its life expectancy and CO2 emissions. Our goal is to determine to what degree a country’s economic strength or weakness may be related to its public health status and impact on climate pollution. We hypothesize that both life expectancy and CO2 emissions increase with a country's GDP.
+This report was prepared to analyze the relationship between a country's lung cancer rate, smoking rate, and air pollution. Our goal is to determine to what degree the percent of people who smoke and the amount of air pollution per capita may be related to its lung cancer rate. We hypothesize that lung cancer rates increase with both percent of people who smoke and the amount of air pollution per capita.
 ```
 
-Now, since we want to show our results comparing GDP and life expectancy by country, we need to read in this data so we can regenerate our plot. We will add another code chunk to prepare the data.
+Now, since we want to show our results comparing smoking rate and lung cancer rate by country, we need to read in this data so we can generate our plot. We will add another code chunk to prepare the data.
 
 
 ~~~
 ```{r data}
-gapminder_1997 <- read_csv("data/gapminder_1997.csv")
+smoking <- read_csv("data/smoking_cancer.csv")
 ```
 ~~~
 {: .output}
 
-Now that we have the data, we need to produce the plot. Let's create it!
+### Plot
+
+Now that we have the data, we need to produce the plot. Let's create it using the most recent year in our dataset:
 
 
 ~~~
-```{r gdp_lifeexp_1997}
-ggplot(data = gapminder_1997) + 
-
-  aes(x = gdpPercap, y = lifeExp, color=continent, size=pop/1000000) +
-
+```{r smoking_cancer}
+smoking %>%
+  filter(year == max(year)) %>% 
+  ggplot(aes(x = smoke_pct, y = lung_cancer_pct, color=continent, size=pop/1000000)) + 
   geom_point() +
-
-  labs(x = "GDP Per Capita", y = "Life Expectancy",
-
-       title= "Do people in wealthy countries live longer?", size="Population (in millions)")
+  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
+       title= "Are lung cancer rates associated with smoking rates?", size="Population (in millions)")
 ```
 ~~~
 {: .output}
+
+### Table
+
+Let's say we also want to include a table in our report that summarizes the number of countries, the minimum smoker percent, and the maximum smoker percent.
+
+> ## Review: calculating summary statistics 
+> For the year 2019, calculate the minimum, median, and maximum for the percent of smokers in a given country. 
+>
+> > ## Solution
+> > 
+> > ~~~
+> > smoking %>% 
+> >   filter(year == 2019) %>% 
+> >   summarize(min_smoke = min(smoke_pct),
+> >             median_smoke = median(smoke_pct),
+> >             max_smoke = max(smoke_pct))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 1 × 3
+> >   min_smoke median_smoke max_smoke
+> >       <dbl>        <dbl>     <dbl>
+> > 1      4.08         19.8      49.4
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
+### Knitting
 
 Now we can knit our document to see how our report looks! Use the <kbd>knit</kbd> button in the top left of the screen.
 
@@ -246,11 +350,38 @@ Now we can knit our document to see how our report looks! Use the <kbd>knit</kbd
 
 Amazing! We've created a report! 
 
-It's looking pretty good, but there seem to be a few extra bits that we don't need in the report. For example, the report shows that we load the tidyverse package and the accompanying messages.
+It's looking pretty good, but there seem to be a few extra bits that we might not need in the report. For example, what if we want to make a report that doesn't print out all of the messages from the tidyverse? Or a report that doesn't show the code? And the table is a bit ugly. Let's make things a bit prettier. 
 
-![]({{ page.root }}/fig/r-markdown/tidyverse_messages.png)
+## Customizing the report
 
-To get rid of this, we can revise our packages code chunk by adding `include=FALSE` just like in the setup chunk to prevent code and messages in this chunk from showing up in our report.
+### Table format
+
+We can make the table prettier using the R function `kable()`. We can give the `kable()` function a tibble and it will format it to a nice looking table in the report. The `kable()` function comes from the `knitr` packages, so what do we have to do before using the function? We have to load the `knitr` library.
+
+
+~~~
+# load library
+library(knitr)
+
+# print kable
+smoking %>% 
+   filter(year == 2019) %>% 
+   summarize(min_smoke = min(smoke_pct),
+             median_smoke = median(smoke_pct),
+             max_smoke = max(smoke_pct)) %>%
+  kable()
+~~~
+{: .language-r}
+
+
+
+| min_smoke| median_smoke| max_smoke|
+|---------:|------------:|---------:|
+|  4.082156|     19.78353|  49.42617|
+
+### Messages
+
+How do we get rid of the tidyverse messages? One way to do this is by saying `include = FALSE` in the curly brackets for that code chunk:
 
 
 ~~~
@@ -260,155 +391,194 @@ library(tidyverse)
 ~~~
 {: .output}
 
-We can also see the code that was used to generate the plot. Depending on the purpose and audience for your report, you may want to include the code. If you don't want the code to appear, how can you prevent it? What happens if we add `include=FALSE` to the plot code chunk, too? Try rendering the R Markdown report with this change.
-
-![]({{ page.root }}/fig/r-markdown/includeFalse.png)
-
-Oops! Now the plot doesn't show up in our report at all. This is because setting `include=FALSE` prevents anything in the code chunk from appearing in the report. Instead we can add `echo=FALSE` to tell this code chunk that we don't want to see the code but just the output.
+This will get rid of the code and the corresponding messages. But what if we want to include the code so that people know we loaded the tidyverse? In this case, we can say `message=FALSE` inside the curly brackets:
 
 
 ~~~
-```{r gdp_lifeexp_1997, echo=FALSE}
-ggplot(data = gapminder_1997) + 
-
-  aes(x = gdpPercap, y = lifeExp, color=continent, size=pop/1000000) +
-
-  geom_point() +
-
-  labs(x = "GDP Per Capita", y = "Life Expectancy",
-
-       title= "Do people in wealthy countries live longer?", size="Population (in millions)")
+```{r packages, message=FALSE}
+library(tidyverse)
 ```
 ~~~
 {: .output}
 
-When we knit this again, our plot is back!
+### Code
 
-![]({{ page.root }}/fig/r-markdown/echoFalse.png)
+We can also see the code that was used to generate the plot. Depending on the purpose and audience for your report, you may or may not want to include the code. If you don't want the code to appear, how can you prevent it? 
 
-Before we finalize our report, let's look at a few other cool features. Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change. Here is how to do this.
+> ## Code chunk options
+> Which of the following would lead to a report with no code chunks? For the ones that would not work, what would happen instead?
+> 1. Add `echo = FALSE` inside the curly brackets of the plotting code chunk.
+> 1. Add `include = FALSE` inside the curly brackets of the plotting code chunk.
+> 1. Add `echo = FALSE` inside the curly brackets of the setup code chunk.
+> 1. Change `echo = TRUE` to `echo = FALSE` in the `knitr::opts_chunk$set()` function in the first code chunk. 
+>
+> > ## Solution
+> > 1. This would only remove the code for the plotting code chunk, but not the packages code chunk. 
+> > 1. This would remove the code but also the plot from the report. 
+> > 1. This would not change anything because that code chunk is already excluded because `include = FALSE`.
+> > 1. This would remove all code from the output file (what we want). 
+> {: .solution}
+{: .challenge}
 
-First, let's create a code chunk that summarizes features of our data that we can use to describe our plot to  our audience. Note that we set `include=FALSE` because we only want this step to happen in the background. For our purposes, we will calculate how many countries were included in the analysis, as well as the minimum and maximum GDP per capita values:
+## Formatting
+_[Back to top](#contents)_
+
+We now know how to create a report with R Markdown. Maybe we also want to format the report a little bit to structure our thought process in a useful way (e.g., sections) and make it visually appealing?
+Markdown is like a simple programming language when it comes to syntax.
+Let's try to figure out some syntax together. Suppose we wanted to create sections in our report.
+
+### Headers
+
+To create different sections by using headers and sub-headers, you can use the `#` (pound/hash) sign. Our main headers have one `#` (e.g. `# Main Header Here`) and to create subheaders we add additinal `#`s (e.g. `## First subheader` and `### Second subheader`)
+
+### Lists
+
+To create a bulleted list in R Markdown, you can use the `-` (dash) or the `*` (asterisk).
+Create a bulleted list with three items:
+
+```
+* The name of your currently favorite programming language 
+* The name of a function you have so far found most useful 
+* One thing you want to learn next on your programming journey
+```
+
+> ## Bold and italics 
+> Use the Internet or the [R Markdown reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) to figure out how to: 1) bold the text of the first bullet point, 2) italicize the text of the second bullet point, 3) bold and italicize the text of the third bullet point.
+> > ## Solution
+> > Italics can be generated by enclosing the text in `_` (single underscores) or `*` (single asterisks), and bold in `__` (double underscores) or `**` (double asterisks). To use both, use three instead underscores (`___`) or asterisks (`***`) instead. 
+> {: .solution}
+{: .challenge}
+
+Okay, now how do you think we'd turn our bulleted list into a numbered list?
+
+You can change the bullets to numbers with dots after them:
+
+```
+1. The name of your currently favorite programming language 
+2. The name of a function you have so far found most useful 
+3. One thing you want to learn next on your programming journey
+```
+
+Or, even better, you can just make them all `1.` and markdown will be smart enough to number them in order. This is super useful if you end up wanting to add in an item in the middle of the list:
+
+```
+1. The name of your currently favorite programming language 
+1. The name of a function you have so far found most useful 
+1. One thing you want to learn next on your programming journey
+```
+
+> ## Add to our report: association between air pollution and lung cancer
+> We have a pretty nice looking report, but we still haven't included anything about the association between lung cancer and air pollution per capita. Create a new code chunk and make 1) a plot with air pollution per capita on the x axis and lung cancer on the y axis, and 2) a table with summary statistics including the minimum, median, and maximum air pollution values. BONUS: Merge the table we created earlier with the table you created here with a column for smoking or air pollution, and a column for each of the summary statistics. 
+> > ## Solution
+> > One option to create a code chunk is to type it out, you can also see other options above. 
+> > Then you have to read in the data and create the plot and table: 
+> > 
+> > ~~~
+> > smoking_pollution <- read_csv('data/smoking_pollution.csv')
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Rows: 191 Columns: 6
+> > ── Column specification ────────────────────────────────────────────────────────
+> > Delimiter: ","
+> > chr (2): country, continent
+> > dbl (4): pop, smoke_pct, lung_cancer_pct, pollution
+> > 
+> > ℹ Use `spec()` to retrieve the full column specification for this data.
+> > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   ggplot(aes(x = pollution, y = lung_cancer_pct)) + 
+> >   geom_point() +
+> >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
+> >        title = "Are lung cancer rates associated with pollution per capita?")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > smoking_pollution %>% 
+> >  summarize(min_pol = min(pollution),
+> >             median_smoke = median(pollution),
+> >             max_smoke = max(pollution))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 1 × 3
+> >   min_pol median_smoke max_smoke
+> >     <dbl>        <dbl>     <dbl>
+> > 1    5.56         20.2      83.1
+> > ~~~
+> > {: .output}
+> > Bonus: you can use `pivot_longer()` and `group_by()` followed by `summarize()`:
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   pivot_longer(c(smoke_pct, pollution)) %>% 
+> >   group_by(name) %>% 
+> >   summarize(min = min(value),
+> >             median = median(value),
+> >             max = max(value))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 2 × 4
+> >   name        min median   max
+> >   <chr>     <dbl>  <dbl> <dbl>
+> > 1 pollution  5.56   20.2  83.1
+> > 2 smoke_pct  4.08   19.8  49.4
+> > ~~~
+> > {: .output}
+> > Notice that we used `c()` to provide `pivot_longer()` with the two column names that we wanted to pivot. 
+> > `c()` stands for "combine"; this function combines the two values into what we call a vector. 
+> {: .solution}
+{: .challenge}
 
 
-~~~
-gapminder_1997 <- read_csv("data/gapminder_1997.csv")
-
-nCountries <- gapminder_1997 %>%
-  select(country) %>%
-  n_distinct()
-
-minGDP <- gapminder_1997 %>%
-  summarise(round(min(gdpPercap))) %>%
-  pull()
-
-maxGDP <- gapminder_1997 %>%
-  summarise(round(max(gdpPercap))) %>%
-  pull()
-~~~
-{: .language-r}
-
-Now, all we need to do is reference the values we just computed to describe our
+> ## Bonus: Dynamically updating text using mini R chunks
+> Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change!
+> 
+> Say we want to get the number of countries present in our dataset. 
+> Previously, we learned about the `distinct()` function that returns distinct values. 
+> There's a very similar function called `n_distinct()` that returns instead the _number of_ distinct values:
+> 
+> 
+> ~~~
+> n_countries <- smoking %>%
+>   select(country) %>%
+>   n_distinct()
+> ~~~
+> {: .language-r}
+> Now, all we need to do is reference the values we just computed to describe our
 plot. To do this, we enclose each value in one set of backticks 
 (`` `r some_R_variable_name ` ``), while the ``r`` part once again
 indicates that it's a chunk of R code. When we knit our report, R will
 automatically fill in the values we just created in the above code chunk. Note
 that R will automatically update these values every time our data might change
 (if we were to decide to drop or add countries to this  analysis, for example).
+> 
+> ```
+> There are `r n_countries ` countries in our dataset. 
+> ```
+> Try knitting the document and see what happens!
+{: .callout}
 
-```
-The above plot shows the relationship between GDP per capita and life expectancy
-for a total of `r nCountries ` countries. For this set of countries,
-economic wealth ranged from a minimum of USD `r minGDP`
-to a maximum of USD `r maxGDP` per capita.
-```
-{: .code}
-
-In addition to reporting specific values in the text, we may also want to show a table of values. With R Markdown there are multiple ways to product tables. One way to generate smaller tables is manually. Using a special format we can generate a table in our output. Note that this does not get generated in a code chunk because it is markdown formatting not R code.
-
-```
-|HEADER 1|HEADER 2|
-|-------------|-------------|
-|row 1, column1|row 1, column 2|
-|row 2, column1|row 2, column 2|
-```
-Columns are separated by the pipe key <kbd>|</kbd> located above <kbd>Enter</kbd> on the keyboard. The dashes distinguish the header row from the rest of the table. This header could be a name for each column or a header for the whole table. Now that we know the basic structure we can fill in our table. This is how we could present the same numbers from the previous paragraph as a table instead, again using in-line code.
-When we knit the report again, the code above will render like this:
-![]({{ page.root }}/fig/r-markdown/table_format.png)
-
-Here's the text that we need to include to creata summary table of our data:
-
-
-~~~
-```
-|Summary of Data|
-|------|------|
-|Number of Countries|`r nCountries`|
-|Minimum GDP per capita|`r minGDP`|
-|Maximum GDP per capita|`r maxGDP`|
-
-```
-~~~
-{: .output}
-
-
-This will render like this:
-
-![]({{ page.root }}/fig/r-markdown/table_fillin.png)
-
-This is useful if we are reporting a few values, but can get tedious for larger tables. Another way we can add tables to our reports is using an R function called `kable()`. Since this is an R function, we will use it within a code chunk. We can give the `kable()` function a data table and it will format it to a nice looking table in the report. For example, we could use the following code to generate a table of all the countries in Oceania. The rendered version should look almost exactly as it does on this webpage. 
-
-
-~~~
-# load library
-library(knitr)
-
-# print kable
-gapminder_1997 %>%
-  filter(continent == "Oceania") %>%
-  kable()
-~~~
-{: .language-r}
-
-
-
-|country     |      pop|continent | lifeExp| gdpPercap|
-|:-----------|--------:|:---------|-------:|---------:|
-|Australia   | 18565243|Oceania   |   78.83|  26997.94|
-|New Zealand |  3676187|Oceania   |   77.55|  21050.41|
-
-
-## Formatting
-_[Back to top](#contents)_
-
-We now know how to create a report with R Markdown. Maybe we also want to format the report a little bit to structure our thought process in a useful way (e.g., sections) and make it visually appealing?
-Markdown is a very simple programming language when it comes to syntax.
-Let's try to figure out some syntax together. Suppose we wanted to create sections in our report.
-
-> ## R Markdown headers
-> Try googling how to create sections by using headers and subheaders using R Markdown. What do you find?
->
-> > ## Solution
-> > We can easily create headers and subheaders by using the `#` pound/hash sign. Our main headers have one `#` (e.g. `# Main Header Here`) and to create subheaders we add additinal `#`s (e.g. `## First subheader` and `### Second subheader`)
-> {: .solution}
-{: .challenge}
-
-OK, now that we know how to make headers, let's practice some more Markdown syntax.
-
-> ## R Markdown syntax
-> Go ahead and do some online searches on how to do the following:
-> * create a bullet point list with three items
-> * as the first item, write the name of your currently favorite programming language in bold
-> * as the second item, write  the name of a function you have so far found most useful in italics
-> * as the third item, write one thing you want to learn next on your programming journey in bold and italics
-> * turn your bullet point list into a numbered list
-> * create a fourth list item and find an online guide and/or cheat sheet for basic Markdown syntax, write its name down here and hyperlink its url
->
-> > ## Solution
-> > [This link](https://rmarkdown.rstudio.com/authoring_basics.html) has some helpful basic R Markdown syntax.
-> {: .solution}
-{: .challenge}
 
 # Applying it to your own data
 
-Now it's time to merge all of your analyses with your own data together into a report. Let us know if you have questions! 
+Now it's time to merge all of your analyses with your own data together into a report. Fill out the worksheet to outline your report and then start making it!
