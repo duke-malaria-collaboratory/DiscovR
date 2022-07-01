@@ -408,6 +408,7 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > >   geom_point() +
 > >   labs(x = "Ambient pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer",
 > >        title = "Are lung cancer rates associated with pollution per capita?")
+> > 
 > > smoking_pollution %>% 
 > >  summarize(min_pol = min(pollution),
 > >             median_smoke = median(pollution),
