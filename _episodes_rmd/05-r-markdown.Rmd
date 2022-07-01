@@ -398,7 +398,7 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > ```{r}
 > > smoking_pollution <- read_csv('data/smoking_pollution.csv')
 > > smoking_pollution %>%
-> >   ggplot(aes(x = pollution, y = lung_cancer_pct)) + 
+> >   ggplot(aes(x = pollution/pop, y = lung_cancer_pct)) + 
 > >   geom_point() +
 > >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
 > >        title = "Are lung cancer rates associated with pollution per capita?")
