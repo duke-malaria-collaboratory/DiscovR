@@ -38,7 +38,8 @@ We want to be a resource for you after the workshop ends, and we also want you a
 
 First, **you can email us whenever you want with questions!** (zena.lapp@duke.edu; christine.markwalter@duke.edu; erica.zeno@duke.edu)
 
-For additional consistent support, here are some ideas we can: create a whatsapp group, create a slack workspace, have monthly virtual office hours, and/or have follow-up workshops. Let's discuss what would be most helpful for you.  
+For additional consistent support, we will be hosting a monthly code club where we discuss different coding topics and troubleshoot issues you may be having with your own data. 
+Please let us know if you would like to participate.  
 
 ## Dealing with coding errors
 
