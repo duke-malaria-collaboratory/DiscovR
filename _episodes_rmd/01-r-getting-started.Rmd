@@ -37,7 +37,7 @@ set.seed(20210109)
 > ## Bonus: why learn to program?
 > Share why you're interested in learning how to code.
 > > ## Solution:
-> > There are lots of different reasons, including to perform data analysis and generate figures. I'm sure you have morespecific reasons for why you'd like to learn!
+> > There are lots of different reasons, including to perform data analysis and generate figures. I'm sure you have more specific reasons for why you'd like to learn!
 > {: .solution}
 {: .challenge}
 
@@ -256,7 +256,7 @@ If all this function stuff sounds confusing, don't worry! We'll see a bunch of e
 ## Objects
 
 Sometimes we want to store information for later use or manipulation. 
-To do this in R, we store the information, or _object_ , in a variable name that you can think of like a storage box.
+To do this in R, we store the information, or _object_, in a variable name that you can think of like a storage box.
 
 Let's say we want to round the square root of a number.
 One way we can do this is to put a function inside a function:

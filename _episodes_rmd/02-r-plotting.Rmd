@@ -548,14 +548,14 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width=6, 
 >
 > # Bug 4
 > ggplot(data = smoking_1990) +
->  aes(x = smoke_pct, y = lung_cancer_pct color, = continent, size = pop/1000000) +
+>  aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000) +
 >  geom_point() +
 >  scale_color_brewer(palette = "Set2") +
 >  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer", title = "Are lung cancer rates associated with smoking rates?" size = "Population (in millions)")
 > 
 > # Bug 5
 > ggplot(data = smoking_1990) +
->  aes(x = smoke_pct, y = lung_cancer_pct color, = continent, size = pop/1000000) +
+>  aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000) +
 >  geom_point() +
 >  scale_color_brewer(palette = "Set2") +
 >  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer", title = "Are lung cancer rates associated with smoking rates?", size = "Population (in millions)") +
