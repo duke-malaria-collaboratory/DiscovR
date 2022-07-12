@@ -939,7 +939,7 @@ It still doesn't have the boxplots because we didn't update the `base_plot` obje
 ## Color vs. Fill 
 _[Back to top](#contents)_
 
-Okay, let's change our boxplots so that the color corresponds to continent. Remeber how to do that?
+Okay, let's change our boxplots so that the color corresponds to continent. Remember how to do that?
 
 
 ~~~
@@ -949,7 +949,7 @@ base_plot +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-color-1.png" title="plot of chunk color" alt="plot of chunk color" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-color_bp-1.png" title="plot of chunk color_bp" alt="plot of chunk color_bp" width="612" style="display: block; margin: auto;" />
 
 Well, that didn't get all that colorful. That's because objects like these boxplots have two different parts that have a color: the shape outline, and the inner part of the shape. For geoms that have an inner part, you change the fill color with `fill=` rather than `color=`, so let's try that instead:
 

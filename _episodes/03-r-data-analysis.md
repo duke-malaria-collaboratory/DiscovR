@@ -45,7 +45,7 @@ Then create a new R Script file for our work. Open RStudio. Choose "File" \> "Ne
 
 #### Loading your data.
 
-Start by importing the complete dataset that we used yesterday into our fresh new R session: `smoking <- read_csv('data/smoking_cancer.csv')`.
+Start by importing the dataset that we used yesterday into our fresh new R session: `smoking <- read_csv('data/smoking_cancer_1990.csv')`.
 
 What error do you get and why? Fix the code so you don't get an error and read in the dataset.
 
@@ -88,14 +88,14 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > 
 > 
 > ~~~
-> smoking <- read_csv('data/smoking_cancer.csv')
+> smoking_1990 <- read_csv('data/smoking_cancer_1990.csv')
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> Rows: 5749 Columns: 6
+> Rows: 192 Columns: 5
 > ~~~
 > {: .output}
 > 
@@ -105,7 +105,7 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > ── Column specification ────────────────────────────────────────────────────────
 > Delimiter: ","
 > chr (2): country, continent
-> dbl (4): year, pop, smoke_pct, lung_cancer_pct
+> dbl (3): pop, smoke_pct, lung_cancer_pct
 > 
 > ℹ Use `spec()` to retrieve the full column specification for this data.
 > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -116,10 +116,10 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > **Reminder:** Many of these packages, including `dplyr` , come with "Cheatsheets" found under the **Help** RStudio menu tab.
 {: .solution}
 
-#### Investigating population over time.
+#### Investigating population by continent.
 _[Back to top](#contents)_
 
-Next, make a scatter plot of year vs. population, separated into a plot for each contient. Feel free to look back at the content from yesterday if you want!
+Next, make plot comparing the population of countries on different continents. Feel free to look back at the content from yesterday if you want!
 
 Bonus 1: Change the y axis to a log10 scale so that you can see the spread in the data a bit better. 
 
@@ -128,9 +128,9 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > ## Solution
 > 
 > ~~~
-> ggplot(smoking, aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent))
+> ggplot(smoking_1990) +
+>   aes(x = continent, y = pop) +
+>   geom_boxplot()
 > ~~~
 > {: .language-r}
 > 
@@ -138,9 +138,9 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > Bonus 1: 
 > 
 > ~~~
-> ggplot(smoking, aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent)) +
+> ggplot(smoking_1990) +
+>   aes(x = continent, y = pop) +
+>   geom_boxplot() +
 > scale_y_log10()
 > ~~~
 > {: .language-r}
@@ -149,11 +149,11 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > Bonus 2 example:
 > 
 > ~~~
-> ggplot(smoking, aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent)) +
+> ggplot(smoking_1990) +
+>   aes(x = continent, y = pop) +
+>   geom_boxplot() +
 > scale_y_log10() +
-> labs(x = 'Year', y = 'Population') +
+> labs(x = 'Continent', y = 'Population') +
 > theme_bw()
 > ~~~
 > {: .language-r}
@@ -169,6 +169,29 @@ _[Back to top](#contents)_
 Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the `dplyr` package, which is also part of the `tidyverse`.
 
 # An introduction to data analysis in R using `dplyr` {#intro-data-analysis}
+
+First, we're going to read in a dataset with data for multiple years:
+
+
+~~~
+smoking <- read_csv('data/smoking_cancer.csv')
+~~~
+{: .language-r}
+
+
+
+~~~
+Rows: 5749 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (4): year, pop, smoke_pct, lung_cancer_pct
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+~~~
+{: .output}
+
 
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
 [*Back to top*](#contents)
@@ -607,7 +630,7 @@ smoking %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 > > {: .source}
 > >
 > > You can pipe your summarized data right to ggplot! 
@@ -1001,7 +1024,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-03-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
 
 Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
@@ -1024,7 +1047,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-03-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
 
 Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
@@ -1049,7 +1072,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-03-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
 
 It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 

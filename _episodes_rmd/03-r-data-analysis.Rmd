@@ -46,7 +46,7 @@ Then create a new R Script file for our work. Open RStudio. Choose "File" \> "Ne
 
 #### Loading your data.
 
-Start by importing the complete dataset that we used yesterday into our fresh new R session: `smoking <- read_csv('data/smoking_cancer.csv')`.
+Start by importing the dataset that we used yesterday into our fresh new R session: `smoking <- read_csv('data/smoking_cancer_1990.csv')`.
 
 What error do you get and why? Fix the code so you don't get an error and read in the dataset.
 
@@ -56,17 +56,17 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It's important to remember that you will need to load any packages you want to use into R each time you start a new session. The `read_csv` function comes from the `readr` package which is included in the `tidyverse` package so we will just load the `tidyverse` package and run the import code again:
 > ```{r}
 > library(tidyverse)
-> smoking <- read_csv('data/smoking_cancer.csv')
+> smoking_1990 <- read_csv('data/smoking_cancer_1990.csv')
 > ```
 > As we saw yesterday, the output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org). 
 > 
 > **Reminder:** Many of these packages, including `dplyr` , come with "Cheatsheets" found under the **Help** RStudio menu tab.
 {: .solution}
 
-#### Investigating population over time.
+#### Investigating population by continent.
 _[Back to top](#contents)_
 
-Next, make a scatter plot of year vs. population, separated into a plot for each contient. Feel free to look back at the content from yesterday if you want!
+Next, make plot comparing the population of countries on different continents. Feel free to look back at the content from yesterday if you want!
 
 Bonus 1: Change the y axis to a log10 scale so that you can see the spread in the data a bit better. 
 
@@ -74,24 +74,24 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 
 > ## Solution
 > ```{r}
-> ggplot(smoking, aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent))
+> ggplot(smoking_1990) +
+>   aes(x = continent, y = pop) +
+>   geom_boxplot()
 > ```
 > Bonus 1: 
 > ```{r}
-> ggplot(smoking, aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent)) +
+> ggplot(smoking_1990) +
+>   aes(x = continent, y = pop) +
+>   geom_boxplot() +
 > scale_y_log10()
 > ```
 > Bonus 2 example:
 > ```{r}
-> ggplot(smoking, aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent)) +
+> ggplot(smoking_1990) +
+>   aes(x = continent, y = pop) +
+>   geom_boxplot() +
 > scale_y_log10() +
-> labs(x = 'Year', y = 'Population') +
+> labs(x = 'Continent', y = 'Population') +
 > theme_bw()
 > ```
 {: .solution}
@@ -104,6 +104,13 @@ _[Back to top](#contents)_
 Yesterday we spent a lot of time making plots in R using the ggplot2 package. Visualizing data using plots is a very powerful skill in R, but what if we would like to work with only a subset of our data? Or clean up messy data, calculate summary statistics, create a new variable, or join two datasets together? There are several different methods for doing this in R, and we will touch on a few today using functions the `dplyr` package, which is also part of the `tidyverse`.
 
 # An introduction to data analysis in R using `dplyr` {#intro-data-analysis}
+
+First, we're going to read in a dataset with data for multiple years:
+
+```{r}
+smoking <- read_csv('data/smoking_cancer.csv')
+```
+
 
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
 [*Back to top*](#contents)

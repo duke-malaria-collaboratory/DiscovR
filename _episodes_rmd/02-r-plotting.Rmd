@@ -770,9 +770,9 @@ It still doesn't have the boxplots because we didn't update the `base_plot` obje
 ## Color vs. Fill 
 _[Back to top](#contents)_
 
-Okay, let's change our boxplots so that the color corresponds to continent. Remeber how to do that?
+Okay, let's change our boxplots so that the color corresponds to continent. Remember how to do that?
 
-```{r color}
+```{r color_bp}
 base_plot +
   aes(color = continent) +
   geom_boxplot()
