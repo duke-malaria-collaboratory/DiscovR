@@ -6,7 +6,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 
 {% include gh_variables.html %}
 
-This is a custom curriculum developed by members of The Duke Malaria Collaboratory for the DiscovR workshop (Data integration: strategies, concepts, and visualization in R). 
+This is a custom curriculum developed by members of The Duke Malaria Collaboratory for the DiscovR workshop (Data investigation: strategies, concepts, and visualization in R). 
 While it is based on The Carpentries curriculum and teaching practices, 
 it is not officially overseen by The Carpentries organization. 
 We welcome any feedback or questions to us through 
