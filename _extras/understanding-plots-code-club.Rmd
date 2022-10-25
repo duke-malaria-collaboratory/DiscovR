@@ -1,0 +1,79 @@
+---
+title: "Understanding plots"
+author: "Zena Lapp"
+date: '2022-08-22'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# load library
+library(tidyverse)
+
+# read in data
+dat <- read_csv('data/smoking_cancer_1990.csv')
+dat_time <- read_csv('data/smoking_cancer.csv')
+```
+
+```{r}
+# bar plot
+dat %>% 
+    ggplot(aes(x = continent)) +
+    geom_bar() +
+    theme_bw() +
+    labs(x = 'Continent', y = 'Number of countries')
+```
+
+
+```{r}
+# histograms
+dat %>% 
+    ggplot(aes(x = pop/1000000)) +
+    geom_histogram() +
+    labs(x = 'Population (in millions)', y = 'Number of countries') +
+    theme_bw()
+
+dat %>% 
+    ggplot(aes(x = smoke_pct)) +
+    geom_histogram() +
+    labs(x = 'Percentage of people who smoke', y = 'Number of countries') +
+    theme_bw()
+```
+
+```{r}
+# boxplot
+dat %>% 
+    ggplot(aes(x = continent, y = smoke_pct)) +
+    geom_boxplot() +
+    labs(x = 'Continent', y = 'Percentage of people who smoke') +
+    theme_bw()
+```
+
+```{r}
+# scatter plots
+dat %>% 
+    ggplot(aes(x = smoke_pct, y = lung_cancer_pct)) +
+    geom_point() +
+    labs(x = 'Percentage of people who smoke', y = 'Percentage of people with lung cancer') +
+    theme_bw()
+
+dat %>% 
+    ggplot(aes(x = pop/1000000, y = lung_cancer_pct)) +
+    geom_point() +
+    labs(x = 'Population (in millions)', y = 'Percentage of people with lung cancer') +
+    theme_bw()
+```
+
+```{r}
+# line graph
+dat_time %>% 
+    filter(country == 'Kenya') %>% 
+    ggplot(aes(x = year, y = lung_cancer_pct)) +
+    geom_line() +
+    labs(x = 'Year', y = 'Percentage of people with lung cancer') +
+    theme_bw()
+```
+
