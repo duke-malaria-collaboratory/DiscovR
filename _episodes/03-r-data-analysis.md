@@ -45,7 +45,7 @@ Then create a new R Script file for our work. Open RStudio. Choose "File" \> "Ne
 
 #### Loading your data.
 
-Start by importing the dataset that we used yesterday into our fresh new R session: `smoking <- read_csv('data/smoking_cancer_1990.csv')`.
+Start by importing the dataset that we used yesterday into our fresh new R session: `smoking_1990 <- read_csv('data/smoking_cancer_1990.csv')`.
 
 What error do you get and why? Fix the code so you don't get an error and read in the dataset.
 

@@ -46,7 +46,7 @@ Then create a new R Script file for our work. Open RStudio. Choose "File" \> "Ne
 
 #### Loading your data.
 
-Start by importing the dataset that we used yesterday into our fresh new R session: `smoking <- read_csv('data/smoking_cancer_1990.csv')`.
+Start by importing the dataset that we used yesterday into our fresh new R session: `smoking_1990 <- read_csv('data/smoking_cancer_1990.csv')`.
 
 What error do you get and why? Fix the code so you don't get an error and read in the dataset.
 
@@ -66,7 +66,7 @@ What error do you get and why? Fix the code so you don't get an error and read i
 #### Investigating population by continent.
 _[Back to top](#contents)_
 
-Next, make plot comparing the population of countries on different continents. Feel free to look back at the content from yesterday if you want!
+Next, make a plot comparing the population of countries on different continents. Feel free to look back at the content from yesterday if you want!
 
 Bonus 1: Change the y axis to a log10 scale so that you can see the spread in the data a bit better. 
 
@@ -438,19 +438,7 @@ Data comes in many shapes and sizes, and one way we classify data is either "wid
 
 The `tidyr` package contains the functions `pivot_wider()` and `pivot_longer()` that make it easy to switch between the two formats. The `tidyr` package is included in the `tidyverse` package so we don't need to do anything to load it.
 
-First, our data is not as clean as it looks - there are some countries that have multiple entries for a given year. 
-However, we want only one entry per year. 
-To get this, we will summarize the data to be the mean of all values for a given year:
-
-```{r PivotWider}
-smoking %>%
-  group_by(country, continent, year) %>% 
-  summarize(smoke_pct = mean(smoke_pct))
-```
-
-Notice how we went from having `r nrow(smoking)` rows to `r smoking %>% group_by(country, continent, year) %>% summarize(smoke_pct = mean(smoke_pct)) %>% nrow()` in our data. 
-
-Next, let's create a wide version of the data using `pivot_wider()`:
+Let's create a wide version of the data using `pivot_wider()`:
 
 ```{r}
 smoking %>%

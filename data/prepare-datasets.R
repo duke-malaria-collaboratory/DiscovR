@@ -68,6 +68,10 @@ dat <- left_join(cancer, smoking) %>%
     left_join(pop) %>%
     left_join(continent) %>%
     filter(!is.na(pop) & !is.na(continent)) %>%
+    group_by(country, continent, year, lung_cancer_pct) %>%
+    summarize(pop = floor(mean(pop)),
+              smoke_pct = mean(smoke_pct),
+              lung_cancer_pct = mean(lung_cancer_pct)) %>%
     select(country, continent, year, pop, smoke_pct, lung_cancer_pct)
 
 write_csv(dat, 'data/smoking_cancer.csv')
