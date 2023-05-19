@@ -438,7 +438,7 @@ Data comes in many shapes and sizes, and one way we classify data is either "wid
 
 The `tidyr` package contains the functions `pivot_wider()` and `pivot_longer()` that make it easy to switch between the two formats. The `tidyr` package is included in the `tidyverse` package so we don't need to do anything to load it.
 
-Let's create a wide version of the data using `pivot_wider()`:
+Let's create a wide version of our data using `pivot_wider()`:
 
 ```{r}
 smoking %>%
