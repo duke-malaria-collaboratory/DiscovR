@@ -62,7 +62,7 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > 
 > 
 > ~~~
-> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 > ~~~
 > {: .output}
 > 
@@ -72,7 +72,7 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
 > ✔ tibble  3.1.7     ✔ dplyr   1.0.9
 > ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-> ✔ readr   2.1.2     ✔ forcats 0.5.1
+> ✔ readr   2.1.2     ✔ forcats 1.0.0
 > ~~~
 > {: .output}
 > 
@@ -119,17 +119,16 @@ What error do you get and why? Fix the code so you don't get an error and read i
 #### Investigating population by continent.
 _[Back to top](#contents)_
 
-Next, make plot comparing the population of countries on different continents. Feel free to look back at the content from yesterday if you want!
+Next, make a plot comparing the population of countries on different continents. Feel free to look back at the content from yesterday if you want!
 
 Bonus 1: Change the y axis to a log10 scale so that you can see the spread in the data a bit better. 
 
-Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything else you want. Feel free to look back at the material from yesterday and/or use the Internet to help. 
+Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything else you want.  
 
 > ## Solution
 > 
 > ~~~
-> ggplot(smoking_1990) +
->   aes(x = continent, y = pop) +
+> ggplot(smoking_1990, aes(x = continent, y = pop)) +
 >   geom_boxplot()
 > ~~~
 > {: .language-r}
@@ -138,10 +137,9 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > Bonus 1: 
 > 
 > ~~~
-> ggplot(smoking_1990) +
->   aes(x = continent, y = pop) +
+> ggplot(smoking_1990, aes(x = continent, y = pop)) +
 >   geom_boxplot() +
-> scale_y_log10()
+>   scale_y_log10()
 > ~~~
 > {: .language-r}
 > 
@@ -149,12 +147,11 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > Bonus 2 example:
 > 
 > ~~~
-> ggplot(smoking_1990) +
->   aes(x = continent, y = pop) +
+> ggplot(smoking_1990, aes(x = continent, y = pop)) +
 >   geom_boxplot() +
-> scale_y_log10() +
-> labs(x = 'Continent', y = 'Population') +
-> theme_bw()
+>   scale_y_log10() +
+>   labs(x = 'Continent', y = 'Population') +
+>   theme_bw()
 > ~~~
 > {: .language-r}
 > 
@@ -170,7 +167,7 @@ Yesterday we spent a lot of time making plots in R using the ggplot2 package. Vi
 
 # An introduction to data analysis in R using `dplyr` {#intro-data-analysis}
 
-First, we're going to read in a dataset with data for multiple years:
+First, we're going to read in and take a look at a dataset with data for multiple years:
 
 
 ~~~
@@ -192,6 +189,36 @@ dbl (4): year, pop, smoke_pct, lung_cancer_pct
 ~~~
 {: .output}
 
+Let's take a look at the full dataset. We could use `View()`, the way we did for the smaller dataset, but if your data is too big, it might take too long to load. So let's just look at it in the console. Note that if you're working with something other than a tibble, you might have to use the `head()` function to take a look at the first few row, but when you print out a tibble it will just print out the first few lines:
+
+
+~~~
+smoking
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 5,749 × 6
+   country                  continent      year    pop smoke_pct lung_cancer_pct
+   <chr>                    <chr>         <dbl>  <dbl>     <dbl>           <dbl>
+ 1 Myanmar                  Asia           1990 4.13e7      38.2          0.0240
+ 2 Solomon Islands          Oceania        1990 3.12e5      35.0          0.0291
+ 3 Cambodia                 Asia           1990 8.98e6      25.5          0.0231
+ 4 Maldives                 Asia           1990 2.23e5      30.0          0.0129
+ 5 Papua New Guinea         Oceania        1990 4.62e6      36.5          0.0175
+ 6 United States of America North America  1990 2.50e8      26.6          0.0990
+ 7 Czech Republic           Europe         1990 1.03e7      36.3          0.0599
+ 8 Republic of Moldova      Europe         1990 2.97e6      22.0          0.0354
+ 9 Portugal                 Europe         1990 9.98e6      28.7          0.0222
+10 Greece                   Europe         1990 1.02e7      43.0          0.0551
+# … with 5,739 more rows
+~~~
+{: .output}
+
+
+Notice that this dataset has an additional column `year` compared to the smaller dataset we started with.
 
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
 [*Back to top*](#contents)
@@ -630,7 +657,7 @@ smoking %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" />
 > > {: .source}
 > >
 > > You can pipe your summarized data right to ggplot! 
@@ -912,50 +939,7 @@ Data comes in many shapes and sizes, and one way we classify data is either "wid
 
 The `tidyr` package contains the functions `pivot_wider()` and `pivot_longer()` that make it easy to switch between the two formats. The `tidyr` package is included in the `tidyverse` package so we don't need to do anything to load it.
 
-First, our data is not as clean as it looks - there are some countries that have multiple entries for a given year. 
-However, we want only one entry per year. 
-To get this, we will summarize the data to be the mean of all values for a given year:
-
-
-~~~
-smoking %>%
-  group_by(country, continent, year) %>% 
-  summarize(smoke_pct = mean(smoke_pct))
-~~~
-{: .language-r}
-
-
-
-~~~
-`summarise()` has grouped output by 'country', 'continent'. You can override
-using the `.groups` argument.
-~~~
-{: .output}
-
-
-
-~~~
-# A tibble: 5,719 × 4
-# Groups:   country, continent [191]
-   country     continent  year smoke_pct
-   <chr>       <chr>     <dbl>     <dbl>
- 1 Afghanistan Asia       1990      3.12
- 2 Afghanistan Asia       1991      3.29
- 3 Afghanistan Asia       1992      3.53
- 4 Afghanistan Asia       1993      3.77
- 5 Afghanistan Asia       1994      4.00
- 6 Afghanistan Asia       1995      4.25
- 7 Afghanistan Asia       1996      4.53
- 8 Afghanistan Asia       1997      4.82
- 9 Afghanistan Asia       1998      5.08
-10 Afghanistan Asia       1999      5.37
-# … with 5,709 more rows
-~~~
-{: .output}
-
-Notice how we went from having 5749 rows to 5719 in our data. 
-
-Next, let's create a wide version of the data using `pivot_wider()`:
+Let's create a wide version of our data using `pivot_wider()`:
 
 
 ~~~
@@ -1024,7 +1008,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-03-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
 
 Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
@@ -1047,7 +1031,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-03-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
 
 Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
@@ -1072,7 +1056,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-03-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
 
 It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 
