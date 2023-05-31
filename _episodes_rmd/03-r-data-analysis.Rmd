@@ -105,12 +105,20 @@ Yesterday we spent a lot of time making plots in R using the ggplot2 package. Vi
 
 # An introduction to data analysis in R using `dplyr` {#intro-data-analysis}
 
-First, we're going to read in a dataset with data for multiple years:
+First, we're going to read in and take a look at a dataset with data for multiple years:
 
 ```{r}
 smoking <- read_csv('data/smoking_cancer.csv')
 ```
 
+Let's take a look at the full dataset. We could use `View()`, the way we did for the smaller dataset, but if your data is too big, it might take too long to load. So let's just look at it in the console. Note that if you're working with something other than a tibble, you might have to use the `head()` function to take a look at the first few row, but when you print out a tibble it will just print out the first few lines:
+
+```{r}
+smoking
+```
+
+
+Notice that this dataset has an additional column `year` compared to the smaller dataset we started with.
 
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
 [*Back to top*](#contents)
