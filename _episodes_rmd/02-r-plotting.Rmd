@@ -33,6 +33,7 @@ set.seed(20210109)
 
 ### Contents
 
+1. [Overview of the lesson](#overview-of-the-lesson)
 1. [Loading and reviewing data](#loading-and-reviewing-data)
 1. [Our first plot](#our-first-plot)
     + [Creating our first plot](#creating-our-first-plot)
@@ -50,6 +51,10 @@ set.seed(20210109)
     + [Plotting for data exploration recap](#plotting-for-data-exploration-recap)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 1. [Glossary of terms](#glossary-of-terms)
+
+# Overview of the lesson
+
+In this lesson, we will go over how to read tabular data into R (e.g. from a csv file) and plot it for exploratory data analysis. 
 
 > ## Exercise: Create a new R Script file
 > We would like to create a file where we can keep track of our R code. On your own, create a file called `plotting.R` in the project directory.
@@ -352,11 +357,11 @@ continent of each point to a color, we will again use the `aes()` function.
 > ggplot(data = smoking_1990) +
 >   geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = _____)) +
 >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer")
+> ```
 > {: .source}
 >
->
 > > ## Solution
-> > ```{r FirstPlotAddY}
+> > ```{r FirstPlotColorCont}
 > > ggplot(data = smoking_1990) +
 > >   geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent)) +
 > >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer")
@@ -570,7 +575,7 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6
 > > "      scale_color_brewer(palette = "Set2") +
 > >      labs(x = "Percent of people who smoke", y = "Percent of people  with lung cancer", title = "Are lung cancer rates associated with smoking rates?", size = "Population (in millions)"))"
 > > ```
-> >
+> {: .source}
 > > Although it might be alarming to get this error, it's actually quite helpful! You can see that the error points out that we have an unexpected closed parentheses ")" in the last two lines of our code. Look closely, and you'll see that we accidentally put an extra ")" on the `labs()` layer in the last line of code.
 > >
 > > **Bug 3**: This code generates the following error:
@@ -782,7 +787,7 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > Do we want alpha to go inside or outside our `aes()` function? Why? Test out both and see if you're right! 
 > > ## Solution
 > > We want alpha to go outside of `aes()` since we're telling ggplot the number we want it to use; it's not coming from our data. 
-> > ```{r BoxplotPoints}
+> > ```{r BoxplotPointsAlpha}
 > > ggplot(data = smoking_1990) +
 > >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
 > >   geom_point(aes(x = continent, y = lung_cancer_pct), alpha = 0.3)

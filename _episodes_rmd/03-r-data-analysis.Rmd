@@ -70,29 +70,26 @@ Next, make a plot comparing the population of countries on different continents.
 
 Bonus 1: Change the y axis to a log10 scale so that you can see the spread in the data a bit better. 
 
-Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything else you want. Feel free to look back at the material from yesterday and/or use the Internet to help. 
+Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything else you want.  
 
 > ## Solution
 > ```{r}
-> ggplot(smoking_1990) +
->   aes(x = continent, y = pop) +
+> ggplot(smoking_1990, aes(x = continent, y = pop)) +
 >   geom_boxplot()
 > ```
 > Bonus 1: 
 > ```{r}
-> ggplot(smoking_1990) +
->   aes(x = continent, y = pop) +
+> ggplot(smoking_1990, aes(x = continent, y = pop)) +
 >   geom_boxplot() +
-> scale_y_log10()
+>   scale_y_log10()
 > ```
 > Bonus 2 example:
 > ```{r}
-> ggplot(smoking_1990) +
->   aes(x = continent, y = pop) +
+> ggplot(smoking_1990, aes(x = continent, y = pop)) +
 >   geom_boxplot() +
-> scale_y_log10() +
-> labs(x = 'Continent', y = 'Population') +
-> theme_bw()
+>   scale_y_log10() +
+>   labs(x = 'Continent', y = 'Population') +
+>   theme_bw()
 > ```
 {: .solution}
 
