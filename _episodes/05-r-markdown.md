@@ -46,7 +46,6 @@ keypoints:
 1. [Formatting](#formatting)
     + [Headers](#headers)
     + [Lists](#lists)
-    + [Hyperlinks](#hyperlinks)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 
 ## R for data analysis review
