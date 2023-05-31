@@ -815,7 +815,6 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > ggplot(data = smoking_1990) +
 > >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
 > >   geom_point(aes(x = continent, y = lung_cancer_pct, color = continent), alpha = 0.3)
-> >   
 > > ```
 > {: .solution}
 {: .challenge}
