@@ -1,0 +1,141 @@
+---
+title: "De-duplicating data"
+author: "Zena Lapp"
+date: "2023-02-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Today we're going to learn how to identify and remove duplicates in your data. 
+
+First, run this code chunk to load tidyverse and generate the data we're going to use:
+
+```{r}
+# load library
+library(tidyverse)
+
+# set seed so we all have the same data
+set.seed(1)
+
+# generate dataset
+dup_data <- tibble(id = sample(c(1:101, sample(1:100, 9, replace = TRUE))),
+                     gender = sample(c('female', 'male'), size = 110, replace = TRUE),
+                     diagnosis = sample(c('malaria', 'flu'), size = 110, replace = TRUE)) 
+```
+
+Let's take a look at our dataset. We have 3 columns: id, gender, and diagnosis. 
+
+```{r}
+dup_data
+```
+
+It's always good practice to check to see if you have any unexpected (or expected) duplicates in your dataset. First, let's see if we have any duplicated rows.
+
+```{r}
+dup_data %>%
+    filter(duplicated(.))
+```
+
+Next, let's see if we have any duplicated ids.
+
+```{r}
+dup_data %>%
+    filter(duplicated(id))
+
+dup_data %>%
+    mutate(dup = duplicated(id)) %>%
+    arrange(id, dup)
+
+dup_data %>%
+    group_by(id) %>%
+    count()
+```
+
+It does seem like we have duplicate ids. Let's take a look at these columns more closely:
+
+```{r}
+dup_data %>%
+    group_by(id) %>%
+    filter(n() > 1) %>%
+    arrange(id)
+```
+
+janitor package get_dupes()
+
+These people have multiple entries that differ in the gender and diagnosis column. 
+
+The way you clean your duplicated dataset up depends on what you ultimately want to do with your data. If you believe they're incorrect entries, you might want to check the data source. If you expect multiple entries for some people then you can leave them in.
+
+To keep one of each of the rows that are duplicated, you can use the `distinct()` function:
+
+```{r}
+dup_data %>%
+    nrow()
+
+# remove rows that are identical across all variables
+dup_data %>%
+    distinct()
+
+dup_data %>%
+    distinct(id)
+```
+
+To remove all rows that contain an id that is duplicated, you can use `filter()` paired with `duplicated()`:
+
+```{r}
+# identify duplicated ids
+dup_id <- dup_data %>% 
+    filter(duplicated(id)) %>%
+    pull(id)
+dup_id
+
+# remove duplicated ids
+dup_data %>%
+    filter(!id %in% dup_id) # keep only ids where the id is not in dup_id
+
+dup_data %>%
+    mutate(in_dup_id = id %in% dup_id,
+           not_in_dup_id = !in_dup_id) %>%
+    filter(not_in_dup_id)
+```
+
+**Challenge:** Remove rows that have duplicated ids and different genders, but keep ones with the same gender.
+
+```{r}
+dup_data %>%
+    group_by(id) %>%
+    mutate(n_same_id = n()) %>%
+    group_by(gender, id) %>%
+    mutate(n_same_gender = n()) %>%
+    arrange(-n_same_id, -n_same_gender, id) %>%
+    filter(!(n_same_id > 1 & n_same_gender == 1))
+```
+
+**Bonus 1:** Take a look at id 14. There should be 2 entries - 1 female and 1 male. You realize that this is a mistake and the gender of id 14 should actually be female. Change this in your dataset. Also recode id 39 to be male.
+
+```{r}
+dup_data %>%
+    #filter(id == 14 | id == 39) %>%
+    mutate(gender_new = case_when(id == 14 ~ 'female',
+                              id == 39 ~ 'male',
+                              TRUE ~ gender)) 
+```
+
+**Bonus 2:** Summarize the data so that there is a row for each id, a gender column, and a column with all unique diagnosis entries.
+
+```{r}
+# remove ids with different genders
+dup_data %>%
+    group_by(id) %>%
+    mutate(n_same_id = n()) %>%
+    group_by(gender, id) %>%
+    mutate(n_same_gender = n()) %>%
+    arrange(-n_same_id, -n_same_gender, id) %>%
+    filter(!(n_same_id > 1 & n_same_gender == 1)) %>%
+    # summarize the data so we have 1 row per person
+    group_by(id, gender) %>% # this is not necessary because we group by this above
+    summarize(diagnosis = str_c(unique(diagnosis), collapse = ';'))
+```

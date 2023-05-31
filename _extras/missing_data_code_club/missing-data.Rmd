@@ -1,0 +1,135 @@
+---
+title: 'Data cleaning: missing data'
+author: "Zena Lapp"
+date: "2023-01-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Today we're going to learn how to clean up a dataset with missing data. 
+
+### Read in and look at data
+
+First, we need to read in our data and take a look at it. It's in the `data` folder.
+
+```{r}
+library(tidyverse)
+dat <- read_csv('data/dat.csv')
+# downloads folder:
+dat <- read_csv('~/Downloads/missing_data_code_club/data/dat.csv')
+# desktop folder:
+dat <- read_csv('~/Desktop/missing_data_code_club/data/dat.csv')
+
+# look at data
+dat
+```
+
+There are a few things going on:
+
+1. Sex is not consistently categorized. 
+1. There are missing values (coded as `NA` in R).
+1. Age is a character, but we'd expect it to be a double (number). 
+1. The units seem off (age is in months, height is in inches, and weight is in pounds).
+
+Today we will be focusing on cleaning up the missing data. In subsequent code clubs, we will clean up other parts of the dataset. 
+
+### Looking into the age column
+
+First, let's take a look at what's going on with the age column by seeing which values aren't numbers.
+
+```{r}
+dat %>%
+    filter(is.na(as.numeric(age)))
+```
+
+It seems like some of the missing values in age are coded as 'N/A' and one column has "months" written in as well. Let's change the N/A's to `NA`, which is recognized by R as a missing value. 
+
+```{r}
+dat_clean_age <- dat %>%
+    mutate(age = replace(age, age == 'N/A', NA))
+```
+
+Did the code do what we wanted it to?
+
+```{r}
+dat_clean_age %>%
+    filter(age == 'N/A')
+dat %>%
+    filter(age == 'N/A')
+```
+
+Great! 
+
+### Count number of missing values in each column
+
+Now, how many missing values to we have in the sex and age columns?
+
+```{r}
+dat_clean_age %>%
+    summarize(sex_na = sum(is.na(sex)),
+              age_na = sum(is.na(age)))
+
+dat_clean_age %>%
+    mutate(sex_na = is.na(sex),
+           sex_na = as.numeric(sex_na))
+
+# all columns together
+dat_clean_age %>%
+    summarize_all(funs(sum(is.na(.))))
+```
+
+Add to the code above to count the NA's for sex, height, and weight.
+
+```{r}
+
+```
+
+
+### Dealing with missing values
+
+Okay, now we have a sense of how many NAs there are in our dataset. How do we deal with them? 
+1. We can remove rows with missing data from the dataset.
+1. We can impute missing data from the other columns. We won't have time to do this now, but you can learn more about it [here](https://www.simplilearn.com/data-imputation-article). 
+
+Remove rows with missing data:
+
+```{r}
+dat_no_missing <- dat_clean_age %>%
+    drop_na()
+```
+
+Check for missing data:
+
+```{r}
+dat_no_missing %>%
+    summarize_all(funs(sum(is.na(.))))
+```
+
+How many rows were dropped?
+
+```{r}
+nrow(dat_clean_age) - nrow(dat_no_missing)
+```
+
+
+## Bonus: Cleaning up the age column even more
+
+Starting with `dat_clean_age`, change "174 months" to "174" and then change the age column to numeric.
+
+```{r}
+dat_clean_age %>%
+    mutate(age = replace(age, age == '174 months', 174),
+           age = as.numeric(age))
+
+# a little more generalized
+dat_clean_age %>%
+    filter(age == '174 months') %>% 
+    mutate(age = gsub('months', '', age),
+           age = as.numeric(age))
+
+gsub('hi*', 'hello', 'hiiiiiii my name is zena')
+```
+

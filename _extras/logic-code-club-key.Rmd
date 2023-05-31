@@ -1,0 +1,94 @@
+---
+title: "Logic & Conditionals"
+author: "Zena Lapp"
+date: "2023-04-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Today we are going to go over logic and conditionals, like we might want to use when filtering rows with `filter()` or when updating or creating a new column with `case_when()`.
+
+First, run this code chunk to generate the data we will be working with:
+
+```{r}
+library(tidyverse)
+
+dat <- tibble(person_id = 1:7,
+              symptoms = c('yes', 'no', 'yes', 'no', 'no', 'no', 'yes'),
+              test_result = c('positive', 'negative', 'positive', 'positive', 'undetermined', 'negative', 'negative'),
+              medication = c('yes', 'no', 'no', 'yes', 'no', 'unknown', 'yes'))
+```
+
+Let's take a look at the data:
+
+```{r}
+dat
+```
+
+Some basic logic and how to code it in R:
+
+- Test for equality: double equals (`==`)
+- Test for inequality: exclamation mark equals (`!=`)
+- Test if something is false: exclamation mark (`!`)
+- Test if two things are true: ampersand (`&`)
+- Test if at least one thing is true: pipe (`|`)  
+
+```{r}
+1 == 1
+1 != 1
+1 == 2
+1 != 2
+!(1 == 1)
+
+1 == 1 & 2 == 2
+1 == 1 & 2 != 2
+1 == 1 | 2 == 2
+1 == 1 | 2 != 2
+
+!(1 == 1 | 2 != 2)
+1 == 1 | !2 != 2
+```
+
+Now, let's see how we might want to use it with the dataset from above.
+
+First, let's filter out the people with missing data. Then we'll answer the below questions.
+
+Questions:
+
+1. Which people had symptoms?
+1. Which people tested positive?
+1. Which people had symptoms and tested negative?
+1. Which people had symptoms and took medication? 
+1. Which people did not have symptoms and tested positive? 
+1. Which people had symptoms, tested negative, and took medication? 
+
+```{r}
+dat %>% 
+  filter(test_result != 'undetermined' & medication != 'unknown') %>% 
+  mutate(symptoms_yes = symptoms == 'yes',
+         test_pos = test_result == 'positive',
+         symp_neg = symptoms_yes & !test_pos,
+         symp_med = symptoms_yes & medication == 'yes',
+         no_symp_pos = !symptoms_yes & test_pos,
+         symp_neg_med = symptoms_yes & !test_pos & medication == 'yes')
+```
+
+Now, let's classify each person as:
+
+- Symptomatic, asymptomatic, uninfected, or unknown
+- Took medication when positive, took medication when negative, or did not take medication
+
+```{r}
+dat %>% 
+  mutate(case_type = case_when(symptoms == 'yes' & test_result == 'positive' ~ 'symptomatic',
+                               symptoms == 'no' & test_result == 'positive' ~ 'asymptomatic',
+                               test_result == 'negative' ~ 'uninfected',
+                               TRUE ~ 'unknown'),
+         med_type = case_when(test_result == 'positive' & medication == 'yes' ~ 'med positive',
+                              test_result == 'negative' & medication == 'yes' ~ 'med negative',
+                              TRUE ~ 'no med'))
+```
+
