@@ -184,7 +184,7 @@ Here, we are interested in whether there is a relationship between the percent o
 > 1. What variables would you want to put on the x and y axes? 
 > 1. What columns do those variables correspond to in our `smoking_1990` dataset?
 > 
-> **Hint:** take a look at [this blog post](https://www.visual-design.net/post/choose-the-right-chart) if you need ideas about which plot type might be good: 
+> **Hint:** take a look at [this blog post](https://www.visual-design.net/post/choose-the-right-chart) if you need ideas about which plot type might be good.
 > {: .source}
 >
 > > ## Solution
@@ -352,12 +352,13 @@ continent of each point to a color, we will again use the `aes()` function.
 
 > ## Color the points by continent
 > To color the points by continent, you will need to add that to your aesthetic function.
-> Fill in the blank below with the correct column from your data to make this happen.
-> ```{r FirstPlotAddColor}
+> Fill in the blank below with the correct column from your data to make this happen. 
+> ```{r FirstPlotAddColor, eval = FALSE}
 > ggplot(data = smoking_1990) +
 >   geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = _____)) +
 >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer")
 > ```
+> What information can you learn from the plot? 
 > {: .source}
 >
 > > ## Solution
@@ -367,10 +368,11 @@ continent of each point to a color, we will again use the `aes()` function.
 > >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer")
 > > ```
 > > {: .source}
+> > Here we can see that in 1990 the African countries tended to have much lower smoking and lung cancer rates than many other continents. 
 > {: .solution}
 {: .challenge}
 
-Here we can see that in 1990 the African countries tended to have much lower smoking and lung cancer rates than many other continents. Notice that when we add a mapping for
+Notice that when we add a mapping for
 color, ggplot automatically provided a legend for us. It took care of assigning
 different colors to each of our unique values of the `continent` variable. (Note
 that when we mapped the x and y values, those drew the actual axis labels, so in
@@ -567,6 +569,7 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6
 > 
 > {: .source}
 > > ## Solution
+> > ```
 > > **Bug 1**: We generated a plot, but it doesn't look like what we expect. The bug is in our mapping of aesthetics: `geom_point(aes(x = "smoke_pct", y = lung_cancer_pct, color = continent, size = pop/1000000))`. Because `"smoke_pct"` is in quotation marks, ggplot understands that as a single value, rather than an aesthetic mapped to the `smoke_pct` variable in the `smoking_1990` dataset. To correct this bug, remove the quotes from `"smoke_pct"` so that ggplot looks for the `smoke_pct` column in our dataset.
 > >
 > > **Bug 2**: This code generates the following error: 
@@ -653,24 +656,17 @@ The plot type we used to make our first plot, `geom_point`, works when both the 
 
 We've previously used the discrete values of the `continent` column to color in our points and lines. But now let's try moving that variable to the `x` axis. Let's say we are curious about comparing the distribution of the lung cancer rates for each of the different continents for the `smoking_1990` data. We can do so using a box plot. Try this out yourself in the exercise below!
 
-> ## Box plots
+> ## Plotting and interpreting box plots
 > Using the `smoking_1990` data, use ggplot to create a box plot with continent on the x axis and lung cancer rates on the y axis. You can use the examples from earlier in the lesson as a template to remember how to pass ggplot data and map aesthetics and geometries onto the plot. If you're really stuck, feel free to use the internet as well!
+> 
+> Which continent tends to have countries with the highest lung cancer rates? The lowest? 
 >
 > > ## Solution
 > > ```{r smokingBox}
 > > ggplot(data = smoking_1990) +
 > >  geom_boxplot(aes(x = continent, y = lung_cancer_pct))
 > > ```
-> {: .solution}
-{: .challenge}
-
-This type of visualization makes it easy to compare the range and spread of values across groups. The "middle" 50% of the data is located inside the box and outliers that are far away from the central mass of the data are drawn as points. The bar in the middle of the box is the median. Here, we can see that the median bar for Europe is highest, indicating that countries in Europe tend to have higher rates of lung cancer than countries in other continents. 
-
-> ## Which continent tends to have countries with the lowest smoking rates? 
-> > ## Solution
-> > Africa tends to have countries with the lowest smoking rates. We can tell this becaues the median bar is lowest for the African continent.
-> > Note that we have not performed a statistical test for this.
-> > We will go over statistical tests later in the workshop. 
+> > This type of visualization makes it easy to compare the range and spread of values across groups. The "middle" 50% of the data is located inside the box and outliers that are far away from the central mass of the data are drawn as points. The bar in the middle of the box is the median. Here, we can see that the median bar for Europe is highest, indicating that countries in Europe tend to have higher rates of lung cancer than countries on other continents. Countries in Africa tend to have lower lung cancer rates than countries on other continents.  
 > {: .solution}
 {: .challenge}
 
@@ -816,9 +812,9 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > ## Solution
 > > Since we want to color the points by continent, we need to add `color = continent` to our aesthetic inside `geom_point()`:
 > > ```{r BoxColorContinent}
-> ggplot(data = smoking_1990) +
->   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
->   geom_point(aes(x = continent, y = lung_cancer_pct, color = continent), alpha = 0.3)
+> > ggplot(data = smoking_1990) +
+> >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
+> >   geom_point(aes(x = continent, y = lung_cancer_pct, color = continent), alpha = 0.3)
 > >   
 > > ```
 > {: .solution}
@@ -847,7 +843,7 @@ We've drawn the points but most of them stack up on top of each other. One way t
 >   geom_point(aes(color = continent), alpha = 0.3)
 > ```
 > Here, both `geom_boxplot()` and `geom_point()` will inherit the default values of `aes(continent, lung_cancer_pct)` in the base plot, but only `geom_point()` will also use `aes(color = continent)`.
-{: .callout}
+{: .testimonial}
 
 > ## Bonus Exercise: Make your own violin plot
 > Now create a violin plot comparing percent of people in a country who smoke by continent. 
