@@ -3,7 +3,7 @@
 # Instead, please edit 01-r-getting-started.md in _episodes_rmd/
 source: Rmd
 title: "Getting Started with R"
-teaching: 30
+teaching: 60
 exercises: 15
 questions:
 - "What are R and R Studio?"
