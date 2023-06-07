@@ -3,7 +3,7 @@
 # Instead, please edit 01-r-getting-started.md in _episodes_rmd/
 source: Rmd
 title: "Getting Started with R"
-teaching: 90
+teaching: 30
 exercises: 15
 questions:
 - "What are R and R Studio?"
@@ -64,12 +64,10 @@ To get started, we'll spend a little time getting familiar with the RStudio envi
 
 <img src="{{ page.root }}/fig/r-plotting/initial_rstudio.png" width="700"/>
 
-On the left you'll have a panel with three tabs - Console, Terminal, and Jobs. The Console tab is what running R from the command line looks like. This is where you can enter R code. Try typing in `2+2` at the prompt (>). In the upper right panel are tabs indicating the Environment, History, and a few other things. If you click on the History tab, you'll see the command you ran at the R prompt.
+On the left you'll have a panel with three tabs - Console, Terminal, and Jobs. The Console tab is what running R from the command line looks like. This is where you can enter R code. Try typing in `2+2` at the prompt (>). 
 
-<img src="{{ page.root }}/fig/r-plotting/history.png" width="700"/>
-
+In the upper right panel are tabs indicating the Environment, History, and a few other things. 
 In the lower right panel are tabs for Files, Plots, Packages, Help, and Viewer. 
-
 We'll spend more time in each of these tabs as we go through the workshop, so we won't spend a lot of time discussing them now.
 
 Let's get going on our analysis!
@@ -125,8 +123,7 @@ As you write more code, you can highlight multiple lines and then press <kbd>Ctr
 > Sometimes you may want to write comments in your code to help you remember
 > what your code is doing, but you don't want R to think these comments are a part
 > of the code you want to evaluate. That's where **comments** come in! Anything
-> after a `#` symbol in your code will be ignored by R. For example, let's say we
-> wanted to make a note of what each of the functions we just used do:
+> after a `#` symbol in your code will be ignored by R:
 > 
 > ~~~
 > # this is a comment
@@ -164,7 +161,7 @@ Error in sqrt(): 0 arguments passed to 'sqrt' which requires 1
 We get an error message. Don't panic! Error messages pop up all the time, and can be super helpful in debugging code.
 
 In this case, the message tells us zero arguments were passed to the function, but we need to input at least one. 
-Many functions, including `sqrt`, require additional pieces of information to do their job. 
+Many functions, including `sqrt()`, require additional pieces of information to do their job. 
 We call these additional values "arguments" or "parameters." 
 You pass **arguments** to a function by placing values in between the parenthesis. 
 A function takes in these arguments and works behind the scenes to output something we're interested in.
@@ -309,7 +306,7 @@ If all this function stuff sounds confusing, don't worry! We'll see a bunch of e
 
 ## Objects
 
-Sometimes we want to store information for later use or manipulation. 
+Sometimes we want to store information for later use or transformation. 
 To do this in R, we store the information, or _object_, in a variable name that you can think of like a storage box.
 
 Let's say we want to round the square root of a number.
@@ -330,7 +327,7 @@ round(sqrt(2), 2)
 
 Another way is to store the square root output first, and then round that. 
 
-To store an object for later, we have to decide on a name of the box we want to store it in first. Let's say we want to call it `square_root`.
+To store an object for later, we first have to decide on a name of the box we want to store it in. Let's say we want to call it `square_root`.
 Then we have to tell R what we want to put in the object name. We use the `<-` symbol, which is the **assignment operator** to assign values generated or typed on the right to object names on the left. An alternative symbol that you might see used as an **assignment operator** is the `=` but it is clearer to only use `<-` for assignment. We use this symbol so often that RStudio has a keyboard short cut for it: <kbd>Alt</kbd>+<kbd>-</kbd> on Windows, and <kbd>Option</kbd>+<kbd>-</kbd> on Mac. 
 
 Let's assign `sqrt(2)` to the object `square_root`. We can see that `square_root` contains the square root of 2:
