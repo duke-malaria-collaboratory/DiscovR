@@ -28,6 +28,7 @@ keypoints:
 
 ### Contents
 
+1. [The "goal" of the workshop](#the-goal-of-the-workshop)
 1. [Overview of the lesson](#overview-of-the-lesson)
 1. [Loading and reviewing data](#loading-and-reviewing-data)
 1. [Our first plot](#our-first-plot)
@@ -46,6 +47,12 @@ keypoints:
     + [Plotting for data exploration recap](#plotting-for-data-exploration-recap)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 1. [Glossary of terms](#glossary-of-terms)
+
+# The "goal" of the workshop
+
+Our goal is to write a report to the United Nations on the relationship between lung cancer, smoking, and air pollution. In other words, we are going to analyze  how countries' smoking rates and air pollution may be related to  the percent of people with lung cancer.
+
+To get to that point, we'll need to learn how to manage data, make plots, and generate reports. The next section discusses in more detail exactly what we will cover.
 
 # Overview of the lesson
 
@@ -654,6 +661,30 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6
 ~~~
 {: .language-r}
 
+
+> ## Debugging code
+> *Debugging* is the process of finding and fixing errors or unexpected outputs in your code.
+> Even well seasoned coders run into bugs all the time. 
+> 
+> Here are some strategies of how programmers try to deal with coding errors:
+> 
+> 1. Don't panic. Bugs are a normal part of the coding process. 
+> 1. If you are getting an error message, read the error message carefully. Unfortunately, not all error messages are well written and it may not be obvious at first what is wrong. 
+> 1. Check for typos.
+>     1. Check that your parentheses and quotes are balanced and check that you haven't misspelled a variable or function name, or used the wrong one. 
+>     1. It's difficult to identify the exact location where an error starts so you may have to look at lines before the line where the error was reported. 
+>     1. In RStudio, look at the code coloring to find anything that looks off. RStudio will also put a red x or an yellow exclamation point to the left of lines where there is a syntax error.
+> 1. Try running each command on its own. 
+>     1. Before each command, check that you are passing the values you expect.
+>     1. After each command, verify that the results seem sensible.
+> 1. If you're getting an error, search online for the error message along with the function that is not working. 
+> 
+> Consider checking out the following resources to learn more about it.
+> 
+> * ["5 Essential Tips to Debug Any Piece of Code" by mayuko](https://youtu.be/vLL4mvVL8g0) \[video, 8min\] - Good general advice for debugging.
+> * ["Object of type ‘closure’ is not subsettable" by Jenny Bryan](https://rstudio.com/resources/rstudioconf-2020/object-of-type-closure-is-not-subsettable/) \[video, 50min\] - A great talk with R specific advice about dealing with errors as a data scientist.
+> 
+{: .callout}
 
 > ## Understanding common bugs
 > Sometimes you accidentally type things wrong and get unexpected results or errors. We call these mis-types "bugs".

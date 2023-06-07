@@ -19,7 +19,6 @@ keypoints:
     1. [The Internet](#the-internet)
     1. [Reach out to others](#reach-out-to-others)
     1. [Code club](#code-club)
-1. [Debugging code](#more-details)
 
 # Workshop summary & moving forward
 
@@ -34,12 +33,9 @@ The absolute best way to continue improving your skills is to use R in your own 
 > {: .solution}
 {: .challenge}
 
-As you continue on your coding journey, two things will happen:
+As you continue on your coding journey, you will want to learn new data processing and analysis techniques.
 
-1. You will encounter bugs and need to figure out how to solve them ("debugging"), and
-2. You will want to learn new data processing and analysis techniques.
-
-As we complete the course, we want to  share with you some tips and tricks that have helped us on our own programming journeys.
+As we complete the course, we want to share with you some tips and tricks that have helped us on our own programming journeys.
 
 # Learning more and getting help
 
@@ -81,7 +77,6 @@ We want to be a resource for you after the workshop ends, and we also want you a
 Here are our emails:
 - Zena: zena.lapp@duke.edu
 - Christine: christine.markwalter@duke.edu
-- Erica: erica.zeno@duke.edu
 
 > ## What to include when asking for help
 > 1. A brief summary of what you are trying to accomplish (your ultimate goal, distilled into one specific question). 
@@ -94,28 +89,5 @@ Here are our emails:
 
 For additional consistent support, we will be hosting a monthly virtual code club where we will discuss different coding topics and troubleshoot issues you may be having with your own data. 
 Please let us know if you would like to participate.  
-
-# Debugging code
-
-*Debugging* is the process of finding and fixing errors or unexpected outputs in your code. 
-Even well seasoned coders run into bugs all the time. 
-
-Here are some strategies of how programmers try to deal with coding errors:
-
-1. Don't panic. Bugs are a normal part of the coding process. 
-1. If you are getting an error message, read the error message carefully. Unfortunately, not all error messages are well written and it may not be obvious at first what is wrong. 
-1. Check for typos.
-    1. Check that your parentheses and quotes are balanced and check that you haven't misspelled a variable or function name, or used the wrong one. 
-    1. It's difficult to identify the exact location where an error starts so you may have to look at lines before the line where the error was reported. 
-    1. In RStudio, look at the code coloring to find anything that looks off. RStudio will also put a red x or an yellow exclamation point to the left of lines where there is a syntax error.
-1. Try running each command on its own. 
-    1. Before each command, check that you are passing the values you expect.
-    1. After each command, verify that the results seem sensible.
-1. If you're getting an error, search online for the error message along with the function that is not working. 
-
-Consider checking out the following resources to learn more about it.
-
-* ["5 Essential Tips to Debug Any Piece of Code" by mayuko](https://youtu.be/vLL4mvVL8g0) \[video, 8min\] - Good general advice for debugging.
-* ["Object of type ‘closure’ is not subsettable" by Jenny Bryan](https://rstudio.com/resources/rstudioconf-2020/object-of-type-closure-is-not-subsettable/) \[video, 50min\] - A great talk with R specific advice about dealing with errors as a data scientist.
 
 {% include links.md %}
