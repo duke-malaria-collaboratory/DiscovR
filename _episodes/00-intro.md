@@ -44,13 +44,6 @@ Now that you know a little about The Carpentries as an organization, the instruc
 
 Introduce yourself with your preferred name, role, affiliation, work/research area, and Kenyan name and meaning.
 
-## The "goal" of the workshop
-
-Now that we all know each other, let's learn a bit more about why we're here. 
-Our goal is to write a report to the United Nations on the relationship between lung cancer, smoking, and air pollution. In other words, we are going to analyze  how countries' smoking rates and air pollution may be related to  the percent of people with lung cancer.
-
-To get to that point, we'll need to learn how to manage data, make plots, and generate reports. The next section discusses in more detail exactly what we will cover.
-
 ## What will the workshop cover?
 
 This workshop will introduce you to exploratory data analysis and effective data visualiation, and how to implement these concepts using the R programming language. 
@@ -65,14 +58,13 @@ A workflow is a set of steps to read data, analyze it, and produce numerical
 and graphical results to support an assertion or hypothesis encapsulated into
 a set of computer files that can be run from scratch on the same data to obtain
 the same results. This is highly desirable in situations where the same work is 
-done repeatedly -- think of processing data from an annual
-survey. It is
+done repeatedly -- think of processing data from an annual survey. It is
 also desirable for _reproducibility_, which enables you and other people to look at
 what you did and produce the same results later on. It is increasingly common for
-people to publish scientific articles along with the data and  computer code that 
+people to publish scientific articles along with the data and computer code that 
 generated the results discussed within them.
 
-The programs to be introduced are:
+The programs we will use are:
 
 1. [_R_]({{ page.root }}/01-r-plotting): a statistical analysis and data management program, 
 1. [_RStudio_]({{ page.root }}/01-r-plotting): a graphical interface to use R, and

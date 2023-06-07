@@ -33,6 +33,7 @@ set.seed(20210109)
 
 ### Contents
 
+1. [The "goal" of the workshop](#the-goal-of-the-workshop)
 1. [Overview of the lesson](#overview-of-the-lesson)
 1. [Loading and reviewing data](#loading-and-reviewing-data)
 1. [Our first plot](#our-first-plot)
@@ -51,6 +52,12 @@ set.seed(20210109)
     + [Plotting for data exploration recap](#plotting-for-data-exploration-recap)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 1. [Glossary of terms](#glossary-of-terms)
+
+# The "goal" of the workshop
+
+Our goal is to write a report to the United Nations on the relationship between lung cancer, smoking, and air pollution. In other words, we are going to analyze  how countries' smoking rates and air pollution may be related to  the percent of people with lung cancer.
+
+To get to that point, we'll need to learn how to manage data, make plots, and generate reports. The next section discusses in more detail exactly what we will cover.
 
 # Overview of the lesson
 
