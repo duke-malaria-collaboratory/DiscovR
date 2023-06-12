@@ -35,6 +35,7 @@ set.seed(20210109)
 
 1. [The "goal" of the workshop](#the-goal-of-the-workshop)
 1. [Overview of the lesson](#overview-of-the-lesson)
+1. [Directory structure](#directory-structure)
 1. [Loading and reviewing data](#loading-and-reviewing-data)
 1. [Our first plot](#our-first-plot)
     + [Creating our first plot](#creating-our-first-plot)
@@ -72,6 +73,24 @@ In this lesson, we will go over how to read tabular data into R (e.g. from a csv
 > > Navigate to the "File" menu in RStudio. You'll see the first option is "New File." Selecting "New File" opens another menu to the right, and the first option is "R Script." Select "R script." Alternatively, you can click on the white square button with a green plus sign in the upper left corner and select "R Script."
 > >
 > > Now you have an untitled R Script in your Editor tab. Save this file as `plotting.R` in our project directory.
+> {: .solution}
+{: .challenge}
+
+# Directory structure
+
+> ## Exercise: File organization
+> 1. When you're working on a project, how do you organize your files?
+> 1. Take a look at your `un-report` directory. 
+> You should be able to see it in the bottom right side of your screen under the "Files" tab.
+> What folders are there, and why do you think they're there? 
+>
+> > ## Solution
+> > There are lots of different ways to organize files, but you should have some consistent method of organizing them so that it's easy to find what you want.
+> > If you have all of your files in one folder, it can get kind of confusing to find what you need. 
+> > In the `un-report` directory there are three "sub-directories": `data`, `figures`, and `reports`. 
+> > - `data` contains all of the data that we will need for the workshop.
+> > - `figures` is where we will save the figures we generate during the workshop.
+> > - `reports` is where we will save our final report.
 > {: .solution}
 {: .challenge}
 
