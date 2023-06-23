@@ -525,7 +525,9 @@ Great - Now our data is ready to analyze tomorrow!
 # Applying it to your own data
 _[Back to top](#contents)_
 
-Now that we've learned how clean data, it's time for you to read in and start cleaning your own data and making plots:
+Now that we've learned how clean data, it's time to read in, clean, and make plots with your own data! 
+Use your ideas from your brainstorming session yesterday to help you get started, but feel free to branch out and explore other things as well.
+Let us know if you have questions; we're here to help.
 
 - Make sure you have your R project opened in R Studio.
 - Open a new file in R and save it with an informative name. 

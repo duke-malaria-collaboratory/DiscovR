@@ -21,11 +21,12 @@ knitr_fig_path("04-")
 
 ### Contents
 
-1.  [Overview of the lesson](#overview-of-the-lesson)
-1.  [An introduction to data analysis in R using `dplyr`](#intro-data-analysis)
-    -   [Get stats fast with `summarize()`](#get-stats-fast-with-summarize)
-    -   [Calculating percentages](#calculate-percentages)
-    -   [Changing the shape of the data](#changing-the-shape-of-the-data)
+1. [Overview of the lesson](#overview-of-the-lesson)
+1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
+1. [Get stats fast with `summarize()`](#get-stats-fast-with-summarize)
+1. [Calculating percentages](#calculate-percentages)
+1. [Changing the shape of the data](#changing-the-shape-of-the-data)
+1. [Plotting wide data](#plotting-wide-data)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 
 
@@ -41,7 +42,11 @@ smoking_pollution <- read_csv("data/smoking_pollution.csv")
 
 [*Back to top*](#contents)
 
-For our analysis, we have three questions we'd like to answer: (1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?; (2) which continent has the highest pollution levels per capita?; and (3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
+For our analysis, we have three questions we'd like to answer: 
+
+1. Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?
+1. Which continent has the highest pollution levels per capita?
+1. Is there a relationship between ambient pollution levels per capita and lung cancer rates?
 
 **1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?**
 
@@ -49,13 +54,12 @@ To answer this question, we'll plot ambient pollution levels against population 
 
 ```{r Plotpollutionvpop}
 smoking_pollution %>%
-  ggplot() +
-  aes(x = pop, y = pollution) +
+  ggplot(aes(x = pop, y = pollution)) +
   geom_point() +
   scale_x_log10() +
-  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", size = "Population\n(millions)") +
+  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", 
+       size = "Population\n(millions)") +
   theme_bw()
-  
 ```
 
 We observe a positive association between ambient pollution levels and population.
@@ -64,8 +68,7 @@ To help clarify the association, we can add a fit line through the data using `g
 
 ```{r PlotPolluionVPopSmooth}
 smoking_pollution %>%
-  ggplot() +
-  aes(x = pop, y = pollution) +
+  ggplot(aes(x = pop, y = pollution)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_x_log10() +
@@ -74,9 +77,7 @@ smoking_pollution %>%
 
 ```
 
-
 To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
-
 
 > ## Challenge: 2) which continent has the highest pollution levels per capita?
 > To answer this question, we need to calculate the pollution levels per capita for each country using `mutate()`. Then plot a boxplot to look at these levels by continent. *Hint: it may help to scale the y axis log10*
@@ -85,8 +86,7 @@ To answer our first question, we observe a positive association between populati
 > > ```{r pollutionPerCapita}
 > > smoking_pollution %>%
 > >   mutate(pollution_capita = pollution/pop) %>%
-> >   ggplot() +
-> >   aes(x = continent, y = pollution_capita) +
+> >   ggplot(aes(x = continent, y = pollution_capita)) +
 > >   geom_boxplot() +
 > >   scale_y_log10() +
 > >   labs(y = "Pollution (micrograms/cubic meter) per capita")+
@@ -104,8 +104,7 @@ To answer our first question, we observe a positive association between populati
 > > ```{r pollutionvcancer}
 > > smoking_pollution %>%
 > >   mutate(pollution_capita = pollution/pop) %>%
-> >   ggplot() +
-> >   aes(x = pollution_capita, y = lung_cancer_pct) +
+> >   ggplot(aes(x = pollution_capita, y = lung_cancer_pct)) +
 > >   geom_point() +
 > >   scale_x_log10() +
 > >   labs(x = "Pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer")+
@@ -114,9 +113,6 @@ To answer our first question, we observe a positive association between populati
 > > There does not appear to be a direct relationship between pollution and lung cancer rates. 
 > {: .solution}
 {: .challenge}
-
-
-
 
 
 ## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
@@ -190,7 +186,6 @@ smoking_pollution %>%
 {: .challenge}
 
 
-
 # Calculating percentages {#calculate-percentages}
 [*Back to top*](#contents)
 
@@ -214,7 +209,7 @@ Finding percentages using `dplyr` can be a little bit complicated. However, it's
 > >   filter(country == "Kenya")
 > > ```
 > >
-> > This table shows that Kenya makes up 4% of the population of Africa, and Africa makes up 17% of the global population. 
+> > This table shows that Kenya makes up 4% of the population of Africa, and Africa makes up 12% of the global population. 
 > {: .solution}
 {: .challenge}
 
@@ -223,13 +218,13 @@ Finding percentages using `dplyr` can be a little bit complicated. However, it's
 
 [*Back to top*](#contents)
 
-Data comes in many shapes and sizes, and one way we classify data is either "wide" or "long." Data that is "long" has one row per observation. The `smoking` data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as "tidy" because it makes it easy to work with `ggplot2` and `dplyr` functions (this is where the "tidy" in "tidyverse" comes from). As tidy as it may be, sometimes we may want our data in a "wide" format. Typically in "wide" format each row represents a group of observations and each value is placed in a different column rather than a different row. For example, let's read in our smoking and lung cancer data set that covers many years and take a look at it:
+Data comes in many shapes and sizes, and one way we classify data is either "wide" or "long." Data that is "long" has one row per observation. The `smoking` data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as "tidy" because it makes it easy to work with `ggplot2` and `dplyr` functions (this is where the "tidy" in "tidyverse" comes from). As tidy as it may be, sometimes we may want our data in a "wide" format. Typically in "wide" format each row represents a group of observations and each value is placed in a different column rather than a different row. For example, let's read in a smoking and lung cancer data set that covers many years and take a look at it:
 
 ```{r}
 smoking_cancer <- read_csv("data/smoking_cancer.csv")
 ```
 
-Recall that it has one row for each country for each year the data were collected. But maybe we want only one row per country and want to spread the percent of smokers values into different columns (one for each year).
+It has one row for each country for each year the data were collected. But maybe we want only one row per country and want to spread the percent of smokers values into different columns (one for each year).
 
 The `tidyr` package contains the functions `pivot_wider()` and `pivot_longer()` that make it easy to switch between the two formats. The `tidyr` package is included in the `tidyverse` package so we don't need to do anything to load it.
 
@@ -306,12 +301,4 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 
 # Applying it to your own data
 
-Now it's time to read in, clean, and make plots with your own data! 
-Use your ideas from your brainstorming session yesterday to help you get started, but feel free to branch out and explore other things as well.
-Let us know if you have questions; we're here to help.
-
-
-
-
-
-
+Continue working on your project. Now you can generate some summary statistics as well!
