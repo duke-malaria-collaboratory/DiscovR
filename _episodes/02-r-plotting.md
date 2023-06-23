@@ -87,7 +87,7 @@ library(tidyverse)
 
 
 ~~~
-── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 ~~~
 {: .output}
 
@@ -104,7 +104,7 @@ library(tidyverse)
 
 
 ~~~
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ~~~
@@ -158,11 +158,11 @@ smoking_1990 <- read_csv("data/smoking_cancer_1990.csv")
 
 
 ~~~
-Rows: 192 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
+Rows: 191 Columns: 6
+── Column specification ────────────────────────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
-dbl (3): pop, smoke_pct, lung_cancer_pct
+dbl (4): year, pop, smoke_pct, lung_cancer_pct
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -199,20 +199,20 @@ smoking_1990
 
 
 ~~~
-# A tibble: 192 × 5
-   country                  continent           pop smoke_pct lung_cancer_pct
-   <chr>                    <chr>             <dbl>     <dbl>           <dbl>
- 1 Myanmar                  Asia           41335188      38.2          0.0240
- 2 Solomon Islands          Oceania          311869      35.0          0.0291
- 3 Cambodia                 Asia            8975597      25.5          0.0231
- 4 Maldives                 Asia             223159      30.0          0.0129
- 5 Papua New Guinea         Oceania         4615843      36.5          0.0175
- 6 United States of America North America 249623000      26.6          0.0990
- 7 Czech Republic           Europe         10333355      36.3          0.0599
- 8 Republic of Moldova      Europe          2969097      22.0          0.0354
- 9 Portugal                 Europe          9983218      28.7          0.0222
-10 Greece                   Europe         10196792      43.0          0.0551
-# … with 182 more rows
+# A tibble: 191 × 6
+    year country             continent          pop smoke_pct lung_cancer_pct
+   <dbl> <chr>               <chr>            <dbl>     <dbl>           <dbl>
+ 1  1990 Afghanistan         Asia          12412311      3.12          0.0127
+ 2  1990 Albania             Europe         3286542     24.2           0.0327
+ 3  1990 Algeria             Africa        25758872     18.9           0.0118
+ 4  1990 Andorra             Europe           54508     36.6           0.0609
+ 5  1990 Angola              Africa        11848385     12.5           0.0139
+ 6  1990 Antigua and Barbuda North America    62533      6.80          0.0105
+ 7  1990 Argentina           South America 32618648     30.4           0.0344
+ 8  1990 Armenia             Europe         3538164     30.5           0.0441
+ 9  1990 Australia           Oceania       17065100     29.3           0.0599
+10  1990 Austria             Europe         7677850     35.4           0.0439
+# … with 181 more rows
 ~~~
 {: .output}
 
