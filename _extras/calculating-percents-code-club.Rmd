@@ -1,0 +1,66 @@
+---
+title: "Calculating percentages"
+author: "Code club"
+date: '2022-09-27'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Finding percentages using `dplyr` can be a little bit complicated. However, it’s a very useful skill! Today, we're going to figure out how to do it. 
+
+We are going to use a built-in dataset in the tidyverse called `population` that gives us the population of each country across different years.
+
+First, we have to load the tidyverse:
+
+```{r}
+
+```
+
+Next, let's take a look at the dataset:
+
+```{r}
+
+```
+
+### Goal 1: Calculate the percentage of the global population that each country makes up for the year 2000.
+
+First, think about the exact steps you need to take to accomplish your goal, and write these down. This is called writing "pseudocode", which is a great step to take before actually writing your code because it helps you figure out the logic of what you need to do without having to worry about the syntax. 
+
+Once you've written out your pseudocode, try coding it up. Save your output to an object called `pop_pcts_2000`.
+
+```{r}
+
+```
+
+Using the data you just created, figure out the answers to the questions below.
+
+What percentage of the global population does Kenya make up for the year 2000? 
+
+```{r}
+
+```
+
+Which country makes up the highest percent of the population? The lowest?
+
+```{r}
+
+```
+
+### Goal 2: Calculate the percentage of the global population that each country makes up for each year in the dataset. 
+
+Again, write pseudocode first to help you figure out exactly what you need to do. Once you've done this, write up the code and save the output to an object called `pop_pcts`.
+
+```{r}
+
+```
+
+With this new dataset, determine whether the population for Kenya increasing or decreasing over time.
+
+```{r}
+
+```
+
+

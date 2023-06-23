@@ -1,0 +1,90 @@
+---
+title: "Cleaning messy columns"
+author: "Zena Lapp"
+date: "2023-02-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Today we're going to go over how to recode information in columns and to create new columns. 
+
+First, run this code chunk to load tidyverse and generate the data we're going to use:
+
+```{r}
+# load library
+library(tidyverse)
+
+# set seed so we all have the same data
+set.seed(1)
+
+# generate dataset
+messy_data <- tibble(id = 1:100,
+                     gender = sample(c('F', 'Female', 'female', 'M', 'Male', 'male'), 
+                                     size = 100, replace = TRUE),
+                     age_months = round(rnorm(100, mean = 30*12, sd = 10*12))) 
+```
+
+Let's take a look at our dataset: 
+
+```{r}
+messy_data 
+```
+
+It appears that gender is not coded consistently. Let's take a look at the different ways it's coded:
+
+```{r}
+messy_data %>% 
+  group_by(gender) %>% 
+  count()
+```
+
+Let's clean this data up. There are lots of ways to do this. We'll go over one way.
+
+```{r}
+clean_data <- messy_data %>% 
+  mutate(gender = case_when(gender %in% c('F', 'Female', 'female') ~ 'female',
+                            gender %in% c('M', 'Male', 'male') ~ 'male'))
+```
+
+Did our code do what we wanted it to?
+
+```{r}
+clean_data %>% 
+  group_by(gender) %>% 
+  count()
+```
+Looks good! Now let's make an age in years column.
+
+```{r}
+all_data <- clean_data %>% 
+  mutate(age_years = age_months/12) %>% 
+  select(-age_months)
+all_data %>% 
+  arrange(age_years)
+```
+
+**Bonus:**
+
+make a new column that categorizes age in years as <20, 20-40, >40
+
+```{r}
+all_data %>% 
+  mutate(age_cat = case_when(age_years < 20 ~ '<20',
+                             age_years >= 20 & age_years <= 40 ~ '20-40',
+                             age_years > 40 ~ '>40'))
+```
+
+How many of each age category do we have?
+
+```{r}
+all_data %>% 
+  mutate(age_cat = case_when(age_years < 20 ~ '<20',
+                             age_years >= 20 & age_years <= 40 ~ '20-40',
+                             age_years > 40 ~ '>40')) %>% 
+  group_by(age_cat) %>% 
+  tally()
+```
+

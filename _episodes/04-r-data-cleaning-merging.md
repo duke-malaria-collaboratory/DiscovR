@@ -30,242 +30,275 @@ keypoints:
 
 [*Back to top*](#contents)
 
-Researchers are often pulling data from several sources, and the process of making data compatible with one another and prepared for analysis can be a large undertaking. Luckily, there are many functions that allow us to do this in R. We've been working with the gapminder dataset, which contains population and GDP data by year. In this section, we practice cleaning and preparing a second dataset containing CO2 emissions data by country and year, sourced from [the UN](https://data.un.org/_Docs/SYB/CSV/SYB63_310_202009_Carbon%20Dioxide%20Emission%20Estimates.csv).
+Researchers are often pulling data from several sources, and the process of making data compatible with one another and prepared for analysis can be a large undertaking. Luckily, there are many functions that allow us to do this in R. We've been working with the Global Burden of Disease (GBD 2019) dataset, which contains population, smoking rates, and lung cancer rates by year. In this section, we practice cleaning and preparing a second dataset containing ambient pollution data by location and year, also sourced from [the GBD 2019](https://ghdx.healthdata.org/record/global-burden-disease-study-2019-gbd-2019-air-pollution-exposure-estimates-1990-2019).
 
-It's always good to go into data cleaning with a clear goal in mind. Here, we'd like to prepare the CO2 UN data to be compatible with our gapminder data so we can directly compare GDP to CO2 emissions. To make this work, we'd like a data frame that contains a column with the country name, and columns for different ways of measuring CO2 emissions. We will also want the data to be collected as close to 2007 as possible (the last year we have data for in gapminder). Let's start with reading the data in using `read_csv()`
-
-
-~~~
-read_csv("data/co2-un-data.csv")
-~~~
-{: .language-r}
-
+It's always good to go into data cleaning with a clear goal in mind. Here, we'd like to prepare the ambient pollution data to be compatible with our lung cancer data so we can directly compare lung cancer rates to ambient pollution levels. To make this work, we'd like a data frame that contains columns with the country name, year, and median ambient pollution levels (in micrograms per cubic meter). We will make this comparison for the most recent year in these datasets, 2019. Let's start with reading the data in using `read_csv()`.
 
 
 ~~~
-Error in read_csv("data/co2-un-data.csv"): could not find function "read_csv"
-~~~
-{: .error}
-
-The output gives us a warning about missing column names being filled in with things like 'X3', 'X4', etc. Looking at the table that is outputted by `read_csv()` we can see that there appear to be two rows at the top of the file that contain information about the data in the table. The first is a header that tells us the table number and its name. Ideally, we'd skip that. We can do this using the `skip=` argument in read_csv by giving it a number of lines to skip.
-
-
-~~~
-read_csv("data/co2-un-data.csv", skip=1)
+read_csv("data/ambient_pollution.csv")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in read_csv("data/co2-un-data.csv", skip = 1): could not find function "read_csv"
+Rows: 9660 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): location_name
+dbl (2): year_id, median
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ~~~
-{: .error}
+{: .output}
 
-Now we get a similar Warning message as before, but the outputted table looks better.
-
-> ## Warnings and Errors
-> It's important to differentiate between Warnings and Errors in R. A warning tells us, "you might want to know about this issue, but R still did what you asked". An error tells us, "there's something wrong with your code or your data and R didn't do what you asked". You need to fix any errors that arise. Warnings, are probably best to resolve or at least understand why they are coming up.
-{.callout}
-
-We can resolve this warning by telling `read_csv()` what the column names should be with the `col_names()` argument where we give it the column names we want within the c() function separated by commas. If we do this, then we need to set skip to 2 to also skip the column headings. Let's also save this dataframe to `co2_emissions_dirty` so that we don't have to read it in every time we want to clean it even more.
 
 
 ~~~
-co2_emissions_dirty <- read_csv("data/co2-un-data.csv", skip=2,
-         col_names=c("region", "country", "year", "series", "value", "footnotes", "source"))
+# A tibble: 9,660 × 3
+   location_name year_id median
+   <chr>           <dbl>  <dbl>
+ 1 Global           1990   40.0
+ 2 Global           1995   38.9
+ 3 Global           2000   40.6
+ 4 Global           2005   40.6
+ 5 Global           2010   42.7
+ 6 Global           2011   44.4
+ 7 Global           2012   46.1
+ 8 Global           2013   47.1
+ 9 Global           2014   47.3
+10 Global           2015   46.1
+# … with 9,650 more rows
+~~~
+{: .output}
+
+It looks like our data object has three columns: `location_name`, `year_id`, and `median`. Scroll through the data object to get an idea of what's there. Can you think of anything we might need to take care of in order to merge these data with our lung cancer rates dataset? It looks like the `location_name` column contains values other than countries, and our `year_id` column has many years, and we are only interested in 2019 for now.
+
+Let's save this dataframe to `ambient_pollution_dirty` so that we don't have to read it in every time we want to clean it.
+
+
+~~~
+ambient_pollution_dirty <- read_csv("data/ambient_pollution.csv")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in read_csv("data/co2-un-data.csv", skip = 2, col_names = c("region", : could not find function "read_csv"
+Rows: 9660 Columns: 3
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): location_name
+dbl (2): year_id, median
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-co2_emissions_dirty
+ambient_pollution_dirty
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'co2_emissions_dirty' not found
+# A tibble: 9,660 × 3
+   location_name year_id median
+   <chr>           <dbl>  <dbl>
+ 1 Global           1990   40.0
+ 2 Global           1995   38.9
+ 3 Global           2000   40.6
+ 4 Global           2005   40.6
+ 5 Global           2010   42.7
+ 6 Global           2011   44.4
+ 7 Global           2012   46.1
+ 8 Global           2013   47.1
+ 9 Global           2014   47.3
+10 Global           2015   46.1
+# … with 9,650 more rows
 ~~~
-{: .error}
+{: .output}
 
-> ## Bonus: Another way to deal with this error
-> 
-> There are often multiple ways to clean data. Here we  read in the table, get the warning and then fix the column names using the rename function.
-> 
-> 
-> ~~~
-> read_csv("data/co2-un-data.csv", skip=1) %>%
->   rename(country=X2)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in read_csv("data/co2-un-data.csv", skip = 1) %>% rename(country = X2): could not find function "%>%"
-> ~~~
-> {: .error}
->
-> Many data analysts prefer to have their column headings and variable names be in all lower case. We can use a variation of `rename()`, which is `rename_all()` that allows us to set all of the column headings to lower case by giving it the name of the tolower function, which makes everything lowercase.
-> 
-> 
-> ~~~
-> read_csv("data/co2-un-data.csv", skip=1) %>%
->  rename_all(tolower)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in read_csv("data/co2-un-data.csv", skip = 1) %>% rename_all(tolower): could not find function "%>%"
-> ~~~
-> {: .error}
-{: .solution}
+Alright, before we start changing anything about our dataset, it can be helpful to get a better idea of what we are looking at. For example, it's helpful to use `count()` to get an idea of how many observations we have for particular values in a column. Note: the function `count()` is a useful shortcut for `summarize(n = n())`. Let's start by looking at how many entries we have for each year in the dataset. This will also help us determine whether we have data for the year 2019, which is what we are looking for.
 
-We previously saw how we can subset columns from a data frame using the select function. There are a lot of columns with extraneous information in this dataset, let's subset out the columns we are interested in. 
 
-> ## Reviewing selecting columns
-> Select the country, year, series, and value columns from our dataset. 
+~~~
+ambient_pollution_dirty %>%
+  group_by(year_id) %>%
+  count()
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 14 × 2
+# Groups:   year_id [14]
+   year_id     n
+     <dbl> <int>
+ 1    1990   690
+ 2    1995   690
+ 3    2000   690
+ 4    2005   690
+ 5    2010   690
+ 6    2011   690
+ 7    2012   690
+ 8    2013   690
+ 9    2014   690
+10    2015   690
+11    2016   690
+12    2017   690
+13    2018   690
+14    2019   690
+~~~
+{: .output}
+
+This output tells us two useful things: (1) for which years we have data, and (2) how many observations we have for each year. The summary data has 14 rows, which means there are 14 different years in which the pollution data was collected between 1990 and 2019. If you scroll to the end, you can see that we have 690 entries for 2019, which is excellent, since that's the year we are most interested in. It also looks like the number of observations is consistently 690 for each year that we have pollution measurements. 
+
+We previously saw how we can subset rows from a data frame using `filter()`. Let's subset out the rows we are interested in, namely those from 2019. We can also drop the `year_id` column, since we know these data are only from 2019. Let's store the resulting dataset in an object named `pollution_2019_dirty`.
+
+
+~~~
+pollution_2019_dirty <- ambient_pollution_dirty %>%
+  filter(year_id == 2019) %>%
+  select(-year_id)
+~~~
+{: .language-r}
+
+Notice that this data object has 690 rows, as we expect from our previous data summary.
+
+Sometimes it can be helpful to explore your data summaries in the view tab. Try it in the exercise below.
+
+> ## Viewing data summaries
+> Count the number of observations for each unique `location_name` in `pollution_2019_dirty` and use the *pipe operator* and `view()` to explore the summary data. Click on the column names to reorder the summary data however you'd like. Do you notice anything interesting?
 > 
 > > ## Solution: 
 > > 
 > > ~~~
-> > co2_emissions_dirty %>%
-> >   select(country, year, series, value)
+> > pollution_2019_dirty %>%
+> >   group_by(location_name) %>%
+> >   count() %>%
+> >   view()
+> > ~~~
+> > {: .language-r}
+> > There are a couple things to notice. First, the summary data only has 685 rows, even though there were 690 observations for each year. This suggests that there may be multiple measurements for some location_name values. Second, if you click on the `n` column to sort in descending order, you can see that there are five location_name values for which we have 2 observations instead of 1. This is good to know as we continue to learn more about our datset.
+> {: .solution}
+{: .challenge}
+
+
+> ## Bonus: sorting columns
+> We just used the view tab to sort our count data, but how could you use code to sort the `n` column?
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > pollution_2019_dirty %>%
+> >   group_by(location_name) %>%
+> >   count() %>% 
+> >   arrange(desc(n)) %>%
+> >   view()
+> > ~~~
+> > {: .language-r}
+> > The `arrange()` function is very helpful for sorting data objects based on one or more columns. Notice we also included the function `desc()`, which tells `arrange()` to sort in descending order (largest to smallest).
+> {: .solution}
+{: .challenge}
+
+
+Another helpful thing to do when exploring and cleaning a new dataset is to get an idea of whether there are any missing values or duplicate rows. Let's start by checking to see if we have any **missing data**. We will do this using `drop_na()`, a tidyverse function that removes any rows that have missing values. We will then check the number of rows using `nrow` in our dataset and compare to the original to see if we lost any rows with missing data.
+
+
+~~~
+pollution_2019_dirty %>%
+  drop_na() %>%
+  nrow()
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 690
+~~~
+{: .output}
+
+After dropping rows with missing values, our data object still has the same number of rows (690) as `pollution_2019_dirty`. This tells us that we don't have any rows with missing data. Wow! We're pretty lucky, because often datasets DO have missing data. Later on, we will learn how to identify observations with missing values.
+
+
+Now, let's check to see if our dataset contains *duplicate rows*. We already know that we have some rows with identical location names, but are the rows identical? We can use the `distinct()` function, which removes any rows for which all values are duplicates of another row, followed by `nrow()` to find out:
+
+~~~
+pollution_2019_dirty %>%
+  distinct() %>%
+  nrow()
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 688
+~~~
+{: .output}
+You can see that after applying the `distinct()` function, our dataset only has 688 rows. This tells us that there are two rows that were exactly identical to other rows in our dataset. However, we identified 5 entries with more than one row, suggesting that some countries have multiple entries with different values. It's important to check these out because they might indicate issues with data entry or discordant data.
+
+> ## Exercise: Filtering for duplicate data
+> Filter `pollution_2019_dirty` only to rows which have duplicate values in the `location_name` column. *Hint: try using `group_by()` and `mutate()` to count the number of rows for each `location_name`.* 
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > pollution_2019_dirty %>%
+> >   group_by(location_name) %>%
+> >   mutate( n = n()) %>%
+> >   filter(n > 1) %>%
+> >   arrange(location_name)
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error in co2_emissions_dirty %>% select(country, year, series, value): could not find function "%>%"
+> > # A tibble: 10 × 3
+> > # Groups:   location_name [5]
+> >    location_name                median     n
+> >    <chr>                         <dbl> <int>
+> >  1 Georgia                       17.6      2
+> >  2 Georgia                        8.51     2
+> >  3 North Africa and Middle East  43.5      2
+> >  4 North Africa and Middle East  43.5      2
+> >  5 South Asia                    78.2      2
+> >  6 South Asia                    78.2      2
+> >  7 Stockholm                      4.74     2
+> >  8 Stockholm                      5.48     2
+> >  9 Sweden except Stockholm        4.02     2
+> > 10 Sweden except Stockholm        5.69     2
 > > ~~~
-> > {: .error}
+> > {: .output}
+> > 
+> > You can see that we get a data object with 10 entries, 2x5 location_names. Two of these location_names have identical rows, while the others have two different values, which presumably could have been measured at different times in 2019. In your own data, it's important to figure out why there are multiple entries, especially if they are very different, and whether you trust one more than the other. For our purposes, we will simply take the mean of the two values. 
 > {: .solution}
 {: .challenge}
 
-The series column has two methods of quantifying CO2 emissions - "Emissions (thousand metric tons of carbon dioxide)" and "Emissions per capita (metric tons of carbon dioxide)". Those are long titles that we'd like to shorten to make them easier to work with. We can shorten them to "total_emissions" and "per_capita_emissions" using the recode function. We need to do this within the mutate function where we will mutate the series column. The syntax in the recode function is to tell recode which column we want to recode and then what the old value (e.g. "Emissions (thousand metric tons of carbon dioxide)") should equal after recoding (e.g. "total").
-
-
-~~~
-co2_emissions_dirty %>% 
-  select(country, year, series, value) %>%
-  mutate(series = recode(series, "Emissions (thousand metric tons of carbon dioxide)" = "total_emissions",
-                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emissions"))
-~~~
-{: .language-r}
-
-
+Let's go ahead and take care of the location_names which have two different median pollution values by making a new column called `pollution` that is the mean. We can then remove the `median` column and store the resulting data object as `pollution_2019`.
 
 ~~~
-Error in co2_emissions_dirty %>% select(country, year, series, value) %>% : could not find function "%>%"
-~~~
-{: .error}
-
-Recall that we'd like to have separate columns for the two ways that we CO2 emissions data. To achieve this, we'll use the pivot_wider function that we saw previously. The columns we want to spread out are series (i.e. names_from) and value (i.e. values_from).
-
-
-~~~
-co2_emissions_dirty %>%
-  select(country, year, series, value) %>%
-  mutate(series = recode(series, "Emissions (thousand metric tons of carbon dioxide)" = "total_emission",
-                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emission")) %>%
-  pivot_wider(names_from=series, values_from=value)
+pollution_2019 <- pollution_2019_dirty %>%
+  group_by(location_name) %>%
+  mutate(pollution = mean(median)) %>%
+  select(-median) %>%
+  distinct()
 ~~~
 {: .language-r}
 
+You can see that `pollution_2019` has 685 rows, as we expect, since we took care of the duplicated location_names.
 
-
-~~~
-Error in co2_emissions_dirty %>% select(country, year, series, value) %>% : could not find function "%>%"
-~~~
-{: .error}
-
-Excellent! The last step before we can join this data frame is to get the most data that is for the year closest to 2007 so we can make a more direct comparison to the most recent data we have from gapminder. For the sake of time, we'll just tell you that we want data from 2005. 
-
-> ## Bonus: How did we determine that 2005 is the closest year to 2007? 
-> 
-> We want to make sure we pick a year that is close to 2005, but also a year that has a decent amount of data to work with. One useful tool is the `count()` function, which will tell us how many times a value is repeated in a column of a data frame. Let's use this function on the year column to see which years we have data for and to tell us whether we have a good number of countries represented in that year.
-> 
-> 
-> ~~~
-> co2_emissions_dirty %>%
->  select(country, year, series, value) %>%
->  mutate(series = recode(series, "Emissions (thousand metric tons of carbon dioxide)" = "total",
->                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita")) %>%
->   pivot_wider(names_from=series, values_from=value) %>%
->  count(year)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Error in co2_emissions_dirty %>% select(country, year, series, value) %>% : could not find function "%>%"
-> ~~~
-> {: .error}
-> 
-> It looks like we have data for 140 countries in 2005 and 2010. We chose 2005 because it is closer to 2007. 
-{: .solution}
-
-
-> ## Filtering rows and removing columns
-> Filter out data from 2005 and then drop the year column. (Since we will have only data from one year, it is now irrelevant.)
-> 
-> > ## Solution: 
-> > 
-> > ~~~
-> > co2_emissions_dirty %>%
-> >  select(country, year, series, value) %>%
-> >  mutate(series = recode(series, "Emissions (thousand metric tons of carbon dioxide)" = "total",
-> >                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita")) %>%
-> >  pivot_wider(names_from=series, values_from=value) %>%
-> >  filter(year==2005) %>%
-> >  select(-year)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in co2_emissions_dirty %>% select(country, year, series, value) %>% : could not find function "%>%"
-> > ~~~
-> > {: .error}
-> {: .solution}
-{: .challenge}
-
-
-Finally, let's go ahead and assign the output of this code chunk, which is the cleaned dataframe, to a variable name:
-
-
-~~~
-co2_emissions <- co2_emissions_dirty %>%
-  select(country, year, series, value) %>%
-  mutate(series = recode(series, "Emissions (thousand metric tons of carbon dioxide)" = "total_emission",
-                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emission")) %>%
-  pivot_wider(names_from=series, values_from=value) %>%
-  filter(year==2005) %>%
-  select(-year)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in co2_emissions_dirty %>% select(country, year, series, value) %>% : could not find function "%>%"
-~~~
-{: .error}
+Note: here, we took the mean to take care of duplicates and multiple entries, but this is not always the best way to do so. When working with your own data, make sure to think carefully about your dataset, what these multiple entries really mean, and whether you want to leave them as they are or take care of them in some different way.
 
 > **Looking at your data:** You can get a look at your data-cleaning hard work by navigating to the **Environment** tab in RStudio and clicking the table icon next to the variable name. Notice when we do this, RStudio automatically runs the `View()` command. We've made a lot of progress!
 {.callout}
@@ -275,251 +308,223 @@ Error in co2_emissions_dirty %>% select(country, year, series, value) %>% : coul
 [*Back to top*](#contents)
 
 
-Now we're ready to join our CO2 emissions data to the gapminder data. Previously we saw that we could read in and filter the gapminder data like this to get the data from the Americas for 2007 so we can create a new dataframe with our filtered data:
+Now we're almost ready to join our pollution data to the smoking and lung cancer data. Previously we saw that we could read in and filter the smoking and lung cancer data to get the data from 2019 to create a new dataframe with our filtered data:
 
 
 ~~~
-gapminder_data_2007 <- read_csv("data/gapminder_data.csv") %>%
-  filter(year == 2007 & continent == "Americas") %>%
-  select(-year, -continent)
+smoking_2019 <- read_csv("data/smoking_cancer.csv") %>%
+  filter(year == 2019) %>%
+  select(-year)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in read_csv("data/gapminder_data.csv") %>% filter(year == 2007 & : could not find function "%>%"
+Rows: 5749 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (4): year, pop, smoke_pct, lung_cancer_pct
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ~~~
-{: .error}
+{: .output}
 
-Look at the data in `co2_emissions` and `gapminder_data_2007`. If you had to merge these two data frames together, which column would you use to merge them together? If you said "country" - good job!
+Look at the data in `pollution_2019` and `smoking_2019`. If you had to merge these two data frames together, which columns would you use to merge them together? If you said `location_name` and `country`, you're right! But before we join the datasets, we need to make sure these columns are named the same thing.
 
-We'll call country our "key". Now, when we join them together, can you think of any problems we might run into when we merge things? We might not have CO2 emissions data for all of the countries in the gapminder dataset and vice versa. Also, a country might be represented in both data frames but not by the same name in both places. As an example, write down the name of the country that the University of Michigan is in - we'll come back to your answer shortly!
+> ## Review: Re-naming columns
+> Rename the `location_name` column to `country` in the `pollution_2019` dataset. Go ahead and overwrite and store in the `pollution_2019` object
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > pollution_2019_clean <- pollution_2019 %>%
+> >   rename(country = location_name) 
+> > ~~~
+> > {: .language-r}
+> > 
+> > Note that the column is labeled `country` even though it has values beyond the names of countries. We will take care of this later when we join datasets.
+> {: .solution}
+{: .challenge}
 
-The dplyr package has a number of tools for joining data frames together depending on what we want to do with the rows of the data of countries that are not represented in both data frames. Here we'll be using `inner_join()` and `anti_join()`. 
+Because the column is now present in both datasets, we'll call `country` our "key". Now, when we join them together, can you think of any problems we might run into when we merge things? We might not have pollution data for all of the countries in the `smoking_2019` dataset and vice versa. Also, a country might be represented in both data frames but not by the same name in both places.
 
-In an "inner join", the new data frame only has those rows where the same key is found in both data frames. This is a very commonly used join.
+The dplyr package has a number of tools for joining data frames together depending on what we want to do with the rows of the data of countries that are not represented in both data frames. Here we'll be using `left_join()`. 
 
-![]({{ page.root }}/fig/r-data-analysis/join-inner.png)
+In a "left join", the new data frame only has those rows for the key values that are found in the first dataframe listed. This is a very commonly used join.
 
 > ## Bonus: Other dplyr join functions 
 >
-> Outer joins and can be performed using `left_join()`, `right_join()`, and `full_join()`. In a "left join", if the key is present in the left hand data frame, it will appear in the output, even if it is not found in the the right hand data frame. For a right join, the opposite is true. For a full join, all possible keys are included in the output data frame.
-> 
-> ![]({{ page.root }}/fig/r-data-analysis/join-outer.png)
+> Outer joins and can be performed using `inner_join()`, `right_join()`, `full_join()`, and `anti_join()`. In a "left join", if the key is present in the left hand data frame, it will appear in the output, even if it is not found in the the right hand data frame. For a right join, the opposite is true. For a full join, all possible keys are included in the output data frame.
+> ![]({{ page.root }}/fig/r-data-analysis/dplyr-join.png)
+> [Image source](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins/index.html)
 {: .solution}
 
-If you don't already have it read in, read in the gapminder data:
-
-
-~~~
-gapminder_data <- read_csv('data/gapminder_data.csv')
-~~~
-{: .language-r}
-
-
+Let's give the `left_join()` function a try. We will put our `smoking_2019` dataset on the left so that we maintain all of the rows we had in that dataset.
 
 ~~~
-Error in read_csv("data/gapminder_data.csv"): could not find function "read_csv"
-~~~
-{: .error}
-
-
-Let's give the `inner_join()` function a try.
-
-~~~
-inner_join(gapminder_data, co2_emissions)
+left_join(smoking_2019, pollution_2019_clean)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in inner_join(gapminder_data, co2_emissions): could not find function "inner_join"
+Joining, by = "country"
 ~~~
-{: .error}
-
-Do you see that we now have data from both data frames joined together in the same data frame? One thing to note about the output is that `inner_join()` tells us that that it joined by "country". We can make this explicit using the "by" argument in the join functions
-
-
-~~~
-inner_join(gapminder_data, co2_emissions, by="country")
-~~~
-{: .language-r}
+{: .output}
 
 
 
 ~~~
-Error in inner_join(gapminder_data, co2_emissions, by = "country"): could not find function "inner_join"
+# A tibble: 191 × 6
+   country         continent        pop smoke_pct lung_cancer_pct pollution
+   <chr>           <chr>          <dbl>     <dbl>           <dbl>     <dbl>
+ 1 Myanmar         Asia        54045422      23.9          0.0225     29.3 
+ 2 China           Asia      1407745000      26.9          0.0590     47.7 
+ 3 Cambodia        Asia        16486542      21.5          0.0247     21.5 
+ 4 Philippines     Asia       108116622      24.7          0.0184     18.7 
+ 5 Maldives        Asia          530957      31.4          0.0102     10.8 
+ 6 Tonga           Oceania       104497      27.4          0.0281      9.55
+ 7 Vietnam         Asia        96462108      24.3          0.0302     NA   
+ 8 Indonesia       Asia       270625567      31.0          0.0232     19.3 
+ 9 Timor-Leste     Asia         1293120      35.0          0.0194     15.1 
+10 Solomon Islands Oceania       669821      35.8          0.0334     11.5 
+# … with 181 more rows
 ~~~
-{: .error}
+{: .output}
 
-One thing to notice is that gapminder data had 25 rows, but the output of our join only had 21. Let's investigate. It appears that there must have been countries in the gapminder data that did not appear in our co2_emissions data frame. 
-
-Let's use `anti_join()` for this - this will show us the data for the keys on the left that are missing from the data frame on the right. 
-
-
-~~~
-anti_join(gapminder_data, co2_emissions, by="country")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in anti_join(gapminder_data, co2_emissions, by = "country"): could not find function "anti_join"
-~~~
-{: .error}
-We can see that the co2_emissions data were missing for Bolivia, Puerto Rico, United States, and Venezuela. 
-
-If we look at the co2_emissions data with `View()`, we will see that Bolivia, United States, and Venezuela are called different things in the co2_emissions data frame. They're called "Bolivia (Plurin. State of)", "United States of America", and "Venezuela (Boliv. Rep. of)". Puerto Rico isn't a country; it's part of the United States. Using `mutate()` and `recode()`, we can re-import the co2_emissions data so that the country names for Bolivia, United States, and Venezuela, match those in the gapminder data.
+We now have data from both datasets joined together in the same dataframe. Notice that the number of rows here, 191, is the same as the number of rows in the `smoking_2019` dataset? One thing to note about the output is that `left_join()` tells us that that it joined by "country". We can make this explicit using the "by" argument in the join functions
 
 
 ~~~
-co2_emissions <- read_csv("data/co2-un-data.csv", skip=2,
-                          col_names=c("region", "country", "year",
-                                      "series", "value", "footnotes", "source")) %>%
-  select(country, year, series, value) %>%
-  mutate(series = recode(series, "Emissions (thousand metric tons of carbon dioxide)" = "total",
-                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita")) %>%
-  pivot_wider(names_from=series, values_from=value) %>%
-  filter(year==2005) %>%
-  select(-year) %>%
-  mutate(country=recode(country,
-                        "Bolivia (Plurin. State of)" = "Bolivia",
-                        "United States of America" = "United States",
-                        "Venezuela (Boliv. Rep. of)" = "Venezuela")
-  )
+left_join(smoking_2019, pollution_2019_clean, by="country")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in read_csv("data/co2-un-data.csv", skip = 2, col_names = c("region", : could not find function "%>%"
+# A tibble: 191 × 6
+   country         continent        pop smoke_pct lung_cancer_pct pollution
+   <chr>           <chr>          <dbl>     <dbl>           <dbl>     <dbl>
+ 1 Myanmar         Asia        54045422      23.9          0.0225     29.3 
+ 2 China           Asia      1407745000      26.9          0.0590     47.7 
+ 3 Cambodia        Asia        16486542      21.5          0.0247     21.5 
+ 4 Philippines     Asia       108116622      24.7          0.0184     18.7 
+ 5 Maldives        Asia          530957      31.4          0.0102     10.8 
+ 6 Tonga           Oceania       104497      27.4          0.0281      9.55
+ 7 Vietnam         Asia        96462108      24.3          0.0302     NA   
+ 8 Indonesia       Asia       270625567      31.0          0.0232     19.3 
+ 9 Timor-Leste     Asia         1293120      35.0          0.0194     15.1 
+10 Solomon Islands Oceania       669821      35.8          0.0334     11.5 
+# … with 181 more rows
 ~~~
-{: .error}
+{: .output}
 
-
-
-~~~
-anti_join(gapminder_data, co2_emissions, by="country")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in anti_join(gapminder_data, co2_emissions, by = "country"): could not find function "anti_join"
-~~~
-{: .error}
-
-Now we see that our recode enabled the join for all countries in the gapminder, and we are left with Puerto Rico. In the next exercise, let's recode Puerto Rico as United States in the gapminder data and then use `group_by()` and `summarize()` to aggregate the data; we'll use the population data to weight the life expectancy and GDP values.
-
-
-In the gapminder data, let's recode Puerto Rico as United States. 
+Alright, let's explore this joined data a little bit. First, let's check for any missing values. We will start by using the `drop_na()` and `nrow()` functions as we did before to get an idea of how many rows have missing values.
 
 ~~~
-gapminder_data <- read_csv("data/gapminder_data.csv") %>%
-filter(year == 2007 & continent == "Americas") %>%
-select(-year, -continent) %>%
-mutate(country = recode(country, "Puerto Rico" = "United States")) 
+left_join(smoking_2019, pollution_2019_clean, by="country") %>%
+  drop_na() %>%
+  nrow()
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in read_csv("data/gapminder_data.csv") %>% filter(year == 2007 & : could not find function "%>%"
+[1] 189
 ~~~
-{: .error}
+{: .output}
+It looks like the dataframe has 189 rows after we drop any observations with missing values. This means there are two rows with missing values.
 
-Now we have to group Puerto Rico and the US together, aggregating and calculating the data for all of the other columns. This is a little tricky - we will need a weighted average of lifeExp and gdpPercap. You can do this using standard order of operations. 
+Note that since we used `left_join`, we expect all the data from the `smoking_2019` dataset to be there, so if we have missing values, they will be in the `pollution` column. We will look for rows with missing values in the `pollution` column using the `filter()` function and `is.na()`, which is helpful for identifying missing data
 
 
 ~~~
-gapminder_data <- read_csv("data/gapminder_data.csv") %>%
-  filter(year == 2007 & continent == "Americas") %>%
-  select(-year, -continent) %>%
-  mutate(country = recode(country, "Puerto Rico" = "United States")) %>%
-  group_by(country) %>%
-  summarize(lifeExp = sum(lifeExp * pop)/sum(pop),
-            gdpPercap = sum(gdpPercap * pop)/sum(pop),
-            pop = sum(pop)
-  )
+left_join(smoking_2019, pollution_2019_clean, by="country") %>%
+  filter(is.na(pollution))
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in read_csv("data/gapminder_data.csv") %>% filter(year == 2007 & : could not find function "%>%"
+# A tibble: 2 × 6
+  country         continent      pop smoke_pct lung_cancer_pct pollution
+  <chr>           <chr>        <dbl>     <dbl>           <dbl>     <dbl>
+1 Vietnam         Asia      96462108      24.3          0.0302        NA
+2 Slovak Republic Europe     5454147      27.0          0.0610        NA
 ~~~
-{: .error}
+{: .output}
 
-Let's check to see if it worked! 
+We can see that pollution data were missing for Vietnam and Slovak Republic. Note that we were execting two rows with missing values, and we found both of them! That's great news.
+
+If we look at the `pollution_2019_clean` data with `View()` and sort by `country`, we can see that Vientam and Slovak Republic are called different things in the pollution_2019 dataframe. They're called "Viet Nam" and "Slovakia," respectively. Using `mutate()` and `recode()`, we can update the pollution_2019 data so that the country names for Vietnam and Slovak Republic match those in the smoking_2019 data.
+
 
 ~~~
-anti_join(gapminder_data, co2_emissions, by="country")
+pollution_2019_clean <- pollution_2019_clean %>%
+  mutate(country = recode(country, "Viet Nam" = "Vietnam", "Slovakia" = "Slovak Republic"))
+~~~
+{: .language-r}
+
+**IMPORTANT**: Here, we overwrote our `pollution_2019_clean` dataframe. In other words, we replaced the existing data object with a new one. This is generally NOT recommended practice, but is often needed when first performing exploratory data analysis as we are here. After you finish exploratory analysis, it's always a good idea to go back and clean up your code to avoid overwriting objects.
+
+> ## Challenge: Cleaning up code
+> How would you clean up your code to avoid overwriting `pollution_2019_clean` as we did above? *Hint: start with the pollution_2019 dataframe.*
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > pollution_2019_clean <- pollution_2019 %>%
+> >   rename(country = location_name) %>%
+> >   mutate(country = recode(country, "Viet Nam" = "Vietnam", "Slovakia" = "Slovak Republic"))
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
+
+
+Alright, now let's `left_join()` our dataframes again and filter for missing values to see how it looks.
+
+
+~~~
+left_join(smoking_2019, pollution_2019_clean, by="country") %>%
+  filter(is.na(pollution))
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in anti_join(gapminder_data, co2_emissions, by = "country"): could not find function "anti_join"
+# A tibble: 0 × 6
+# … with 6 variables: country <chr>, continent <chr>, pop <dbl>,
+#   smoke_pct <dbl>, lung_cancer_pct <dbl>, pollution <dbl>
 ~~~
-{: .error}
-Now our `anti_join()` returns an empty data frame, which tells us that we have reconciled all of the keys from the gapminder data with the data in the co2_emissions data frame.
+{: .output}
+Now you can see that we have an empty dataframe! That's great news; it means that we do not have any rows with missing pollution data.
 
-Finally, let's use the `inner_join()` to create a new data frame:
-
-
-~~~
-gapminder_co2 <- inner_join(gapminder_data, co2_emissions, by="country")
-~~~
-{: .language-r}
-
+Finally, let's use `left_join()` to create a new data frame:
 
 
 ~~~
-Error in inner_join(gapminder_data, co2_emissions, by = "country"): could not find function "inner_join"
-~~~
-{: .error}
-
-One last thing! What if we're interested in distinguishing between countries in North America and South America? We want to create two groups - Canada, the United States, and Mexico in one and the other countries in another.  
-
-We can create a grouping variable using `mutate()` combined with an `if_else()` function - a very useful pairing.  
- 
-
-~~~
-gapminder_co2 %>%  
-mutate(region = if_else(country == "Canada" | country == "United States" | country == "Mexico", "north", "south"))  
+smoking_pollution <- left_join(smoking_2019, pollution_2019_clean, by="country")
 ~~~
 {: .language-r}
 
 
 
-~~~
-Error in gapminder_co2 %>% mutate(region = if_else(country == "Canada" | : could not find function "%>%"
-~~~
-{: .error}
-Let's look at the output - see how the Canada, US, and Mexico rows are all labeled as "north" and everything else is labeled as "south"  
-
-We have reached our data cleaning goals! One of the best aspects of doing all of these steps coded in R is that our efforts are reproducible, and the raw data is maintained. With good documentation of data cleaning and analysis steps, we could easily share our work with another researcher who would be able to repeat what we've done. However, it's also nice to have a saved `csv` copy of our clean data. That way we can access it later without needing to redo our data cleaning, and we can also share the cleaned data with collaborators. To save our dataframe, we'll use `write_csv()`. 
+We have reached our data cleaning goal! One of the best aspects of doing all of these steps coded in R is that our efforts are reproducible, and the raw data is maintained. With good documentation of data cleaning and analysis steps, we could easily share our work with another researcher who would be able to repeat what we've done. However, it's also nice to have a saved `csv` copy of our clean data. That way we can access it later without needing to redo our data cleaning, and we can also share the cleaned data with collaborators. To save our dataframe, we'll use `write_csv()`. 
 
 
 ~~~
-write_csv(gapminder_co2, "data/gapminder_co2.csv")
+write_csv(smoking_pollution, "data/smoking_pollution.csv")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in write_csv(gapminder_co2, "data/gapminder_co2.csv"): could not find function "write_csv"
-~~~
-{: .error}
 
 Great - Now we can move on to the analysis! 
 
@@ -527,167 +532,141 @@ Great - Now we can move on to the analysis!
 
 [*Back to top*](#contents)
 
-For our analysis, we have two questions we'd like to answer. First, is there a relationship between the GDP of a country and the amount of CO2 emitted (per capita)? Second, Canada, the United States, and Mexico account for nearly half of the population of the Americas. What percent of the total CO2 production do they account for?
+For our analysis, we have three questions we'd like to answer: (1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?; (2) which continent has the highest pollution levels per capita?; and (3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
 
-To answer the first question, we'll plot the CO2 emitted (on a per capita basis) against the GDP (on a per capita basis) using a scatter plot:
+**1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?**
+
+To answer this question, we'll plot ambient pollution levels against population using a scatter plot. It will help to scale the x axis (population) log 10.
 
 
 ~~~
-ggplot(gapminder_co2, aes(x=gdpPercap, y=per_capita)) +
+smoking_pollution %>%
+  ggplot() +
+  aes(x = pop, y = pollution) +
   geom_point() +
-  labs(x="GDP (per capita)",
-       y="CO2 emitted (per capita)",
-       title="There is a strong association between a nation's GDP \nand the amount of CO2 it produces"
-  )
+  scale_x_log10() +
+  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", size = "Population\n(millions)") +
+  theme_bw()
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-04-Plotpollutionvpop-1.png" title="plot of chunk Plotpollutionvpop" alt="plot of chunk Plotpollutionvpop" width="612" style="display: block; margin: auto;" />
+
+We observe a positive association between ambient pollution levels and population.
+
+To help clarify the association, we can add a fit line through the data using `geom_smooth(method = "lm")`. Notice we added the `method = "lm"` argument. This tells `geom_smooth()` that we would like a linear model (lm) fit to the data.
 
 
 ~~~
-Error in ggplot(gapminder_co2, aes(x = gdpPercap, y = per_capita)): could not find function "ggplot"
-~~~
-{: .error}
-
-*Tip:* Notice we used the `\n` in our title to get a new line to prevent it from getting cut off.
-
-To help clarify the association, we can add a fit line through the data using `geom_smooth()`
-
-
-~~~
-ggplot(gapminder_co2, aes(x=gdpPercap, y=per_capita)) +
+smoking_pollution %>%
+  ggplot() +
+  aes(x = pop, y = pollution) +
   geom_point() +
-  labs(x="GDP (per capita)",
-       y="CO2 emitted (per capita)",
-       title="There is a strong association between a nation's GDP \nand the amount of CO2 it produces"
-  ) +
-  geom_smooth()
+  geom_smooth(method = "lm") +
+  scale_x_log10() +
+  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", size = "Population\n(millions)") +
+  theme_bw()
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in ggplot(gapminder_co2, aes(x = gdpPercap, y = per_capita)): could not find function "ggplot"
+`geom_smooth()` using formula 'y ~ x'
 ~~~
-{: .error}
+{: .output}
 
-We can force the line to be straight using `method="lm"` as an argument to `geom_smooth`
-
-
-~~~
-ggplot(gapminder_co2, aes(x=gdpPercap, y=per_capita)) +
-  geom_point() +
-  labs(x="GDP (per capita)",
-       y="CO2 emitted (per capita)",
-       title="There is a strong association between a nation's GDP \nand the amount of CO2 it produces"
-  ) +
-  geom_smooth(method="lm")
-~~~
-{: .language-r}
+<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" title="plot of chunk PlotPolluionVPopSmooth" alt="plot of chunk PlotPolluionVPopSmooth" width="612" style="display: block; margin: auto;" />
 
 
-
-~~~
-Error in ggplot(gapminder_co2, aes(x = gdpPercap, y = per_capita)): could not find function "ggplot"
-~~~
-{: .error}
-
-To answer our first question, as the title of our plot indicates there is indeed a strong association between a nation's GDP and the amount of CO2 it produces.
-
-For the second question, we want to create two groups - Canada, the United States, and Mexico in one and the other countries in another.
-
-We can create a grouping variable using `mutate()` combined with an `if_else()` function - a very useful pairing.
+To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
 
 
-~~~
-gapminder_co2 %>%
-  mutate(region = if_else(country == "Canada" | country == "United States" | country == "Mexico", "north", "south"))
-~~~
-{: .language-r}
+> ## Challenge: 1) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
+> To answer this question, we need to calculate the pollution levels per capita for each country using `mutate()`. Then plot a boxplot to look at these levels by continent. *Hint: it may help to scale the y axis log10*
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   mutate(pollution_capita = pollution/pop) %>%
+> >   ggplot() +
+> >   aes(x = continent, y = pollution_capita) +
+> >   geom_boxplot() +
+> >   scale_y_log10() +
+> >   labs(y = "Pollution (micrograms/cubic meter) per capita")+
+> >   theme_bw()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" title="plot of chunk pollutionPerCapita" alt="plot of chunk pollutionPerCapita" width="612" style="display: block; margin: auto;" />
+> > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
+> {: .solution}
+{: .challenge}
 
 
-
-~~~
-Error in gapminder_co2 %>% mutate(region = if_else(country == "Canada" | : could not find function "%>%"
-~~~
-{: .error}
-
-Now we can use this column to repeat our `group_by()` and `summarize()` steps
-
-
-~~~
-gapminder_co2 %>%
-  mutate(region = if_else(country == "Canada" |
-                            country == "United States" |
-                            country == "Mexico", "north", "south")) %>%
-  group_by(region) %>%
-  summarize(sumtotal = sum(total),
-            sumpop = sum(pop))
-~~~
-{: .language-r}
+> ## Challenge: 2) Which continent has the highest pollution levels per capita?
+> To answer this question, let's make a scatter plot with ambient pollution levels on the x axis and lung cancer rates on the y axis. *Hint: Make sure to scale the x-axis log10.*
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   mutate(pollution_capita = pollution/pop) %>%
+> >   ggplot() +
+> >   aes(x = pollution_capita, y = lung_cancer_pct) +
+> >   geom_point() +
+> >   scale_x_log10() +
+> >   labs(x = "Pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer")+
+> >   theme_bw()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-04-pollutionvcancer-1.png" title="plot of chunk pollutionvcancer" alt="plot of chunk pollutionvcancer" width="612" style="display: block; margin: auto;" />
+> > There does not appear to be a direct relationship between pollution and lung cancer rates. 
+> {: .solution}
+{: .challenge}
 
 
 
-~~~
-Error in gapminder_co2 %>% mutate(region = if_else(country == "Canada" | : could not find function "%>%"
-~~~
-{: .error}
-
-The `if_else()` statement reads like, "if country equals "Canada" OR `|` "United states" OR "Mexico", the new variable region should be "north", else "south"". It's worth exploring logical operators for "or" `|`, "and" `&&`, and "not" `!`, which opens up a great deal of possibilities for writing code to do what you want.
-
-We see that although Canada, the United States, and Mexico account for close to half the population of the Americas, they account for 88% of the CO2 emitted. We just did this math quickly by plugging the numbers from our table into the console to get the percentages. Can we make that a little more reproducible by calculating percentages for population (pop) and total emissions (total) into our data before summarizing?
-
-
-# Bonus 
+# Calculating percentages
+Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to caluclate percentages.
 
 ## Bonus exercise
 
 > ## Calculating percent
 >
-> What percentage of the population and CO2 emissions in the Americas does the United States make up? What percentage of the population and CO2 emission does North America make up? 
+> What percentage of the global population does Africa make up? What percentage of the population in Africa does Kenya make up? 
 >
 > > ## Solution
 > >
-> > Create a new variable using `mutate()` that calculates percentages for the pop and total variables.
+> > Create a new variable using `group_by()` and `mutate()` that calculates percentages for the pop variable.
 > >
 > > 
 > > ~~~
-> > gapminder_co2 %>%
-> >   mutate(region = if_else(country == "Canada" | country == "United States" | country == "Mexico", "north", "south")) %>%
-> >   mutate(totalPercent = total/sum(total)*100,
-> >          popPercent = pop/sum(pop)*100)
+> > smoking_pollution %>%
+> >   mutate(total_pop = sum(pop)) %>% #total_pop is the global population
+> >   group_by(continent) %>%  #grouping by continent allows us to calculate the population on each continent
+> >   mutate(cont_pop = sum(pop), #cont_pop is the continental population
+> >          cont_percent = cont_pop/total_pop * 100, #cont_percent is the percent of the global population for the continent
+> >          country_cont_pct = pop/cont_pop * 100) %>% #country_cont_pct is the percent of the continent population for a given country
+> >   select(country, continent, cont_percent, country_cont_pct) %>%
+> >   filter(country == "Kenya")
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error in gapminder_co2 %>% mutate(region = if_else(country == "Canada" | : could not find function "%>%"
+> > # A tibble: 1 × 4
+> > # Groups:   continent [1]
+> >   country continent cont_percent country_cont_pct
+> >   <chr>   <chr>            <dbl>            <dbl>
+> > 1 Kenya   Africa            17.1             4.04
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
-> > This table shows that the United states makes up 33% of the population of the Americas, but accounts for 77% of total emissions. Now let's take a look at population and emission for the two different continents: 
-> >
-> > 
-> > ~~~
-> > gapminder_co2 %>%
-> >   mutate(region = if_else(country == "Canada" | country == "United States" | country == "Mexico", "north", "south")) %>%
-> >   mutate(totalPercent = total/sum(total)*100,
-> >          popPercent = pop/sum(pop)*100) %>%
-> >   group_by(region) %>%
-> >   summarize(sumTotalPercent = sum(totalPercent),
-> >             sumPopPercent = sum(popPercent))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in gapminder_co2 %>% mutate(region = if_else(country == "Canada" | : could not find function "%>%"
-> > ~~~
-> > {: .error}
-> > 
+> > This table shows that Kenya makes up 4% of the population of Africa, and Africa makes up 17% of the global population. 
 > {: .solution}
 {: .challenge}
 

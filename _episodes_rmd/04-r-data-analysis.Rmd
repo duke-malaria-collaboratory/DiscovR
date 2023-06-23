@@ -1,0 +1,317 @@
+---
+title: "R for Data Analysis"
+source: Rmd
+teaching: 75
+exercises: 15
+questions:
+- "How can I summarize my data in R?"
+- "How can R help make my research more reproducible?"
+objectives:
+- "To become familiar with the functions of the `dplyr` and `tidyr` packages."
+- "To be able to create plots and summary tables to answer analysis questions."
+keypoints:
+- "Package loading is an important first step in preparing an R environment."
+- "There are many useful functions in the `tidyverse` packages that can aid in data analysis."
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("04-")
+```
+
+### Contents
+
+1.  [Overview of the lesson](#overview-of-the-lesson)
+1.  [An introduction to data analysis in R using `dplyr`](#intro-data-analysis)
+    -   [Get stats fast with `summarize()`](#get-stats-fast-with-summarize)
+    -   [Calculating percentages](#calculate-percentages)
+    -   [Changing the shape of the data](#changing-the-shape-of-the-data)
+1. [Applying it to your own data](#applying-it-to-your-own-data)
+
+
+# Overview of the lesson
+
+So far, you've learned how to load, plot, merge, and clean data. In the process, you've learned a lot of new functions which are useful for transforming data. Today, we are going to put all those new skills you learned together and learn a few new functions that will be really helpful for exploratory data analysis. We'll start with a few examples of how plotting can be a really useful tool for exploratory data analysis. Then, we'll learn a function that will help us get summary statistics for our data and compare those summary statistics to plots. We'll also learn how to calculate proportions and percentages. Finally, we'll learn how to change the shape of data to make certain analyses more straight forward. First, let's read in the data on smoking, lung cancer rates, and pollution that we generated yesterday:
+
+```{r readin}
+smoking_pollution <- read_csv("data/smoking_pollution.csv")
+```
+
+# Plotting for exploratory data analysis
+
+[*Back to top*](#contents)
+
+For our analysis, we have three questions we'd like to answer: (1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?; (2) which continent has the highest pollution levels per capita?; and (3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
+
+**1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?**
+
+To answer this question, we'll plot ambient pollution levels against population using a scatter plot. It will help to scale the x axis (population) log 10.
+
+```{r Plotpollutionvpop}
+smoking_pollution %>%
+  ggplot() +
+  aes(x = pop, y = pollution) +
+  geom_point() +
+  scale_x_log10() +
+  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", size = "Population\n(millions)") +
+  theme_bw()
+  
+```
+
+We observe a positive association between ambient pollution levels and population.
+
+To help clarify the association, we can add a fit line through the data using `geom_smooth(method = "lm")`. Notice we added the `method = "lm"` argument. This tells `geom_smooth()` that we would like a linear model (lm) fit to the data.
+
+```{r PlotPolluionVPopSmooth}
+smoking_pollution %>%
+  ggplot() +
+  aes(x = pop, y = pollution) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_x_log10() +
+  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", size = "Population\n(millions)") +
+  theme_bw()
+
+```
+
+
+To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
+
+
+> ## Challenge: 2) which continent has the highest pollution levels per capita?
+> To answer this question, we need to calculate the pollution levels per capita for each country using `mutate()`. Then plot a boxplot to look at these levels by continent. *Hint: it may help to scale the y axis log10*
+> 
+> > ## Solution: 
+> > ```{r pollutionPerCapita}
+> > smoking_pollution %>%
+> >   mutate(pollution_capita = pollution/pop) %>%
+> >   ggplot() +
+> >   aes(x = continent, y = pollution_capita) +
+> >   geom_boxplot() +
+> >   scale_y_log10() +
+> >   labs(y = "Pollution (micrograms/cubic meter) per capita")+
+> >   theme_bw()
+> > ```
+> > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
+> {: .solution}
+{: .challenge}
+
+
+> ## Challenge: 3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
+> To answer this question, let's make a scatter plot with ambient pollution levels on the x axis and lung cancer rates on the y axis. *Hint: Make sure to scale the x-axis log10.*
+> 
+> > ## Solution: 
+> > ```{r pollutionvcancer}
+> > smoking_pollution %>%
+> >   mutate(pollution_capita = pollution/pop) %>%
+> >   ggplot() +
+> >   aes(x = pollution_capita, y = lung_cancer_pct) +
+> >   geom_point() +
+> >   scale_x_log10() +
+> >   labs(x = "Pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer")+
+> >   theme_bw()
+> > ```
+> > There does not appear to be a direct relationship between pollution and lung cancer rates. 
+> {: .solution}
+{: .challenge}
+
+
+
+
+
+## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
+[*Back to top*](#contents)
+
+Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoke_pct column using the `summarize()` function. Here's what that looks like:
+
+```{r AvgLifeExp}
+smoking_pollution %>%
+    summarise(mean_smoke_pct = mean(smoke_pct))
+```
+
+When we call `summarize()`, we can use any of the column names of our data object as values to pass to other functions. `summarize()` will return a new data object and our value will be returned as a column.
+
+> **Note:** The `summarize()` and `summarise()` functions perform identical functions.
+
+The `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
+
+When you call `summarize()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
+
+```{r GapLifeExpMinMax}
+smoking_pollution %>%
+  summarize(mean_smoke_pct=mean(smoke_pct),
+            min_smoke_pct=min(smoke_pct),
+            max_smoke_pct=max(smoke_pct))
+```
+
+Perhaps one of the most powerful ways to use `summarise()` is to combine it with `group_by()`. This enables you to calculate summary statistics for specific groups. For example, suppose we wanted to calculate the the mean, min, and max `smoke_pct` for each continent. How would you modify the code above?
+
+```{r}
+
+smoking_pollution %>%
+    group_by(continent) %>%
+    summarize(mean_smoke_pct=mean(smoke_pct),
+            min_smoke_pct=min(smoke_pct),
+            max_smoke_pct=max(smoke_pct))
+
+```
+
+>
+> # Exercise: Summary stats and boxplots
+>
+>  Part 1: Use `group_by()` and `summarise()` to find the median, min, max, and interquartile range of `lung_cancer_pct` for each continent. 
+>
+> Part 2: Make a box plot of `pollution` on the y axis and continent on the x axis. Compare your plot to your table. What do you notice? Which do you think is easier to interpret?
+>
+> > ## Solution
+> >
+> > Part 1: Use `group_by()` and `summarise()` to find the median, min, max, and interquartile range of `pollution` for each continent.
+> >
+> > ```{r groupby_summarise}
+> > smoking_pollution %>%
+> >   group_by(continent) %>%
+> >   summarise(med_pollution = median(pollution),
+> > min_pollution = min(pollution),
+> > max_pollution = max(pollution),
+> > iqr_pollution = IQR(pollution)) 
+> > ```
+> >
+> > Part 2: Make a box plot of `pollution` on the y axis and continent on the x axis. Compare your plot to your table. What do you notice?
+> >
+> > ```{r pollution_boxplot}
+> > smoking_pollution %>%
+> >     ggplot(aes(x = continent, y = pollution)) +
+> >     geom_boxplot()
+> > ```
+> > 
+> > When comparing your table to your plot, you'll notice that the dark horizontal lines represent median values. The boxes have lengths equal to the interquartile range (IQR). And the highest and lowest values for each continent match the table as well. The plot makes it easier to see differences between continents. The table provides finer details for comparison. What you choose to report will depend on whether you want to bring attention to those finer details or whether you want to discuss overall trends.
+> >
+> {: .solution}
+{: .challenge}
+
+
+
+# Calculating percentages {#calculate-percentages}
+[*Back to top*](#contents)
+
+Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to caluclate percentages.
+
+>
+> What percentage of the global population in 1990 did Africa make up? What percentage of the population in Africa did Kenya make up? 
+>
+> > ## Solution
+> >
+> > Create a new variable using `group_by()` and `mutate()` that calculates percentages for the pop variable.
+> >
+> > ```{r PopPercExercise}
+> > smoking_pollution %>%
+> >   mutate(total_pop = sum(pop)) %>% #total_pop is the global population
+> >   group_by(continent) %>%  #grouping by continent allows us to calculate the population on each continent
+> >   mutate(cont_pop = sum(pop), #cont_pop is the continental population
+> >          cont_percent = cont_pop/total_pop * 100, #cont_percent is the percent of the global population for the continent
+> >          country_cont_pct = pop/cont_pop * 100) %>% #country_cont_pct is the percent of the continent population for a given country
+> >   select(country, continent, cont_percent, country_cont_pct) %>%
+> >   filter(country == "Kenya")
+> > ```
+> >
+> > This table shows that Kenya makes up 4% of the population of Africa, and Africa makes up 17% of the global population. 
+> {: .solution}
+{: .challenge}
+
+
+## Changing the shape of the data
+
+[*Back to top*](#contents)
+
+Data comes in many shapes and sizes, and one way we classify data is either "wide" or "long." Data that is "long" has one row per observation. The `smoking` data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as "tidy" because it makes it easy to work with `ggplot2` and `dplyr` functions (this is where the "tidy" in "tidyverse" comes from). As tidy as it may be, sometimes we may want our data in a "wide" format. Typically in "wide" format each row represents a group of observations and each value is placed in a different column rather than a different row. For example, let's read in our smoking and lung cancer data set that covers many years and take a look at it:
+
+```{r}
+smoking_cancer <- read_csv("data/smoking_cancer.csv")
+```
+
+Recall that it has one row for each country for each year the data were collected. But maybe we want only one row per country and want to spread the percent of smokers values into different columns (one for each year).
+
+The `tidyr` package contains the functions `pivot_wider()` and `pivot_longer()` that make it easy to switch between the two formats. The `tidyr` package is included in the `tidyverse` package so we don't need to do anything to load it.
+
+Let's create a wide version of our data using `pivot_wider()`:
+
+```{r}
+smoking_cancer %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct)
+```
+
+Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the `smoke_pct` variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
+
+## Plotting wide data
+
+Let's make a plot with our wide data comparing percent of smokers in 1990 to percent of smokers in 2010 to see how it has changed for each country.
+
+```{r}
+smoking_cancer %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct) %>% 
+  ggplot(aes(x = 1990, y = 2010)) +
+  geom_point()
+```
+
+Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
+
+```{r}
+smoking_cancer %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
+  ggplot(aes(x = y1990, y = y2010)) +
+  geom_point()
+```
+
+Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
+Let's fix that by adding a line at y=x. 
+
+```{r}
+smoking_cancer %>%
+  group_by(country, continent, year) %>% 
+  summarize(smoke_pct = mean(smoke_pct)) %>%
+  pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
+  ggplot(aes(x = y1990, y = y2010)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1)
+```
+
+It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
+
+> ## Bonus: Identifying countries with more smokers in 2010 than 1990
+>
+> Use what you've learned from today to figure out which countries had higher smoking percentage in 2010 than 1990. 
+>
+> Bonus: Order the data frame from greatest to smallest difference. HINT: The `arrange()` function can help you do this. 
+> 
+> > ## Solution
+> > ```{r}
+> > smoking_cancer %>%
+> >   group_by(country, continent, year) %>% # group by the columns you want to keep
+> >   summarize(smoke_pct = mean(smoke_pct)) %>% # summarize to get one value per country per year
+> >   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% # pivot wider
+> >   mutate(diff = y2010 - y1990) %>% # find the difference between the years of interest
+> >   select(country, continent, diff) %>% # select the columns of interest
+> >   filter(diff > 0) %>% # filter to ones where the difference is greater than zero
+> >   arrange(-diff) # bonus - arrange by diff, highest to lowest
+> > ```
+> {: .solution}
+{: .challenge}
+
+
+# Applying it to your own data
+
+Now it's time to read in, clean, and make plots with your own data! 
+Use your ideas from your brainstorming session yesterday to help you get started, but feel free to branch out and explore other things as well.
+Let us know if you have questions; we're here to help.
+
+
+
+
+
+

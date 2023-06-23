@@ -1,0 +1,97 @@
+---
+title: "Dates with lubridate"
+date: '2022-10-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Dealing with dates in R can be kind of annoying. The `lubridate` package makes it a lot easier. Here, we go over some examples.  
+
+```{r}
+# First, we have to load the packages we'll need - tidyverse and lubridate. 
+# If you don't have either of these, you will have to install them first
+library(tidyverse)
+library(lubridate)
+# if error
+#install.packages('lubridate')
+```
+
+We are going to be using a dataset that comes with lubridate called `lakers`.
+This is not very relevant to us - it is the statistics of Lakers basketball games (they play in Los Angeles, California USA) - but it serves the purpose of how to work with dates in R. 
+To learn more about the dataset, you can type `?lakers`. Here, we'll just take a look at it. Each row is an event that occurred during a game.
+
+```{r}
+lakers
+```
+
+### Example
+
+Let's say we're interested in calculating the total number of points scored in each game, and plotting that over time. Let's first write some pseudocode to do that, and then write up the corresponding code.
+
+```{r}
+# add up all the points for a given date
+lakers %>% # 1. take the lakers dataset
+    group_by(date) %>% # 2. group by date
+    summarize(total_points = sum(points)) %>% # 3. summarize to sum the points
+    # plot the data as a line graph (or points)
+    ggplot() + # 1. start plot using ggplot function
+    aes(x = date, y = total_points) + # 2. assign date to the x axis and total_points to the y axis
+    geom_point()# 3. plot the data as points
+```
+
+Uh-oh. Something looks a little strange. 
+The dates aren't quite how we want them to look, because they're actually stored as integers. 
+To fix this, we can change the date column to a date by using the `ymd()` function from `lubridate`.
+
+```{r}
+# add up all the points for a given date
+lakers %>% # 1. take the lakers dataset
+    mutate(date = ymd(date)) %>% # change date column to a date 
+    group_by(date) %>% # 2. group by date
+    summarize(total_points = sum(points)) %>% # 3. summarize to sum the points
+    # plot the data as a line graph (or points)
+    ggplot() + # 1. start plot using ggplot function
+    aes(x = date, y = total_points) + # 2. assign date to the x axis and total_points to the y axis
+    geom_point()# 3. plot the data as points
+```
+
+That looks a lot better! 
+
+### Practice
+
+Now, let's practice a bit. How would you change each of these to a date? 
+You might have to look up additional `lubridate` functions to help you.
+
+```{r}
+date1 <- '14-10-2022' 
+date2 <- 'Jan-1 2022'
+date3 <- 14-10-2022 # put your own date in here
+date4 <- 14102022
+```
+
+```{r}
+# put your answers here
+ymd(date1) # returns NA
+dmy(date1)
+mdy(date2)
+date3
+dmy(date3)
+date4
+dmy(date4)
+```
+
+**Bonus 1:** Figure out how to change the date labels in the plot so that it's month-year instead of just month.
+
+```{r}
+ 
+```
+
+**Bonus 2:** Split the points on the graph by the team that scored them, and color it by Lakers or other. Remember that it helps to write pseudocode first!
+
+```{r}
+
+```
+

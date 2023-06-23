@@ -1,0 +1,93 @@
+---
+title: "Dates with lubridate"
+date: '2022-10-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Dealing with dates in R can be kind of annoying. The `lubridate` package makes it a lot easier. Here, we go over some examples.  
+
+```{r}
+# First, we have to load the packages we'll need - tidyverse and lubridate. 
+# If you don't have either of these, you will have to install them first:
+# install.packages('tidyverse')
+# install.packages('lubridate')
+library(tidyverse)
+library(lubridate)
+```
+
+We are going to be using a dataset that comes with lubridate called `lakers`.
+This is not very relevant to us - it is the statistics of Lakers basketball games (they play in Los Angeles, California USA) - but it serves the purpose of how to work with dates in R. 
+To learn more about the dataset, you can type `?lakers`. Here, we'll just take a look at it. Each row is an event that occurred during a game.
+
+```{r}
+lakers
+```
+
+Let's say we're interested in calculating the total number of points scored in each game, and plotting that over time. Let's first write some pseudocode to do that, and then write up the corresponding code.
+
+```{r}
+lakers %>% # using the dataset we're interested in,
+    group_by(date) %>% # group by date (we're assuming that each game was on a different date)
+    summarize(n_points = sum(points)) %>% # summarize by adding up the points column
+    ggplot() + # start making a plot
+    aes(x = date, y = n_points) + # assign date to the x axis and number of points to the y axis
+    geom_point() # plot points on the graph
+```
+
+Uh-oh. Something looks a little strange. 
+The dates aren't quite how we want them to look, because they're actually stored as integers. 
+To fix this, we can change the date column to a date by using the `ymd()` function from `lubridate`.
+
+```{r}
+lakers %>% 
+    mutate(date = ymd(date)) %>% 
+    group_by(date) %>% 
+    summarize(n_points = sum(points)) %>% 
+    ggplot(aes(x = date, y = n_points)) +
+    geom_point()
+```
+
+That looks a lot better! Now, let's practice a bit. How would you change each of these to a date? 
+You might have to look up additional `lubridate` functions to help you.
+
+```{r}
+date1 <- '14-10-2022' 
+date2 <- 'Jan-1 2022'
+date3 <- # put your own date in here
+```
+
+```{r}
+# put your answers here
+dmy(date1)
+mdy(date2)
+```
+
+**Bonus 1:** Figure out how to change the date labels so that it's month-year instead of just month.
+
+```{r}
+lakers %>% 
+    mutate(date = ymd(date)) %>% 
+    group_by(date) %>% 
+    summarize(n_points = sum(points)) %>% 
+    ggplot(aes(x = date, y = n_points)) +
+    geom_point() +
+    scale_x_date(date_labels = "%b %Y") 
+```
+
+**Bonus 2:** Split the points on the graph by the team that scored them, and color it by Lakers or other. 
+
+```{r}
+lakers %>% 
+    mutate(date = ymd(date)) %>% 
+    group_by(date, opponent, game_type, team) %>% 
+    summarize(n_points = sum(points)) %>% 
+    filter(team != 'OFF') %>% 
+    mutate(team = ifelse(team == 'LAL', 'lakers', 'other')) %>% 
+    ggplot(aes(x = date, y = n_points, col = team)) +
+    geom_point()
+```
+
