@@ -455,6 +455,69 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 > {: .solution}
 {: .challenge}
 
+# Bonus: correlation
+
+Let's go back to the very first question we talked about today: Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)? In addition to making a scatterplot, another way to get at this question is by calculating a _correlation coefficient_. We will cover two correlation coefficients here: Pearson's (which assumes a linear relationship) and Spearman's (which doesn't assume a linear relationship).
+
+There is a function in base R that calculates correlation coefficients (`cor()`), but is kind of hard to use with the tidy way that we're used to doing things. So we're going to download another package that's part of the `tidyverse`, but not the core set of packages that we downloaded originally, called `corrr` (that's not a typo - there are actually 3 r's at the end). This package has a function called `correlate()` that makes it easy to find correlations between variables. 
+
+Take the following steps to calculate the Pearson and Spearman correlations between population and ambient pollution levels:
+
+1. Install and load the `corrr` package.
+1. Subset `smoking_pollution` to the population and ambient pollution level columns.
+1. Find the Pearson correlation between smoking and pollution using the `correlate()` function from the `corrr` package.
+1. Find the Spearman correlation between smoking and pollution using the `correlate()` function from the `corrr` package.
+
+> ## Solution
+>
+> > 
+> > ~~~
+> > # install.packages(corrr) # only run this once
+> > library(corrr)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in library(corrr): there is no package called 'corrr'
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   select(pop, pollution) %>%
+> >   correlate(method = 'pearson')
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in smoking_pollution %>% select(pop, pollution) %>% correlate(method = "pearson"): could not find function "%>%"
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   select(pop, pollution) %>%
+> >   correlate(method = 'spearman')
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in smoking_pollution %>% select(pop, pollution) %>% correlate(method = "spearman"): could not find function "%>%"
+> > ~~~
+> > {: .error}
+> {: .solution}
+{: .challenge}
+
 
 # Applying it to your own data
 
