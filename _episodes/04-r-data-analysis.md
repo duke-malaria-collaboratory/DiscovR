@@ -43,6 +43,39 @@ So far, you've learned how to load, plot, merge, and clean data. In the process,
 
 
 ~~~
+library(tidyverse) 
+~~~
+{: .language-r}
+
+
+
+~~~
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+~~~
+{: .output}
+
+
+
+~~~
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.7     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 1.0.0
+~~~
+{: .output}
+
+
+
+~~~
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+~~~
+{: .output}
+
+
+
+~~~
 smoking_pollution <- read_csv("data/smoking_pollution.csv")
 ~~~
 {: .language-r}
@@ -50,9 +83,22 @@ smoking_pollution <- read_csv("data/smoking_pollution.csv")
 
 
 ~~~
-Error in read_csv("data/smoking_pollution.csv"): could not find function "read_csv"
+Rows: 191 Columns: 7
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (5): year, pop, smoke_pct, lung_cancer_pct, pollution
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+~~~
+{: .output}
 
 # Plotting for exploratory data analysis
 
@@ -83,9 +129,11 @@ smoking_pollution %>%
 
 
 ~~~
-Error in smoking_pollution %>% ggplot(aes(x = pop, y = pollution)): could not find function "%>%"
+Warning: Removed 2 rows containing missing values (geom_point).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-04-Plotpollutionvpop-1.png" title="plot of chunk Plotpollutionvpop" alt="plot of chunk Plotpollutionvpop" width="612" style="display: block; margin: auto;" />
 
 We observe a positive association between ambient pollution levels and population.
 
@@ -106,9 +154,25 @@ smoking_pollution %>%
 
 
 ~~~
-Error in smoking_pollution %>% ggplot(aes(x = pop, y = pollution)): could not find function "%>%"
+`geom_smooth()` using formula 'y ~ x'
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+Warning: Removed 2 rows containing non-finite values (stat_smooth).
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: Removed 2 rows containing missing values (geom_point).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" title="plot of chunk PlotPolluionVPopSmooth" alt="plot of chunk PlotPolluionVPopSmooth" width="612" style="display: block; margin: auto;" />
 
 To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
 
@@ -131,9 +195,11 @@ To answer our first question, we observe a positive association between populati
 > > 
 > > 
 > > ~~~
-> > Error in smoking_pollution %>% mutate(pollution_capita = pollution/pop) %>% : could not find function "%>%"
+> > Warning: Removed 2 rows containing non-finite values (stat_boxplot).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" title="plot of chunk pollutionPerCapita" alt="plot of chunk pollutionPerCapita" width="612" style="display: block; margin: auto;" />
 > > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
 > {: .solution}
 {: .challenge}
@@ -158,9 +224,11 @@ To answer our first question, we observe a positive association between populati
 > > 
 > > 
 > > ~~~
-> > Error in smoking_pollution %>% mutate(pollution_capita = pollution/pop) %>% : could not find function "%>%"
+> > Warning: Removed 2 rows containing missing values (geom_point).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-04-pollutionvcancer-1.png" title="plot of chunk pollutionvcancer" alt="plot of chunk pollutionvcancer" width="612" style="display: block; margin: auto;" />
 > > There does not appear to be a direct relationship between pollution and lung cancer rates. 
 > {: .solution}
 {: .challenge}
@@ -181,9 +249,12 @@ smoking_pollution %>%
 
 
 ~~~
-Error in smoking_pollution %>% summarise(mean_smoke_pct = mean(smoke_pct)): could not find function "%>%"
+# A tibble: 1 × 1
+  mean_smoke_pct
+           <dbl>
+1           23.9
 ~~~
-{: .error}
+{: .output}
 
 When we call `summarize()`, we can use any of the column names of our data object as values to pass to other functions. `summarize()` will return a new data object and our value will be returned as a column.
 
@@ -205,9 +276,12 @@ smoking_pollution %>%
 
 
 ~~~
-Error in smoking_pollution %>% summarize(mean_smoke_pct = mean(smoke_pct), : could not find function "%>%"
+# A tibble: 1 × 3
+  mean_smoke_pct min_smoke_pct max_smoke_pct
+           <dbl>         <dbl>         <dbl>
+1           23.9          3.12          46.9
 ~~~
-{: .error}
+{: .output}
 
 Perhaps one of the most powerful ways to use `summarise()` is to combine it with `group_by()`. This enables you to calculate summary statistics for specific groups. For example, suppose we wanted to calculate the the mean, min, and max `smoke_pct` for each continent. How would you modify the code above?
 
@@ -224,9 +298,17 @@ smoking_pollution %>%
 
 
 ~~~
-Error in smoking_pollution %>% group_by(continent) %>% summarize(mean_smoke_pct = mean(smoke_pct), : could not find function "%>%"
+# A tibble: 6 × 4
+  continent     mean_smoke_pct min_smoke_pct max_smoke_pct
+  <chr>                  <dbl>         <dbl>         <dbl>
+1 Africa                  15.0          3.81          31.9
+2 Asia                    25.1          3.12          39.7
+3 Europe                  34.2         21.8           46.1
+4 North America           16.1          6.55          33.1
+5 Oceania                 33.3         21.2           46.9
+6 South America           24.4          8.33          39.5
 ~~~
-{: .error}
+{: .output}
 
 >
 > # Exercise: Summary stats and boxplots
@@ -253,7 +335,11 @@ Error in smoking_pollution %>% group_by(continent) %>% summarize(mean_smoke_pct 
 > > 
 > > 
 > > ~~~
-> > Error in smoking_pollution %>% group_by(continent) %>% summarise(med_pollution = median(pollution), : could not find function "%>%"
+> > Error in `summarise()`:
+> > ! Problem while computing `iqr_pollution = IQR(pollution)`.
+> > ℹ The error occurred in group 2: continent = "Asia".
+> > Caused by error in `quantile.default()`:
+> > ! missing values and NaN's not allowed if 'na.rm' is FALSE
 > > ~~~
 > > {: .error}
 > >
@@ -270,9 +356,11 @@ Error in smoking_pollution %>% group_by(continent) %>% summarize(mean_smoke_pct 
 > > 
 > > 
 > > ~~~
-> > Error in smoking_pollution %>% ggplot(aes(x = continent, y = pollution)): could not find function "%>%"
+> > Warning: Removed 2 rows containing non-finite values (stat_boxplot).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-04-pollution_boxplot-1.png" title="plot of chunk pollution_boxplot" alt="plot of chunk pollution_boxplot" width="612" style="display: block; margin: auto;" />
 > > 
 > > When comparing your table to your plot, you'll notice that the dark horizontal lines represent median values. The boxes have lengths equal to the interquartile range (IQR). And the highest and lowest values for each continent match the table as well. The plot makes it easier to see differences between continents. The table provides finer details for comparison. What you choose to report will depend on whether you want to bring attention to those finer details or whether you want to discuss overall trends.
 > >
@@ -308,9 +396,13 @@ Finding percentages using `dplyr` can be a little bit complicated. However, it's
 > > 
 > > 
 > > ~~~
-> > Error in smoking_pollution %>% mutate(total_pop = sum(pop)) %>% group_by(continent) %>% : could not find function "%>%"
+> > # A tibble: 1 × 4
+> > # Groups:   continent [1]
+> >   country continent cont_percent country_cont_pct
+> >   <chr>   <chr>            <dbl>            <dbl>
+> > 1 Kenya   Africa            12.1             3.77
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > This table shows that Kenya makes up 4% of the population of Africa, and Africa makes up 12% of the global population. 
 > {: .solution}
@@ -332,9 +424,16 @@ smoking_cancer <- read_csv("data/smoking_cancer.csv")
 
 
 ~~~
-Error in read_csv("data/smoking_cancer.csv"): could not find function "read_csv"
+Rows: 5719 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): country, continent
+dbl (4): year, pop, smoke_pct, lung_cancer_pct
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ~~~
-{: .error}
+{: .output}
 
 It has one row for each country for each year the data were collected. But maybe we want only one row per country and want to spread the percent of smokers values into different columns (one for each year).
 
@@ -354,9 +453,35 @@ smoking_cancer %>%
 
 
 ~~~
-Error in smoking_cancer %>% group_by(country, continent, year) %>% summarize(smoke_pct = mean(smoke_pct)) %>% : could not find function "%>%"
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+# A tibble: 191 × 32
+# Groups:   country, continent [191]
+   country     continent `1990` `1991` `1992` `1993` `1994` `1995` `1996` `1997`
+   <chr>       <chr>      <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+ 1 Afghanistan Asia        3.12   3.29   3.53   3.77   4.00   4.25   4.53   4.82
+ 2 Albania     Europe     24.2   24.1   24.0   24.0   23.9   23.8   23.8   23.9 
+ 3 Algeria     Africa     18.9   18.7   18.6   18.4   18.2   18.0   17.8   17.6 
+ 4 Andorra     Europe     36.6   36.5   36.3   36.2   35.9   35.5   35.2   34.9 
+ 5 Angola      Africa     12.5   12.4   12.2   12.0   11.8   11.5   11.3   11.0 
+ 6 Antigua an… North Am…   6.80   6.94   7.06   7.17   7.27   7.36   7.43   7.47
+ 7 Argentina   South Am…  30.4   30.1   29.9   29.7   29.5   29.4   29.2   29.1 
+ 8 Armenia     Europe     30.5   30.4   30.2   30.0   29.9   29.7   29.6   29.5 
+ 9 Australia   Oceania    29.3   28.8   28.4   27.9   27.5   27.0   26.4   25.9 
+10 Austria     Europe     35.4   35.8   36.2   36.6   37.0   37.4   37.8   38.1 
+# … with 181 more rows, and 22 more variables: `1998` <dbl>, `1999` <dbl>,
+#   `2000` <dbl>, `2001` <dbl>, `2002` <dbl>, `2003` <dbl>, `2004` <dbl>,
+#   `2005` <dbl>, `2006` <dbl>, `2007` <dbl>, `2008` <dbl>, `2009` <dbl>,
+#   `2010` <dbl>, `2011` <dbl>, `2012` <dbl>, `2013` <dbl>, `2014` <dbl>,
+#   `2015` <dbl>, `2016` <dbl>, `2017` <dbl>, `2018` <dbl>, `2019` <dbl>
+~~~
+{: .output}
 
 Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the `smoke_pct` variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
 
@@ -378,9 +503,12 @@ smoking_cancer %>%
 
 
 ~~~
-Error in smoking_cancer %>% group_by(country, continent, year) %>% summarize(smoke_pct = mean(smoke_pct)) %>% : could not find function "%>%"
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
-{: .error}
+{: .output}
+
+<img src="../fig/rmd-04-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
 
 Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
@@ -398,9 +526,12 @@ smoking_cancer %>%
 
 
 ~~~
-Error in smoking_cancer %>% group_by(country, continent, year) %>% summarize(smoke_pct = mean(smoke_pct)) %>% : could not find function "%>%"
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
-{: .error}
+{: .output}
+
+<img src="../fig/rmd-04-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
 
 Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
@@ -420,9 +551,12 @@ smoking_cancer %>%
 
 
 ~~~
-Error in smoking_cancer %>% group_by(country, continent, year) %>% summarize(smoke_pct = mean(smoke_pct)) %>% : could not find function "%>%"
+`summarise()` has grouped output by 'country', 'continent'. You can override
+using the `.groups` argument.
 ~~~
-{: .error}
+{: .output}
+
+<img src="../fig/rmd-04-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
 
 It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 
@@ -449,9 +583,31 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 > > 
 > > 
 > > ~~~
-> > Error in smoking_cancer %>% group_by(country, continent, year) %>% summarize(smoke_pct = mean(smoke_pct)) %>% : could not find function "%>%"
+> > `summarise()` has grouped output by 'country', 'continent'. You can override
+> > using the `.groups` argument.
 > > ~~~
-> > {: .error}
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 42 × 3
+> > # Groups:   country, continent [42]
+> >    country                continent  diff
+> >    <chr>                  <chr>     <dbl>
+> >  1 Bosnia and Herzegovina Europe     9.33
+> >  2 Lebanon                Asia       7.91
+> >  3 Afghanistan            Asia       6.08
+> >  4 Albania                Europe     5.23
+> >  5 Indonesia              Asia       5.07
+> >  6 Saudi Arabia           Asia       4.21
+> >  7 Uzbekistan             Asia       4.04
+> >  8 Kiribati               Oceania    3.68
+> >  9 Mali                   Africa     3.03
+> > 10 Djibouti               Africa     2.83
+> > # … with 32 more rows
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -496,7 +652,7 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > 
 > > 
 > > ~~~
-> > Error in smoking_pollution %>% select(pop, pollution) %>% correlate(method = "pearson"): could not find function "%>%"
+> > Error in correlate(., method = "pearson"): could not find function "correlate"
 > > ~~~
 > > {: .error}
 > > 
@@ -512,7 +668,7 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > 
 > > 
 > > ~~~
-> > Error in smoking_pollution %>% select(pop, pollution) %>% correlate(method = "spearman"): could not find function "%>%"
+> > Error in correlate(., method = "spearman"): could not find function "correlate"
 > > ~~~
 > > {: .error}
 > {: .solution}

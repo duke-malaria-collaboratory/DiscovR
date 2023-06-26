@@ -381,7 +381,7 @@ Since we use the pipe operator so often, there is a keyboard shortcut for it in 
 
 Sometimes it can be helpful to explore your data summaries in the View tab. Try it in the exercise below.
 
-> ## Viewing data summaries
+> ## Viewing data
 > Filter `ambient_pollution_dirty` to only entries from 1990 and use the *pipe operator* and `View()` to explore the summary data. Click on the column names to reorder the summary data however you'd like.
 > 
 > > ## Solution: 
@@ -392,13 +392,6 @@ Sometimes it can be helpful to explore your data summaries in the View tab. Try 
 > >   View()
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in View(.): X11 is not available
-> > ~~~
-> > {: .error}
 > > 
 > {: .solution}
 {: .challenge}
@@ -412,17 +405,29 @@ Sometimes it can be helpful to explore your data summaries in the View tab. Try 
 > > ~~~
 > > ambient_pollution_dirty %>%
 > >   filter(year_id == 1990) %>% 
-> >   arrange(desc(median)) %>%
-> >   View()
+> >   arrange(desc(median)) 
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error in View(.): X11 is not available
+> > # A tibble: 690 × 3
+> >    location_name year_id median
+> >    <chr>           <dbl>  <dbl>
+> >  1 Qatar            1990   78.2
+> >  2 Niger            1990   70.6
+> >  3 Nigeria          1990   69.4
+> >  4 India            1990   68.4
+> >  5 Egypt            1990   66.1
+> >  6 South Asia       1990   65.2
+> >  7 South Asia       1990   65.2
+> >  8 Cameroon         1990   65.0
+> >  9 Mauritania       1990   64.8
+> > 10 Nepal            1990   64.0
+> > # … with 680 more rows
 > > ~~~
-> > {: .error}
+> > {: .output}
 > > The `arrange()` function is very helpful for sorting data objects based on one or more columns. Notice we also included the function `desc()`, which tells `arrange()` to sort in descending order (largest to smallest).
 > {: .solution}
 {: .challenge}
@@ -867,6 +872,16 @@ Note: here, we took the mean to take care of duplicates and multiple entries, bu
 > {: .solution}
 {: .challenge}
 
+Let's ungroup our `pollution_1990` data as this is best practice, since it can lead to unexpected outputs like we observed in the exercise above.
+
+
+~~~
+pollution_1990 <- pollution_1990 %>% 
+  ungroup()
+~~~
+{: .language-r}
+
+
 # Joining dataframes
 
 [*Back to top*](#contents)
@@ -919,7 +934,7 @@ In a "left join", the new dataframe only has those rows for the key values that 
 
 > ## Bonus: Other dplyr join functions 
 >
-> Other joins and can be performed using `inner_join()`, `right_join()`, `full_join()`, and `anti_join()`. In a "left join", if the key is present in the left hand dataframe, it will appear in the output, even if it is not found in the the right hand dataframe. For a right join, the opposite is true. For a full join, all possible keys are included in the output dataframe. 
+> Other joins and can be performed using `inner_join()`, `right_join()`, `full_join()`, and `anti_join()`. In a "left join", if the key is present in the left hand dataframe, it will appear in the output, even if it is not found in the the right hand dataframe. For a right join, the opposite is true. For a full join, all possible keys are included in the output dataframe. For an anti join, only ones found in the left data frame are included. 
 > ![]({{ page.root }}/fig/r-data-analysis/dplyr-join.png)
 > [Image source](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins/index.html)
 {: .solution}
@@ -987,20 +1002,24 @@ left_join(smoking_1990, pollution_1990_clean, by="country")
 ~~~
 {: .output}
 
-Alright, let's explore this joined data a little bit. First, let's check for any missing values. We will start by using the `drop_na()` and `nrow()` functions as we did before to get an idea of how many rows have missing values.
+Alright, let's explore this joined data a little bit. First, let's check for any missing values. We will start by using the `drop_na()` and `distinct()` functions as we did before to get an idea of how many rows have missing values.
 
 
 ~~~
 left_join(smoking_1990, pollution_1990_clean, by="country") %>%
   drop_na() %>%
-  nrow()
+  distinct() %>% 
+  count() 
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] 189
+# A tibble: 1 × 1
+      n
+  <int>
+1   189
 ~~~
 {: .output}
 It looks like the dataframe has 189 rows after we drop any observations with missing values. This means there are two rows with missing values.
@@ -1025,7 +1044,7 @@ left_join(smoking_1990, pollution_1990_clean, by="country") %>%
 ~~~
 {: .output}
 
-We can see that pollution data were missing for Vietnam and Slovak Republic. Note that we were expecting two rows with missing values, and we found both of them! That's great news.
+We can see that were missing pollution data for Vietnam and Slovak Republic. Note that we were expecting two rows with missing values, and we found both of them! That's great news.
 
 If we look at the `pollution_1990_clean` data with `View()` and sort by `country`, we can see that Vientam and Slovak Republic are called different things in the `pollution_1990_clean` dataframe. They're called "Viet Nam" and "Slovakia," respectively. Using `mutate()` and `case_when()`, we can update the `pollution_2019` data so that the country names for Vietnam and Slovak Republic match those in the `smoking_1990` data. `case_when()` is a super useful function that uses information from a column (or columns) in your dataset to update or create new columns.
 
@@ -1045,7 +1064,6 @@ pollution_1990_clean %>%
 Error in `mutate()`:
 ! Problem while computing `country = case_when(country == "Viet Nam" ~
   "Vietnam", .default = country)`.
-ℹ The error occurred in group 1: country = "Aceh".
 Caused by error in `case_when()`:
 ! Case 2 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
   formula, not a character vector.
@@ -1070,7 +1088,6 @@ Caused by error in `case_when()`:
 > > ~~~
 > > Error in `mutate()`:
 > > ! Problem while computing `country = case_when(...)`.
-> > ℹ The error occurred in group 1: country = "Aceh".
 > > Caused by error in `case_when()`:
 > > ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
 > >   formula, not a character vector.
@@ -1099,7 +1116,6 @@ Caused by error in `case_when()`:
 > > ~~~
 > > Error in `mutate()`:
 > > ! Problem while computing `country_new = case_when(...)`.
-> > ℹ The error occurred in group 1: country = "Aceh".
 > > Caused by error in `case_when()`:
 > > ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
 > >   formula, not a character vector.
@@ -1124,7 +1140,6 @@ pollution_1990_clean <- pollution_1990_clean %>%
 ~~~
 Error in `mutate()`:
 ! Problem while computing `country = case_when(...)`.
-ℹ The error occurred in group 1: country = "Aceh".
 Caused by error in `case_when()`:
 ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
   formula, not a character vector.
@@ -1141,9 +1156,22 @@ Caused by error in `case_when()`:
 > > ~~~
 > > pollution_1990_clean <- pollution_1990 %>%
 > >   rename(country = location_name) %>%
-> >   mutate(country = recode(country, "Viet Nam" = "Vietnam", "Slovakia" = "Slovak Republic"))
+> >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
+> >                              country == "Slovakia" ~ "Slovak Republic",
+> >                              .default = country))
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in `mutate()`:
+> > ! Problem while computing `country = case_when(...)`.
+> > Caused by error in `case_when()`:
+> > ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
+> >   formula, not a character vector.
+> > ~~~
+> > {: .error}
 > > Challenge solution:
 > > 
 > > ~~~
@@ -1202,9 +1230,11 @@ left_join(smoking_1990, pollution_1990_clean, by="country") %>%
 
 
 ~~~
-# A tibble: 0 × 7
-# … with 7 variables: year <dbl>, country <chr>, continent <chr>, pop <dbl>,
-#   smoke_pct <dbl>, lung_cancer_pct <dbl>, pollution <dbl>
+# A tibble: 2 × 7
+   year country         continent      pop smoke_pct lung_cancer_pct pollution
+  <dbl> <chr>           <chr>        <dbl>     <dbl>           <dbl>     <dbl>
+1  1990 Slovak Republic Europe     5299187      33.7          0.0699        NA
+2  1990 Vietnam         Asia      67988855      29.4          0.0216        NA
 ~~~
 {: .output}
 Now you can see that we have an empty dataframe! That's great news; it means that we do not have any rows with missing pollution data.

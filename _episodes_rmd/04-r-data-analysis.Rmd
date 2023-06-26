@@ -43,6 +43,7 @@ Yesterday we learned all about data cleaning, but we didn't cover everything.
 So far, you've learned how to load, plot, merge, and clean data. In the process, you've learned a lot of new functions which are useful for transforming data. Today, we are going to put all those new skills you learned together and learn a few new functions that will be really helpful for exploratory data analysis. We'll start with a few examples of how plotting can be a really useful tool for exploratory data analysis. Then, we'll learn a function that will help us get summary statistics for our data and compare those summary statistics to plots. We'll also learn how to calculate proportions and percentages. Finally, we'll learn how to change the shape of data to make certain analyses more straight forward. First, let's read in the data on smoking, lung cancer rates, and pollution that we generated yesterday:
 
 ```{r readin}
+library(tidyverse) 
 smoking_pollution <- read_csv("data/smoking_pollution.csv")
 ```
 

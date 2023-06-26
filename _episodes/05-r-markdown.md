@@ -508,6 +508,13 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > ~~~
 > > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> > Warning: Removed 2 rows containing missing values (geom_point).
+> > ~~~
+> > {: .warning}
+> > 
 > > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
@@ -524,7 +531,7 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > # A tibble: 1 × 3
 > >   min_pol median_smoke max_smoke
 > >     <dbl>        <dbl>     <dbl>
-> > 1    4.69         24.5      78.2
+> > 1      NA           NA        NA
 > > ~~~
 > > {: .output}
 > > Bonus: you can use `pivot_longer()` and `group_by()` followed by `summarize()`:
@@ -545,7 +552,7 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > # A tibble: 2 × 4
 > >   name        min median   max
 > >   <chr>     <dbl>  <dbl> <dbl>
-> > 1 pollution  4.69   24.5  78.2
+> > 1 pollution NA      NA    NA  
 > > 2 smoke_pct  3.12   24.4  46.9
 > > ~~~
 > > {: .output}
