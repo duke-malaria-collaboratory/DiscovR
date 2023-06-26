@@ -275,8 +275,7 @@ smoking_pollution %>%
 ~~~
 {: .output}
 
->
-> # Exercise: Summary stats and boxplots
+> ## Exercise: Summary stats and boxplots
 >
 >  Part 1: Use `group_by()` and `summarise()` to find the median, min, max, and interquartile range of `lung_cancer_pct` for each continent. 
 >
@@ -335,7 +334,7 @@ smoking_pollution %>%
 
 Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to caluclate percentages.
 
->
+> ## Percentages
 > What percentage of the global population in 1990 did Africa make up? What percentage of the population in Africa did Kenya make up? 
 >
 > > ## Solution
@@ -586,8 +585,7 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 1. Find the Pearson correlation between smoking and pollution using the `correlate()` function from the `corrr` package.
 1. Find the Spearman correlation between smoking and pollution using the `correlate()` function from the `corrr` package.
 
-> ## Solution
->
+> > ## Solution
 > > 
 > > ~~~
 > > # install.packages(corrr) # only run this once

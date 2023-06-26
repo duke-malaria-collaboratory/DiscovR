@@ -557,6 +557,7 @@ pollution_1990_clean <- pollution_1990_clean %>%
 > >   select(-year_id) %>%
 > >   group_by(location_name) %>%
 > >   mutate(pollution = mean(median)) %>%
+> >   ungroup() %>%
 > >   select(-median) %>%
 > >   distinct() %>%
 > >   rename(country = location_name) %>%
