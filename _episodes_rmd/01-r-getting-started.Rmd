@@ -61,6 +61,15 @@ Instead, we'll use a more general programming language to test our hypothesis. T
 {: .solution}
 
 To run R, all you really need is the R program, which is available for computers running the Windows, Mac OS X, or Linux operating systems. You installed R while getting [set up]({{ page.root }}/setup.html) for this workshop.
+<<<<<<< HEAD
+
+To make your life in R easier, there is a great (and free!) program called RStudio that you also installed and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
+
+> ## The tidyverse vs Base R
+> If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
+{: .callout}
+=======
+>>>>>>> 3c3a1cd3db85f4db662138e919efdbd6a579ff50
 
 To make your life in R easier, there is a great (and free!) program called RStudio that you also installed and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
 
