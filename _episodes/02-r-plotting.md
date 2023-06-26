@@ -87,7 +87,7 @@ library(tidyverse)
 
 
 ~~~
-── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 ~~~
 {: .output}
 
@@ -104,7 +104,7 @@ library(tidyverse)
 
 
 ~~~
-── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ~~~
@@ -159,7 +159,7 @@ smoking_1990 <- read_csv("data/smoking_cancer_1990.csv")
 
 ~~~
 Rows: 191 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
 dbl (4): year, pop, smoke_pct, lung_cancer_pct
