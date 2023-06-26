@@ -126,13 +126,6 @@ smoking_pollution %>%
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 2 rows containing missing values (geom_point).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-04-Plotpollutionvpop-1.png" title="plot of chunk Plotpollutionvpop" alt="plot of chunk Plotpollutionvpop" width="612" style="display: block; margin: auto;" />
 
 We observe a positive association between ambient pollution levels and population.
@@ -158,20 +151,6 @@ smoking_pollution %>%
 ~~~
 {: .output}
 
-
-
-~~~
-Warning: Removed 2 rows containing non-finite values (stat_smooth).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 2 rows containing missing values (geom_point).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" title="plot of chunk PlotPolluionVPopSmooth" alt="plot of chunk PlotPolluionVPopSmooth" width="612" style="display: block; margin: auto;" />
 
 To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
@@ -191,13 +170,6 @@ To answer our first question, we observe a positive association between populati
 > >   theme_bw()
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 2 rows containing non-finite values (stat_boxplot).
-> > ~~~
-> > {: .warning}
 > > 
 > > <img src="../fig/rmd-04-pollutionPerCapita-1.png" title="plot of chunk pollutionPerCapita" alt="plot of chunk pollutionPerCapita" width="612" style="display: block; margin: auto;" />
 > > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
@@ -220,13 +192,6 @@ To answer our first question, we observe a positive association between populati
 > >   theme_bw()
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 2 rows containing missing values (geom_point).
-> > ~~~
-> > {: .warning}
 > > 
 > > <img src="../fig/rmd-04-pollutionvcancer-1.png" title="plot of chunk pollutionvcancer" alt="plot of chunk pollutionvcancer" width="612" style="display: block; margin: auto;" />
 > > There does not appear to be a direct relationship between pollution and lung cancer rates. 
@@ -335,13 +300,17 @@ smoking_pollution %>%
 > > 
 > > 
 > > ~~~
-> > Error in `summarise()`:
-> > ! Problem while computing `iqr_pollution = IQR(pollution)`.
-> > ℹ The error occurred in group 2: continent = "Asia".
-> > Caused by error in `quantile.default()`:
-> > ! missing values and NaN's not allowed if 'na.rm' is FALSE
+> > # A tibble: 6 × 5
+> >   continent     med_pollution min_pollution max_pollution iqr_pollution
+> >   <chr>                 <dbl>         <dbl>         <dbl>         <dbl>
+> > 1 Africa                35.7          14.2           70.6         24.1 
+> > 2 Asia                  29.4           7.63          78.2         22.4 
+> > 3 Europe                19.6           6.81          43.7          9.69
+> > 4 North America         18.5           8.14          38.1          4.64
+> > 5 Oceania                8.05          4.69          14.3          2.45
+> > 6 South America         20.2           9.97          45.3         12.2 
 > > ~~~
-> > {: .error}
+> > {: .output}
 > >
 > > Part 2: Make a box plot of `pollution` on the y axis and continent on the x axis. Compare your plot to your table. What do you notice?
 > >
@@ -352,13 +321,6 @@ smoking_pollution %>%
 > >     geom_boxplot()
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 2 rows containing non-finite values (stat_boxplot).
-> > ~~~
-> > {: .warning}
 > > 
 > > <img src="../fig/rmd-04-pollution_boxplot-1.png" title="plot of chunk pollution_boxplot" alt="plot of chunk pollution_boxplot" width="612" style="display: block; margin: auto;" />
 > > 

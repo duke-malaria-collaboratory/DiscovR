@@ -195,7 +195,7 @@ Sometimes it can be helpful to explore your data summaries in the View tab. Try 
 > >   filter(year_id == 1990) %>%
 > >   View()
 > > ```
-> > 
+> > Once you're done, close out of that window and go back to the window with your code in it. 
 > {: .solution}
 {: .challenge}
 
@@ -496,7 +496,7 @@ Let's use `case_when()` to change "Viet Nam" to "Vietnam".
 ```{r pollutionRecode}
 pollution_1990_clean %>%
   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
-                             .default = country))
+                             TRUE ~ country))
 ```
 
 > ## Practicing `case_when()`
@@ -507,7 +507,7 @@ pollution_1990_clean %>%
 > > pollution_1990_clean %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country))
+> >                              TRUE ~ country))
 > > ```
 > {: .solution}
 {: .challenge}
@@ -521,7 +521,7 @@ pollution_1990_clean %>%
 > > pollution_1990_clean %>%
 > >   mutate(country_new = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country)) %>% 
+> >                              TRUE ~ country)) %>% 
 > >   filter(country != country_new)
 > > ```
 > {: .solution}
@@ -533,7 +533,7 @@ Once we're sure that our code is working correctly, let's save this to `pollutio
 pollution_1990_clean <- pollution_1990_clean %>%
   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
                              country == "Slovakia" ~ "Slovak Republic",
-                             .default = country))
+                             TRUE ~ country))
 ```
 
 **IMPORTANT**: Here, we overwrote our `pollution_2019_clean` dataframe. In other words, we replaced the existing data object with a new one. This is generally NOT recommended practice, but is often needed when first performing exploratory data analysis as we are here. After you finish exploratory analysis, it's always a good idea to go back and clean up your code to avoid overwriting objects.
@@ -548,7 +548,7 @@ pollution_1990_clean <- pollution_1990_clean %>%
 > >   rename(country = location_name) %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country))
+> >                              TRUE ~ country))
 > > ```
 > > Challenge solution:
 > > ```{r}
@@ -562,7 +562,7 @@ pollution_1990_clean <- pollution_1990_clean %>%
 > >   rename(country = location_name) %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country))
+> >                              TRUE ~ country))
 > > ```
 > {: .solution}
 {: .challenge}

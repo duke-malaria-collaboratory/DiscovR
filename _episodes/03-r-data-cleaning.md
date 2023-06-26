@@ -392,7 +392,7 @@ Sometimes it can be helpful to explore your data summaries in the View tab. Try 
 > >   View()
 > > ~~~
 > > {: .language-r}
-> > 
+> > Once you're done, close out of that window and go back to the window with your code in it. 
 > {: .solution}
 {: .challenge}
 
@@ -1054,21 +1054,29 @@ Let's use `case_when()` to change "Viet Nam" to "Vietnam".
 ~~~
 pollution_1990_clean %>%
   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
-                             .default = country))
+                             TRUE ~ country))
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in `mutate()`:
-! Problem while computing `country = case_when(country == "Viet Nam" ~
-  "Vietnam", .default = country)`.
-Caused by error in `case_when()`:
-! Case 2 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
-  formula, not a character vector.
+# A tibble: 685 × 2
+   country                                pollution
+   <chr>                                      <dbl>
+ 1 Global                                      40.0
+ 2 Southeast Asia, East Asia, and Oceania      41.3
+ 3 East Asia                                   45.8
+ 4 China                                       46.4
+ 5 Democratic People's Republic of Korea       39.3
+ 6 Taiwan                                      21.7
+ 7 Southeast Asia                              28.3
+ 8 Cambodia                                    26.5
+ 9 Indonesia                                   25.5
+10 Lao People's Democratic Republic            25.1
+# … with 675 more rows
 ~~~
-{: .error}
+{: .output}
 
 > ## Practicing `case_when()`
 > Starting with the code we wrote above, add to it to change "Slovakia" to "Slovak Republic" 
@@ -1079,20 +1087,29 @@ Caused by error in `case_when()`:
 > > pollution_1990_clean %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country))
+> >                              TRUE ~ country))
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error in `mutate()`:
-> > ! Problem while computing `country = case_when(...)`.
-> > Caused by error in `case_when()`:
-> > ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
-> >   formula, not a character vector.
+> > # A tibble: 685 × 2
+> >    country                                pollution
+> >    <chr>                                      <dbl>
+> >  1 Global                                      40.0
+> >  2 Southeast Asia, East Asia, and Oceania      41.3
+> >  3 East Asia                                   45.8
+> >  4 China                                       46.4
+> >  5 Democratic People's Republic of Korea       39.3
+> >  6 Taiwan                                      21.7
+> >  7 Southeast Asia                              28.3
+> >  8 Cambodia                                    26.5
+> >  9 Indonesia                                   25.5
+> > 10 Lao People's Democratic Republic            25.1
+> > # … with 675 more rows
 > > ~~~
-> > {: .error}
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -1106,7 +1123,7 @@ Caused by error in `case_when()`:
 > > pollution_1990_clean %>%
 > >   mutate(country_new = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country)) %>% 
+> >                              TRUE ~ country)) %>% 
 > >   filter(country != country_new)
 > > ~~~
 > > {: .language-r}
@@ -1114,13 +1131,13 @@ Caused by error in `case_when()`:
 > > 
 > > 
 > > ~~~
-> > Error in `mutate()`:
-> > ! Problem while computing `country_new = case_when(...)`.
-> > Caused by error in `case_when()`:
-> > ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
-> >   formula, not a character vector.
+> > # A tibble: 2 × 3
+> >   country  pollution country_new    
+> >   <chr>        <dbl> <chr>          
+> > 1 Viet Nam      25.6 Vietnam        
+> > 2 Slovakia      26.1 Slovak Republic
 > > ~~~
-> > {: .error}
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -1131,20 +1148,9 @@ Once we're sure that our code is working correctly, let's save this to `pollutio
 pollution_1990_clean <- pollution_1990_clean %>%
   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
                              country == "Slovakia" ~ "Slovak Republic",
-                             .default = country))
+                             TRUE ~ country))
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in `mutate()`:
-! Problem while computing `country = case_when(...)`.
-Caused by error in `case_when()`:
-! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
-  formula, not a character vector.
-~~~
-{: .error}
 
 **IMPORTANT**: Here, we overwrote our `pollution_2019_clean` dataframe. In other words, we replaced the existing data object with a new one. This is generally NOT recommended practice, but is often needed when first performing exploratory data analysis as we are here. After you finish exploratory analysis, it's always a good idea to go back and clean up your code to avoid overwriting objects.
 
@@ -1158,20 +1164,9 @@ Caused by error in `case_when()`:
 > >   rename(country = location_name) %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country))
+> >                              TRUE ~ country))
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in `mutate()`:
-> > ! Problem while computing `country = case_when(...)`.
-> > Caused by error in `case_when()`:
-> > ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
-> >   formula, not a character vector.
-> > ~~~
-> > {: .error}
 > > Challenge solution:
 > > 
 > > ~~~
@@ -1185,7 +1180,7 @@ Caused by error in `case_when()`:
 > >   rename(country = location_name) %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
 > >                              country == "Slovakia" ~ "Slovak Republic",
-> >                              .default = country))
+> >                              TRUE ~ country))
 > > ~~~
 > > {: .language-r}
 > > 
@@ -1202,18 +1197,6 @@ Caused by error in `case_when()`:
 > > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 > > ~~~
 > > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in `mutate()`:
-> > ! Problem while computing `country = case_when(...)`.
-> > ℹ The error occurred in group 1: country = "Aceh".
-> > Caused by error in `case_when()`:
-> > ! Case 3 (`country == "Viet Nam" ~ "Vietnam"`) must be a two-sided
-> >   formula, not a character vector.
-> > ~~~
-> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -1230,11 +1213,9 @@ left_join(smoking_1990, pollution_1990_clean, by="country") %>%
 
 
 ~~~
-# A tibble: 2 × 7
-   year country         continent      pop smoke_pct lung_cancer_pct pollution
-  <dbl> <chr>           <chr>        <dbl>     <dbl>           <dbl>     <dbl>
-1  1990 Slovak Republic Europe     5299187      33.7          0.0699        NA
-2  1990 Vietnam         Asia      67988855      29.4          0.0216        NA
+# A tibble: 0 × 7
+# … with 7 variables: year <dbl>, country <chr>, continent <chr>, pop <dbl>,
+#   smoke_pct <dbl>, lung_cancer_pct <dbl>, pollution <dbl>
 ~~~
 {: .output}
 Now you can see that we have an empty dataframe! That's great news; it means that we do not have any rows with missing pollution data.
