@@ -93,26 +93,16 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > 
 > 
 > ~~~
-> ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-> ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-> ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-> ✔ readr   2.1.2     ✔ forcats 1.0.0
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
+> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+> ✔ dplyr     1.1.2     ✔ readr     2.1.4
+> ✔ forcats   1.0.0     ✔ stringr   1.5.0
+> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+> ✔ purrr     1.0.1     
 > ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 > ✖ dplyr::filter() masks stats::filter()
 > ✖ dplyr::lag()    masks stats::lag()
+> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 > ~~~
 > {: .output}
 > 
@@ -127,12 +117,6 @@ What error do you get and why? Fix the code so you don't get an error and read i
 > 
 > ~~~
 > Rows: 9660 Columns: 3
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
 > ── Column specification ────────────────────────────────────────────────────────
 > Delimiter: ","
 > chr (1): location_name
@@ -172,7 +156,7 @@ ambient_pollution_dirty
  8 Global           2013   47.1
  9 Global           2014   47.3
 10 Global           2015   46.1
-# … with 9,650 more rows
+# ℹ 9,650 more rows
 ~~~
 {: .output}
 
@@ -203,7 +187,10 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > ~~~
 > {: .output}
 > 
-> <img src="../fig/rmd-03-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-03-unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-3</p>
+> </div>
 > Bonus 1: 
 > 
 > ~~~
@@ -220,7 +207,10 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > ~~~
 > {: .output}
 > 
-> <img src="../fig/rmd-03-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-03-unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-4</p>
+> </div>
 > Bonus 2 example:
 > 
 > ~~~
@@ -239,7 +229,10 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 > ~~~
 > {: .output}
 > 
-> <img src="../fig/rmd-03-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-03-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-5</p>
+> </div>
 {: .solution}
 
 
@@ -308,7 +301,7 @@ filter(ambient_pollution_dirty, year_id == 1990)
  8 Cambodia                                  1990   26.5
  9 Indonesia                                 1990   25.5
 10 Lao People's Democratic Republic          1990   25.1
-# … with 680 more rows
+# ℹ 680 more rows
 ~~~
 {: .output}
 
@@ -338,7 +331,7 @@ ambient_pollution_dirty %>% filter(year_id == 1990)
  8 Cambodia                                  1990   26.5
  9 Indonesia                                 1990   25.5
 10 Lao People's Democratic Republic          1990   25.1
-# … with 680 more rows
+# ℹ 680 more rows
 ~~~
 {: .output}
  
@@ -371,7 +364,7 @@ ambient_pollution_dirty %>%
  8 Cambodia                                  1990   26.5
  9 Indonesia                                 1990   25.5
 10 Lao People's Democratic Republic          1990   25.1
-# … with 680 more rows
+# ℹ 680 more rows
 ~~~
 {: .output}
 
@@ -425,7 +418,7 @@ Sometimes it can be helpful to explore your data summaries in the View tab. Try 
 > >  8 Cameroon         1990   65.0
 > >  9 Mauritania       1990   64.8
 > > 10 Nepal            1990   64.0
-> > # … with 680 more rows
+> > # ℹ 680 more rows
 > > ~~~
 > > {: .output}
 > > The `arrange()` function is very helpful for sorting data objects based on one or more columns. Notice we also included the function `desc()`, which tells `arrange()` to sort in descending order (largest to smallest).
@@ -463,7 +456,7 @@ ambient_pollution_dirty %>%
  8    2013   47.1
  9    2014   47.3
 10    2015   46.1
-# … with 9,650 more rows
+# ℹ 9,650 more rows
 ~~~
 {: .output}
 
@@ -492,7 +485,7 @@ ambient_pollution_dirty %>%
  8 Global          47.1
  9 Global          47.3
 10 Global          46.1
-# … with 9,650 more rows
+# ℹ 9,650 more rows
 ~~~
 {: .output}
 
@@ -525,7 +518,7 @@ ambient_pollution_dirty %>%
 > >  8 Global           2013
 > >  9 Global           2014
 > > 10 Global           2015
-> > # … with 9,650 more rows
+> > # ℹ 9,650 more rows
 > > ~~~
 > > {: .output}
 > > 
@@ -551,7 +544,7 @@ ambient_pollution_dirty %>%
 > >  8 Global           2013
 > >  9 Global           2014
 > > 10 Global           2015
-> > # … with 9,650 more rows
+> > # ℹ 9,650 more rows
 > > ~~~
 > > {: .output}
 > {: .solution}
@@ -585,7 +578,7 @@ ambient_pollution_dirty %>%
 >  8    2013   47.1
 >  9    2014   47.3
 > 10    2015   46.1
-> # … with 9,650 more rows
+> # ℹ 9,650 more rows
 > ~~~
 > {: .output}
 > This returns just the two columns we are interested in. Note that we had to use quotation marks for "m" because the `starts_with()` function requires a character vector in the match argument.
@@ -621,7 +614,7 @@ ambient_pollution_dirty %>%
 > > >  8 Cambodia                                 26.5
 > > >  9 Indonesia                                25.5
 > > > 10 Lao People's Democratic Republic         25.1
-> > > # … with 680 more rows
+> > > # ℹ 680 more rows
 > > > ~~~
 > > > {: .output}
 > > {: .solution}
@@ -754,7 +747,7 @@ pollution_1990_dirty %>%
  8 Afghanistan                      1
  9 Africa                           1
 10 African Region                   1
-# … with 675 more rows
+# ℹ 675 more rows
 ~~~
 {: .output}
 
@@ -841,7 +834,7 @@ Note: here, we took the mean to take care of duplicates and multiple entries, bu
 > >  8 Aichi              1
 > >  9 Akershus           1
 > > 10 Akita              1
-> > # … with 675 more rows
+> > # ℹ 675 more rows
 > > ~~~
 > > {: .output}
 > > Hmm that's not like the counts we've gotten before. 
@@ -950,7 +943,7 @@ left_join(smoking_1990, pollution_1990_clean)
 
 
 ~~~
-Joining, by = "country"
+Joining with `by = join_by(country)`
 ~~~
 {: .output}
 
@@ -970,7 +963,7 @@ Joining, by = "country"
  8  1990 Armenia            Europe    3.54e6     30.5           0.0441     30.0 
  9  1990 Australia          Oceania   1.71e7     29.3           0.0599      7.13
 10  1990 Austria            Europe    7.68e6     35.4           0.0439     20.3 
-# … with 181 more rows
+# ℹ 181 more rows
 ~~~
 {: .output}
 
@@ -998,7 +991,7 @@ left_join(smoking_1990, pollution_1990_clean, by="country")
  8  1990 Armenia            Europe    3.54e6     30.5           0.0441     30.0 
  9  1990 Australia          Oceania   1.71e7     29.3           0.0599      7.13
 10  1990 Austria            Europe    7.68e6     35.4           0.0439     20.3 
-# … with 181 more rows
+# ℹ 181 more rows
 ~~~
 {: .output}
 
@@ -1074,7 +1067,7 @@ pollution_1990_clean %>%
  8 Cambodia                                    26.5
  9 Indonesia                                   25.5
 10 Lao People's Democratic Republic            25.1
-# … with 675 more rows
+# ℹ 675 more rows
 ~~~
 {: .output}
 
@@ -1107,7 +1100,7 @@ pollution_1990_clean %>%
 > >  8 Cambodia                                    26.5
 > >  9 Indonesia                                   25.5
 > > 10 Lao People's Democratic Republic            25.1
-> > # … with 675 more rows
+> > # ℹ 675 more rows
 > > ~~~
 > > {: .output}
 > {: .solution}
@@ -1215,7 +1208,7 @@ left_join(smoking_1990, pollution_1990_clean, by="country") %>%
 
 ~~~
 # A tibble: 0 × 7
-# … with 7 variables: year <dbl>, country <chr>, continent <chr>, pop <dbl>,
+# ℹ 7 variables: year <dbl>, country <chr>, continent <chr>, pop <dbl>,
 #   smoke_pct <dbl>, lung_cancer_pct <dbl>, pollution <dbl>
 ~~~
 {: .output}

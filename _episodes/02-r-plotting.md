@@ -106,26 +106,16 @@ library(tidyverse)
 
 
 ~~~
-── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
-~~~
-{: .output}
-
-
-
-~~~
-✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-✔ tibble  3.1.7     ✔ dplyr   1.0.9
-✔ tidyr   1.2.0     ✔ stringr 1.4.0
-✔ readr   2.1.2     ✔ forcats 1.0.0
-~~~
-{: .output}
-
-
-
-~~~
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 ~~~
 {: .output}
 
@@ -231,7 +221,7 @@ smoking_1990
  8  1990 Armenia             Europe         3538164     30.5           0.0441
  9  1990 Australia           Oceania       17065100     29.3           0.0599
 10  1990 Austria             Europe         7677850     35.4           0.0439
-# … with 181 more rows
+# ℹ 181 more rows
 ~~~
 {: .output}
 
@@ -291,7 +281,10 @@ ggplot(data=smoking_1990)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-ggplotDataOnly-1.png" title="plot of chunk ggplotDataOnly" alt="plot of chunk ggplotDataOnly" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-ggplotDataOnly-1.png" alt="plot of chunk ggplotDataOnly" width="612" />
+<p class="caption">plot of chunk ggplotDataOnly</p>
+</div>
 
 To run code that you've typed in the editor, you have a few options. Remember
 that the quickest way to run the code is by pressing
@@ -335,8 +328,11 @@ ggplot(data = smoking_1990) +
 
 
 ~~~
-Error in `check_required_aesthetics()`:
-! geom_point requires the following missing aesthetics: x and y
+Error in `geom_point()`:
+! Problem while setting up geom.
+ℹ Error occurred in the 1st layer.
+Caused by error in `compute_geom_1()`:
+! `geom_point()` requires the following missing aesthetics: x and y
 ~~~
 {: .error}
 
@@ -392,7 +388,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-ggplotXY-1.png" title="plot of chunk ggplotXY" alt="plot of chunk ggplotXY" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-ggplotXY-1.png" alt="plot of chunk ggplotXY" width="612" />
+<p class="caption">plot of chunk ggplotXY</p>
+</div>
 
 Sweet, now it looks like a proper plot!  
 We can now see a trend in the data. It looks like countries with greater smoking rates tend to have higher lung cancer rates, though it's important to remember that we can't infer causality from this plot alone.
@@ -408,7 +407,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-FirstPlotAddXLabel-1.png" title="plot of chunk FirstPlotAddXLabel" alt="plot of chunk FirstPlotAddXLabel" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FirstPlotAddXLabel-1.png" alt="plot of chunk FirstPlotAddXLabel" width="612" />
+<p class="caption">plot of chunk FirstPlotAddXLabel</p>
+</div>
 
 OK. That looks better. 
 
@@ -438,7 +440,10 @@ OK. That looks better.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-FirstPlotAddY-1.png" title="plot of chunk FirstPlotAddY" alt="plot of chunk FirstPlotAddY" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-FirstPlotAddY-1.png" alt="plot of chunk FirstPlotAddY" width="612" />
+> > <p class="caption">plot of chunk FirstPlotAddY</p>
+> > </div>
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -456,7 +461,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-FirstPlotAddTitle-1.png" title="plot of chunk FirstPlotAddTitle" alt="plot of chunk FirstPlotAddTitle" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FirstPlotAddTitle-1.png" alt="plot of chunk FirstPlotAddTitle" width="612" />
+<p class="caption">plot of chunk FirstPlotAddTitle</p>
+</div>
 
 No one can deny we've made a very handsome plot! 
 We can immediately see that there is a positive association between lung cancer rates and smoking rates.
@@ -489,7 +497,10 @@ continent of each point to a color, we will again use the `aes()` function.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-FirstPlotColorCont-1.png" title="plot of chunk FirstPlotColorCont" alt="plot of chunk FirstPlotColorCont" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-FirstPlotColorCont-1.png" alt="plot of chunk FirstPlotColorCont" width="612" />
+> > <p class="caption">plot of chunk FirstPlotColorCont</p>
+> > </div>
 > > {: .source}
 > > Here we can see that in 1990 the African countries tended to have much lower smoking and lung cancer rates than many other continents. 
 > {: .solution}
@@ -516,7 +527,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-FirstPlotAddColorScale-1.png" title="plot of chunk FirstPlotAddColorScale" alt="plot of chunk FirstPlotAddColorScale" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FirstPlotAddColorScale-1.png" alt="plot of chunk FirstPlotAddColorScale" width="612" />
+<p class="caption">plot of chunk FirstPlotAddColorScale</p>
+</div>
 
 The `scale_color_brewer()` function is just one of many you can use to change
 colors. There are bunch of "palettes" that are build in. You can view them all
@@ -557,7 +571,10 @@ website](https://colorbrewer2.org/) for more info about choosing plot colors.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-Color-1.png" title="plot of chunk Color" alt="plot of chunk Color" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-Color-1.png" alt="plot of chunk Color" width="612" />
+> > <p class="caption">plot of chunk Color</p>
+> > </div>
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -583,7 +600,10 @@ out by mapping the population of each country to the size of our points.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-Pop-1.png" title="plot of chunk Pop" alt="plot of chunk Pop" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-Pop-1.png" alt="plot of chunk Pop" width="612" />
+> > <p class="caption">plot of chunk Pop</p>
+> > </div>
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -602,7 +622,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-FirstPlotAddPop-1.png" title="plot of chunk FirstPlotAddPop" alt="plot of chunk FirstPlotAddPop" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FirstPlotAddPop-1.png" alt="plot of chunk FirstPlotAddPop" width="612" />
+<p class="caption">plot of chunk FirstPlotAddPop</p>
+</div>
 
 This works because you can treat the columns in the aesthetic mappings just like
 any other variables and can use functions to transform or change them at plot
@@ -629,7 +652,10 @@ the plot in its own window.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-Shape-1.png" title="plot of chunk Shape" alt="plot of chunk Shape" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-Shape-1.png" alt="plot of chunk Shape" width="612" />
+> > <p class="caption">plot of chunk Shape</p>
+> > </div>
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -813,7 +839,10 @@ We will go over some of these in the next section.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-ownScatter-1.png" title="plot of chunk ownScatter" alt="plot of chunk ownScatter" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-ownScatter-1.png" alt="plot of chunk ownScatter" width="612" />
+> > <p class="caption">plot of chunk ownScatter</p>
+> > </div>
 > > (China and India are the two countries with large populations.)
 > {: .solution}
 {: .challenge}
@@ -846,7 +875,10 @@ We've previously used the discrete values of the `continent` column to color in 
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-smokingBox-1.png" title="plot of chunk smokingBox" alt="plot of chunk smokingBox" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-smokingBox-1.png" alt="plot of chunk smokingBox" width="612" />
+> > <p class="caption">plot of chunk smokingBox</p>
+> > </div>
 > > This type of visualization makes it easy to compare the range and spread of values across groups. The "middle" 50% of the data is located inside the box and outliers that are far away from the central mass of the data are drawn as points. The bar in the middle of the box is the median. Here, we can see that the median bar for Europe is highest, indicating that countries in Europe tend to have higher rates of lung cancer than countries on other continents. Countries in Africa tend to have lower lung cancer rates than countries on other continents.  
 > {: .solution}
 {: .challenge}
@@ -863,7 +895,10 @@ We've previously used the discrete values of the `continent` column to color in 
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-smokeViol-1.png" title="plot of chunk smokeViol" alt="plot of chunk smokeViol" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-smokeViol-1.png" alt="plot of chunk smokeViol" width="612" />
+> > <p class="caption">plot of chunk smokeViol</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -879,7 +914,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-color_bp-1.png" title="plot of chunk color_bp" alt="plot of chunk color_bp" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-color_bp-1.png" alt="plot of chunk color_bp" width="612" />
+<p class="caption">plot of chunk color_bp</p>
+</div>
 
 Well, that didn't get all that colorful. That's because objects like these boxplots have two different parts that have a color: the shape outline, and the inner part of the shape. For geoms that have an inner part, you change the fill color with `fill=` rather than `color=`, so let's try that instead:
 
@@ -890,7 +928,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-fill-1.png" title="plot of chunk fill" alt="plot of chunk fill" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-fill-1.png" alt="plot of chunk fill" width="612" />
+<p class="caption">plot of chunk fill</p>
+</div>
 
 That got more colorful. Neither one of these (color vs. fill) is better than the other here, it's more up to your personal preference.
 
@@ -916,7 +957,11 @@ ggplot(data = smoking_1990) +
 
 
 ~~~
-Error in FUN(X[[i]], ...): object 'lightblue' not found
+Error in `geom_boxplot()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error in `FUN()`:
+! object 'lightblue' not found
 ~~~
 {: .error}
 
@@ -930,7 +975,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-FillWrong-1.png" title="plot of chunk FillWrong" alt="plot of chunk FillWrong" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FillWrong-1.png" alt="plot of chunk FillWrong" width="612" />
+<p class="caption">plot of chunk FillWrong</p>
+</div>
 
 Hmm that's still not quite what we want. In this example, we placed the fill inside the `aes()` function, which maps aesthetics to data. In this case, we only have one value: the word "lightblue". Instead, let's do this by explicitly setting the color aesthetic outside the `aes()` function. Because we are assigning a color directly and not using any values from our data to do so, we do not need to use the `aes()` mapping function. Let's try it out:
 
@@ -941,7 +989,10 @@ ggplot(data = smoking_1990) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-smokeBoxFill-1.png" title="plot of chunk smokeBoxFill" alt="plot of chunk smokeBoxFill" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-smokeBoxFill-1.png" alt="plot of chunk smokeBoxFill" width="612" />
+<p class="caption">plot of chunk smokeBoxFill</p>
+</div>
 
 That's better! R knows many color names. You can see the full list if you run `colors()` in the console. Since there are so many, you can randomly choose 10 if you run `sample(colors(), size = 10)`.
 
@@ -960,7 +1011,10 @@ That's better! R knows many color names. You can see the full list if you run `c
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-BoxplotAlpha-1.png" title="plot of chunk BoxplotAlpha" alt="plot of chunk BoxplotAlpha" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-BoxplotAlpha-1.png" alt="plot of chunk BoxplotAlpha" width="612" />
+> > <p class="caption">plot of chunk BoxplotAlpha</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -981,8 +1035,11 @@ ggplot(data = smoking_1990) +
 
 
 ~~~
-Error in `check_required_aesthetics()`:
-! geom_point requires the following missing aesthetics: x and y
+Error in `geom_point()`:
+! Problem while setting up geom.
+ℹ Error occurred in the 2nd layer.
+Caused by error in `compute_geom_1()`:
+! `geom_point()` requires the following missing aesthetics: x and y
 ~~~
 {: .error}
 
@@ -1000,7 +1057,10 @@ Uh-oh. What did we forget to do?
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-BoxplotPoints-1.png" title="plot of chunk BoxplotPoints" alt="plot of chunk BoxplotPoints" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-BoxplotPoints-1.png" alt="plot of chunk BoxplotPoints" width="612" />
+> > <p class="caption">plot of chunk BoxplotPoints</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -1019,7 +1079,10 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-BoxplotPointsAlpha-1.png" title="plot of chunk BoxplotPointsAlpha" alt="plot of chunk BoxplotPointsAlpha" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-BoxplotPointsAlpha-1.png" alt="plot of chunk BoxplotPointsAlpha" width="612" />
+> > <p class="caption">plot of chunk BoxplotPointsAlpha</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -1039,7 +1102,10 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-02-BoxjitterAlpha-1.png" title="plot of chunk BoxjitterAlpha" alt="plot of chunk BoxjitterAlpha" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-02-BoxjitterAlpha-1.png" alt="plot of chunk BoxjitterAlpha" width="612" />
+> <p class="caption">plot of chunk BoxjitterAlpha</p>
+> </div>
 > That looks better!
 {: .callout}
 
@@ -1055,7 +1121,10 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-BoxColorContinent-1.png" title="plot of chunk BoxColorContinent" alt="plot of chunk BoxColorContinent" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-BoxColorContinent-1.png" alt="plot of chunk BoxColorContinent" width="612" />
+> > <p class="caption">plot of chunk BoxColorContinent</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -1072,7 +1141,10 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-BoxJitterBehind-1.png" title="plot of chunk BoxJitterBehind" alt="plot of chunk BoxJitterBehind" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-BoxJitterBehind-1.png" alt="plot of chunk BoxJitterBehind" width="612" />
+> > <p class="caption">plot of chunk BoxJitterBehind</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -1087,7 +1159,10 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-02-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-02-unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-4</p>
+> </div>
 > Here, both `geom_boxplot()` and `geom_point()` will inherit the default values of `aes(continent, lung_cancer_pct)` in the base plot, but only `geom_point()` will also use `aes(color = continent)`.
 {: .testimonial}
 
@@ -1105,7 +1180,10 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-ownViolin-1.png" title="plot of chunk ownViolin" alt="plot of chunk ownViolin" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-ownViolin-1.png" alt="plot of chunk ownViolin" width="612" />
+> > <p class="caption">plot of chunk ownViolin</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -1133,7 +1211,10 @@ ggplot(smoking_1990, aes(x = lung_cancer_pct)) +
 ~~~
 {: .output}
 
-<img src="../fig/rmd-02-Hist-1.png" title="plot of chunk Hist" alt="plot of chunk Hist" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-Hist-1.png" alt="plot of chunk Hist" width="612" />
+<p class="caption">plot of chunk Hist</p>
+</div>
 
 This plot shows us that many of the lung cancer rates in our dataset are really low (less than 0.025%), but there are some outliers with higher rates. Another word for data with this shape is right-skewed, because it has a long tail on the right side of the histogram.
 
@@ -1146,7 +1227,10 @@ ggplot(smoking_1990, aes(x = lung_cancer_pct)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-HistBins-1.png" title="plot of chunk HistBins" alt="plot of chunk HistBins" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-HistBins-1.png" alt="plot of chunk HistBins" width="612" />
+<p class="caption">plot of chunk HistBins</p>
+</div>
 
 Try different values like 5 or 50 to see how the plot changes.
 
@@ -1161,7 +1245,10 @@ Try different values like 5 or 50 to see how the plot changes.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-Dens1-1.png" title="plot of chunk Dens1" alt="plot of chunk Dens1" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-Dens1-1.png" alt="plot of chunk Dens1" width="612" />
+> > <p class="caption">plot of chunk Dens1</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 
@@ -1181,7 +1268,10 @@ What if we want to plot a univariate discrete variable, like continent? For this
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-barplot-1.png" title="plot of chunk barplot" alt="plot of chunk barplot" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-barplot-1.png" alt="plot of chunk barplot" width="612" />
+> > <p class="caption">plot of chunk barplot</p>
+> > </div>
 > > Africa has the most countries and Oceania has the fewest. We can tell this because Africa has the highest bar and Oceania has the lowest. 
 > {: .solution}
 {: .challenge}
@@ -1199,7 +1289,10 @@ ggplot(smoking_1990, aes(x = lung_cancer_pct)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-NoFacet-1.png" title="plot of chunk NoFacet" alt="plot of chunk NoFacet" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-NoFacet-1.png" alt="plot of chunk NoFacet" width="612" />
+<p class="caption">plot of chunk NoFacet</p>
+</div>
 
 Now, let's draw a separate box for each continent. We can do this with `facet_wrap()`
 
@@ -1211,7 +1304,10 @@ ggplot(smoking_1990, aes(x = lung_cancer_pct)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-FacetWrap-1.png" title="plot of chunk FacetWrap" alt="plot of chunk FacetWrap" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FacetWrap-1.png" alt="plot of chunk FacetWrap" width="612" />
+<p class="caption">plot of chunk FacetWrap</p>
+</div>
 Now, it's easier to see the patterns within and between continents.
 
 Note that `facet_wrap` requires an extra helper function called `vars()` in order to pass in the column names. It's a lot like the `aes()` function, but it doesn't require an aesthetic name. We can see in this output that we get a separate box with a label for each continent so that only the values for that continent are in that box.
@@ -1226,7 +1322,10 @@ ggplot(smoking_1990, aes(x = lung_cancer_pct)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-FacetGrid-1.png" title="plot of chunk FacetGrid" alt="plot of chunk FacetGrid" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FacetGrid-1.png" alt="plot of chunk FacetGrid" width="612" />
+<p class="caption">plot of chunk FacetGrid</p>
+</div>
 
 Unlike the `facet_wrap` output where each box got its own x and y axis, with `facet_grid()`, there is only one y axis along the left.
 
@@ -1241,7 +1340,10 @@ Unlike the `facet_wrap` output where each box got its own x and y axis, with `fa
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-facetPoint-1.png" title="plot of chunk facetPoint" alt="plot of chunk facetPoint" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-facetPoint-1.png" alt="plot of chunk facetPoint" width="612" />
+> > <p class="caption">plot of chunk facetPoint</p>
+> > </div>
 > > There don't seem to be many differences between continents.
 > {: .solution}
 {: .challenge}
@@ -1275,7 +1377,10 @@ ggplot(smoking_1990, aes(x = lung_cancer_pct)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-HistBinsClassicTheme-1.png" title="plot of chunk HistBinsClassicTheme" alt="plot of chunk HistBinsClassicTheme" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-HistBinsClassicTheme-1.png" alt="plot of chunk HistBinsClassicTheme" width="612" />
+<p class="caption">plot of chunk HistBinsClassicTheme</p>
+</div>
 
 Try out a few other themes, to see which you like: `theme_classic()`, `theme_linedraw()`, `theme_minimal()`.
 
@@ -1293,7 +1398,10 @@ Try out a few other themes, to see which you like: `theme_classic()`, `theme_lin
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-02-HistLabels-1.png" title="plot of chunk HistLabels" alt="plot of chunk HistLabels" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-02-HistLabels-1.png" alt="plot of chunk HistLabels" width="612" />
+> > <p class="caption">plot of chunk HistLabels</p>
+> > </div>
 > {: .solution}
 {: .challenge}
 

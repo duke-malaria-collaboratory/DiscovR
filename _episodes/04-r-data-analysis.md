@@ -50,26 +50,16 @@ library(tidyverse)
 
 
 ~~~
-── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
-~~~
-{: .output}
-
-
-
-~~~
-✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-✔ tibble  3.1.7     ✔ dplyr   1.0.9
-✔ tidyr   1.2.0     ✔ stringr 1.4.0
-✔ readr   2.1.2     ✔ forcats 1.0.0
-~~~
-{: .output}
-
-
-
-~~~
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 ~~~
 {: .output}
 
@@ -84,12 +74,6 @@ smoking_pollution <- read_csv("data/smoking_pollution.csv")
 
 ~~~
 Rows: 191 Columns: 7
-~~~
-{: .output}
-
-
-
-~~~
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (2): country, continent
@@ -126,7 +110,10 @@ smoking_pollution %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-04-Plotpollutionvpop-1.png" title="plot of chunk Plotpollutionvpop" alt="plot of chunk Plotpollutionvpop" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-04-Plotpollutionvpop-1.png" alt="plot of chunk Plotpollutionvpop" width="612" />
+<p class="caption">plot of chunk Plotpollutionvpop</p>
+</div>
 
 We observe a positive association between ambient pollution levels and population.
 
@@ -147,11 +134,14 @@ smoking_pollution %>%
 
 
 ~~~
-`geom_smooth()` using formula 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'
 ~~~
 {: .output}
 
-<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" title="plot of chunk PlotPolluionVPopSmooth" alt="plot of chunk PlotPolluionVPopSmooth" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" alt="plot of chunk PlotPolluionVPopSmooth" width="612" />
+<p class="caption">plot of chunk PlotPolluionVPopSmooth</p>
+</div>
 
 To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
 
@@ -171,7 +161,10 @@ To answer our first question, we observe a positive association between populati
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" title="plot of chunk pollutionPerCapita" alt="plot of chunk pollutionPerCapita" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" alt="plot of chunk pollutionPerCapita" width="612" />
+> > <p class="caption">plot of chunk pollutionPerCapita</p>
+> > </div>
 > > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
 > {: .solution}
 {: .challenge}
@@ -193,7 +186,10 @@ To answer our first question, we observe a positive association between populati
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-04-pollutionvcancer-1.png" title="plot of chunk pollutionvcancer" alt="plot of chunk pollutionvcancer" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-04-pollutionvcancer-1.png" alt="plot of chunk pollutionvcancer" width="612" />
+> > <p class="caption">plot of chunk pollutionvcancer</p>
+> > </div>
 > > There does not appear to be a direct relationship between pollution and lung cancer rates. 
 > {: .solution}
 {: .challenge}
@@ -321,7 +317,10 @@ smoking_pollution %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-04-pollution_boxplot-1.png" title="plot of chunk pollution_boxplot" alt="plot of chunk pollution_boxplot" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-04-pollution_boxplot-1.png" alt="plot of chunk pollution_boxplot" width="612" />
+> > <p class="caption">plot of chunk pollution_boxplot</p>
+> > </div>
 > > 
 > > When comparing your table to your plot, you'll notice that the dark horizontal lines represent median values. The boxes have lengths equal to the interquartile range (IQR). And the highest and lowest values for each continent match the table as well. The plot makes it easier to see differences between continents. The table provides finer details for comparison. What you choose to report will depend on whether you want to bring attention to those finer details or whether you want to discuss overall trends.
 > >
@@ -436,11 +435,12 @@ using the `.groups` argument.
  8 Armenia     Europe     30.5   30.4   30.2   30.0   29.9   29.7   29.6   29.5 
  9 Australia   Oceania    29.3   28.8   28.4   27.9   27.5   27.0   26.4   25.9 
 10 Austria     Europe     35.4   35.8   36.2   36.6   37.0   37.4   37.8   38.1 
-# … with 181 more rows, and 22 more variables: `1998` <dbl>, `1999` <dbl>,
-#   `2000` <dbl>, `2001` <dbl>, `2002` <dbl>, `2003` <dbl>, `2004` <dbl>,
-#   `2005` <dbl>, `2006` <dbl>, `2007` <dbl>, `2008` <dbl>, `2009` <dbl>,
-#   `2010` <dbl>, `2011` <dbl>, `2012` <dbl>, `2013` <dbl>, `2014` <dbl>,
-#   `2015` <dbl>, `2016` <dbl>, `2017` <dbl>, `2018` <dbl>, `2019` <dbl>
+# ℹ 181 more rows
+# ℹ 22 more variables: `1998` <dbl>, `1999` <dbl>, `2000` <dbl>, `2001` <dbl>,
+#   `2002` <dbl>, `2003` <dbl>, `2004` <dbl>, `2005` <dbl>, `2006` <dbl>,
+#   `2007` <dbl>, `2008` <dbl>, `2009` <dbl>, `2010` <dbl>, `2011` <dbl>,
+#   `2012` <dbl>, `2013` <dbl>, `2014` <dbl>, `2015` <dbl>, `2016` <dbl>,
+#   `2017` <dbl>, `2018` <dbl>, `2019` <dbl>
 ~~~
 {: .output}
 
@@ -469,7 +469,10 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-04-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-04-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" width="612" />
+<p class="caption">plot of chunk unnamed-chunk-5</p>
+</div>
 
 Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
@@ -492,7 +495,10 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-04-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-04-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" width="612" />
+<p class="caption">plot of chunk unnamed-chunk-6</p>
+</div>
 
 Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
@@ -517,7 +523,10 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<img src="../fig/rmd-04-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-04-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" width="612" />
+<p class="caption">plot of chunk unnamed-chunk-7</p>
+</div>
 
 It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 
@@ -566,7 +575,7 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 > >  8 Kiribati               Oceania    3.68
 > >  9 Mali                   Africa     3.03
 > > 10 Djibouti               Africa     2.83
-> > # … with 32 more rows
+> > # ℹ 32 more rows
 > > ~~~
 > > {: .output}
 > {: .solution}
@@ -590,19 +599,6 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > ~~~
 > > # install.packages(corrr) # only run this once
 > > library(corrr)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in library(corrr): there is no package called 'corrr'
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > smoking_pollution %>%
 > >   select(pop, pollution) %>%
 > >   correlate(method = 'pearson')
@@ -612,9 +608,22 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > 
 > > 
 > > ~~~
-> > Error in correlate(., method = "pearson"): could not find function "correlate"
+> > Correlation computed with
+> > • Method: 'pearson'
+> > • Missing treated using: 'pairwise.complete.obs'
 > > ~~~
-> > {: .error}
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 2 × 3
+> >   term         pop pollution
+> >   <chr>      <dbl>     <dbl>
+> > 1 pop       NA         0.183
+> > 2 pollution  0.183    NA    
+> > ~~~
+> > {: .output}
 > > 
 > > 
 > > 
@@ -628,9 +637,22 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > 
 > > 
 > > ~~~
-> > Error in correlate(., method = "spearman"): could not find function "correlate"
+> > Correlation computed with
+> > • Method: 'spearman'
+> > • Missing treated using: 'pairwise.complete.obs'
 > > ~~~
-> > {: .error}
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 2 × 3
+> >   term         pop pollution
+> >   <chr>      <dbl>     <dbl>
+> > 1 pop       NA         0.310
+> > 2 pollution  0.310    NA    
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 

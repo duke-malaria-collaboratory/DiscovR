@@ -64,7 +64,10 @@ smoking %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-05-unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" width="612" />
+<p class="caption">plot of chunk unnamed-chunk-3</p>
+</div>
 
 Write some code to figure out which countries these are (even if you already know!).
 
@@ -103,7 +106,10 @@ Next, plot year vs. population separated into a plot for each continent but excl
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-05-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-05-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-5</p>
+> </div>
 > Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`) or comma (`,`), which means that you want to exclude both China and India:
 > 
 > ~~~
@@ -115,7 +121,10 @@ Next, plot year vs. population separated into a plot for each continent but excl
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-05-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-05-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-6</p>
+> </div>
 {: .solution}
 
 Bonus 1: Instead of hard-coding the two countries to remove them, remove the two outliers by combining your solutions to the first two questions.
@@ -131,7 +140,10 @@ Bonus 1: Instead of hard-coding the two countries to remove them, remove the two
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-05-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-05-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-7</p>
+> </div>
 {: .solution}
 
 Bonus 2: How can you make the differences between countries more visible on the plot without excluding the two countries you identified above?
@@ -148,7 +160,10 @@ Bonus 2: How can you make the differences between countries more visible on the 
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-05-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> <div class="figure" style="text-align: center">
+> <img src="../fig/rmd-05-unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" width="612" />
+> <p class="caption">plot of chunk unnamed-chunk-8</p>
+> </div>
 {: .solution}
 
 
@@ -378,6 +393,8 @@ smoking %>%
 |---------:|------------:|---------:|
 |  4.082156|     19.47822|  49.42617|
 
+
+
 ### Messages
 
 How do we get rid of the tidyverse messages? One way to do this is by saying `include = FALSE` in the curly brackets for that code chunk:
@@ -508,7 +525,10 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" />
+> > <div class="figure" style="text-align: center">
+> > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" width="612" />
+> > <p class="caption">plot of chunk unnamed-chunk-18</p>
+> > </div>
 > > 
 > > ~~~
 > > smoking_pollution %>% 
