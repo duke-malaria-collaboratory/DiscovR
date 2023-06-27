@@ -597,7 +597,7 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > ## Solution
 > > 
 > > ~~~
-> > # install.packages(corrr) # only run this once
+> > # install.packages('corrr') # only run this once
 > > library(corrr)
 > > smoking_pollution %>%
 > >   select(pop, pollution) %>%
