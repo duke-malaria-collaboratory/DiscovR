@@ -36,7 +36,7 @@ keypoints:
 1. [Checking for duplicate rows](#checking-for-duplicate-rows)
 1. [Grouping and counting rows using `group_by()`](#grouping-and-counting-rows-using-group_by)
 1. [Make new variables with `mutate()`](#make-new-variables-with-mutate)
-1. [Joining dataframes](#joining-data-frames)
+1. [Joining dataframes](#joining-dataframes)
 
 
 ## Cleaning up data

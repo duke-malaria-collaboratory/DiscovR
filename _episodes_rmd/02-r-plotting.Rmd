@@ -618,6 +618,7 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6
 >        color = "Continent" size = "Population (in millions)")
 > 
 > {: .source}
+> 
 > > ## Solution
 > > ```
 > > **Bug 1**: We generated a plot, but it doesn't look like what we expect. The bug is in our mapping of aesthetics: `geom_point(aes(x = "smoke_pct", y = lung_cancer_pct, color = continent, size = pop/1000000))`. Because `"smoke_pct"` is in quotation marks, ggplot understands that as a single value, rather than an aesthetic mapped to the `smoke_pct` variable in the `smoking_1990` dataset. To correct this bug, remove the quotes from `"smoke_pct"` so that ggplot looks for the `smoke_pct` column in our dataset.

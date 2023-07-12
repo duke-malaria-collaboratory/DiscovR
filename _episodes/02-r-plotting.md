@@ -766,6 +766,7 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6
 >        color = "Continent" size = "Population (in millions)")
 > 
 > {: .source}
+> 
 >  ## Solution
 > ~~~
 > {: .language-r}
