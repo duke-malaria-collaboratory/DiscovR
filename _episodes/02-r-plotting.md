@@ -257,9 +257,9 @@ Here, we are interested in whether there is a relationship between the percent o
 > ## What do we want to plot? 
 > Given that we are interested in whether there is a relationship between the percent of people who smoke and the percent of people with lung cancer:
 > 
-> 1. What type of plot would you want to make?
 > 1. What variables would you want to put on the x and y axes? 
 > 1. What columns do those variables correspond to in our `smoking_1990` dataset?
+> 1. What type of plot would you want to make?
 > 
 > **Hint:** take a look at [this blog post](https://www.visual-design.net/post/choose-the-right-chart) if you need ideas about which plot type might be good.
 > {: .source}
@@ -298,83 +298,63 @@ What we've done is created a ggplot object and told it we will be using the data
 from the `smoking_1990` object that we've loaded into R. We've done this by
 calling the `ggplot()` function with `smoking_1990` as the `data` argument.
 
-So we've made a plot object, now we need to start telling it what we actually
-want to draw on this plot. 
+So we've made a plot object, now we need to start telling it what we actually want to draw on this plot. 
 
-First, let's tell it what kind of plot we want to make.
-In our case, we've decided on a scatter plot.
-Other plot types inclue bar charts, scatter plots, and histograms
-(see [here](https://www.visual-design.net/post/choose-the-right-chart) 
-for more information on different plot types and how to choose which one to use). 
-We tell our plot object what to draw by adding a **geometry** ("geom" for short) to our object. 
-We do this by adding (`+`) information to our plot object.
-The geometry for a scatter plot is "point", and the function that we use to tell `ggplot` that we want to draw points on our plot is `geom_point()`. 
+The elements of a plot have a bunch of properties 
+like an x and y position, a size, a color, etc. When creating a data visualization, 
+we can map variables in our dataset to these properties, called **aesthetics**, in our plot. 
+In ggplot, we can do this by creating an "aesthetic mapping", which we do with the 
+`aes()` function.
 
-We're going to add this new function call to a second line just to make it
-easier to read. To do this we make sure that the `+` is at the end of the first
-line otherwise R will assume your command ends when it starts the next row. The
-`+` sign indicates not only that we are adding information, but to continue on
-to the next line of code. Add this new line to your code and run both lines by
-having your cursor on one of the lines and pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your
+To create our plot, we need to map variables from our `smoking_1990` object to
+ggplot aesthetics using the `aes()` function. Since we have already told
+`ggplot` that we are using the data in the `smoking_1990` object, we can
+access the columns of `smoking_1990` using the object's column names.
+(Remember, R is case-sensitive, so we have to be careful to match the column
+names exactly!) 
+
+Let's start by telling our plot object that we want to map our smoking values to the x axis of our plot.  
+We do this by adding (`+`) information to
+our plot object. Add this new line to your code and run both lines by
+highlighting them and pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your
 keyboard:
 
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_point()
+  aes(x = smoke_pct)
 ~~~
 {: .language-r}
 
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-ggplotX-1.png" alt="plot of chunk ggplotX" width="612" />
+<p class="caption">plot of chunk ggplotX</p>
+</div>
+
+Note that we've added this new function call to a second line just to make it
+easier to read. To do this we make sure that the `+` is at the end of the first
+line otherwise R will assume your command ends when it starts the next row. The
+`+` sign indicates not only that we are adding information, but to continue on
+to the next line of code.
+
+Observe that our **Plot** window is no longer a grey square. We now see that
+we've mapped the `smoke_pct` column to the x axis of our plot. Note that that
+column name isn't very pretty as an x-axis label, so let's add the `labs()`
+function to make a nicer label for the x axis:
 
 
 ~~~
-Error in `geom_point()`:
-! Problem while setting up geom.
-ℹ Error occurred in the 1st layer.
-Caused by error in `compute_geom_1()`:
-! `geom_point()` requires the following missing aesthetics: x and y
+ggplot(data = smoking_1990) +
+  aes(x = smoke_pct) +
+  labs(x = "Percent of people who smoke")
 ~~~
-{: .error}
+{: .language-r}
 
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FirstPlotAddXLabel-1.png" alt="plot of chunk FirstPlotAddXLabel" width="612" />
+<p class="caption">plot of chunk FirstPlotAddXLabel</p>
+</div>
 
-Oops, we got an error. But don't panic! 
-Errors happen all the time, and often they are very informative.
-The first step you should take when you get an error is to read 
-the error message to see if it helps you figure out the problem. 
-
-> ## Why did we get an error?
-> Take a look at the error message above. 
-> Read the whole thing to try to figure out why we got the error.
-> Note that eventually you won't have to read all of the lines of the error message to know what's going on, 
-> but at the beginning, you might have to read the entire message to figure out why you got the error.
-> Also, it's okay if you don't understand all the words - that's normal when you're looking at errors,
-> and you'll get more comfortable with it over time.
-> Even if you don't understand it all, you can often figure out what's going on. 
-> {: .source}
->
-> > ## Solution
-> > The most informative line is the second to last one: "geom_point() requires the following missing aesthetics: x and y". 
-> > This is telling us that, to plot points, `geom_point()` needs to know what data you want on the x and y axes.
-> > That makes sense! Right now, it doesn't know where to plot the points.
-> > Next, we'll learn how to tell `geom_point()` what to put on the x and y axes. 
-> > 
-> > {: .source}
-> {: .solution}
-{: .challenge}
-
-We just learned that `geom_point()` needs to know what to plot on the x and y axes, 
-which makse sense because it doesn't know where to plot the points otherwise. 
-
-Whenever we want to share specific data on a plot, the data has to come from one of the columns in our dataset.
-We can "map" these variables in our dataset to different **aesthetics** such as x and y position, size, color, etc. 
-Here, we want to map `smoke_pct` to the x axis and `lung_cancer_pct` to the y axis. 
-This way, `ggplot` knows where we want each of the points on our plot to be. 
- 
-In ggplot, we can map columns in our dataset to aesthethics by using the `aes()` function.
-Since we have already told `ggplot` that we are using the data in the `smoking_1990` object, 
-we can access the columns of `smoking_1990` using the object's column names.
-(Remember, R is case-sensitive, so we have to be careful to match the column
-names exactly!)
 
 Let's start by telling our plot object that we want to map our smoking values to the x axis of our plot
 and our lung cancer values to the y axis of our plot.
@@ -393,25 +373,6 @@ ggplot(data = smoking_1990) +
 <p class="caption">plot of chunk ggplotXY</p>
 </div>
 
-Sweet, now it looks like a proper plot!  
-We can now see a trend in the data. It looks like countries with greater smoking rates tend to have higher lung cancer rates, though it's important to remember that we can't infer causality from this plot alone.
-
-The column names aren't very pretty as axis labels. We can make nicer ones using the `labs()` function.
-Let's start with making the x axis label nicer: 
-
-
-~~~
-ggplot(data = smoking_1990) +
-  geom_point(aes(x = smoke_pct, y = lung_cancer_pct)) +
-  labs(x = "Percent of people who smoke")
-~~~
-{: .language-r}
-
-<div class="figure" style="text-align: center">
-<img src="../fig/rmd-02-FirstPlotAddXLabel-1.png" alt="plot of chunk FirstPlotAddXLabel" width="612" />
-<p class="caption">plot of chunk FirstPlotAddXLabel</p>
-</div>
-
 OK. That looks better. 
 
 > ## Quotes vs. No Quotes (refresher)
@@ -426,8 +387,8 @@ OK. That looks better.
 > want to specify a value that does not come from your data, then use quotes.
 {: .callout}
 
-> ## Make the y axis label nicer
-> Make the y axis label nicer. As an example, you can use the code above that we used to make the x axis label nicer.
+## Mapping lung cancer rates to the y axis
+> Map our `lung_cancer_pct` values to the y axis and give them a nice label.
 > {: .source}
 >
 >
@@ -435,8 +396,10 @@ OK. That looks better.
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_point(aes(x = smoke_pct, y = lung_cancer_pct)) +
-> >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer")
+> >   aes(x = smoke_pct) +
+> >   labs(x = "Percent of people who smoke") +
+> >   aes(y = lung_cancer_pct) +
+> >   labs(y = "Percent of people with lung cancer")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -448,6 +411,33 @@ OK. That looks better.
 > {: .solution}
 {: .challenge}
 
+Excellent. We've now told our plot object where the x and y values are coming
+from and what they stand for. But we haven't told our object how we want it to
+draw the data. There are many different plot types (bar charts, scatter plots,
+histograms, etc). We tell our plot object what to draw by adding a **geometry**
+("geom" for short) to our object. We will talk about many different geometries
+today, but for our first plot, let's draw our data using the "points" geometry
+for each value in the data set. To do this, we add `geom_point()` to our plot
+object:
+
+
+~~~
+ggplot(data = smoking_1990) +
+  aes(x = smoke_pct) +
+  labs(x = "Percent of people who smoke") +
+  aes(y = lung_cancer_pct) +
+  labs(y = "Percent of people with lung cancer") +
+  geom_point()
+~~~
+{: .language-r}
+
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FirstPlotAddPoints-1.png" alt="plot of chunk FirstPlotAddPoints" width="612" />
+<p class="caption">plot of chunk FirstPlotAddPoints</p>
+</div>
+
+Now we're really getting somewhere. It finally looks like a proper plot!  We can
+now see a trend in the data. It looks like countries with greater smoking rates tend to have higher lung cancer rates, though it's important to remember that we can't infer causality from this plot alone.
 
 Let's add a title to our plot to make that clearer. 
 Again, we will use the `labs()` function, but this time we will use the `title =` argument.
@@ -455,9 +445,12 @@ Again, we will use the `labs()` function, but this time we will use the `title =
 
 ~~~
 ggplot(data = smoking_1990) +
-   geom_point(aes(x = smoke_pct, y = lung_cancer_pct)) +
-   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-        title = "Are lung cancer rates associated with smoking rates?")
+  aes(x = smoke_pct) +
+  labs(x = "Percent of people who smoke") +
+  aes(y = lung_cancer_pct) +
+  labs(y = "Percent of people with lung cancer") +
+  geom_point() +
+  labs(title = "Are lung cancer rates associated with smoking rates?")
 ~~~
 {: .language-r}
 
@@ -481,8 +474,13 @@ continent of each point to a color, we will again use the `aes()` function.
 > 
 > ~~~
 > ggplot(data = smoking_1990) +
->   geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = _____)) +
->   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer")
+>   aes(x = smoke_pct) +
+>   labs(x = "Percent of people who smoke") +
+>   aes(y = lung_cancer_pct) +
+>   labs(y = "Percent of people with lung cancer") +
+>   geom_point() +
+>   labs(title = "Are lung cancer rates associated with smoking rates?") +
+>   aes(_____)
 > ~~~
 > {: .language-r}
 > What information can you learn from the plot? 
@@ -492,15 +490,24 @@ continent of each point to a color, we will again use the `aes()` function.
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent)) +
-> >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer")
+> > ggplot(data = smoking_1990) +
+> >   aes(x = smoke_pct) +
+> >   labs(x = "Percent of people who smoke") +
+> >   aes(y = lung_cancer_pct) +
+> >   labs(y = "Percent of people with lung cancer") +
+> >   geom_point() +
+> >   labs(title = "Are lung cancer rates associated with smoking rates?") +
+> >  aes(color = continent)
 > > ~~~
 > > {: .language-r}
 > > 
-> > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-02-FirstPlotColorCont-1.png" alt="plot of chunk FirstPlotColorCont" width="612" />
-> > <p class="caption">plot of chunk FirstPlotColorCont</p>
-> > </div>
+> > 
+> > 
+> > ~~~
+> > Error in `ggplot_add()`:
+> > ! Can't add `ggplot(data = smoking_1990)` to a <ggplot> object.
+> > ~~~
+> > {: .error}
 > > {: .source}
 > > Here we can see that in 1990 the African countries tended to have much lower smoking and lung cancer rates than many other continents. 
 > {: .solution}
@@ -519,11 +526,15 @@ make them a bit prettier. While we're at it, let's capitalize the legend title t
 
 ~~~
 ggplot(data = smoking_1990) +
-   geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent)) +
-   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-        title = "Are lung cancer rates associated with smoking rates?",
-        color = "Continent") +
-  scale_color_brewer(palette = "Set2")
+  aes(x = smoke_pct) +
+  labs(x = "Percent of people who smoke") +
+  aes(y = lung_cancer_pct) +
+  labs(y = "Percent of people with lung cancer") +
+  geom_point() +
+  labs(title = "Are lung cancer rates associated with smoking rates?") +
+  aes(color = continent) +
+  scale_color_brewer(palette = "Set2") +
+  labs(color = "Continent")
 ~~~
 {: .language-r}
 
@@ -563,10 +574,14 @@ website](https://colorbrewer2.org/) for more info about choosing plot colors.
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >    geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent)) +
-> >    labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-> >         title = "Are lung cancer rates associated with smoking rates?",
-> >         color = "Continent") +
+> >   aes(x = smoke_pct) +
+> >   labs(x = "Percent of people who smoke") +
+> >   aes(y = lung_cancer_pct) +
+> >   labs(y = "Percent of people with lung cancer") +
+> >   geom_point() +
+> >   labs(title = "Are lung cancer rates associated with smoking rates?") +
+> >   aes(color = continent) +
+> >   labs(color = "Continent") +
 > >   scale_color_viridis_d(option = "turbo")
 > > ~~~
 > > {: .language-r}
@@ -589,21 +604,17 @@ out by mapping the population of each country to the size of our points.
 > {: .source}
 >
 > > ## Solution
-> > You'll want to use the `aes` aesthetic function to change the size:
-> > 
-> > ~~~
 > > ggplot(data = smoking_1990) +
-> >    geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop)) +
-> >    labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-> >         title = "Are lung cancer rates associated with smoking rates?",
-> >         color = "Continent")
-> > ~~~
-> > {: .language-r}
-> > 
-> > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-02-Pop-1.png" alt="plot of chunk Pop" width="612" />
-> > <p class="caption">plot of chunk Pop</p>
-> > </div>
+> >   aes(x = smoke_pct) +
+> >   labs(x = "Percent of people who smoke") +
+> >   aes(y = lung_cancer_pct) +
+> >   labs(y = "Percent of people with lung cancer") +
+> >   geom_point() +
+> >   labs(title = "Are lung cancer rates associated with smoking rates?") +
+> >   aes(color = continent) +
+> >   scale_color_brewer(palette = "Set2") +
+> >   labs(color = "Continent") 
+> > ```
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -615,10 +626,17 @@ divide all the values by 1,000,000 and label our legend "Population (in millions
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000)) +
-  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-       title = "Are lung cancer rates associated with smoking rates?",
-      color = "Continent", size = "Population (in millions)") 
+  aes(x = smoke_pct) +
+  labs(x = "Percent of people who smoke") +
+  aes(y = lung_cancer_pct) +
+  labs(y = "Percent of people with lung cancer") +
+  geom_point() +
+  labs(title = "Are lung cancer rates associated with smoking rates?") +
+  aes(color = continent) +
+  scale_color_brewer(palette = "Set2") +
+  labs(color = "Continent") +
+  aes(size = pop/1000000) +
+  labs(size = "Population (in millions)")
 ~~~
 {: .language-r}
 
@@ -645,10 +663,19 @@ the plot in its own window.
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000, shape = continent)) +
-> >   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-> >        title = "Are lung cancer rates associated with smoking rates?",
-> >       color = "Continent", size = "Population (in millions)", shape = 'Continent')
+> >   aes(x = smoke_pct) +
+> >   labs(x = "Percent of people who smoke") +
+> >   aes(y = lung_cancer_pct) +
+> >   labs(y = "Percent of people with lung cancer") +
+> >   geom_point() +
+> >   labs(title = "Are lung cancer rates associated with smoking rates?") +
+> >   aes(color = continent) +
+> >   scale_color_brewer(palette = "Set2") +
+> >   labs(color = "Continent") +
+> >   aes(size = pop) +
+> >   aes(size = pop/1000000) +
+> >   labs(size = "Population (in millions)") +
+> >   aes(shape = continent)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -660,6 +687,28 @@ the plot in its own window.
 > {: .solution}
 {: .challenge}
 
+For our first plot we added each line of code one at a time so you could see the
+exact affect it had on the output. But when you start to make a bunch of plots,
+we can actually combine many of these steps so you don't have to type as much.
+For example, you can collect all the `aes()` statements and all the `labs()`
+together. A more condensed version of the exact same plot would look like this:
+
+
+~~~
+ggplot(data = smoking_1990) +
+  aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000) +
+  geom_point() +
+  scale_color_brewer(palette = "Set2") +
+  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
+    title = "Are lung cancer rates associated with smoking rates?", color = "Continent", size = "Population (in millions)")
+~~~
+{: .language-r}
+
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-FirstPlotCondensed-1.png" alt="plot of chunk FirstPlotCondensed" width="612" />
+<p class="caption">plot of chunk FirstPlotCondensed</p>
+</div>
+
 > ## Storing our plot
 > We learned about how to save things to object names in the previous lesson. 
 > We can do the same thing with plots! Store our final plot in an object called `cancer_v_smoke`.
@@ -669,10 +718,11 @@ the plot in its own window.
 > > 
 > > ~~~
 > >  cancer_v_smoke <- ggplot(data = smoking_1990) +
-> >    geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000)) +
+> >    aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000) +
+> >    geom_point() +
+> >    scale_color_brewer(palette = "Set2") +
 > >    labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-> >         title = "Are lung cancer rates associated with smoking rates?",
-> >        color = "Continent", size = "Population (in millions)") 
+> >      title = "Are lung cancer rates associated with smoking rates?", color = "Continent", size = "Population (in millions)")
 > > ~~~
 > > {: .language-r}
 > > {: .source}
@@ -696,12 +746,6 @@ Let's save our plot (with an informative name) as a 4x6 inch png:
 
 
 ~~~
-cancer_v_smoke <- ggplot(data = smoking_1990) +
-  geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000)) +
-  labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
-       title = "Are lung cancer rates associated with smoking rates?",
-      color = "Continent", size = "Population (in millions)")
-
 ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6, height = 4)
 ~~~
 {: .language-r}
@@ -745,7 +789,8 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6
 > # Bug 1
 > 
 >  ggplot(data = smoking_1990) +
->    geom_point(aes(x = "smoke_pct", y = lung_cancer_pct, color = continent, size = pop/1000000)) +
+>  aes(x = "smoke_pct", y = lung_cancer_pct, color = continent, size = pop/1000000) +
+>    geom_point() +
 >    labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
 >         title = "Are lung cancer rates associated with smoking rates?",
 >        color = "Continent", size = "Population (in millions)") 
@@ -753,14 +798,16 @@ ggsave(filename = "figures/cancer_v_smoke.png", plot = cancer_v_smoke, width = 6
 > # Bug 2
 > 
 > ggplot(data = smoking_1990) +
->    geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000)) +
+>    aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000) +
+>    geom_point() +
 >    labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
 >         title = "Are lung cancer rates associated with smoking rates?",
 >        color = "Continent", size = "Population (in millions)"))
 > 
 > # Bug 3
 > ggplot(data = smoking_1990) +
->    geom_point(aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000)) +
+>    aes(x = smoke_pct, y = lung_cancer_pct, color = continent, size = pop/1000000) +
+>    geom_point() +
 >    labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
 >         title = "Are lung cancer rates associated with smoking rates?",
 >        color = "Continent" size = "Population (in millions)")
@@ -836,7 +883,8 @@ We will go over some of these in the next section.
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_point(aes(x = pop, y = smoke_pct))
+> >   aes(x = pop, y = smoke_pct) +
+> >   geom_point()
 > > ~~~
 > > {: .language-r}
 > > 
@@ -872,7 +920,8 @@ We've previously used the discrete values of the `continent` column to color in 
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >  geom_boxplot(aes(x = continent, y = lung_cancer_pct))
+> >  aes(x = continent, y = lung_cancer_pct) +
+> >  geom_boxplot()
 > > ~~~
 > > {: .language-r}
 > > 
@@ -892,7 +941,8 @@ We've previously used the discrete values of the `continent` column to color in 
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_violin(aes(x = continent, y = lung_cancer_pct))
+> >   aes(x = continent, y = lung_cancer_pct) +
+> >   geom_violin() 
 > > ~~~
 > > {: .language-r}
 > > 
@@ -911,7 +961,8 @@ Let's take the boxplot that we made previously and add code to make the color co
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_boxplot(aes(x = continent, y = lung_cancer_pct, color = continent))
+  aes(x = continent, y = lung_cancer_pct, color = continent) +
+  geom_boxplot()
 ~~~
 {: .language-r}
 
@@ -925,7 +976,8 @@ Well, that didn't get all that colorful. That's because objects like these boxpl
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_boxplot(aes(x = continent, y = lung_cancer_pct, fill = continent))
+  aes(x = continent, y = lung_cancer_pct, fill = continent) +
+  geom_boxplot()
 ~~~
 {: .language-r}
 
@@ -951,7 +1003,8 @@ Let's try it out without quotes first:
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_boxplot(aes(x = continent, y = lung_cancer_pct, fill = lightblue))
+  aes(x = continent, y = lung_cancer_pct, fill = lightblue) +
+  geom_boxplot()
 ~~~
 {: .language-r}
 
@@ -972,7 +1025,8 @@ Instead, we have to put it in quotes so that R knows not to search for that vari
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_boxplot(aes(x = continent, y = lung_cancer_pct, fill = "lightblue"))
+  aes(x = continent, y = lung_cancer_pct, fill = "lightblue") +
+  geom_boxplot()
 ~~~
 {: .language-r}
 
@@ -981,12 +1035,13 @@ ggplot(data = smoking_1990) +
 <p class="caption">plot of chunk FillWrong</p>
 </div>
 
-Hmm that's still not quite what we want. In this example, we placed the fill inside the `aes()` function, which maps aesthetics to data. In this case, we only have one value: the word "lightblue". Instead, let's do this by explicitly setting the color aesthetic outside the `aes()` function. Because we are assigning a color directly and not using any values from our data to do so, we do not need to use the `aes()` mapping function. Let's try it out:
+Hmm that's still not quite what we want. In this example, we placed the fill inside the `aes()` function, which maps aesthetics to data. In this case, we only have one value: the word "lightblue". Instead, let's do this by explicitly setting the color aesthetic inside the `geom_boxplot()` function. Because we are assigning a color directly and not using any values from our data to do so, we do not need to use the `aes()` mapping function. Let's try it out:
 
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue")
+  aes(x = continent, y = lung_cancer_pct) +
+  geom_boxplot(fill = "lightblue")
 ~~~
 {: .language-r}
 
@@ -1008,7 +1063,8 @@ That's better! R knows many color names. You can see the full list if you run `c
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue", alpha = 0.2)
+> >   aes(x = continent, y = lung_cancer_pct) +
+> >   geom_boxplot(fill = "lightblue", alpha = 0.2)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -1028,55 +1084,30 @@ So far we've only been adding one geom to each plot, but each plot object can ac
 
 ~~~
 ggplot(data = smoking_1990) +
-  geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
+  aes(x = continent, y = lung_cancer_pct) +
+  geom_boxplot(fill = "lightblue") +
   geom_point()
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in `geom_point()`:
-! Problem while setting up geom.
-ℹ Error occurred in the 2nd layer.
-Caused by error in `compute_geom_1()`:
-! `geom_point()` requires the following missing aesthetics: x and y
-~~~
-{: .error}
-
-Uh-oh. What did we forget to do?
-
-> ## What did we forget to do, and can you fix it?
-> Why did we get an error? Go ahead and fix it!
-> > ## Solution
-> > We forgot to tell ggplot what we want the x and y axis to be for our points.
-> > 
-> > ~~~
-> > ggplot(data = smoking_1990) +
-> >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
-> >   geom_point(aes(x = continent, y = lung_cancer_pct))
-> > ~~~
-> > {: .language-r}
-> > 
-> > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-02-BoxplotPoints-1.png" alt="plot of chunk BoxplotPoints" width="612" />
-> > <p class="caption">plot of chunk BoxplotPoints</p>
-> > </div>
-> {: .solution}
-{: .challenge}
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-BoxPointsError-1.png" alt="plot of chunk BoxPointsError" width="612" />
+<p class="caption">plot of chunk BoxPointsError</p>
+</div>
 
 We've drawn the points but most of them stack up on top of each other. One way to make it easier to see all the data is to change the transparency of the points. We can do this using the `alpha` argument we learned about in the exercise above. It takes a value between 0 and 1 where 0 is entirely transparent and 1 is entirely opaque. We perform this modification inside the geom that we want to change.
 
-> ## Inside or outside `aes()`?
+> ## Inside `aes()` or `geom`?
 > Let's say we want to change the transparency of our points to an alpha of 0.3.
-> Do we want alpha to go inside or outside our `aes()` function? Why? Test out both and see if you're right! 
+> Do we want alpha to go inside our `aes()` function or our `geom_boxplot()`? Why? Test out both and see if you're right! 
 > > ## Solution
-> > We want alpha to go outside of `aes()` since we're telling ggplot the number we want it to use; it's not coming from our data. 
+> > We want alpha to go inside `geom_boxplot()` since we're telling ggplot the number we want it to use; it's not coming from our data. 
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
-> >   geom_point(aes(x = continent, y = lung_cancer_pct), alpha = 0.3)
+> >   aes(x = continent, y = lung_cancer_pct) +
+> >   geom_boxplot(fill = "lightblue") +
+> >   geom_point(alpha = 0.3)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -1088,46 +1119,30 @@ We've drawn the points but most of them stack up on top of each other. One way t
 {: .challenge}
 
 
-> ## Too many overlapping points for alpha to work?
-> We have many observations/data points, so even making the points transparent doesn't really help us see them! Another option is to "jitter" the points. This adds some random variation to the position of the points so you can see them better. We can do this using `geom_jitter()`.
-> 
-> **WARNING!!!** `geom_jitter()` changes the position of points and should therefore only be used for **discrete** variables that don't have numerical values!!!
-> 
-> Since we are plotting a discrete value on the x axis, and a continuous value on the y axis, we will need to tell `geom_jitter()` not to change the y value positions. We can do this by setting `height = 0` inside the geom. We will also modify the degree to which points are jittered on the x axis by setting the `width` argument. Feel free to play around with `width` to get a plot that you like. Remember, we can **only** do this because the x axis is discrete!
-> 
-> 
-> ~~~
-> ggplot(data = smoking_1990) +
->   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
->   geom_jitter(aes(x = continent, y = lung_cancer_pct), alpha = 0.3, height = 0, width = 0.05)
-> ~~~
-> {: .language-r}
-> 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-02-BoxjitterAlpha-1.png" alt="plot of chunk BoxjitterAlpha" width="612" />
-> <p class="caption">plot of chunk BoxjitterAlpha</p>
-> </div>
-> That looks better!
-{: .callout}
-
-> ## Color points by continent
-> Let's add more color to our plot. Color the points by continent. 
-> > ## Solution
-> > Since we want to color the points by continent, we need to add `color = continent` to our aesthetic inside `geom_point()`:
+> > ## BONUS: Too many overlapping points for alpha to work?
+> > We have many observations/data points, so even making the points transparent doesn't really help us see them! Another option is to "jitter" the points. This adds some random variation to the position of the points so you can see them better. We can do this using `geom_jitter()`.
+> > 
+> > **WARNING!!!** `geom_jitter()` changes the position of points and should therefore only be used for **discrete** variables that don't have numerical values!!!
+> > 
+> > Since we are plotting a discrete value on the x axis, and a continuous value on the y axis, we will need to tell `geom_jitter()` not to change the y value positions. We can do this by setting `height = 0` inside the geom. We will also modify the degree to which points are jittered on the x axis by setting the `width` argument. Feel free to play around with `width` to get a plot that you like. Remember, we can **only** do this because the x axis is discrete!
+> > 
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue") +
-> >   geom_point(aes(x = continent, y = lung_cancer_pct, color = continent), alpha = 0.3)
+> >   aes(x = continent, y = lung_cancer_pct) +
+> >   geom_boxplot(fill = "lightblue") +
+> >   geom_jitter(alpha = 0.3, height = 0, width = 0.05)
 > > ~~~
 > > {: .language-r}
 > > 
 > > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-02-BoxColorContinent-1.png" alt="plot of chunk BoxColorContinent" width="612" />
-> > <p class="caption">plot of chunk BoxColorContinent</p>
+> > <img src="../fig/rmd-02-BoxjitterAlpha-1.png" alt="plot of chunk BoxjitterAlpha" width="612" />
+> > <p class="caption">plot of chunk BoxjitterAlpha</p>
 > > </div>
+> > That looks better!
 > {: .solution}
-{: .challenge}
+{: .callout}
+
 
 > ## Predicting output
 > What do you think will happen if you switch the order of `geom_boxplot()` and `geom_point()`? Why? 
@@ -1137,8 +1152,9 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_point(aes(x = continent, y = lung_cancer_pct, color = continent), alpha = 0.3) +
-> >   geom_boxplot(aes(x = continent, y = lung_cancer_pct), fill = "lightblue")
+> >   aes(x = continent, y = lung_cancer_pct, color = continent) +
+> >   geom_point(, alpha = 0.3) +
+> >   geom_boxplot(fill = "lightblue")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -1149,6 +1165,39 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > {: .solution}
 {: .challenge}
 
+Going back to having the points on top, let's color the points by continent. If we add a color aesthetic to the plot, then both the boxplot and the points are colored by continent:
+
+
+~~~
+ggplot(data = smoking_1990) +
+  aes(x = continent, y = lung_cancer_pct, color = continent) +
+  geom_boxplot(fill = "lightblue") +
+  geom_point(alpha = 0.3)
+~~~
+{: .language-r}
+
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-colCont-1.png" alt="plot of chunk colCont" width="612" />
+<p class="caption">plot of chunk colCont</p>
+</div>
+
+So how do we make it so that just the points are colored but not the boxplots? Each layer can have it's own set of aesthetic mappings. So far we've been using `aes()` outside of the other functions. When we do this, we are setting the "default" aesthetic mappings for the plot. But we can also set the asethetics inside the specific geom that we want to change. To do that, you can place an additional `aes()` inside of that layer:
+
+
+~~~
+ggplot(data = smoking_1990) +
+  aes(x = continent, y = lung_cancer_pct) +
+  geom_boxplot(fill = "lightblue") +
+  geom_point(aes(color = continent), alpha = 0.3)
+~~~
+{: .language-r}
+
+<div class="figure" style="text-align: center">
+<img src="../fig/rmd-02-colCont2-1.png" alt="plot of chunk colCont2" width="612" />
+<p class="caption">plot of chunk colCont2</p>
+</div>
+
+Nice! Both `geom_boxplot()` and `geom_point()` will inherit the default values of `aes(continent, lung_cancer_pct)` in the base plot, but only `geom_jitter` will also use `aes(color = continent)`.
 
 > ## Aesthetics inside the `ggplot()` function
 > Instead of mapping our aesthetics to each geom, we can provide default aesthetics by passing the values to the `ggplot()` function call. Any aesthetics we want to be specific to a layer, we would keep in the geom function for that layer: 
@@ -1177,7 +1226,8 @@ We've drawn the points but most of them stack up on top of each other. One way t
 > > 
 > > ~~~
 > > ggplot(data = smoking_1990) +
-> >   geom_violin(aes(x = continent, y = smoke_pct))
+> >   aes(x = continent, y = smoke_pct) +
+> >   geom_violin()
 > > ~~~
 > > {: .language-r}
 > > 
