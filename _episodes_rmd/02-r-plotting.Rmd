@@ -95,7 +95,7 @@ In this lesson, we will go over how to read tabular data into R (e.g. from a csv
 
 # Loading and reviewing data
 
-> ## The tidyverse vs Base R
+> > ## The tidyverse vs Base R
 > > If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
 > {: .solution}
 {: .callout}
@@ -109,30 +109,28 @@ library(tidyverse)
 When you loaded the `tidyverse` package, you probably got a message like the one we got above. This isn't an error! These messages are just giving you more information about what happened when you loaded `tidyverse`. For now, we don't have to worry about the messages. You can read the bonus section below for more details.
 
 > ## Bonus: What's with all those messages???
+> The tidyverse messages give you more
+> information about what happened when you loaded `tidyverse`. The `tidyverse` is
+> actually a collection of several different packages, so the first section of the
+> message tells us what packages were installed when we loaded `tidyverse` (these
+> include `ggplot2`, which we'll be using a lot in this lesson, and `dyplr`, which
+> you'll be introduced to tomorrow in the 
+> [R for Data Analysis lesson]({{ page.root }}/05-r-markdown)).
+> 
+> The second section of messages gives a list of "conflicts." Sometimes, the
+> same function name will be used in two different packages, and R has to decide
+> which function to use. For example, our message says that:
 >
-> > The tidyverse messages give you more
-> > information about what happened when you loaded `tidyverse`. The `tidyverse` is
-> > actually a collection of several different packages, so the first section of the
-> > message tells us what packages were installed when we loaded `tidyverse` (these
-> > include `ggplot2`, which we'll be using a lot in this lesson, and `dyplr`, which
-> > you'll be introduced to tomorrow in the 
-> > [R for Data Analysis lesson]({{ page.root }}/05-r-markdown)).
-> >
-> > The second section of messages gives a list of "conflicts." Sometimes, the
-> > same function name will be used in two different packages, and R has to decide
-> > which function to use. For example, our message says that:
-> >
-> > ~~~
-> > dplyr::filter() masks stats::filter()
-> > ~~~
-> > {: .output}
-> >
-> > This means that two different packages (`dyplr` from `tidyverse` and `stats`
-> > from base R) have a function named `filter()`. By default, R uses the function
-> > that was most recently loaded, so if we try using the `filter()` function after
-> > loading `tidyverse`, we will be using the `filter()` function from `dplyr()`.
-> {: .solution}
-{: .callout}
+> ~~~
+> dplyr::filter() masks stats::filter()
+> ~~~
+> {: .output}
+> 
+> This means that two different packages (`dyplr` from `tidyverse` and `stats`
+> from base R) have a function named `filter()`. By default, R uses the function
+> that was most recently loaded, so if we try using the `filter()` function after
+> loading `tidyverse`, we will be using the `filter()` function from `dplyr()`.
+{: .solution}
 
 Okay, now let's read in our data, `smoking_cancer_1990.csv`. 
 To do this, we need to know the **file path**, which tells R where to find the file on your computer.
@@ -155,12 +153,10 @@ Each row contains the continent ("continent"), the total population ("pop"), the
 We can see that two of the columns are characters (categorical variables), and three are doubles (numbers).
 
 > ## Bonus: Characters vs. factors
->
-> > **Note:** In anything before R 4.0, categorical variables used to be read in as factors, which are [special data objects](https://www.tutorialspoint.com/r/r_factors.htm) that are used to store categorical data and have limited numbers of unique values. The unique values of a factor are tracked via the "levels" of a factor. A factor will always remember all of its levels even if the values don't actually appear in your data. The factor will also remember the order of the levels and will always print values out in the same order (by default this order is alphabetical).
-> > 
-> > If your columns are stored as character values but you need factors for plotting, ggplot will convert them to factors for you as needed.
-> {: .solution}
-{: .callout}
+> **Note:** In anything before R 4.0, categorical variables used to be read in as factors, which are [special data objects](https://www.tutorialspoint.com/r/r_factors.htm) that are used to store categorical data and have limited numbers of unique values. The unique values of a factor are tracked via the "levels" of a factor. A factor will always remember all of its levels even if the values don't actually appear in your data. The factor will also remember the order of the levels and will always print values out in the same order (by default this order is alphabetical).
+> 
+> If your columns are stored as character values but you need factors for plotting, ggplot will convert them to factors for you as needed.
+{: .solution}
 
 Now let's look at the data a bit more. 
 In the **Environment** tab in the upper right corner of RStudio, you will now see `smoking_1990` listed.
@@ -856,23 +852,21 @@ We've drawn the points but most of them stack up on top of each other. One way t
 {: .challenge}
 
 
-> > ## Bonus: Too many overlapping points for alpha to work?
-> > We have many observations/data points, so even making the points transparent doesn't really help us see them! Another option is to "jitter" the points. This adds some random variation to the position of the points so you can see them better. We can do this using `geom_jitter()`.
-> > 
-> > **WARNING!!!** `geom_jitter()` changes the position of points and should therefore only be used for **discrete** variables that don't have numerical values!!!
-> > 
-> > Since we are plotting a discrete value on the x axis, and a continuous value on the y axis, we will need to tell `geom_jitter()` not to change the y value positions. We can do this by setting `height = 0` inside the geom. We will also modify the degree to which points are jittered on the x axis by setting the `width` argument. Feel free to play around with `width` to get a plot that you like. Remember, we can **only** do this because the x axis is discrete!
-> > 
-> > ```{r BoxjitterAlpha}
-> > ggplot(data = smoking_1990) +
-> >   aes(x = continent, y = lung_cancer_pct) +
-> >   geom_boxplot(fill = "lightblue") +
-> >   geom_jitter(alpha = 0.3, height = 0, width = 0.05)
-> > ```
-> > That looks better!
-> {: .solution}
-{: .callout}
-
+> ## Bonus: Too many overlapping points for alpha to work?
+> We have many observations/data points, so even making the points transparent doesn't really help us see them! Another option is to "jitter" the points. This adds some random variation to the position of the points so you can see them better. We can do this using `geom_jitter()`.
+> 
+> **WARNING!!!** `geom_jitter()` changes the position of points and should therefore only be used for **discrete** variables that don't have numerical values!!!
+> 
+> Since we are plotting a discrete value on the x axis, and a continuous value on the y axis, we will need to tell `geom_jitter()` not to change the y value positions. We can do this by setting `height = 0` inside the geom. We will also modify the degree to which points are jittered on the x axis by setting the `width` argument. Feel free to play around with `width` to get a plot that you like. Remember, we can **only** do this because the x axis is discrete!
+> 
+> ```{r BoxjitterAlpha}
+> ggplot(data = smoking_1990) +
+>   aes(x = continent, y = lung_cancer_pct) +
+>   geom_boxplot(fill = "lightblue") +
+>   geom_jitter(alpha = 0.3, height = 0, width = 0.05)
+> ```
+> That looks better!
+{: .solution}
 
 > ## Predicting output
 > What do you think will happen if you switch the order of `geom_boxplot()` and `geom_point()`? Why? 
@@ -910,14 +904,14 @@ ggplot(data = smoking_1990) +
 Nice! Both `geom_boxplot()` and `geom_point()` will inherit the default values of `aes(continent, lung_cancer_pct)` in the base plot, but only `geom_jitter` will also use `aes(color = continent)`.
 
 > ## Bonus: Aesthetics inside the `ggplot()` function
-> > Instead of mapping our aesthetics to each geom, we can provide default aesthetics by passing the values to the `ggplot()` function call. Any aesthetics we want to be specific to a layer, we would keep in the geom function for that layer: 
-> > ```{r}
-> > ggplot(data = smoking_1990, mapping = aes(x = continent, y = lung_cancer_pct)) +
-> >   geom_boxplot(fill = "lightblue") +
-> >   geom_point(aes(color = continent), alpha = 0.3)
-> > ```
-> > Here, both `geom_boxplot()` and `geom_point()` will inherit the default values of `aes(continent, lung_cancer_pct)` in the base plot, but only `geom_point()` will also use `aes(color = continent)`.
-{: .testimonial}
+> Instead of mapping our aesthetics to each geom, we can provide default aesthetics by passing the values to the `ggplot()` function call. Any aesthetics we want to be specific to a layer, we would keep in the geom function for that layer: 
+> ```{r}
+> ggplot(data = smoking_1990, mapping = aes(x = continent, y = lung_cancer_pct)) +
+>   geom_boxplot(fill = "lightblue") +
+>   geom_point(aes(color = continent), alpha = 0.3)
+> ```
+> Here, both `geom_boxplot()` and `geom_point()` will inherit the default values of `aes(continent, lung_cancer_pct)` in the base plot, but only `geom_point()` will also use `aes(color = continent)`.
+{: .solution}
 
 > ## Bonus Exercise: Make your own violin plot
 > Now create a violin plot comparing percent of people in a country who smoke by continent. 

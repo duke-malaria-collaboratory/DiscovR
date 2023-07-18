@@ -128,6 +128,7 @@ Error in read_csv("data/ambient_pollution.csv"): could not find function "read_c
 > > 
 > > **Reminder:** Many of these packages, including `dplyr`, come with "Cheatsheets" found under the **Help** RStudio menu tab.
 > {: .solution}
+{: .challenge}
 
 
 Now, let's take a look at what this data object contains:
@@ -220,6 +221,7 @@ It looks like our data object has three columns: `location_name`, `year_id`, and
 > > 
 > > <img src="../fig/rmd-03-unnamed-chunk-5-1.png" width="612" style="display: block; margin: auto;" />
 > {: .solution}
+{: .challenge}
 
 ## Overview of the lesson
 
@@ -231,8 +233,9 @@ Great, now that we've read in the data and practiced plotting, we can start to t
 > ## What data cleaning do we have to do?
 > Look back at the three columns in our data object: `location_name`, `year_id`, and `median`. What might we need to take care of in order to merge these data with our lung cancer rates dataset? 
 > > ## Solution
-> > It looks like the `location_name` column contains values other than countries, and our `year_id` column has many years, and we are only interested in 1990 for now. 
+> > It looks like the `location_name` column contains values other than countries, and our `year_id` column has many years, and we are only interested in 1990 for now.
 > {: .solution}
+{: .challenge}
 
 ## Narrow down rows with `filter()` {#narrow-down-rows-with-filter}
 [*Back to top*](#contents)
@@ -355,9 +358,9 @@ ambient_pollution_dirty %>%
 
 Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested functions and minimizes the need for new variables.
 
-> > ## Bonus: Pipe keyboard shortcut
-> > Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on Windows or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac.
-> {: .solution}
+> ## Bonus: Pipe keyboard shortcut
+> Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on Windows or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac.
+{: .solution}
 
 > ## Bonus Exercise: Viewing data
 > Sometimes it can be helpful to explore your data summaries in the View tab. Filter `ambient_pollution_dirty` to only entries from 1990 and use the *pipe operator* and `View()` to explore the summary data. Click on the column names to reorder the summary data however you'd like.
@@ -726,7 +729,7 @@ You can see that `pollution_1990` has 685 rows, as we expect, since we took care
 
 Note: here, we took the mean to take care of duplicates and multiple entries, but this is not always the best way to do so. When working with your own data, make sure to think carefully about your dataset, what these multiple entries really mean, and whether you want to leave them as they are or take care of them in some different way.
 
-> ## Bonus: Check to see if we have all distinct rows in our new dataset
+> ## Bonus Exercise: Check to see if all rows are distinct
 > Do we have any duplicated rows in our pollution_1990 dataset now? 
 > HINT: You might get an unexpected result. Look at the code we used to make pollution_1990 to try to figure out why. 
 > 
@@ -833,7 +836,7 @@ Because the `country` column is now present in both datasets, we'll call `countr
 > ## What problems might we run into with merging? 
 > > ## Solution
 > > We might not have pollution data for all of the countries in the `smoking_1990` dataset and vice versa. Also, a country might be represented in both dataframes but not by the same name in both places.
-> {.solution}
+> {: .solution}
 {: .challenge}
 
 The dplyr package has a number of tools for joining dataframes together depending on what we want to do with the rows of the data of countries that are not represented in both dataframes. Here we'll be using `left_join()`. 
@@ -885,8 +888,7 @@ We now have data from both datasets joined together in the same dataframe. Notic
 
 Alright, let's explore this joined data a little bit. 
 
-## Checking for missing values
-{#missing-values}
+## Checking for missing values {#missing-values}
 [*Back to top*](#contents)
 
 First, let's check for any **missing values**. We will start by using the `drop_na()` function, which is a tidyverse function that removes any rows that have missing values. Then we will check the number of rows in our dataset using `count()` and compare to the original to see if we lost any rows with missing data.

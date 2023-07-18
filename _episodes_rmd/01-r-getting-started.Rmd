@@ -34,7 +34,7 @@ set.seed(20210109)
     1. [Objects](#objects)
 1. [Glossary of terms](#glossary-of-terms)
 
-> ## Bonus: why learn to program?
+> ## Why learn to program?
 > Share why you're interested in learning how to code.
 > > ## Solution:
 > > There are lots of different reasons, including to perform data analysis and generate figures. I'm sure you have more specific reasons for why you'd like to learn!
