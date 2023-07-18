@@ -621,8 +621,7 @@ Let's do this for our `pollution_1990_dirty` dataset:
 ~~~
 pollution_1990_dirty %>%
     group_by(location_name) %>%
-    count() %>%
-    arrange(-n)
+    count()
 ~~~
 {: .language-r}
 
@@ -631,18 +630,18 @@ pollution_1990_dirty %>%
 ~~~
 # A tibble: 685 × 2
 # Groups:   location_name [685]
-   location_name                    n
-   <chr>                        <int>
- 1 Georgia                          2
- 2 North Africa and Middle East     2
- 3 South Asia                       2
- 4 Stockholm                        2
- 5 Sweden except Stockholm          2
- 6 Aceh                             1
- 7 Acre                             1
- 8 Afghanistan                      1
- 9 Africa                           1
-10 African Region                   1
+   location_name      n
+   <chr>          <int>
+ 1 Aceh               1
+ 2 Acre               1
+ 3 Afghanistan        1
+ 4 Africa             1
+ 5 African Region     1
+ 6 African Union      1
+ 7 Aguascalientes     1
+ 8 Aichi              1
+ 9 Akershus           1
+10 Akita              1
 # ℹ 675 more rows
 ~~~
 {: .output}
@@ -950,7 +949,7 @@ Joining with `by = join_by(country)`
 
 We can see that were missing pollution data for Vietnam and Slovak Republic. Note that we were expecting two rows with missing values, and we found both of them! That's great news.
 
-If we look at the `pollution_1990_clean` data with `View()` and sort by `country`, we can see that Vientam and Slovak Republic are called different things in the `pollution_1990_clean` dataframe. They're called "Viet Nam" and "Slovakia," respectively. Using `mutate()` and `case_when()`, we can update the `pollution_2019` data so that the country names for Vietnam and Slovak Republic match those in the `smoking_1990` data. `case_when()` is a super useful function that uses information from a column (or columns) in your dataset to update or create new columns.
+If we look at the `pollution_1990_clean` data by clicking on it in the environment and sort by `country`, we can see that Vientam and Slovak Republic are called different things in the `pollution_1990_clean` dataframe. They're called "Viet Nam" and "Slovakia," respectively. Using `mutate()` and `case_when()`, we can update the `pollution_2019` data so that the country names for Vietnam and Slovak Republic match those in the `smoking_1990` data. `case_when()` is a super useful function that uses information from a column (or columns) in your dataset to update or create new columns.
 
 Let's use `case_when()` to change "Viet Nam" to "Vietnam".
 

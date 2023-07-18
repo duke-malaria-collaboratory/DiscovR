@@ -303,8 +303,7 @@ Let's do this for our `pollution_1990_dirty` dataset:
 ```{r GapLifeExpByYear}
 pollution_1990_dirty %>%
     group_by(location_name) %>%
-    count() %>%
-    arrange(-n)
+    count()
 ```
 
 It's kind of hard to find the ones wth two values. Let's arrange the counts from highest to lowest using the `arrange()` function to make it easier to see:
@@ -451,7 +450,7 @@ left_join(smoking_1990, pollution_1990_clean) %>%
 
 We can see that were missing pollution data for Vietnam and Slovak Republic. Note that we were expecting two rows with missing values, and we found both of them! That's great news.
 
-If we look at the `pollution_1990_clean` data with `View()` and sort by `country`, we can see that Vientam and Slovak Republic are called different things in the `pollution_1990_clean` dataframe. They're called "Viet Nam" and "Slovakia," respectively. Using `mutate()` and `case_when()`, we can update the `pollution_2019` data so that the country names for Vietnam and Slovak Republic match those in the `smoking_1990` data. `case_when()` is a super useful function that uses information from a column (or columns) in your dataset to update or create new columns.
+If we look at the `pollution_1990_clean` data by clicking on it in the environment and sort by `country`, we can see that Vientam and Slovak Republic are called different things in the `pollution_1990_clean` dataframe. They're called "Viet Nam" and "Slovakia," respectively. Using `mutate()` and `case_when()`, we can update the `pollution_2019` data so that the country names for Vietnam and Slovak Republic match those in the `smoking_1990` data. `case_when()` is a super useful function that uses information from a column (or columns) in your dataset to update or create new columns.
 
 Let's use `case_when()` to change "Viet Nam" to "Vietnam".
 
