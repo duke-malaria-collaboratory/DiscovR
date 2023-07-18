@@ -3,8 +3,8 @@
 # Instead, please edit 03-r-data-cleaning.md in _episodes_rmd/
 title: "R for Data Cleaning"
 source: Rmd
-teaching: 75
-exercises: 15
+teaching: 105
+exercises: 30
 questions:
 - "How can I clean my data in R?"
 - "How can I combine two datasets from different sources?"
@@ -29,7 +29,6 @@ keypoints:
 1. [Cleaning up data](#cleaning-up-data)
 1. [Day 1 review](#day-1-review)
 1. [Overview of the lesson](#overview-of-the-lesson)
-1. [Plotting review](#plotting-review)
 1. [Narrow down rows with `filter()`](#narrow-down-rows-with-filter)
 1. [Subset columns using `select()`](#subset-columns-using-select)
 1. [Checking for missing values](#checking-for-missing-values)
@@ -78,58 +77,57 @@ Error in read_csv("data/ambient_pollution.csv"): could not find function "read_c
 ~~~
 {: .error}
 
-What error do you get and why? Fix the code so you don't get an error and read in the dataset. *Hint: Packages...*
-
-> ## Solution
->
-> If we look in the console now, we'll see we've received an error message saying that R "could not find the function `read_csv()`". 
-> What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It's important to remember that you will need to load any packages you want to use into R each time you start a new session. The `read_csv` function comes from the `readr` package which is included in the `tidyverse` package so we will just load the `tidyverse` package and run the import code again:
-> 
-> ~~~
-> library(tidyverse)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-> ✔ dplyr     1.1.2     ✔ readr     2.1.4
-> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-> ✔ purrr     1.0.1     
-> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-> ✖ dplyr::filter() masks stats::filter()
-> ✖ dplyr::lag()    masks stats::lag()
-> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> ambient_pollution_dirty <- read_csv("data/ambient_pollution.csv")
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Rows: 9660 Columns: 3
-> ── Column specification ────────────────────────────────────────────────────────
-> Delimiter: ","
-> chr (1): location_name
-> dbl (2): year_id, median
-> 
-> ℹ Use `spec()` to retrieve the full column specification for this data.
-> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-> ~~~
-> {: .output}
-> As we saw yesterday, the output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr` and `dplyr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org). 
-> 
-> **Reminder:** Many of these packages, including `dplyr`, come with "Cheatsheets" found under the **Help** RStudio menu tab.
-{: .solution}
+> ## Exercise: What error do you get and why?
+> Fix the code so you don't get an error and read in the dataset. *Hint: Packages...*
+> > ## Solution
+> > If we look in the console now, we'll see we've received an error message saying that R "could not find the function `read_csv()`". 
+> > What this means is that R cannot find the function we are trying to call. The reason for this usually is that we are trying to run a function from a package that we have not yet loaded. This is a very common error message that you will probably see a lot when using R. It's important to remember that you will need to load any packages you want to use into R each time you start a new session. The `read_csv` function comes from the `readr` package which is included in the `tidyverse` package so we will just load the `tidyverse` package and run the import code again:
+> > 
+> > ~~~
+> > library(tidyverse)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+> > ✔ dplyr     1.1.2     ✔ readr     2.1.4
+> > ✔ forcats   1.0.0     ✔ stringr   1.5.0
+> > ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+> > ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+> > ✔ purrr     1.0.1     
+> > ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+> > ✖ dplyr::filter() masks stats::filter()
+> > ✖ dplyr::lag()    masks stats::lag()
+> > ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > ambient_pollution_dirty <- read_csv("data/ambient_pollution.csv")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Rows: 9660 Columns: 3
+> > ── Column specification ────────────────────────────────────────────────────────
+> > Delimiter: ","
+> > chr (1): location_name
+> > dbl (2): year_id, median
+> > 
+> > ℹ Use `spec()` to retrieve the full column specification for this data.
+> > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> > ~~~
+> > {: .output}
+> > As we saw yesterday, the output in your console shows that by doing this, we attach several useful packages for data wrangling, including `readr` and `dplyr`. Check out these packages and their documentation at [tidyverse.org](https://www.tidyverse.org). 
+> > 
+> > **Reminder:** Many of these packages, including `dplyr`, come with "Cheatsheets" found under the **Help** RStudio menu tab.
+> {: .solution}
 
 
 Now, let's take a look at what this data object contains:
@@ -163,79 +161,65 @@ ambient_pollution_dirty
 
 It looks like our data object has three columns: `location_name`, `year_id`, and `median`. Median here is the median ambient pollution in micrograms per cubic meter. Scroll through the data object to get an idea of what's there. 
 
-#### Plotting review: median pollution levels
-_[Back to top](#contents)_
-
-Let's refresh out plotting skills. Make a histogram of pollution levels in the `ambient_pollution_dirty` data object. Feel free to look back at the content from yesterday if you want!
-
-Bonus 1: Facet by `year_id` to look at histograms of ambient pollution levels for each year in the dataset. 
-
-Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything else you want.  
-
-> ## Solution
+> ## Plotting review: median pollution levels
+> Let's refresh out plotting skills. Make a histogram of pollution levels in the `ambient_pollution_dirty` data object. Feel free to look back at the content from yesterday if you want!
 > 
-> ~~~
-> ggplot(ambient_pollution_dirty, aes(x = median)) +
->   geom_histogram()
-> ~~~
-> {: .language-r}
+> *Bonus 1:* Facet by `year_id` to look at histograms of ambient pollution levels for each year in the dataset. 
 > 
-> 
-> 
-> ~~~
-> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-> ~~~
-> {: .output}
-> 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-03-unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" width="612" />
-> <p class="caption">plot of chunk unnamed-chunk-3</p>
-> </div>
-> Bonus 1: 
-> 
-> ~~~
-> ggplot(ambient_pollution_dirty, aes(x = median)) +
->   geom_histogram() +
->   facet_wrap(~year_id)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-> ~~~
-> {: .output}
-> 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-03-unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4" width="612" />
-> <p class="caption">plot of chunk unnamed-chunk-4</p>
-> </div>
-> Bonus 2 example:
-> 
-> ~~~
-> ggplot(ambient_pollution_dirty, aes(x = median)) +
->   geom_histogram() +
->   facet_wrap(~year_id) +
->   labs(x = 'Median ambient pollution (micrograms per cubic meter)', y = 'Count') +
->   theme_bw()
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-> ~~~
-> {: .output}
-> 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-03-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" width="612" />
-> <p class="caption">plot of chunk unnamed-chunk-5</p>
-> </div>
-{: .solution}
-
-
+> *Bonus 2:* Make the plot prettier by changing the axis labels, theme, and anything else you want.  
+> > ## Solution
+> > 
+> > ~~~
+> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> >   geom_histogram()
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+> > ~~~
+> > {: .output}
+> > 
+> > <img src="../fig/rmd-03-unnamed-chunk-3-1.png" width="612" style="display: block; margin: auto;" />
+> > Bonus 1: 
+> > 
+> > ~~~
+> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> >   geom_histogram() +
+> >   facet_wrap(~year_id)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+> > ~~~
+> > {: .output}
+> > 
+> > <img src="../fig/rmd-03-unnamed-chunk-4-1.png" width="612" style="display: block; margin: auto;" />
+> > Bonus 2 example:
+> > 
+> > ~~~
+> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> >   geom_histogram() +
+> >   facet_wrap(~year_id) +
+> >   labs(x = 'Median ambient pollution (micrograms per cubic meter)', y = 'Count') +
+> >   theme_bw()
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+> > ~~~
+> > {: .output}
+> > 
+> > <img src="../fig/rmd-03-unnamed-chunk-5-1.png" width="612" style="display: block; margin: auto;" />
+> {: .solution}
 
 ## Overview of the lesson
 
@@ -243,11 +227,12 @@ Bonus 2: Make the plot prettier by changing the axis labels, theme, and anything
 
 Great, now that we've read in the data and practiced plotting, we can start to think about cleaning the data. Remember that our goal is to prepare the ambient pollution data to be compatible with our lung cancer rates so we can directly compare lung cancer rates to ambient pollution levels (we will do this tomorrow). To make this work, we'd like a dataframe that contains columns with the country name, year, and median ambient pollution levels (in micrograms per cubic meter). We will make this comparison for the first year in these datasets, 1990.
 
-Look back at the three columns in our data object: `location_name`, `year_id`, and `median`. Can you think of anything we might need to take care of in order to merge these data with our lung cancer rates dataset? 
 
-> ## Solution
-> It looks like the `location_name` column contains values other than countries, and our `year_id` column has many years, and we are only interested in 1990 for now.
-{: .solution}
+> ## What data cleaning do we have to do?
+> Look back at the three columns in our data object: `location_name`, `year_id`, and `median`. What might we need to take care of in order to merge these data with our lung cancer rates dataset? 
+> > ## Solution
+> > It looks like the `location_name` column contains values other than countries, and our `year_id` column has many years, and we are only interested in 1990 for now. 
+> {: .solution}
 
 ## Narrow down rows with `filter()` {#narrow-down-rows-with-filter}
 [*Back to top*](#contents)
@@ -370,12 +355,12 @@ ambient_pollution_dirty %>%
 
 Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readable. The  *pipe operator* `%>%` also helps to avoid using nested functions and minimizes the need for new variables.
 
-Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on Windows or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac.
+> > ## Bonus: Pipe keyboard shortcut
+> > Since we use the pipe operator so often, there is a keyboard shortcut for it in RStudio. You can press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on Windows or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> on a Mac.
+> {: .solution}
 
-Sometimes it can be helpful to explore your data summaries in the View tab. Try it in the exercise below.
-
-> ## Viewing data
-> Filter `ambient_pollution_dirty` to only entries from 1990 and use the *pipe operator* and `View()` to explore the summary data. Click on the column names to reorder the summary data however you'd like.
+> ## Bonus Exercise: Viewing data
+> Sometimes it can be helpful to explore your data summaries in the View tab. Filter `ambient_pollution_dirty` to only entries from 1990 and use the *pipe operator* and `View()` to explore the summary data. Click on the column names to reorder the summary data however you'd like.
 > 
 > > ## Solution: 
 > > 
@@ -390,7 +375,7 @@ Sometimes it can be helpful to explore your data summaries in the View tab. Try 
 {: .challenge}
 
 
-> ## Bonus: sorting columns
+> ## Bonus Exercise: sorting columns
 > We just used the View tab to sort our count data, but how could you use code to sort the `median` column? Try to figure it out by searching on the Internet. 
 > 
 > > ## Solution: 
@@ -551,122 +536,31 @@ ambient_pollution_dirty %>%
 {: .challenge}
 
 
-> ## Bonus: Using helper functions with `select()`
+> ## Exercise: use `filter()` and `select()` to narrow down our dataframe to only the `location_name` and `median` for 1990
 >
-> The `select()` function has a bunch of helper functions that are handy if you are working with a dataset that has a lot of columns. You can see these helper functions on the `?select` help page. For example, let's say we wanted to select the year_id column and all the columns that start with the letter "m". You can do that with:
-> 
-> 
-> ~~~
-> ambient_pollution_dirty %>%
->   select(year_id, starts_with("m"))
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> # A tibble: 9,660 × 2
->    year_id median
->      <dbl>  <dbl>
->  1    1990   40.0
->  2    1995   38.9
->  3    2000   40.6
->  4    2005   40.6
->  5    2010   42.7
->  6    2011   44.4
->  7    2012   46.1
->  8    2013   47.1
->  9    2014   47.3
-> 10    2015   46.1
-> # ℹ 9,650 more rows
-> ~~~
-> {: .output}
-> This returns just the two columns we are interested in. Note that we had to use quotation marks for "m" because the `starts_with()` function requires a character vector in the match argument.
+> Combine the two functions you have learned so far with the pipe operator to narrow down the dataset to the location names and ambient pollution in the year 1990. Save it to an object called `pollution_1990_dirty`.
 >
->
-> > ## Exercise: use `filter()` and `select()` to narrow down our dataframe to only the `location_name` and `median` for 1990
+> > ## Solution
 > >
-> > Combine the two functions you have learned so far with the pipe operator to narrow down the dataset to the location names and ambient pollution in the year 1990.
-> >
-> > > ## Solution
-> > >
-> > > 
-> > > ~~~
-> > > ambient_pollution_dirty %>%
-> > >   filter(year_id == 1990) %>%
-> > >   select(-year_id)
-> > > ~~~
-> > > {: .language-r}
-> > > 
-> > > 
-> > > 
-> > > ~~~
-> > > # A tibble: 690 × 2
-> > >    location_name                          median
-> > >    <chr>                                   <dbl>
-> > >  1 Global                                   40.0
-> > >  2 Southeast Asia, East Asia, and Oceania   41.3
-> > >  3 East Asia                                45.8
-> > >  4 China                                    46.4
-> > >  5 Democratic People's Republic of Korea    39.3
-> > >  6 Taiwan                                   21.7
-> > >  7 Southeast Asia                           28.3
-> > >  8 Cambodia                                 26.5
-> > >  9 Indonesia                                25.5
-> > > 10 Lao People's Democratic Republic         25.1
-> > > # ℹ 680 more rows
-> > > ~~~
-> > > {: .output}
-> > {: .solution}
-> {: .challenge}
-> 
-{: .solution}
+> > 
+> > ~~~
+> > pollution_1990_dirty <- ambient_pollution_dirty %>%
+> >   filter(year_id == 1990) %>%
+> >   select(-year_id)
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
 
-
-Great! Now we have our dataset narrowed down. Let's save it as an object in our environment:
-
-
-~~~
-pollution_1990_dirty <- ambient_pollution_dirty %>%
-    filter(year_id == 1990) %>%
-    select(-year_id)
-~~~
-{: .language-r}
-
-
-## Checking for missing values {#missing-values}
-[*Back to top*](#contents)
-
-Another helpful thing to do when exploring and cleaning a new dataset is to get an idea of whether there are any missing values or duplicate rows. Let's start by checking to see if we have any **missing data**. We will do this using `drop_na()`, a tidyverse function that removes any rows that have missing values. We will then check the number of rows using `count()` in our dataset and compare to the original to see if we lost any rows with missing data.
-
-
-~~~
-pollution_1990_dirty %>%
-  drop_na() %>%
-  count()
-~~~
-{: .language-r}
-
-
-
-~~~
-# A tibble: 1 × 1
-      n
-  <int>
-1   690
-~~~
-{: .output}
-
-After dropping rows with missing values, our data object still has the same number of rows (690) as `pollution_1990_dirty`. This tells us that we don't have any rows with missing data. Wow! We're pretty lucky, because often datasets DO have missing data. Later on, we will learn how to identify observations with missing values.
-
+Great! Now we have our dataset narrowed down and saved to an object.
 
 ## Checking for duplicate rows {#duplicate_rows}
 [*Back to top*](#contents)
 
-Now, let's check to see if our dataset contains *duplicate rows*. We already know that we have some rows with identical location names, but are the rows identical? We can use the `distinct()` function, which removes any rows for which all values are duplicates of another row, followed by `count()` to find out. The code is very similar to what we did above, but we replace `drop_na()` with `distinct()`. Try it out yourself!
+Let's check to see if our dataset contains *duplicate rows*. We already know that we have some rows with identical location names, but are the rows identical? We can use the `distinct()` function, which removes any rows for which all values are duplicates of another row, followed by `count()` to find out. 
 
 > ## Getting distinct columns
-> Find the number of distinct rows in `pollution_1990_dirty` using the `distinct()` function. 
+> Find the number of distinct rows in `pollution_1990_dirty` by piping the data into `distinct()` and then `count()`. 
 > 
 > > ## Solution: 
 > > 
@@ -713,14 +607,45 @@ pollution_1990_dirty %>%
 
 All right, so we expected at least two rows would be eliminated, because we know there are two rows that are completely identical. But here, we can see that there are up to 5 `location_name` values with multiple rows, suggesting that some locations may have multiple entries with different values. It's important to check these out because they might indicate issues with data entry or discordant data.
 
-
 ## Grouping and counting rows using `group_by()` and `count()` {#grouping-rows-using-group_by}
 [*Back to top*](#contents)
 
 The `group_by()` function allows us to treat rows in logical groups defined by categories in at least one column. This will allow us to get summary values for each group. The `group_by()` function expects you to pass in the name of a column (or multiple columns separated by commas) in your data. When we put it together with `count()`, we will be able to see how many rows are in each group.
 
-Let's do this for our `pollution_1990_dirty` dataset and arrange the counts from highest to lowest:
+Let's do this for our `pollution_1990_dirty` dataset:
 
+
+~~~
+pollution_1990_dirty %>%
+    group_by(location_name) %>%
+    count() %>%
+    arrange(-n)
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 685 × 2
+# Groups:   location_name [685]
+   location_name                    n
+   <chr>                        <int>
+ 1 Georgia                          2
+ 2 North Africa and Middle East     2
+ 3 South Asia                       2
+ 4 Stockholm                        2
+ 5 Sweden except Stockholm          2
+ 6 Aceh                             1
+ 7 Acre                             1
+ 8 Afghanistan                      1
+ 9 Africa                           1
+10 African Region                   1
+# ℹ 675 more rows
+~~~
+{: .output}
+
+It's kind of hard to find the ones wth two values. Let's arrange the counts from highest to lowest using the `arrange()` function to make it easier to see:
+ 
 
 ~~~
 pollution_1990_dirty %>%
@@ -788,7 +713,6 @@ Now, we want to clean these data up so there is only one row per location. To do
 The function we use to create new columns is called `mutate()`. Let's go ahead and take care of the `location_names` which have two different median pollution values by making a new column called `pollution` that is the mean of `median`. We can then remove the `median` column and store the resulting data object as `pollution_1990`.
 
 
-
 ~~~
 pollution_1990 <- pollution_1990_dirty %>%
   group_by(location_name) %>%
@@ -802,9 +726,7 @@ You can see that `pollution_1990` has 685 rows, as we expect, since we took care
 
 Note: here, we took the mean to take care of duplicates and multiple entries, but this is not always the best way to do so. When working with your own data, make sure to think carefully about your dataset, what these multiple entries really mean, and whether you want to leave them as they are or take care of them in some different way.
 
-
-
-> ## Check to see if we have all distinct rows in our new dataset
+> ## Bonus: Check to see if we have all distinct rows in our new dataset
 > Do we have any duplicated rows in our pollution_1990 dataset now? 
 > HINT: You might get an unexpected result. Look at the code we used to make pollution_1990 to try to figure out why. 
 > 
@@ -865,20 +787,8 @@ Note: here, we took the mean to take care of duplicates and multiple entries, bu
 > {: .solution}
 {: .challenge}
 
-Let's ungroup our `pollution_1990` data as this is best practice, since it can lead to unexpected outputs like we observed in the exercise above.
-
-
-~~~
-pollution_1990 <- pollution_1990 %>% 
-  ungroup()
-~~~
-{: .language-r}
-
-
-# Joining dataframes
-
+# Joining dataframes {#joining-dataframes}
 [*Back to top*](#contents)
-
 
 Now we're almost ready to join our pollution data to the smoking and lung cancer data. Let's read in our `smoking_cancer_1990.csv` and save it to an object called `smoking_1990`.
 
@@ -914,19 +824,23 @@ Look at the data in `pollution_1990` and `smoking_1990`. If you had to merge the
 > >   rename(country = location_name) 
 > > ~~~
 > > {: .language-r}
-> > 
 > > Note that the column is labeled `country` even though it has values beyond the names of countries. We will take care of this later when we join datasets.
 > {: .solution}
 {: .challenge}
 
-Because the `country` column is now present in both datasets, we'll call `country` our "key". We want to match the rows in each dataframe together based on this key. Note that the values within the country column have to be exactly identical for them to match (including the same case). Now, when we join them together, can you think of any problems we might run into when we merge things? We might not have pollution data for all of the countries in the `smoking_1990` dataset and vice versa. Also, a country might be represented in both dataframes but not by the same name in both places.
+Because the `country` column is now present in both datasets, we'll call `country` our "key". We want to match the rows in each dataframe together based on this key. Note that the values within the country column have to be exactly identical for them to match (including the same case). 
+
+> ## What problems might we run into with merging? 
+> > ## Solution
+> > We might not have pollution data for all of the countries in the `smoking_1990` dataset and vice versa. Also, a country might be represented in both dataframes but not by the same name in both places.
+> {.solution}
+{: .challenge}
 
 The dplyr package has a number of tools for joining dataframes together depending on what we want to do with the rows of the data of countries that are not represented in both dataframes. Here we'll be using `left_join()`. 
-
 In a "left join", the new dataframe only has those rows for the key values that are found in the first dataframe listed. This is a very commonly used join.
 
 > ## Bonus: Other dplyr join functions 
->
+> 
 > Other joins and can be performed using `inner_join()`, `right_join()`, `full_join()`, and `anti_join()`. In a "left join", if the key is present in the left hand dataframe, it will appear in the output, even if it is not found in the the right hand dataframe. For a right join, the opposite is true. For a full join, all possible keys are included in the output dataframe. For an anti join, only ones found in the left data frame are included. 
 > ![]({{ page.root }}/fig/r-data-analysis/dplyr-join.png)
 > [Image source](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins/index.html)
@@ -967,44 +881,31 @@ Joining with `by = join_by(country)`
 ~~~
 {: .output}
 
-We now have data from both datasets joined together in the same dataframe. Notice that the number of rows here, 191, is the same as the number of rows in the `smoking_1990` dataset? One thing to note about the output is that `left_join()` tells us that that it joined by "country". We can make this explicit using the "by" argument in the join functions
+We now have data from both datasets joined together in the same dataframe. Notice that the number of rows here, 191, is the same as the number of rows in the `smoking_1990` dataset? One thing to note about the output is that `left_join()` tells us that that it joined by "country".
+
+Alright, let's explore this joined data a little bit. 
+
+## Checking for missing values
+{#missing-values}
+[*Back to top*](#contents)
+
+First, let's check for any **missing values**. We will start by using the `drop_na()` function, which is a tidyverse function that removes any rows that have missing values. Then we will check the number of rows in our dataset using `count()` and compare to the original to see if we lost any rows with missing data.
 
 
 ~~~
-left_join(smoking_1990, pollution_1990_clean, by="country")
-~~~
-{: .language-r}
-
-
-
-~~~
-# A tibble: 191 × 7
-    year country            continent    pop smoke_pct lung_cancer_pct pollution
-   <dbl> <chr>              <chr>      <dbl>     <dbl>           <dbl>     <dbl>
- 1  1990 Afghanistan        Asia      1.24e7      3.12          0.0127     46.2 
- 2  1990 Albania            Europe    3.29e6     24.2           0.0327     23.8 
- 3  1990 Algeria            Africa    2.58e7     18.9           0.0118     29.4 
- 4  1990 Andorra            Europe    5.45e4     36.6           0.0609     13.4 
- 5  1990 Angola             Africa    1.18e7     12.5           0.0139     27.7 
- 6  1990 Antigua and Barbu… North Am… 6.25e4      6.80          0.0105     16.2 
- 7  1990 Argentina          South Am… 3.26e7     30.4           0.0344     14.8 
- 8  1990 Armenia            Europe    3.54e6     30.5           0.0441     30.0 
- 9  1990 Australia          Oceania   1.71e7     29.3           0.0599      7.13
-10  1990 Austria            Europe    7.68e6     35.4           0.0439     20.3 
-# ℹ 181 more rows
-~~~
-{: .output}
-
-Alright, let's explore this joined data a little bit. First, let's check for any missing values. We will start by using the `drop_na()` and `distinct()` functions as we did before to get an idea of how many rows have missing values.
-
-
-~~~
-left_join(smoking_1990, pollution_1990_clean, by="country") %>%
+left_join(smoking_1990, pollution_1990_clean) %>%
   drop_na() %>%
   distinct() %>% 
   count() 
 ~~~
 {: .language-r}
+
+
+
+~~~
+Joining with `by = join_by(country)`
+~~~
+{: .output}
 
 
 
@@ -1015,16 +916,24 @@ left_join(smoking_1990, pollution_1990_clean, by="country") %>%
 1   189
 ~~~
 {: .output}
+
 It looks like the dataframe has 189 rows after we drop any observations with missing values. This means there are two rows with missing values.
 
 Note that since we used `left_join`, we expect all the data from the `smoking_2019` dataset to be there, so if we have missing values, they will be in the `pollution` column. We will look for rows with missing values in the `pollution` column using the `filter()` function and `is.na()`, which is helpful for identifying missing data
 
 
 ~~~
-left_join(smoking_1990, pollution_1990_clean, by="country") %>%
+left_join(smoking_1990, pollution_1990_clean) %>%
   filter(is.na(pollution))
 ~~~
 {: .language-r}
+
+
+
+~~~
+Joining with `by = join_by(country)`
+~~~
+{: .output}
 
 
 
@@ -1055,6 +964,7 @@ pollution_1990_clean %>%
 
 ~~~
 # A tibble: 685 × 2
+# Groups:   country [685]
    country                                pollution
    <chr>                                      <dbl>
  1 Global                                      40.0
@@ -1072,7 +982,7 @@ pollution_1990_clean %>%
 {: .output}
 
 > ## Practicing `case_when()`
-> Starting with the code we wrote above, add to it to change "Slovakia" to "Slovak Republic" 
+> Starting with the code we wrote above, add to it to change "Slovakia" to "Slovak Republic".
 > 
 > > ## One possible solution: 
 > > 
@@ -1088,6 +998,7 @@ pollution_1990_clean %>%
 > > 
 > > ~~~
 > > # A tibble: 685 × 2
+> > # Groups:   country [685]
 > >    country                                pollution
 > >    <chr>                                      <dbl>
 > >  1 Global                                      40.0
@@ -1125,6 +1036,7 @@ pollution_1990_clean %>%
 > > 
 > > ~~~
 > > # A tibble: 2 × 3
+> > # Groups:   country [2]
 > >   country  pollution country_new    
 > >   <chr>        <dbl> <chr>          
 > > 1 Viet Nam      25.6 Vietnam        
@@ -1147,7 +1059,7 @@ pollution_1990_clean <- pollution_1990_clean %>%
 
 **IMPORTANT**: Here, we overwrote our `pollution_2019_clean` dataframe. In other words, we replaced the existing data object with a new one. This is generally NOT recommended practice, but is often needed when first performing exploratory data analysis as we are here. After you finish exploratory analysis, it's always a good idea to go back and clean up your code to avoid overwriting objects.
 
-> ## Challenge: Cleaning up code
+> ## Bonus Exercise: Cleaning up code
 > How would you clean up your code to avoid overwriting `pollution_2019_clean` as we did above? *Hint:* start with the pollution_1990 dataframe. *Challenge:* Start at the very beginning, from reading in your data, and clean it all in one big step (this is what we do once we've figured out how we want to clean our data - we then clean up our code). 
 > 
 > > ## Solution: 
@@ -1199,10 +1111,17 @@ Alright, now let's `left_join()` our dataframes again and filter for missing val
 
 
 ~~~
-left_join(smoking_1990, pollution_1990_clean, by="country") %>%
+left_join(smoking_1990, pollution_1990_clean) %>%
   filter(is.na(pollution))
 ~~~
 {: .language-r}
+
+
+
+~~~
+Joining with `by = join_by(country)`
+~~~
+{: .output}
 
 
 
@@ -1218,9 +1137,16 @@ Finally, let's use `left_join()` to create a new dataframe:
 
 
 ~~~
-smoking_pollution <- left_join(smoking_1990, pollution_1990_clean, by="country")
+smoking_pollution <- left_join(smoking_1990, pollution_1990_clean)
 ~~~
 {: .language-r}
+
+
+
+~~~
+Joining with `by = join_by(country)`
+~~~
+{: .output}
 
 
 We have reached our data cleaning goal! One of the best aspects of doing all of these steps coded in R is that our efforts are reproducible, and the raw data is maintained. With good documentation of data cleaning and analysis steps, we could easily share our work with another researcher who would be able to repeat what we've done. However, it's also nice to have a saved `csv` copy of our clean data. That way we can access it later without needing to redo our data cleaning, and we can also share the cleaned data with collaborators. To save our dataframe, we'll use `write_csv()`. 

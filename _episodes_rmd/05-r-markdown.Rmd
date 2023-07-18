@@ -1,8 +1,8 @@
 ---
 source: Rmd
 title: "Writing Reports with R Markdown"
-teaching: 105
-exercises: 30
+teaching: 75
+exercises: 15
 questions:
 - "How can I make reproducible reports using R Markdown?"
 - "How do I format text using Markdown?"

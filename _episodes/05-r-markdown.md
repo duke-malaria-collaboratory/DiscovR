@@ -3,8 +3,8 @@
 # Instead, please edit 05-r-markdown.md in _episodes_rmd/
 source: Rmd
 title: "Writing Reports with R Markdown"
-teaching: 105
-exercises: 30
+teaching: 75
+exercises: 15
 questions:
 - "How can I make reproducible reports using R Markdown?"
 - "How do I format text using Markdown?"
@@ -64,10 +64,7 @@ smoking %>%
 ~~~
 {: .language-r}
 
-<div class="figure" style="text-align: center">
-<img src="../fig/rmd-05-unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3" width="612" />
-<p class="caption">plot of chunk unnamed-chunk-3</p>
-</div>
+<img src="../fig/rmd-05-unnamed-chunk-3-1.png" width="612" style="display: block; margin: auto;" />
 
 Write some code to figure out which countries these are (even if you already know!).
 
@@ -106,10 +103,7 @@ Next, plot year vs. population separated into a plot for each continent but excl
 > ~~~
 > {: .language-r}
 > 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-05-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" width="612" />
-> <p class="caption">plot of chunk unnamed-chunk-5</p>
-> </div>
+> <img src="../fig/rmd-05-unnamed-chunk-5-1.png" width="612" style="display: block; margin: auto;" />
 > Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`) or comma (`,`), which means that you want to exclude both China and India:
 > 
 > ~~~
@@ -121,10 +115,7 @@ Next, plot year vs. population separated into a plot for each continent but excl
 > ~~~
 > {: .language-r}
 > 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-05-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" width="612" />
-> <p class="caption">plot of chunk unnamed-chunk-6</p>
-> </div>
+> <img src="../fig/rmd-05-unnamed-chunk-6-1.png" width="612" style="display: block; margin: auto;" />
 {: .solution}
 
 Bonus 1: Instead of hard-coding the two countries to remove them, remove the two outliers by combining your solutions to the first two questions.
@@ -140,10 +131,7 @@ Bonus 1: Instead of hard-coding the two countries to remove them, remove the two
 > ~~~
 > {: .language-r}
 > 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-05-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" width="612" />
-> <p class="caption">plot of chunk unnamed-chunk-7</p>
-> </div>
+> <img src="../fig/rmd-05-unnamed-chunk-7-1.png" width="612" style="display: block; margin: auto;" />
 {: .solution}
 
 Bonus 2: How can you make the differences between countries more visible on the plot without excluding the two countries you identified above?
@@ -160,10 +148,7 @@ Bonus 2: How can you make the differences between countries more visible on the 
 > ~~~
 > {: .language-r}
 > 
-> <div class="figure" style="text-align: center">
-> <img src="../fig/rmd-05-unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" width="612" />
-> <p class="caption">plot of chunk unnamed-chunk-8</p>
-> </div>
+> <img src="../fig/rmd-05-unnamed-chunk-8-1.png" width="612" style="display: block; margin: auto;" />
 {: .solution}
 
 
@@ -525,10 +510,7 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > ~~~
 > > {: .language-r}
 > > 
-> > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" width="612" />
-> > <p class="caption">plot of chunk unnamed-chunk-18</p>
-> > </div>
+> > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > smoking_pollution %>% 

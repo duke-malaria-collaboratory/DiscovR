@@ -110,10 +110,7 @@ smoking_pollution %>%
 ~~~
 {: .language-r}
 
-<div class="figure" style="text-align: center">
-<img src="../fig/rmd-04-Plotpollutionvpop-1.png" alt="plot of chunk Plotpollutionvpop" width="612" />
-<p class="caption">plot of chunk Plotpollutionvpop</p>
-</div>
+<img src="../fig/rmd-04-Plotpollutionvpop-1.png" width="612" style="display: block; margin: auto;" />
 
 We observe a positive association between ambient pollution levels and population.
 
@@ -138,10 +135,7 @@ smoking_pollution %>%
 ~~~
 {: .output}
 
-<div class="figure" style="text-align: center">
-<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" alt="plot of chunk PlotPolluionVPopSmooth" width="612" />
-<p class="caption">plot of chunk PlotPolluionVPopSmooth</p>
-</div>
+<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" width="612" style="display: block; margin: auto;" />
 
 To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
 
@@ -161,10 +155,7 @@ To answer our first question, we observe a positive association between populati
 > > ~~~
 > > {: .language-r}
 > > 
-> > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" alt="plot of chunk pollutionPerCapita" width="612" />
-> > <p class="caption">plot of chunk pollutionPerCapita</p>
-> > </div>
+> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" width="612" style="display: block; margin: auto;" />
 > > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
 > {: .solution}
 {: .challenge}
@@ -186,10 +177,7 @@ To answer our first question, we observe a positive association between populati
 > > ~~~
 > > {: .language-r}
 > > 
-> > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-04-pollutionvcancer-1.png" alt="plot of chunk pollutionvcancer" width="612" />
-> > <p class="caption">plot of chunk pollutionvcancer</p>
-> > </div>
+> > <img src="../fig/rmd-04-pollutionvcancer-1.png" width="612" style="display: block; margin: auto;" />
 > > There does not appear to be a direct relationship between pollution and lung cancer rates. 
 > {: .solution}
 {: .challenge}
@@ -317,10 +305,7 @@ smoking_pollution %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <div class="figure" style="text-align: center">
-> > <img src="../fig/rmd-04-pollution_boxplot-1.png" alt="plot of chunk pollution_boxplot" width="612" />
-> > <p class="caption">plot of chunk pollution_boxplot</p>
-> > </div>
+> > <img src="../fig/rmd-04-pollution_boxplot-1.png" width="612" style="display: block; margin: auto;" />
 > > 
 > > When comparing your table to your plot, you'll notice that the dark horizontal lines represent median values. The boxes have lengths equal to the interquartile range (IQR). And the highest and lowest values for each continent match the table as well. The plot makes it easier to see differences between continents. The table provides finer details for comparison. What you choose to report will depend on whether you want to bring attention to those finer details or whether you want to discuss overall trends.
 > >
@@ -469,10 +454,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<div class="figure" style="text-align: center">
-<img src="../fig/rmd-04-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" width="612" />
-<p class="caption">plot of chunk unnamed-chunk-5</p>
-</div>
+<img src="../fig/rmd-04-unnamed-chunk-5-1.png" width="612" style="display: block; margin: auto;" />
 
 Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
 
@@ -495,10 +477,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<div class="figure" style="text-align: center">
-<img src="../fig/rmd-04-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" width="612" />
-<p class="caption">plot of chunk unnamed-chunk-6</p>
-</div>
+<img src="../fig/rmd-04-unnamed-chunk-6-1.png" width="612" style="display: block; margin: auto;" />
 
 Alright, now we have a plot with the mean percent of smokers in in 1990 on the x axis and the mean percent of smokers in 2010 on the y axis, and each point represents a country. However, the different ranges on the x and y axis make it hard to compare the points. 
 Let's fix that by adding a line at y=x. 
@@ -523,10 +502,7 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
-<div class="figure" style="text-align: center">
-<img src="../fig/rmd-04-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" width="612" />
-<p class="caption">plot of chunk unnamed-chunk-7</p>
-</div>
+<img src="../fig/rmd-04-unnamed-chunk-7-1.png" width="612" style="display: block; margin: auto;" />
 
 It seems like in most countries the percent of smokers has decreased from 1990 to 2010, since most of the points fall below the line y = x. However, there are some countries where smoking has increased (i.e. the points are above the line y = x). Let's figure out which those are!
 

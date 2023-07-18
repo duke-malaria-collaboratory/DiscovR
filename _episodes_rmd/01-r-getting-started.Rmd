@@ -1,8 +1,8 @@
 ---
 source: Rmd
 title: "Getting Started with R"
-teaching: 60
-exercises: 15
+teaching: 75
+exercises: 30
 questions:
 - "What are R and R Studio?"
 - "How do I perform tasks and store information?"
@@ -54,7 +54,7 @@ We could also use a program like SAS or STATA, which are used by many epidemiolo
 
 Instead, we'll use a more general programming language to test our hypothesis. Today we will use R, but we could have also used Python for the same reasons we chose R. Both R and Python are freely available, the instructions you use to do the analysis are easily shared, and by using reproducible practices, it's straightforward to add more data or to change settings like colors or the size of a plotting symbol. 
 
-> ## But why R and not Python?
+> ## Bonus: But why R and not Python?
 > [There's no great reason](http://www.academichermit.com/2020/03/23/Why-R.html).
 > Although there are subtle differences between the languages, it's ultimately a matter of personal preference. Both are powerful and popular languages that have very well developed and welcoming communities of scientists that use them. As you learn more about R, you may find things that are annoying in R that aren't so annoying in Python; the same could be said of learning Python. If the community you work in uses R, then you're in the right place.
 >
@@ -323,14 +323,10 @@ The values don't update automatically like in a spreadsheet.
 
 
 > ## Guidelines on naming objects
-> - You want your object names to be explicit and not too long.
-> - They cannot start with a number (2x is not valid, but x2 is).
+> - They cannot start with a number (2x is not valid, but x2 is) or have special characters.
 > - R is case sensitive, so for example, weight is different from Weight.
 > - You cannot use spaces in the name.
 > - There are some names that cannot be used because they are the names of fundamental functions in R (e.g., if, else, for; see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for a complete list). If in doubt, check the help to see if the name is already in use (`?function_name`).
-> - It's best to avoid dots (.) within names. Many function names in R itself have them and dots also have a special meaning (methods) in R and other programming languages.
-> - It is recommended to use nouns for object names and verbs for function names.
-> - Be consistent in the styling of your code, such as where you put spaces, how you name objects, etc. Using a consistent coding style makes your code clearer to read for your future self and your collaborators. One popular style guide can be found through the [tidyverse](https://style.tidyverse.org/).
 {: .checklist}
 
 > ## Bonus Exercise: Bad names for objects
@@ -376,7 +372,7 @@ Let's say we wanted to print out a word:
 # Glossary of terms
 _[Back to top](#contents)_
 
-- Comments: lines or parts of lines that are not run. In R, comments start with a `#`. 
-- Function: takes input and generates output.
-- Object: way to store information for later use and manipulation.
+- *Comments*: lines or parts of lines that are not run. In R, comments start with a `#`. 
+- *Function*: takes input and generates output.
+- *Object*: way to store information for later use and manipulation.
 
