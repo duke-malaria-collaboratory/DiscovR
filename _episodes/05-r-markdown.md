@@ -50,107 +50,80 @@ keypoints:
 
 ## R for data analysis review
 
-Remember that yesterday we made a scatter plot of year vs. population, separated into a plot for each contient, and that it had 2 outliers:
-
-
-~~~
-library(tidyverse)
-smoking <- read_csv('data/smoking_cancer.csv')
-
-smoking %>% 
-  ggplot(aes(x=year,y=pop)) +
-  geom_point() +
-  facet_wrap(vars(continent))
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-05-unnamed-chunk-3-1.png" width="612" style="display: block; margin: auto;" />
-
-Write some code to figure out which countries these are (even if you already know!).
-
-> ## Solution
-> 
-> ~~~
-> smoking %>% filter(pop > 5e8) %>% select(country) %>% distinct()
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> # A tibble: 2 × 1
->   country
->   <chr>  
-> 1 China  
-> 2 India  
-> ~~~
-> {: .output}
-> Here we used the `distinct()` function, which we first saw yesterday. 
-> This function is not required to find the answer to this question, but it helps us get the answer a bit more quickly.
-{: .solution}
-
-Next, plot year vs. population separated into a plot for each continent but excluding the 2 outlier countries. Note that usually you don't want to exclude certain data points from a plot because it is misleading (see Bonus 2 for an alternative). 
-
-> ## Solution
-> 
-> ~~~
-> smoking %>% 
-> filter(country != 'China') %>% 
-> filter(country != 'India') %>% 
-> ggplot(aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent))
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-05-unnamed-chunk-5-1.png" width="612" style="display: block; margin: auto;" />
-> Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`) or comma (`,`), which means that you want to exclude both China and India:
-> 
-> ~~~
-> smoking %>% 
-> filter(country != 'China' & country != 'India') %>% 
-> ggplot(aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent))
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-05-unnamed-chunk-6-1.png" width="612" style="display: block; margin: auto;" />
-{: .solution}
-
-Bonus 1: Instead of hard-coding the two countries to remove them, remove the two outliers by combining your solutions to the first two questions.
-
-> ## Solution
-> 
-> ~~~
-> smoking %>% 
-> filter(pop < 5e8) %>% 
-> ggplot(aes(x=year,y=pop)) +
-> geom_point() +
-> facet_wrap(vars(continent))
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-05-unnamed-chunk-7-1.png" width="612" style="display: block; margin: auto;" />
-{: .solution}
-
-Bonus 2: How can you make the differences between countries more visible on the plot without excluding the two countries you identified above?
-
-> ## Solution
-> You can scale the y axis using a log10 scale to make the differences more visible:
-> 
-> ~~~
-> smoking %>% 
-> ggplot(aes(x=year,y=pop)) +
-> geom_point() +
-> scale_y_log10() +
-> facet_wrap(vars(continent))
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-05-unnamed-chunk-8-1.png" width="612" style="display: block; margin: auto;" />
-{: .solution}
-
+> ## Review: Creating summaries
+> Read in the 1990 smoking dataset and find the mean, median, min, and max population for each continent. 
+> > ## Solution
+> > 
+> > ~~~
+> > library(tidyverse)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+> > ✔ dplyr     1.1.2     ✔ readr     2.1.4
+> > ✔ forcats   1.0.0     ✔ stringr   1.5.0
+> > ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+> > ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+> > ✔ purrr     1.0.1     
+> > ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+> > ✖ dplyr::filter() masks stats::filter()
+> > ✖ dplyr::lag()    masks stats::lag()
+> > ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > smoking <- read_csv('data/smoking_cancer_1990.csv')
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Rows: 191 Columns: 6
+> > ── Column specification ────────────────────────────────────────────────────────
+> > Delimiter: ","
+> > chr (2): country, continent
+> > dbl (4): year, pop, smoke_pct, lung_cancer_pct
+> > 
+> > ℹ Use `spec()` to retrieve the full column specification for this data.
+> > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > smoking %>% 
+> >   group_by(continent) %>% 
+> >   summarise(mean_pop = mean(pop),
+> >             median_pop = median(pop),
+> >             min_pop = min(pop),
+> >             max_pop = max(pop))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 6 × 5
+> >   continent      mean_pop median_pop min_pop    max_pop
+> >   <chr>             <dbl>      <dbl>   <dbl>      <dbl>
+> > 1 Africa        11655968.   6788686.   69507   95212454
+> > 2 Asia          75684706.  12446168   223159 1135185000
+> > 3 Europe        13056650.   5140939    24124   79433029
+> > 4 North America 18257642.   2470946    40260  249623000
+> > 5 Oceania        1907505     121440.    8910   17065100
+> > 6 South America 24606701.  11752774   405169  149003225
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 ## What is R Markdown and why use it?
 _[Back to top](#contents)_
@@ -303,7 +276,8 @@ Now that we have the data, we need to produce the plot. Let's create it using th
 ```{r smoking_cancer}
 smoking %>%
   filter(year == max(year)) %>% 
-  ggplot(aes(x = smoke_pct, y = lung_cancer_pct, color=continent, size=pop/1000000)) + 
+  ggplot() + 
+  aes(x = smoke_pct, y = lung_cancer_pct, color=continent, size=pop/1000000) +
   geom_point() +
   labs(x = "Percent of people who smoke", y = "Percent of people with lung cancer",
        title= "Are lung cancer rates associated with smoking rates?", size="Population (in millions)")
@@ -315,31 +289,16 @@ smoking %>%
 
 Let's say we also want to include a table in our report that summarizes the number of countries, the minimum smoker percent, and the maximum smoker percent.
 
-> ## Review: calculating summary statistics 
-> For the year 2019, calculate the minimum, median, and maximum for the percent of smokers in a given country. 
->
-> > ## Solution
-> > 
-> > ~~~
-> > smoking %>% 
-> >   filter(year == 2019) %>% 
-> >   summarize(min_smoke = min(smoke_pct),
-> >             median_smoke = median(smoke_pct),
-> >             max_smoke = max(smoke_pct))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > # A tibble: 1 × 3
-> >   min_smoke median_smoke max_smoke
-> >       <dbl>        <dbl>     <dbl>
-> > 1      4.08         19.5      49.4
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+
+~~~
+```{r}
+smoking %>% 
+  summarize(min_smoke = min(smoke_pct),
+            median_smoke = median(smoke_pct),
+            max_smoke = max(smoke_pct))
+```
+~~~
+{: .output}
 
 ### Knitting
 
@@ -364,7 +323,6 @@ library(knitr)
 
 # print kable
 smoking %>% 
-   filter(year == 2019) %>% 
    summarize(min_smoke = min(smoke_pct),
              median_smoke = median(smoke_pct),
              max_smoke = max(smoke_pct)) %>%
@@ -376,7 +334,7 @@ smoking %>%
 
 | min_smoke| median_smoke| max_smoke|
 |---------:|------------:|---------:|
-|  4.082156|     19.47822|  49.42617|
+|  3.118639|     24.36522|  46.91547|
 
 
 
@@ -475,7 +433,6 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 1. Make a plot with air pollution per capita on the x axis and lung cancer on the y axis
 1. Make a table with summary statistics including the minimum, median, and maximum air pollution values. 
 1. BONUS: Merge the table we created earlier with the table you created here with rows for smoking and air pollution, and a column for each of the summary statistics. 
-
 > > ## Solution
 > > One option to create a code chunk is to type it out. You can also see other options above. 
 > > Then you have to read in the data and create the plot and table: 
@@ -510,7 +467,7 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-05-unnamed-chunk-18-1.png" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-05-unnamed-chunk-13-1.png" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > smoking_pollution %>% 
@@ -583,7 +540,7 @@ that R will automatically update these values every time our data might change
 > There are `r n_countries ` countries in our dataset. 
 > ```
 > Try knitting the document and see what happens!
-{: .callout}
+{: .solution}
 
 
 # Applying it to your own data

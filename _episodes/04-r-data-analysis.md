@@ -6,7 +6,7 @@ source: Rmd
 teaching: 75
 exercises: 15
 questions:
-- "How can I summarize my data in R?"
+- "How can I summarise my data in R?"
 - "How can R help make my research more reproducible?"
 objectives:
 - "To become familiar with the functions of the `dplyr` and `tidyr` packages."
@@ -23,7 +23,7 @@ keypoints:
 1. [Day 2 review](#day-2-review)
 1. [Overview of the lesson](#overview-of-the-lesson)
 1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
-1. [Get stats fast with `summarize()`](#get-stats-fast-with-summarize)
+1. [Get stats fast with `summarise()`](#get-stats-fast-with-summarise)
 1. [Calculating percentages](#calculate-percentages)
 1. [Changing the shape of the data](#changing-the-shape-of-the-data)
 1. [Plotting wide data](#plotting-wide-data)
@@ -183,10 +183,10 @@ To answer our first question, we observe a positive association between populati
 {: .challenge}
 
 
-## Get stats fast with `summarize()` {#get-stats-fast-with-summarize}
+## Get stats fast with `summarise()` {#get-stats-fast-with-summarise}
 [*Back to top*](#contents)
 
-Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoke_pct column using the `summarize()` function. Here's what that looks like:
+Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoke_pct column using the `summarise()` function. Here's what that looks like:
 
 
 ~~~
@@ -205,18 +205,18 @@ smoking_pollution %>%
 ~~~
 {: .output}
 
-When we call `summarize()`, we can use any of the column names of our data object as values to pass to other functions. `summarize()` will return a new data object and our value will be returned as a column.
+When we call `summarise()`, we can use any of the column names of our data object as values to pass to other functions. `summarise()` will return a new data object and our value will be returned as a column.
 
-> **Note:** The `summarize()` and `summarise()` functions perform identical functions.
+> **Note:** The `summarise()` and `summarise()` functions perform identical functions.
 
-The `mean_smoke_pct=` part tells `summarize()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
+The `mean_smoke_pct=` part tells `summarise()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
 
-When you call `summarize()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
+When you call `summarise()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
 
 
 ~~~
 smoking_pollution %>%
-  summarize(mean_smoke_pct=mean(smoke_pct),
+  summarise(mean_smoke_pct=mean(smoke_pct),
             min_smoke_pct=min(smoke_pct),
             max_smoke_pct=max(smoke_pct))
 ~~~
@@ -238,7 +238,7 @@ Perhaps one of the most powerful ways to use `summarise()` is to combine it with
 ~~~
 smoking_pollution %>%
     group_by(continent) %>%
-    summarize(mean_smoke_pct=mean(smoke_pct),
+    summarise(mean_smoke_pct=mean(smoke_pct),
             min_smoke_pct=min(smoke_pct),
             max_smoke_pct=max(smoke_pct))
 ~~~
@@ -390,7 +390,7 @@ Let's create a wide version of our data using `pivot_wider()`:
 ~~~
 smoking_cancer %>%
   group_by(country, continent, year) %>% 
-  summarize(smoke_pct = mean(smoke_pct)) %>%
+  summarise(smoke_pct = mean(smoke_pct)) %>%
   pivot_wider(names_from = year, values_from = smoke_pct)
 ~~~
 {: .language-r}
@@ -439,7 +439,7 @@ Let's make a plot with our wide data comparing percent of smokers in 1990 to per
 ~~~
 smoking_cancer %>%
   group_by(country, continent, year) %>% 
-  summarize(smoke_pct = mean(smoke_pct)) %>%
+  summarise(smoke_pct = mean(smoke_pct)) %>%
   pivot_wider(names_from = year, values_from = smoke_pct) %>% 
   ggplot(aes(x = 1990, y = 2010)) +
   geom_point()
@@ -462,7 +462,7 @@ Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 ins
 ~~~
 smoking_cancer %>%
   group_by(country, continent, year) %>% 
-  summarize(smoke_pct = mean(smoke_pct)) %>%
+  summarise(smoke_pct = mean(smoke_pct)) %>%
   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
   ggplot(aes(x = y1990, y = y2010)) +
   geom_point()
@@ -486,7 +486,7 @@ Let's fix that by adding a line at y=x.
 ~~~
 smoking_cancer %>%
   group_by(country, continent, year) %>% 
-  summarize(smoke_pct = mean(smoke_pct)) %>%
+  summarise(smoke_pct = mean(smoke_pct)) %>%
   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% 
   ggplot(aes(x = y1990, y = y2010)) +
   geom_point() +
@@ -517,7 +517,7 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 > > ~~~
 > > smoking_cancer %>%
 > >   group_by(country, continent, year) %>% # group by the columns you want to keep
-> >   summarize(smoke_pct = mean(smoke_pct)) %>% # summarize to get one value per country per year
+> >   summarise(smoke_pct = mean(smoke_pct)) %>% # summarise to get one value per country per year
 > >   pivot_wider(names_from = year, values_from = smoke_pct, names_prefix = 'y') %>% # pivot wider
 > >   mutate(diff = y2010 - y1990) %>% # find the difference between the years of interest
 > >   select(country, continent, diff) %>% # select the columns of interest
@@ -632,6 +632,108 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > {: .solution}
 {: .challenge}
 
+# Bonus content
+
+Remember that we made a scatter plot of year vs. population, separated into a plot for each contient, and that it had 2 outliers:
+
+
+~~~
+library(tidyverse)
+smoking <- read_csv('data/smoking_cancer.csv')
+
+smoking %>% 
+  ggplot(aes(x=year,y=pop)) +
+  geom_point() +
+  facet_wrap(vars(continent))
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-04-unnamed-chunk-10-1.png" width="612" style="display: block; margin: auto;" />
+
+Write some code to figure out which countries these are (even if you already know!).
+
+> ## Solution
+> 
+> ~~~
+> smoking %>% filter(pop > 5e8) %>% select(country) %>% distinct()
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> # A tibble: 2 × 1
+>   country
+>   <chr>  
+> 1 China  
+> 2 India  
+> ~~~
+> {: .output}
+> Here we used the `distinct()` function, which we first saw yesterday. 
+> This function is not required to find the answer to this question, but it helps us get the answer a bit more quickly.
+{: .solution}
+
+Next, plot year vs. population separated into a plot for each continent but excluding the 2 outlier countries. Note that usually you don't want to exclude certain data points from a plot because it is misleading (see Bonus 2 for an alternative). 
+
+> ## Solution
+> 
+> ~~~
+> smoking %>% 
+> filter(country != 'China') %>% 
+> filter(country != 'India') %>% 
+> ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-04-unnamed-chunk-12-1.png" width="612" style="display: block; margin: auto;" />
+> Another solution is to use only one filter command and separate the two true/false statements with an ampersand (`&`) or comma (`,`), which means that you want to exclude both China and India:
+> 
+> ~~~
+> smoking %>% 
+> filter(country != 'China' & country != 'India') %>% 
+> ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-04-unnamed-chunk-13-1.png" width="612" style="display: block; margin: auto;" />
+{: .solution}
+
+Bonus 1: Instead of hard-coding the two countries to remove them, remove the two outliers by combining your solutions to the first two questions.
+
+> ## Solution
+> 
+> ~~~
+> smoking %>% 
+> filter(pop < 5e8) %>% 
+> ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-04-unnamed-chunk-14-1.png" width="612" style="display: block; margin: auto;" />
+{: .solution}
+
+Bonus 2: How can you make the differences between countries more visible on the plot without excluding the two countries you identified above?
+
+> ## Solution
+> You can scale the y axis using a log10 scale to make the differences more visible:
+> 
+> ~~~
+> smoking %>% 
+> ggplot(aes(x=year,y=pop)) +
+> geom_point() +
+> scale_y_log10() +
+> facet_wrap(vars(continent))
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-04-unnamed-chunk-15-1.png" width="612" style="display: block; margin: auto;" />
+{: .solution}
 
 # Applying it to your own data
 

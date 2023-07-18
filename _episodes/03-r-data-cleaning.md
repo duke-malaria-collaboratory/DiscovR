@@ -187,7 +187,8 @@ It looks like our data object has three columns: `location_name`, `year_id`, and
 > > Bonus 1: 
 > > 
 > > ~~~
-> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> > ggplot(ambient_pollution_dirty) +
+> >   aes(x = median) +
 > >   geom_histogram() +
 > >   facet_wrap(~year_id)
 > > ~~~
@@ -1159,7 +1160,6 @@ write_csv(smoking_pollution, "data/smoking_pollution.csv")
 {: .language-r}
 
 Great - Now our data is ready to analyze tomorrow!
-
 
 # Applying it to your own data
 _[Back to top](#contents)_
