@@ -76,7 +76,7 @@ _[Back to top](#contents)_
 
 Recall that our goal is to generate a report on how a country's smoking rate is related to its lung cancer rate.
 
-> ## Discusion
+> ## Discussion
 > How do you usually share data analyses with your collaborators? 
 > > ## Solution
 > > Many people share them through a Word or PDF document, a spreadsheet, slides, a graphic, etc.
@@ -332,11 +332,11 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 
 > ## Add to our report: association between air pollution and lung cancer
 > We have a pretty nice looking report, but we still haven't included anything about the association between lung cancer and air pollution per capita. Let's add a section to our markdown document in the following steps:
-1. Make a new header and write a 1-2 sentence description of what you will be plotting.
-1. Create a new code chunk
-1. Make a plot with air pollution per capita on the x axis and lung cancer on the y axis
-1. Make a table with summary statistics including the minimum, median, and maximum air pollution values. 
-1. BONUS: Merge the table we created earlier with the table you created here with rows for smoking and air pollution, and a column for each of the summary statistics. 
+> 1. Make a new header and write a 1-2 sentence description of what you will be plotting.
+> 1. Create a new code chunk
+> 1. Make a plot with air pollution per capita on the x axis and lung cancer on the y axis
+> 1. Make a table with summary statistics including the minimum, median, and maximum air pollution values. 
+> 1. BONUS: Merge the table we created earlier with the table you created here with rows for smoking and air pollution, and a column for each of the summary statistics. 
 > > ## Solution
 > > One option to create a code chunk is to type it out. You can also see other options above. 
 > > Then you have to read in the data and create the plot and table: 
@@ -363,10 +363,9 @@ Or, even better, you can just make them all `1.` and markdown will be smart enou
 > >             max = max(value))
 > > ```
 > > Notice that we used `c()` to provide `pivot_longer()` with the two column names that we wanted to pivot. 
-> > `c()` stands for "combine"; this function combines the two values into what we call a vector. 
+> > `c()` stands for "combine"; this function combines the two values into what we call a vector.
 > {: .solution}
 {: .challenge}
-
 
 > ## Bonus: Dynamically updating text using mini R chunks
 > Sometimes, you want to describe your data or results (like our plot) to the audience in text but the data and results may still change as you work things out. R Markdown offers an easy way to do this dynamically, so that the text updates as your data or results change!
