@@ -23,11 +23,13 @@ knitr_fig_path("04-")
 
 1. [Day 2 review](#day-2-review)
 1. [Overview of the lesson](#overview-of-the-lesson)
-1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
 1. [Get stats fast with `summarise()`](#get-stats-fast-with-summarise)
-1. [Calculating percentages](#calculate-percentages)
-1. [Changing the shape of the data](#changing-the-shape-of-the-data)
-1. [Plotting wide data](#plotting-wide-data)
+1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
+1. Bonus content (#bonus-content)
+  1. [Calculating percentages](#calculate-percentages)
+  1. [Changing the shape of the data](#changing-the-shape-of-the-data)
+  1. [Plotting wide data](#plotting-wide-data)
+  1. [Additional practice](#additional-practice)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 
 # Day 2 review
@@ -46,6 +48,73 @@ So far, you've learned how to load, plot, merge, and clean data. In the process,
 library(tidyverse) 
 smoking_pollution <- read_csv("data/smoking_pollution.csv")
 ```
+
+## Get stats fast with `summarise()` {#get-stats-fast-with-summarise}
+[*Back to top*](#contents)
+
+Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoke_pct column using the `summarise()` function. Here's what that looks like:
+
+```{r AvgLifeExp}
+smoking_pollution %>%
+    summarise(mean_smoke_pct = mean(smoke_pct))
+```
+
+When we call `summarise()`, we can use any of the column names of our data object as values to pass to other functions. `summarise()` will return a new data object and our value will be returned as a column.
+
+> **Note:** The `summarise()` and `summarise()` functions perform identical functions.
+
+The `mean_smoke_pct=` part tells `summarise()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
+
+When you call `summarise()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
+
+```{r GapLifeExpMinMax}
+smoking_pollution %>%
+  summarise(mean_smoke_pct=mean(smoke_pct),
+            min_smoke_pct=min(smoke_pct),
+            max_smoke_pct=max(smoke_pct))
+```
+
+Perhaps one of the most powerful ways to use `summarise()` is to combine it with `group_by()`. This enables you to calculate summary statistics for specific groups. For example, suppose we wanted to calculate the the mean, min, and max `smoke_pct` for each continent. How would you modify the code above?
+
+```{r}
+smoking_pollution %>%
+    group_by(continent) %>%
+    summarise(mean_smoke_pct=mean(smoke_pct),
+            min_smoke_pct=min(smoke_pct),
+            max_smoke_pct=max(smoke_pct))
+```
+
+> ## Exercise: Summary stats and boxplots
+>
+>  Part 1: Use `group_by()` and `summarise()` to find the median, min, max, and interquartile range of `lung_cancer_pct` for each continent. 
+>
+> Part 2: Make a box plot of `pollution` on the y axis and continent on the x axis. Compare your plot to your table. What do you notice? Which do you think is easier to interpret?
+>
+> > ## Solution
+> >
+> > Part 1: Use `group_by()` and `summarise()` to find the median, min, max, and interquartile range of `pollution` for each continent.
+> >
+> > ```{r groupby_summarise}
+> > smoking_pollution %>%
+> >   group_by(continent) %>%
+> >   summarise(med_pollution = median(pollution),
+> > min_pollution = min(pollution),
+> > max_pollution = max(pollution),
+> > iqr_pollution = IQR(pollution)) 
+> > ```
+> >
+> > Part 2: Make a box plot of `pollution` on the y axis and continent on the x axis. Compare your plot to your table. What do you notice?
+> >
+> > ```{r pollution_boxplot}
+> > smoking_pollution %>%
+> >     ggplot(aes(x = continent, y = pollution)) +
+> >     geom_boxplot()
+> > ```
+> > 
+> > When comparing your table to your plot, you'll notice that the dark horizontal lines represent median values. The boxes have lengths equal to the interquartile range (IQR). And the highest and lowest values for each continent match the table as well. The plot makes it easier to see differences between continents. The table provides finer details for comparison. What you choose to report will depend on whether you want to bring attention to those finer details or whether you want to discuss overall trends.
+> >
+> {: .solution}
+{: .challenge}
 
 # Plotting for exploratory data analysis
 
@@ -122,76 +191,10 @@ To answer our first question, we observe a positive association between populati
 > {: .solution}
 {: .challenge}
 
-
-## Get stats fast with `summarise()` {#get-stats-fast-with-summarise}
+# Bonus content {#bonus-content}
 [*Back to top*](#contents)
 
-Let's say we would like to know the mean (average) smoking rate in the dataset. R has a built in function function called `mean()` that will calculate this value for us. We can apply that function to our smoke_pct column using the `summarise()` function. Here's what that looks like:
-
-```{r AvgLifeExp}
-smoking_pollution %>%
-    summarise(mean_smoke_pct = mean(smoke_pct))
-```
-
-When we call `summarise()`, we can use any of the column names of our data object as values to pass to other functions. `summarise()` will return a new data object and our value will be returned as a column.
-
-> **Note:** The `summarise()` and `summarise()` functions perform identical functions.
-
-The `mean_smoke_pct=` part tells `summarise()` to use "mean_smoke_pct" as the name of the new column. Note that you don't have to have quotes around this new name as long as it starts with a letter and doesn't include a space.
-
-When you call `summarise()`, you can also create more than one new column. To do so, you must separate your columns with a comma. Building on the code from above, let's add a new column that calculates the minimum and maximum percent of smokers. 
-
-```{r GapLifeExpMinMax}
-smoking_pollution %>%
-  summarise(mean_smoke_pct=mean(smoke_pct),
-            min_smoke_pct=min(smoke_pct),
-            max_smoke_pct=max(smoke_pct))
-```
-
-Perhaps one of the most powerful ways to use `summarise()` is to combine it with `group_by()`. This enables you to calculate summary statistics for specific groups. For example, suppose we wanted to calculate the the mean, min, and max `smoke_pct` for each continent. How would you modify the code above?
-
-```{r}
-smoking_pollution %>%
-    group_by(continent) %>%
-    summarise(mean_smoke_pct=mean(smoke_pct),
-            min_smoke_pct=min(smoke_pct),
-            max_smoke_pct=max(smoke_pct))
-```
-
-> ## Exercise: Summary stats and boxplots
->
->  Part 1: Use `group_by()` and `summarise()` to find the median, min, max, and interquartile range of `lung_cancer_pct` for each continent. 
->
-> Part 2: Make a box plot of `pollution` on the y axis and continent on the x axis. Compare your plot to your table. What do you notice? Which do you think is easier to interpret?
->
-> > ## Solution
-> >
-> > Part 1: Use `group_by()` and `summarise()` to find the median, min, max, and interquartile range of `pollution` for each continent.
-> >
-> > ```{r groupby_summarise}
-> > smoking_pollution %>%
-> >   group_by(continent) %>%
-> >   summarise(med_pollution = median(pollution),
-> > min_pollution = min(pollution),
-> > max_pollution = max(pollution),
-> > iqr_pollution = IQR(pollution)) 
-> > ```
-> >
-> > Part 2: Make a box plot of `pollution` on the y axis and continent on the x axis. Compare your plot to your table. What do you notice?
-> >
-> > ```{r pollution_boxplot}
-> > smoking_pollution %>%
-> >     ggplot(aes(x = continent, y = pollution)) +
-> >     geom_boxplot()
-> > ```
-> > 
-> > When comparing your table to your plot, you'll notice that the dark horizontal lines represent median values. The boxes have lengths equal to the interquartile range (IQR). And the highest and lowest values for each continent match the table as well. The plot makes it easier to see differences between continents. The table provides finer details for comparison. What you choose to report will depend on whether you want to bring attention to those finer details or whether you want to discuss overall trends.
-> >
-> {: .solution}
-{: .challenge}
-
-
-# Calculating percentages {#calculate-percentages}
+## Calculating percentages {#calculate-percentages}
 [*Back to top*](#contents)
 
 Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to caluclate percentages.
@@ -219,8 +222,7 @@ Finding percentages using `dplyr` can be a little bit complicated. However, it's
 {: .challenge}
 
 
-## Changing the shape of the data
-
+## Changing the shape of the data {#changing-the-shape-of-the-data}
 [*Back to top*](#contents)
 
 Data comes in many shapes and sizes, and one way we classify data is either "wide" or "long." Data that is "long" has one row per observation. The `smoking` data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as "tidy" because it makes it easy to work with `ggplot2` and `dplyr` functions (this is where the "tidy" in "tidyverse" comes from). As tidy as it may be, sometimes we may want our data in a "wide" format. Typically in "wide" format each row represents a group of observations and each value is placed in a different column rather than a different row. For example, let's read in a smoking and lung cancer data set that covers many years and take a look at it:
@@ -244,7 +246,8 @@ smoking_cancer %>%
 
 Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the `smoke_pct` variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
 
-## Plotting wide data
+## Plotting wide data {#plotting-wide-data}
+[*Back to top*](#contents)
 
 Let's make a plot with our wide data comparing percent of smokers in 1990 to percent of smokers in 2010 to see how it has changed for each country.
 
@@ -303,7 +306,7 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 > {: .solution}
 {: .challenge}
 
-# Bonus: correlation
+## Additional practice 
 
 Let's go back to the very first question we talked about today: Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)? In addition to making a scatterplot, another way to get at this question is by calculating a _correlation coefficient_. We will cover two correlation coefficients here: Pearson's (which assumes a linear relationship) and Spearman's (which doesn't assume a linear relationship).
 
@@ -330,7 +333,7 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > {: .solution}
 {: .challenge}
 
-# Bonus content
+## Additional practice {#additional-practice}
 
 Remember that we made a scatter plot of year vs. population, separated into a plot for each contient, and that it had 2 outliers:
 

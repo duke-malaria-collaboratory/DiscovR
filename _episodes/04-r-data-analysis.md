@@ -22,11 +22,13 @@ keypoints:
 
 1. [Day 2 review](#day-2-review)
 1. [Overview of the lesson](#overview-of-the-lesson)
-1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
 1. [Get stats fast with `summarise()`](#get-stats-fast-with-summarise)
-1. [Calculating percentages](#calculate-percentages)
-1. [Changing the shape of the data](#changing-the-shape-of-the-data)
-1. [Plotting wide data](#plotting-wide-data)
+1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
+1. Bonus content (#bonus-content)
+  1. [Calculating percentages](#calculate-percentages)
+  1. [Changing the shape of the data](#changing-the-shape-of-the-data)
+  1. [Plotting wide data](#plotting-wide-data)
+  1. [Additional practice](#additional-practice)
 1. [Applying it to your own data](#applying-it-to-your-own-data)
 
 # Day 2 review
@@ -83,105 +85,6 @@ dbl (5): year, pop, smoke_pct, lung_cancer_pct, pollution
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ~~~
 {: .output}
-
-# Plotting for exploratory data analysis
-
-[*Back to top*](#contents)
-
-For our analysis, we have three questions we'd like to answer: 
-
-1. Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?
-1. Which continent has the highest pollution levels per capita?
-1. Is there a relationship between ambient pollution levels per capita and lung cancer rates?
-
-**1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?**
-
-To answer this question, we'll plot ambient pollution levels against population using a scatter plot. It will help to scale the x axis (population) log 10.
-
-
-~~~
-smoking_pollution %>%
-  ggplot(aes(x = pop, y = pollution)) +
-  geom_point() +
-  scale_x_log10() +
-  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", 
-       size = "Population\n(millions)") +
-  theme_bw()
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-04-Plotpollutionvpop-1.png" width="612" style="display: block; margin: auto;" />
-
-We observe a positive association between ambient pollution levels and population.
-
-To help clarify the association, we can add a fit line through the data using `geom_smooth(method = "lm")`. Notice we added the `method = "lm"` argument. This tells `geom_smooth()` that we would like a linear model (lm) fit to the data.
-
-
-~~~
-smoking_pollution %>%
-  ggplot(aes(x = pop, y = pollution)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  scale_x_log10() +
-  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", size = "Population\n(millions)") +
-  theme_bw() 
-~~~
-{: .language-r}
-
-
-
-~~~
-`geom_smooth()` using formula = 'y ~ x'
-~~~
-{: .output}
-
-<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" width="612" style="display: block; margin: auto;" />
-
-To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
-
-> ## Challenge: 2) which continent has the highest pollution levels per capita?
-> To answer this question, we need to calculate the pollution levels per capita for each country using `mutate()`. Then plot a boxplot to look at these levels by continent. *Hint: it may help to scale the y axis log10*
-> 
-> > ## Solution: 
-> > 
-> > ~~~
-> > smoking_pollution %>%
-> >   mutate(pollution_capita = pollution/pop) %>%
-> >   ggplot(aes(x = continent, y = pollution_capita)) +
-> >   geom_boxplot() +
-> >   scale_y_log10() +
-> >   labs(y = "Pollution (micrograms/cubic meter) per capita")+
-> >   theme_bw()
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" width="612" style="display: block; margin: auto;" />
-> > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
-> {: .solution}
-{: .challenge}
-
-
-> ## Challenge: 3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
-> To answer this question, let's make a scatter plot with ambient pollution levels on the x axis and lung cancer rates on the y axis. *Hint: Make sure to scale the x-axis log10.*
-> 
-> > ## Solution: 
-> > 
-> > ~~~
-> > smoking_pollution %>%
-> >   mutate(pollution_capita = pollution/pop) %>%
-> >   ggplot(aes(x = pollution_capita, y = lung_cancer_pct)) +
-> >   geom_point() +
-> >   scale_x_log10() +
-> >   labs(x = "Pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer")+
-> >   theme_bw()
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-04-pollutionvcancer-1.png" width="612" style="display: block; margin: auto;" />
-> > There does not appear to be a direct relationship between pollution and lung cancer rates. 
-> {: .solution}
-{: .challenge}
-
 
 ## Get stats fast with `summarise()` {#get-stats-fast-with-summarise}
 [*Back to top*](#contents)
@@ -312,8 +215,108 @@ smoking_pollution %>%
 > {: .solution}
 {: .challenge}
 
+# Plotting for exploratory data analysis
 
-# Calculating percentages {#calculate-percentages}
+[*Back to top*](#contents)
+
+For our analysis, we have three questions we'd like to answer: 
+
+1. Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?
+1. Which continent has the highest pollution levels per capita?
+1. Is there a relationship between ambient pollution levels per capita and lung cancer rates?
+
+**1) Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)?**
+
+To answer this question, we'll plot ambient pollution levels against population using a scatter plot. It will help to scale the x axis (population) log 10.
+
+
+~~~
+smoking_pollution %>%
+  ggplot(aes(x = pop, y = pollution)) +
+  geom_point() +
+  scale_x_log10() +
+  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", 
+       size = "Population\n(millions)") +
+  theme_bw()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-04-Plotpollutionvpop-1.png" width="612" style="display: block; margin: auto;" />
+
+We observe a positive association between ambient pollution levels and population.
+
+To help clarify the association, we can add a fit line through the data using `geom_smooth(method = "lm")`. Notice we added the `method = "lm"` argument. This tells `geom_smooth()` that we would like a linear model (lm) fit to the data.
+
+
+~~~
+smoking_pollution %>%
+  ggplot(aes(x = pop, y = pollution)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_x_log10() +
+  labs(x = "Population", y = "Ambient pollution levels (micrograms/cubic meter)", size = "Population\n(millions)") +
+  theme_bw() 
+~~~
+{: .language-r}
+
+
+
+~~~
+`geom_smooth()` using formula = 'y ~ x'
+~~~
+{: .output}
+
+<img src="../fig/rmd-04-PlotPolluionVPopSmooth-1.png" width="612" style="display: block; margin: auto;" />
+
+To answer our first question, we observe a positive association between population and ambient pollution. In other words, countries with higher populations tend to have higher ambient pollution levels. It is very important to remember that associations are not indicative of causality and there could be confounding variables that may be playing into this apparent relationship. Can you think of any confounding factors we haven't accoutned for?
+
+> ## Challenge: 2) which continent has the highest pollution levels per capita?
+> To answer this question, we need to calculate the pollution levels per capita for each country using `mutate()`. Then plot a boxplot to look at these levels by continent. *Hint: it may help to scale the y axis log10*
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   mutate(pollution_capita = pollution/pop) %>%
+> >   ggplot(aes(x = continent, y = pollution_capita)) +
+> >   geom_boxplot() +
+> >   scale_y_log10() +
+> >   labs(y = "Pollution (micrograms/cubic meter) per capita")+
+> >   theme_bw()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-04-pollutionPerCapita-1.png" width="612" style="display: block; margin: auto;" />
+> > Which continent has the highest pollution levels per capita? What other factors do you think could be driving this observation?
+> {: .solution}
+{: .challenge}
+
+
+> ## Challenge: 3) Is there a relationship between ambient pollution levels per capita and lung cancer rates?
+> To answer this question, let's make a scatter plot with ambient pollution levels on the x axis and lung cancer rates on the y axis. *Hint: Make sure to scale the x-axis log10.*
+> 
+> > ## Solution: 
+> > 
+> > ~~~
+> > smoking_pollution %>%
+> >   mutate(pollution_capita = pollution/pop) %>%
+> >   ggplot(aes(x = pollution_capita, y = lung_cancer_pct)) +
+> >   geom_point() +
+> >   scale_x_log10() +
+> >   labs(x = "Pollution (micrograms/cubic meter) per capita", y = "Percent of people with lung cancer")+
+> >   theme_bw()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-04-pollutionvcancer-1.png" width="612" style="display: block; margin: auto;" />
+> > There does not appear to be a direct relationship between pollution and lung cancer rates. 
+> {: .solution}
+{: .challenge}
+
+# Bonus content {#bonus-content}
+[*Back to top*](#contents)
+
+## Calculating percentages {#calculate-percentages}
 [*Back to top*](#contents)
 
 Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to caluclate percentages.
@@ -354,8 +357,7 @@ Finding percentages using `dplyr` can be a little bit complicated. However, it's
 {: .challenge}
 
 
-## Changing the shape of the data
-
+## Changing the shape of the data {#changing-the-shape-of-the-data}
 [*Back to top*](#contents)
 
 Data comes in many shapes and sizes, and one way we classify data is either "wide" or "long." Data that is "long" has one row per observation. The `smoking` data is in a long format. We have one row for each country for each year and each different measurement for that country is in a different column. We might describe this data as "tidy" because it makes it easy to work with `ggplot2` and `dplyr` functions (this is where the "tidy" in "tidyverse" comes from). As tidy as it may be, sometimes we may want our data in a "wide" format. Typically in "wide" format each row represents a group of observations and each value is placed in a different column rather than a different row. For example, let's read in a smoking and lung cancer data set that covers many years and take a look at it:
@@ -431,7 +433,8 @@ using the `.groups` argument.
 
 Notice here that we tell `pivot_wider()` which columns to pull the names we wish our new columns to be named from the year variable, and the values to populate those columns from the `smoke_pct` variable. (Again, neither of which have to be in quotes in the code when there are no special characters or spaces - certainly an incentive not to use special characters or spaces!) We see that the resulting table has new columns by year, and the values populate it with our remaining variables dictating the rows.
 
-## Plotting wide data
+## Plotting wide data {#plotting-wide-data}
+[*Back to top*](#contents)
 
 Let's make a plot with our wide data comparing percent of smokers in 1990 to percent of smokers in 2010 to see how it has changed for each country.
 
@@ -557,7 +560,7 @@ It seems like in most countries the percent of smokers has decreased from 1990 t
 > {: .solution}
 {: .challenge}
 
-# Bonus: correlation
+## Additional practice 
 
 Let's go back to the very first question we talked about today: Is there a relationship between population and ambient pollution levels (in micrograms per cubic meter)? In addition to making a scatterplot, another way to get at this question is by calculating a _correlation coefficient_. We will cover two correlation coefficients here: Pearson's (which assumes a linear relationship) and Spearman's (which doesn't assume a linear relationship).
 
@@ -632,7 +635,7 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > {: .solution}
 {: .challenge}
 
-# Bonus content
+## Additional practice {#additional-practice}
 
 Remember that we made a scatter plot of year vs. population, separated into a plot for each contient, and that it had 2 outliers:
 
