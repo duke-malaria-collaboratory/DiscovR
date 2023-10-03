@@ -213,7 +213,7 @@ cat('```{r smoking_cancer}\nsmoking %>%
 
 ### Table
 
-Let's say we also want to include a table in our report that summarizes the number of countries, the minimum smoker percent, and the maximum smoker percent.
+Let's say we also want to include a table in our report that summarizes the the minimum, median, and maximum smoker percent.
 
 ```{r,comment=NA,echo=F,collapse=T}
 cat('```{r}\nsmoking %>% 
