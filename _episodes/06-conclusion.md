@@ -74,9 +74,8 @@ We want to be a resource for you after the workshop ends, and we also want you a
 
 **You can email us whenever you want with questions!** If it's a quick thing, we can figure out over email, otherwise we can set up a time to chat.
 
-Here are our emails:
-- Zena: zena.lapp@duke.edu
-- Christine: christine.markwalter@duke.edu
+We are always monitoring the following address: discovr.workshop@gmail.com
+You can also email Christine: christine.markwalter@duke.edu
 
 > ## What to include when asking for help
 > 1. A brief summary of what you are trying to accomplish (your ultimate goal, distilled into one specific question). 
