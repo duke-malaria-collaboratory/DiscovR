@@ -76,7 +76,9 @@ We want to be a resource for you after the workshop ends, and we also want you a
 
 We are always monitoring the following address: discovr.workshop@gmail.com
 
-You can also email Christine: christine.markwalter@duke.edu
+Here are our personal emails:
+- Christine: christine.markwalter@duke.edu
+- Emmah: kimachasnr@gmail.com
 
 > ## What to include when asking for help
 > 1. A brief summary of what you are trying to accomplish (your ultimate goal, distilled into one specific question). 
