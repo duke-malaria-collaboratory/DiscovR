@@ -1,4 +1,4 @@
-packages <- c('tidyverse', 'rmarkdown')
+packages <- c('tidyverse', 'rmarkdown', 'markdown')
 pkgs_installed <- sapply(packages,
                          requireNamespace, quietly = TRUE)
 if (!all(pkgs_installed)) {
