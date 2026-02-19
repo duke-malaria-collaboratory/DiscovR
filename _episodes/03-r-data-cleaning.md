@@ -56,9 +56,9 @@ First, navigate to the `un-reports` directory however you'd like and open `un-re
 This should open the un-report R project in RStudio.
 You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory. 
 
-#### Creating a new R script.
+#### Creating a new R Markdown
 
-Then create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". Save this file as `un_data_cleaning.R`. 
+Then create a new R Markdown file for our work. Open RStudio. Choose "File" \> "New File" \> "R Markdown". Save this file as `un_data_cleaning.Rmd`. 
 
 #### Loading your data.
 
@@ -91,12 +91,40 @@ Error in read_csv("data/ambient_pollution.csv"): could not find function "read_c
 > > 
 > > 
 > > ~~~
+> > Warning: package 'ggplot2' was built under R version 4.3.3
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: package 'tibble' was built under R version 4.3.3
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: package 'purrr' was built under R version 4.3.3
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: package 'lubridate' was built under R version 4.3.3
+> > ~~~
+> > {: .warning}
+> > 
+> > 
+> > 
+> > ~~~
 > > ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-> > ✔ dplyr     1.1.2     ✔ readr     2.1.4
-> > ✔ forcats   1.0.0     ✔ stringr   1.5.0
-> > ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-> > ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-> > ✔ purrr     1.0.1     
+> > ✔ dplyr     1.1.4     ✔ readr     2.1.5
+> > ✔ forcats   1.0.0     ✔ stringr   1.5.1
+> > ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+> > ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+> > ✔ purrr     1.0.4     
 > > ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 > > ✖ dplyr::filter() masks stats::filter()
 > > ✖ dplyr::lag()    masks stats::lag()
@@ -118,7 +146,7 @@ Error in read_csv("data/ambient_pollution.csv"): could not find function "read_c
 > > ── Column specification ────────────────────────────────────────────────────────
 > > Delimiter: ","
 > > chr (1): location_name
-> > dbl (2): year_id, median
+> > dbl (2): year_id, ug_m3
 > > 
 > > ℹ Use `spec()` to retrieve the full column specification for this data.
 > > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -143,24 +171,24 @@ ambient_pollution_dirty
 
 ~~~
 # A tibble: 9,660 × 3
-   location_name year_id median
-   <chr>           <dbl>  <dbl>
- 1 Global           1990   40.0
- 2 Global           1995   38.9
- 3 Global           2000   40.6
- 4 Global           2005   40.6
- 5 Global           2010   42.7
- 6 Global           2011   44.4
- 7 Global           2012   46.1
- 8 Global           2013   47.1
- 9 Global           2014   47.3
-10 Global           2015   46.1
+   location_name year_id ug_m3
+   <chr>           <dbl> <dbl>
+ 1 Global           1990  40.0
+ 2 Global           1995  38.9
+ 3 Global           2000  40.6
+ 4 Global           2005  40.6
+ 5 Global           2010  42.7
+ 6 Global           2011  44.4
+ 7 Global           2012  46.1
+ 8 Global           2013  47.1
+ 9 Global           2014  47.3
+10 Global           2015  46.1
 # ℹ 9,650 more rows
 ~~~
 {: .output}
 
 
-It looks like our data object has three columns: `location_name`, `year_id`, and `median`. Median here is the median ambient pollution in micrograms per cubic meter. Scroll through the data object to get an idea of what's there. 
+It looks like our data object has three columns: `location_name`, `year_id`, and `ug_m3`. `ug_m3` here is the median country-wide ambient pollution in micrograms per cubic meter. Scroll through the data object to get an idea of what's there. 
 
 > ## Plotting review: median pollution levels
 > Let's refresh out plotting skills. Make a histogram of pollution levels in the `ambient_pollution_dirty` data object. Feel free to look back at the content from yesterday if you want!
@@ -171,7 +199,7 @@ It looks like our data object has three columns: `location_name`, `year_id`, and
 > > ## Solution
 > > 
 > > ~~~
-> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> > ggplot(ambient_pollution_dirty, aes(x = ug_m3)) +
 > >   geom_histogram()
 > > ~~~
 > > {: .language-r}
@@ -188,7 +216,7 @@ It looks like our data object has three columns: `location_name`, `year_id`, and
 > > 
 > > ~~~
 > > ggplot(ambient_pollution_dirty) +
-> >   aes(x = median) +
+> >   aes(x = ug_m3) +
 > >   geom_histogram() +
 > >   facet_wrap(~year_id)
 > > ~~~
@@ -205,7 +233,7 @@ It looks like our data object has three columns: `location_name`, `year_id`, and
 > > Bonus 2 example:
 > > 
 > > ~~~
-> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> > ggplot(ambient_pollution_dirty, aes(x = ug_m3)) +
 > >   geom_histogram() +
 > >   facet_wrap(~year_id) +
 > >   labs(x = 'Median ambient pollution (micrograms per cubic meter)', y = 'Count') +
@@ -232,7 +260,7 @@ Great, now that we've read in the data and practiced plotting, we can start to t
 
 
 > ## What data cleaning do we have to do?
-> Look back at the three columns in our data object: `location_name`, `year_id`, and `median`. What might we need to take care of in order to merge these data with our lung cancer rates dataset? 
+> Look back at the three columns in our data object: `location_name`, `year_id`, and `ug_m3`. What might we need to take care of in order to merge these data with our lung cancer rates dataset? 
 > > ## Solution
 > > It looks like the `location_name` column contains values other than countries, and our `year_id` column has many years, and we are only interested in 1990 for now.
 > {: .solution}
@@ -278,18 +306,18 @@ filter(ambient_pollution_dirty, year_id == 1990)
 
 ~~~
 # A tibble: 690 × 3
-   location_name                          year_id median
-   <chr>                                    <dbl>  <dbl>
- 1 Global                                    1990   40.0
- 2 Southeast Asia, East Asia, and Oceania    1990   41.3
- 3 East Asia                                 1990   45.8
- 4 China                                     1990   46.4
- 5 Democratic People's Republic of Korea     1990   39.3
- 6 Taiwan                                    1990   21.7
- 7 Southeast Asia                            1990   28.3
- 8 Cambodia                                  1990   26.5
- 9 Indonesia                                 1990   25.5
-10 Lao People's Democratic Republic          1990   25.1
+   location_name                          year_id ug_m3
+   <chr>                                    <dbl> <dbl>
+ 1 Global                                    1990  40.0
+ 2 Southeast Asia, East Asia, and Oceania    1990  41.3
+ 3 East Asia                                 1990  45.8
+ 4 China                                     1990  46.4
+ 5 Democratic People's Republic of Korea     1990  39.3
+ 6 Taiwan                                    1990  21.7
+ 7 Southeast Asia                            1990  28.3
+ 8 Cambodia                                  1990  26.5
+ 9 Indonesia                                 1990  25.5
+10 Lao People's Democratic Republic          1990  25.1
 # ℹ 680 more rows
 ~~~
 {: .output}
@@ -308,18 +336,18 @@ ambient_pollution_dirty %>% filter(year_id == 1990)
 
 ~~~
 # A tibble: 690 × 3
-   location_name                          year_id median
-   <chr>                                    <dbl>  <dbl>
- 1 Global                                    1990   40.0
- 2 Southeast Asia, East Asia, and Oceania    1990   41.3
- 3 East Asia                                 1990   45.8
- 4 China                                     1990   46.4
- 5 Democratic People's Republic of Korea     1990   39.3
- 6 Taiwan                                    1990   21.7
- 7 Southeast Asia                            1990   28.3
- 8 Cambodia                                  1990   26.5
- 9 Indonesia                                 1990   25.5
-10 Lao People's Democratic Republic          1990   25.1
+   location_name                          year_id ug_m3
+   <chr>                                    <dbl> <dbl>
+ 1 Global                                    1990  40.0
+ 2 Southeast Asia, East Asia, and Oceania    1990  41.3
+ 3 East Asia                                 1990  45.8
+ 4 China                                     1990  46.4
+ 5 Democratic People's Republic of Korea     1990  39.3
+ 6 Taiwan                                    1990  21.7
+ 7 Southeast Asia                            1990  28.3
+ 8 Cambodia                                  1990  26.5
+ 9 Indonesia                                 1990  25.5
+10 Lao People's Democratic Republic          1990  25.1
 # ℹ 680 more rows
 ~~~
 {: .output}
@@ -341,18 +369,18 @@ ambient_pollution_dirty %>%
 
 ~~~
 # A tibble: 690 × 3
-   location_name                          year_id median
-   <chr>                                    <dbl>  <dbl>
- 1 Global                                    1990   40.0
- 2 Southeast Asia, East Asia, and Oceania    1990   41.3
- 3 East Asia                                 1990   45.8
- 4 China                                     1990   46.4
- 5 Democratic People's Republic of Korea     1990   39.3
- 6 Taiwan                                    1990   21.7
- 7 Southeast Asia                            1990   28.3
- 8 Cambodia                                  1990   26.5
- 9 Indonesia                                 1990   25.5
-10 Lao People's Democratic Republic          1990   25.1
+   location_name                          year_id ug_m3
+   <chr>                                    <dbl> <dbl>
+ 1 Global                                    1990  40.0
+ 2 Southeast Asia, East Asia, and Oceania    1990  41.3
+ 3 East Asia                                 1990  45.8
+ 4 China                                     1990  46.4
+ 5 Democratic People's Republic of Korea     1990  39.3
+ 6 Taiwan                                    1990  21.7
+ 7 Southeast Asia                            1990  28.3
+ 8 Cambodia                                  1990  26.5
+ 9 Indonesia                                 1990  25.5
+10 Lao People's Democratic Republic          1990  25.1
 # ℹ 680 more rows
 ~~~
 {: .output}
@@ -380,14 +408,14 @@ Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readabl
 
 
 > ## Bonus Exercise: sorting columns
-> We just used the View tab to sort our count data, but how could you use code to sort the `median` column? Try to figure it out by searching on the Internet. 
+> We just used the View tab to sort our count data, but how could you use code to sort the `ug_m3` column? Try to figure it out by searching on the Internet. 
 > 
 > > ## Solution: 
 > > 
 > > ~~~
 > > ambient_pollution_dirty %>%
 > >   filter(year_id == 1990) %>% 
-> >   arrange(desc(median)) 
+> >   arrange(desc(ug_m3)) 
 > > ~~~
 > > {: .language-r}
 > > 
@@ -395,18 +423,18 @@ Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readabl
 > > 
 > > ~~~
 > > # A tibble: 690 × 3
-> >    location_name year_id median
-> >    <chr>           <dbl>  <dbl>
-> >  1 Qatar            1990   78.2
-> >  2 Niger            1990   70.6
-> >  3 Nigeria          1990   69.4
-> >  4 India            1990   68.4
-> >  5 Egypt            1990   66.1
-> >  6 South Asia       1990   65.2
-> >  7 South Asia       1990   65.2
-> >  8 Cameroon         1990   65.0
-> >  9 Mauritania       1990   64.8
-> > 10 Nepal            1990   64.0
+> >    location_name year_id ug_m3
+> >    <chr>           <dbl> <dbl>
+> >  1 Qatar            1990  78.2
+> >  2 Niger            1990  70.6
+> >  3 Nigeria          1990  69.4
+> >  4 India            1990  68.4
+> >  5 Egypt            1990  66.1
+> >  6 South Asia       1990  65.2
+> >  7 South Asia       1990  65.2
+> >  8 Cameroon         1990  65.0
+> >  9 Mauritania       1990  64.8
+> > 10 Nepal            1990  64.0
 > > # ℹ 680 more rows
 > > ~~~
 > > {: .output}
@@ -425,7 +453,7 @@ We use the `filter()` function to choose a subset of the rows from our data, but
 
 ~~~
 ambient_pollution_dirty %>%
-  select(year_id, median)
+  select(year_id, ug_m3)
 ~~~
 {: .language-r}
 
@@ -433,18 +461,18 @@ ambient_pollution_dirty %>%
 
 ~~~
 # A tibble: 9,660 × 2
-   year_id median
-     <dbl>  <dbl>
- 1    1990   40.0
- 2    1995   38.9
- 3    2000   40.6
- 4    2005   40.6
- 5    2010   42.7
- 6    2011   44.4
- 7    2012   46.1
- 8    2013   47.1
- 9    2014   47.3
-10    2015   46.1
+   year_id ug_m3
+     <dbl> <dbl>
+ 1    1990  40.0
+ 2    1995  38.9
+ 3    2000  40.6
+ 4    2005  40.6
+ 5    2010  42.7
+ 6    2011  44.4
+ 7    2012  46.1
+ 8    2013  47.1
+ 9    2014  47.3
+10    2015  46.1
 # ℹ 9,650 more rows
 ~~~
 {: .output}
@@ -462,18 +490,18 @@ ambient_pollution_dirty %>%
 
 ~~~
 # A tibble: 9,660 × 2
-   location_name median
-   <chr>          <dbl>
- 1 Global          40.0
- 2 Global          38.9
- 3 Global          40.6
- 4 Global          40.6
- 5 Global          42.7
- 6 Global          44.4
- 7 Global          46.1
- 8 Global          47.1
- 9 Global          47.3
-10 Global          46.1
+   location_name ug_m3
+   <chr>         <dbl>
+ 1 Global         40.0
+ 2 Global         38.9
+ 3 Global         40.6
+ 4 Global         40.6
+ 5 Global         42.7
+ 6 Global         44.4
+ 7 Global         46.1
+ 8 Global         47.1
+ 9 Global         47.3
+10 Global         46.1
 # ℹ 9,650 more rows
 ~~~
 {: .output}
@@ -513,7 +541,7 @@ ambient_pollution_dirty %>%
 > > 
 > > ~~~
 > > ambient_pollution_dirty %>%
-> >   select(-median)
+> >   select(-ug_m3)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -540,7 +568,7 @@ ambient_pollution_dirty %>%
 {: .challenge}
 
 
-> ## Exercise: use `filter()` and `select()` to narrow down our dataframe to only the `location_name` and `median` for 1990
+> ## Exercise: use `filter()` and `select()` to narrow down our dataframe to only the `location_name` and `ug_m3` for 1990
 >
 > Combine the two functions you have learned so far with the pipe operator to narrow down the dataset to the location names and ambient pollution in the year 1990. Save it to an object called `pollution_1990_dirty`.
 >
@@ -698,10 +726,10 @@ We can also group by multiple variables. We'll do more with this later. Now, we 
 > > 
 > > ~~~
 > > # A tibble: 2 × 2
-> >   location_name median
-> >   <chr>          <dbl>
-> > 1 Georgia         17.9
-> > 2 Georgia         15.1
+> >   location_name ug_m3
+> >   <chr>         <dbl>
+> > 1 Georgia        17.9
+> > 2 Georgia        15.1
 > > ~~~
 > > {: .output}
 > > 
@@ -713,14 +741,14 @@ Now, we want to clean these data up so there is only one row per location. To do
 ## Make new variables with `mutate()` {#make-new-variables-with-mutate}
 [*Back to top*](#contents)
 
-The function we use to create new columns is called `mutate()`. Let's go ahead and take care of the `location_names` which have two different median pollution values by making a new column called `pollution` that is the mean of `median`. We can then remove the `median` column and store the resulting data object as `pollution_1990`.
+The function we use to create new columns is called `mutate()`. Let's go ahead and take care of the `location_names` which have two different median pollution values by making a new column called `pollution` that is the mean of `ug_m3`. We can then remove the `ug_m3` column and store the resulting data object as `pollution_1990`.
 
 
 ~~~
 pollution_1990 <- pollution_1990_dirty %>%
   group_by(location_name) %>%
-  mutate(pollution = mean(median)) %>%
-  select(-median) %>%
+  mutate(pollution = mean(ug_m3)) %>%
+  select(-ug_m3) %>%
   distinct()
 ~~~
 {: .language-r}
@@ -1081,9 +1109,9 @@ pollution_1990_clean <- pollution_1990_clean %>%
 > >   filter(year_id == 1990) %>%
 > >   select(-year_id) %>%
 > >   group_by(location_name) %>%
-> >   mutate(pollution = mean(median)) %>%
+> >   mutate(pollution = mean(ug_m3)) %>%
 > >   ungroup() %>%
-> >   select(-median) %>%
+> >   select(-ug_m3) %>%
 > >   distinct() %>%
 > >   rename(country = location_name) %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
@@ -1099,7 +1127,7 @@ pollution_1990_clean <- pollution_1990_clean %>%
 > > ── Column specification ────────────────────────────────────────────────────────
 > > Delimiter: ","
 > > chr (1): location_name
-> > dbl (2): year_id, median
+> > dbl (2): year_id, ug_m3
 > > 
 > > ℹ Use `spec()` to retrieve the full column specification for this data.
 > > ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.

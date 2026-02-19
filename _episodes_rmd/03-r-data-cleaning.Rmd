@@ -57,9 +57,9 @@ First, navigate to the `un-reports` directory however you'd like and open `un-re
 This should open the un-report R project in RStudio.
 You can check this by seeing if the Files in the bottom right of RStudio are the ones in your `un-report` directory. 
 
-#### Creating a new R script.
+#### Creating a new R Markdown
 
-Then create a new R Script file for our work. Open RStudio. Choose "File" \> "New File" \> "RScript". Save this file as `un_data_cleaning.R`. 
+Then create a new R Markdown file for our work. Open RStudio. Choose "File" \> "New File" \> "R Markdown". Save this file as `un_data_cleaning.Rmd`. 
 
 #### Loading your data.
 
@@ -92,7 +92,7 @@ ambient_pollution_dirty
 ```
 
 
-It looks like our data object has three columns: `location_name`, `year_id`, and `median`. Median here is the median ambient pollution in micrograms per cubic meter. Scroll through the data object to get an idea of what's there. 
+It looks like our data object has three columns: `location_name`, `year_id`, and `ug_m3`. `ug_m3` here is the median country-wide ambient pollution in micrograms per cubic meter. Scroll through the data object to get an idea of what's there. 
 
 > ## Plotting review: median pollution levels
 > Let's refresh out plotting skills. Make a histogram of pollution levels in the `ambient_pollution_dirty` data object. Feel free to look back at the content from yesterday if you want!
@@ -102,19 +102,19 @@ It looks like our data object has three columns: `location_name`, `year_id`, and
 > *Bonus 2:* Make the plot prettier by changing the axis labels, theme, and anything else you want.  
 > > ## Solution
 > > ```{r}
-> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> > ggplot(ambient_pollution_dirty, aes(x = ug_m3)) +
 > >   geom_histogram()
 > > ```
 > > Bonus 1: 
 > > ```{r}
 > > ggplot(ambient_pollution_dirty) +
-> >   aes(x = median) +
+> >   aes(x = ug_m3) +
 > >   geom_histogram() +
 > >   facet_wrap(~year_id)
 > > ```
 > > Bonus 2 example:
 > > ```{r}
-> > ggplot(ambient_pollution_dirty, aes(x = median)) +
+> > ggplot(ambient_pollution_dirty, aes(x = ug_m3)) +
 > >   geom_histogram() +
 > >   facet_wrap(~year_id) +
 > >   labs(x = 'Median ambient pollution (micrograms per cubic meter)', y = 'Count') +
@@ -131,7 +131,7 @@ Great, now that we've read in the data and practiced plotting, we can start to t
 
 
 > ## What data cleaning do we have to do?
-> Look back at the three columns in our data object: `location_name`, `year_id`, and `median`. What might we need to take care of in order to merge these data with our lung cancer rates dataset? 
+> Look back at the three columns in our data object: `location_name`, `year_id`, and `ug_m3`. What might we need to take care of in order to merge these data with our lung cancer rates dataset? 
 > > ## Solution
 > > It looks like the `location_name` column contains values other than countries, and our `year_id` column has many years, and we are only interested in 1990 for now.
 > {: .solution}
@@ -199,13 +199,13 @@ Using the *pipe operator* `%>%` and <kbd>Enter</kbd> makes our code more readabl
 
 
 > ## Bonus Exercise: sorting columns
-> We just used the View tab to sort our count data, but how could you use code to sort the `median` column? Try to figure it out by searching on the Internet. 
+> We just used the View tab to sort our count data, but how could you use code to sort the `ug_m3` column? Try to figure it out by searching on the Internet. 
 > 
 > > ## Solution: 
 > > ```{r sort_median}
 > > ambient_pollution_dirty %>%
 > >   filter(year_id == 1990) %>% 
-> >   arrange(desc(median)) 
+> >   arrange(desc(ug_m3)) 
 > > ```
 > > The `arrange()` function is very helpful for sorting data objects based on one or more columns. Notice we also included the function `desc()`, which tells `arrange()` to sort in descending order (largest to smallest).
 > {: .solution}
@@ -221,7 +221,7 @@ We use the `filter()` function to choose a subset of the rows from our data, but
 
 ```{r GapSelect}
 ambient_pollution_dirty %>%
-  select(year_id, median)
+  select(year_id, ug_m3)
 ```
 
 We can also use `select()` to drop/remove particular columns by putting a minus sign (`-`) in front of the column name. For example, if we want everything but the `year_id` column, we can do:
@@ -243,13 +243,13 @@ ambient_pollution_dirty %>%
 > > ```
 > > ```{r selectExerciseOption2}
 > > ambient_pollution_dirty %>%
-> >   select(-median)
+> >   select(-ug_m3)
 > > ```
 > {: .solution}
 {: .challenge}
 
 
-> ## Exercise: use `filter()` and `select()` to narrow down our dataframe to only the `location_name` and `median` for 1990
+> ## Exercise: use `filter()` and `select()` to narrow down our dataframe to only the `location_name` and `ug_m3` for 1990
 >
 > Combine the two functions you have learned so far with the pipe operator to narrow down the dataset to the location names and ambient pollution in the year 1990. Save it to an object called `pollution_1990_dirty`.
 >
@@ -337,13 +337,13 @@ Now, we want to clean these data up so there is only one row per location. To do
 ## Make new variables with `mutate()` {#make-new-variables-with-mutate}
 [*Back to top*](#contents)
 
-The function we use to create new columns is called `mutate()`. Let's go ahead and take care of the `location_names` which have two different median pollution values by making a new column called `pollution` that is the mean of `median`. We can then remove the `median` column and store the resulting data object as `pollution_1990`.
+The function we use to create new columns is called `mutate()`. Let's go ahead and take care of the `location_names` which have two different median pollution values by making a new column called `pollution` that is the mean of `ug_m3`. We can then remove the `ug_m3` column and store the resulting data object as `pollution_1990`.
 
 ```{r GapMutate}
 pollution_1990 <- pollution_1990_dirty %>%
   group_by(location_name) %>%
-  mutate(pollution = mean(median)) %>%
-  select(-median) %>%
+  mutate(pollution = mean(ug_m3)) %>%
+  select(-ug_m3) %>%
   distinct()
 ```
 
@@ -518,9 +518,9 @@ pollution_1990_clean <- pollution_1990_clean %>%
 > >   filter(year_id == 1990) %>%
 > >   select(-year_id) %>%
 > >   group_by(location_name) %>%
-> >   mutate(pollution = mean(median)) %>%
+> >   mutate(pollution = mean(ug_m3)) %>%
 > >   ungroup() %>%
-> >   select(-median) %>%
+> >   select(-ug_m3) %>%
 > >   distinct() %>%
 > >   rename(country = location_name) %>%
 > >   mutate(country = case_when(country == "Viet Nam" ~ "Vietnam", 
