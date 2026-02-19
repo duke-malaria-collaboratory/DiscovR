@@ -24,7 +24,7 @@ keypoints:
 1. [Overview of the lesson](#overview-of-the-lesson)
 1. [Get stats fast with `summarise()`](#get-stats-fast-with-summarise)
 1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
-1. Bonus content (#bonus-content)
+1. [Bonus content] (#bonus-content)
   1. [Calculating percentages](#calculate-percentages)
   1. [Changing the shape of the data](#changing-the-shape-of-the-data)
   1. [Plotting wide data](#plotting-wide-data)
@@ -52,12 +52,40 @@ library(tidyverse)
 
 
 ~~~
+Warning: package 'ggplot2' was built under R version 4.3.3
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'tibble' was built under R version 4.3.3
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'purrr' was built under R version 4.3.3
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'lubridate' was built under R version 4.3.3
+~~~
+{: .warning}
+
+
+
+~~~
 ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -314,12 +342,14 @@ To answer our first question, we observe a positive association between populati
 {: .challenge}
 
 # Bonus content {#bonus-content}
+
 [*Back to top*](#contents)
 
 ## Calculating percentages {#calculate-percentages}
+
 [*Back to top*](#contents)
 
-Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to caluclate percentages.
+Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to calculate percentages.
 
 > ## Percentages
 > What percentage of the global population in 1990 did Africa make up? What percentage of the population in Africa did Kenya make up? 
@@ -457,6 +487,15 @@ using the `.groups` argument.
 ~~~
 {: .output}
 
+
+
+~~~
+Warning in geom_point(): All aesthetics have length 1, but the data has 191 rows.
+ℹ Please consider using `annotate()` or provide this layer with data containing
+  a single row.
+~~~
+{: .warning}
+
 <img src="../fig/rmd-04-unnamed-chunk-5-1.png" width="612" style="display: block; margin: auto;" />
 
 Hmm that's not what we want. `ggplot` just plotted the numbers 1990 and 2010 instead of the data from the years. That's because it evaluates those as numbers instead of column names. To fix this, we can add a prefix to the years in `pivot_wider()`:
@@ -578,6 +617,19 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > ~~~
 > > # install.packages('corrr') # only run this once
 > > library(corrr)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in library(corrr): there is no package called 'corrr'
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > smoking_pollution %>%
 > >   select(pop, pollution) %>%
 > >   correlate(method = 'pearson')
@@ -587,22 +639,9 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > 
 > > 
 > > ~~~
-> > Correlation computed with
-> > • Method: 'pearson'
-> > • Missing treated using: 'pairwise.complete.obs'
+> > Error in correlate(., method = "pearson"): could not find function "correlate"
 > > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > # A tibble: 2 × 3
-> >   term         pop pollution
-> >   <chr>      <dbl>     <dbl>
-> > 1 pop       NA         0.183
-> > 2 pollution  0.183    NA    
-> > ~~~
-> > {: .output}
+> > {: .error}
 > > 
 > > 
 > > 
@@ -616,28 +655,15 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 > > 
 > > 
 > > ~~~
-> > Correlation computed with
-> > • Method: 'spearman'
-> > • Missing treated using: 'pairwise.complete.obs'
+> > Error in correlate(., method = "spearman"): could not find function "correlate"
 > > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > # A tibble: 2 × 3
-> >   term         pop pollution
-> >   <chr>      <dbl>     <dbl>
-> > 1 pop       NA         0.310
-> > 2 pollution  0.310    NA    
-> > ~~~
-> > {: .output}
+> > {: .error}
 > {: .solution}
 {: .challenge}
 
 ## Additional practice {#additional-practice}
 
-Remember that we made a scatter plot of year vs. population, separated into a plot for each contient, and that it had 2 outliers:
+Remember that we made a scatter plot of year vs. population, separated into a plot for each continent, and that it had 2 outliers:
 
 
 ~~~

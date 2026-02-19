@@ -156,7 +156,7 @@ analysis.
 
 <img src="{{ page.root }}/fig/r-plotting/files_with_rproj.png" width="600"/>
 
-# R Markdown
+# Introduction to R Markdown {#introduction-to-RMarkdown}
 
 We'd like to create a file where we can keep track of our R code.
 

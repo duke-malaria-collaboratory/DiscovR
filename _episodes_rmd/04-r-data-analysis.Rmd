@@ -25,7 +25,7 @@ knitr_fig_path("04-")
 1. [Overview of the lesson](#overview-of-the-lesson)
 1. [Get stats fast with `summarise()`](#get-stats-fast-with-summarise)
 1. [Plotting for exploratory data analysis](#plotting-for-exploratory-data-analysis)
-1. Bonus content (#bonus-content)
+1. [Bonus content] (#bonus-content)
   1. [Calculating percentages](#calculate-percentages)
   1. [Changing the shape of the data](#changing-the-shape-of-the-data)
   1. [Plotting wide data](#plotting-wide-data)
@@ -192,12 +192,14 @@ To answer our first question, we observe a positive association between populati
 {: .challenge}
 
 # Bonus content {#bonus-content}
+
 [*Back to top*](#contents)
 
 ## Calculating percentages {#calculate-percentages}
+
 [*Back to top*](#contents)
 
-Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to caluclate percentages.
+Finding percentages using `dplyr` can be a little bit complicated. However, it's a very useful skill! We've included an exercise here that provides an example for how to calculate percentages.
 
 > ## Percentages
 > What percentage of the global population in 1990 did Africa make up? What percentage of the population in Africa did Kenya make up? 
@@ -335,7 +337,7 @@ Take the following steps to calculate the Pearson and Spearman correlations betw
 
 ## Additional practice {#additional-practice}
 
-Remember that we made a scatter plot of year vs. population, separated into a plot for each contient, and that it had 2 outliers:
+Remember that we made a scatter plot of year vs. population, separated into a plot for each continent, and that it had 2 outliers:
 
 ```{r, message = FALSE}
 library(tidyverse)
