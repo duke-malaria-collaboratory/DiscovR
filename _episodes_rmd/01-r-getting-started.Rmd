@@ -1,16 +1,21 @@
 ---
 source: Rmd
-title: "Getting Started with R"
+title: "Getting Started with R and RMarkdown"
 teaching: 75
 exercises: 30
 questions:
 - "What are R and R Studio?"
-- "How do I perform tasks and store information?"
+- "What is R Markdown?"
+- "How do I format text in R Markdown?"
+- "How do I perform tasks with R and store information?"
+
 objectives:
 - "To become oriented with R and R Studio."
+- "To understand the difference between code chunks and markdown text."
 - "To learn about functions and objects."
 keypoints:
 - "R is a free programming language used by many for reproducible data analysis."
+- "RMarkdown allows you to weave together narrative text and code."
 - "Functions allow you to perform complex tasks."
 - "Objects allow you to store information."
 ---
@@ -29,6 +34,7 @@ set.seed(20210109)
 ### Contents
 
 1. [Introduction to R and RStudio](#introduction-to-r-and-rstudio)
+1. [Introduction to RMarkdown](#introduction-to-RMarkdown)
 1. [Foundational topics](#foundational-topics)
     1. [Functions](#functions)
     1. [Objects](#objects)
